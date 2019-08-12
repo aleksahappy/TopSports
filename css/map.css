@@ -1,0 +1,243 @@
+#dealers_list {
+	position: fixed;
+	display: none;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(40, 40, 40, 0.98);
+	overflow: hidden;
+	z-index: 15;
+}
+
+#dealers_list .wrap-list {
+	position: relative;
+	width: 25%;
+}
+
+#dealers_list .wrap-map {
+	position: relative;
+	width: 75%;
+}
+
+#dealers_list .container {
+	position: relative;
+	height: 100%;
+	background-color: #fff;
+	overflow: hidden;
+}
+
+#dealers_list .close {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 90px;
+	height: 90px;
+	background-image: url(../img/map/close.jpg);
+	background-size: contain;
+	background-repeat: no-repeat;
+	opacity: 1;
+	cursor: pointer;
+	z-index: 10;
+}
+
+#dealers_list .close:hover {
+	background-image: url(../img/map/close-act.jpg);
+}
+
+#dealers_list .list {
+	overflow-y: auto;
+	width: 100%;
+	font-size: 20px;
+	line-height: 22px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0 0 0 20px;
+	color: #000;
+	-webkit-overflow-scrolling: touch;
+}
+
+#dealers_list .city_title {
+	border-bottom: 1px solid rgba(80, 80, 80, .2);
+	padding: 10px 15px 10px 0;
+	/* font-family: 'TradeGothicProCyr'; */
+	font-family: 'FranklinGothic-DemiCond';
+	cursor: pointer;
+	margin: 0 0 0 0;
+	position: relative;
+	font-weight: 500;
+}
+
+#dealers_list .city_title span {
+	color: #f15a29;
+	position: absolute;
+	right: 15px;
+	background-image: url(../img/map/plus_minus_orange.png);
+	top: 16px;
+	height: 10px;
+	width: 10px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-position: right center;
+	transition: 300ms;
+}
+
+#dealers_list .city_title.active span {
+	background-position: 0;
+}
+
+#dealers_list .shop_cont {
+	font-size: 14px;
+	text-align: left;
+	margin: 0 0 0 0;
+	cursor: pointer;
+	padding: 5px 20px;
+	display: none;
+}
+
+#dealers_list .shop_cont.active {
+	background-color: rgba(183, 183, 183, 0.2);
+}
+
+#dealers_list .shop_title {
+	font-size: 14px;
+	line-height: 14px;
+	font-weight: 500;
+	margin: 5px 0;
+	display: inline-block;
+}
+
+#dealers_list .shop_address,
+#dealers_list .shop_phone {
+	display: none;
+}
+
+#dealers_list .shop_address {
+	line-height: 18px;
+	font-size: 16px;
+}
+
+#dealers_list .shop_phone {
+	color: #5f5f5f;
+}
+
+#map {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	padding: 0 !important;
+	display: block;
+}
+
+#map a,
+.city_cont a {
+	color: #777 !important;
+	text-decoration: none;
+	border-bottom: 1px dashed;
+	margin: 0 !important;
+}
+
+.ymaps-2-1-69-controls__control {
+	top: 10px !important;
+}
+
+.ymaps-2-1-63-gotoymaps,
+.ymaps-2-1-69-copyright__wrap {
+	display: none !important;
+}
+
+.baloon_0 span {
+	display: none;
+}
+
+.baloon_1 span {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	content: ' ';
+	/* рисунок не найден */
+	/* background-image: url(http://topsports.ru/img/star.png); */
+	background-repeat: no-repeat;
+	margin-right: 5px;
+	vertical-align: text-top;
+	cursor: help;
+}
+
+
+/* =====================================================================================================
+ Медиа стили:
+===================================================================================================== */
+
+
+@media only screen and (min-width : 320px) and (max-width : 480px) {
+	a.dealers_link {
+		width: 100%;
+	}
+}
+
+@media only screen and (min-width : 768px) {
+	#dealers_list .wrap-list {
+		width: 33.33333333%;
+	}
+	#dealers_list .wrap-map {
+		width: 66.66666667%;
+	}
+}
+
+@media only screen and (max-width : 768px) {
+	#dealers_list .container {
+		margin: 0 !important;
+	}
+
+	#map {
+		display: none;
+	}
+
+	#dealers_list .wrap-list {
+		width: 100%;
+	}
+
+	.dealers_title {
+		width: 100%;
+		display: block !important;
+		color: #000;
+		font-size: 26px;
+		font-weight: 100;
+		line-height: 26px;
+		text-align: center;
+		background-color: #efefef;
+		text-transform: uppercase;
+		padding: 10px 0;
+	}
+
+	#dealers_list .close {
+		width: 32px;
+		height: 32px;
+		right: 13px;
+		top: 8px;
+	}
+
+	#dealers_list .list {
+		width: 100%;
+		padding: 0 0 0 10px;
+		top: 46px;
+	}
+
+	#dealers_list .shop_cont {
+		font-size: 14px;
+		line-height: 16px;
+		padding: 5px 10px;
+		margin: 0;
+	}
+
+	#dealers_list .shop_address,
+	#dealers_list .shop_phone {
+		font-size: 12px;
+		line-height: 18px;
+		display: block;
+		margin: 5px 0;
+		font-weight: 600;
+	}
+}
