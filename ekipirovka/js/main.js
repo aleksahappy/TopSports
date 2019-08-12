@@ -10,9 +10,7 @@ var submenu = document.querySelector('.submenu'),
     filtersContainer = document.querySelector('.filters-container'),
     filters = document.querySelector('.filters'),
     menuFilters = document.getElementById('menu-filters'),
-    galleryBlocks = document.getElementById('gallery-blocks'),
-    galleryList = document.getElementById('gallery-list'),
-    gallerySelect = document.getElementById('gallery-select'),
+    gallery = document.getElementById('gallery'),
     galleryNotice = document.getElementById('gallery-notice'),
     fullCardContainer = document.getElementById('full-card-container'),
     fullImgBox = document.getElementById('full-imgbox'),
@@ -42,7 +40,10 @@ function removeReplays(template, subTemplate) {
 
 var view = 'blocks',
     cardTemplate = minCardTemplate,
-    selecledCardList = '';
+    selecledCardList = '',
+    countItems = 0,
+    countItemsTo = 0,
+    curItems;
 
 //=====================================================================================================
 // Заполнение контента страницы:
@@ -52,15 +53,6 @@ var view = 'blocks',
 
 initFilters();
 checkFilters();
-
-if (view == 'blocks') {
-  initMinCards();
-  initBigCards();
-}
-if (view == 'list') {
-  initBigCards();
-  initMinCards();
-}
 
 //=====================================================================================================
 // Визуальное отображение контента на странице:
@@ -74,17 +66,15 @@ function toggleSubmenu() {
 
 // Установка высоты меню опций:
 
-window.addEventListener('scroll', setFiltersHeight);
+// window.addEventListener('scroll', setFiltersHeight);
 window.addEventListener('resize', setFiltersHeight);
 
 function setFiltersHeight() {
   if (window.getComputedStyle(filters).position == 'fixed') {
     var scrolled = window.pageYOffset || document.documentElement.scrollTop,
         headerHeight = document.querySelector('.header').clientHeight,
-        mainHeaderHeight = Math.max(document.querySelector('.main-header').clientHeight - scrolled, 20),
-        footerHeight = Math.max((window.innerHeight + scrolled - document.querySelector('.footer').offsetTop) + 50, 0),
-        filtersHeight = window.innerHeight - headerHeight - footerHeight - mainHeaderHeight;
-    // filters.style.top = `${headerHeight + mainHeaderHeight}px`;
+        footerHeight = Math.max((window.innerHeight + scrolled - document.querySelector('.footer').offsetTop) + 20, 0),
+        filtersHeight = window.innerHeight - headerHeight - 70 - footerHeight;
     filters.style.height = `${filtersHeight}px`;
   }
   console.log('установили высоту');
@@ -252,32 +242,34 @@ function checkFilters() {
 
 // Создание карточек товаров из массива:
 
-function createCards(cards) {
-  var listCard = cards.map(card => createCard(card)).join('');
-  return listCard;
-}
+function loadCards(cards) {
+	if (cards){
+    countItems = 0;
+    curItems = cards;
+	}
+	else {
+    countItems = countItemsTo;
+  }
 
-function initMinCards() {
-  var curCardTemplate = cardTemplate;
-  cardTemplate = minCardTemplate;
-  var createdCards = createCards(items);
-  galleryBlocks.innerHTML = createdCards;
-  if (curCardTemplate != minCardTemplate) {
-    cardTemplate = bigCardTemplate;
+  countItemsTo = countItems + 40;
+  if (countItemsTo > curItems.length) {
+    countItemsTo = curItems.length;
+  }
+
+  var listCard = '';
+  for (var i = countItems; i < countItemsTo; i++) {
+    var card = createCard(curItems[i]);
+    listCard += card;
+  }
+
+  if (countItems == 0) {
+    gallery.innerHTML = listCard;
+  } else {
+    gallery.insertAdjacentHTML('beforeend', listCard);
   }
 }
 
-function initBigCards() {
-  var curCardTemplate = cardTemplate;
-  cardTemplate = bigCardTemplate;
-  var createdCards = createCards(items);
-  galleryList.innerHTML = createdCards;
-  if (curCardTemplate != bigCardTemplate) {
-    cardTemplate = minCardTemplate;
-  }
-}
-
-// Создание карточки товара :
+// Создание одной карточки товара :
 
 function createCard(card) {
   var newCard = cardTemplate.outerHTML,
@@ -460,16 +452,9 @@ function selectCards() {
 function clearFilters() {
   saveInfo('filtersInfo', {});
   selecledCardList = '';
+  showCards();
   var activeElements = menuFilters.getElementsByClassName('check');
   Array.from(activeElements).forEach(element => element.classList.remove('check'));
-  gallerySelect.style.display = 'none';
-  galleryNotice.style.display = 'none';
-  if (view == 'blocks') {
-    galleryBlocks.style.display = 'flex';
-  }
-  if (view == 'list') {
-    galleryList.style.display = 'flex';
-  }
   setFiltersHeight();
 }
 
@@ -481,30 +466,33 @@ function clearFilters() {
 
 function showCards() {
   if (selecledCardList === '') {
-    if (view == 'blocks') {
-      galleryBlocks.style.display = 'flex';
-      galleryList.style.display = 'none';
-    }
-    if (view == 'list') {
-      galleryList.style.display = 'flex';
-      galleryBlocks.style.display = 'none';
-    }
-    gallerySelect.style.display = 'none';
+    loadCards(items);
+    gallery.style.display = 'flex';
     galleryNotice.style.display = 'none';
   } else {
     if (selecledCardList.length == 0) {
       galleryNotice.style.display = 'flex';
-      gallerySelect.style.display = 'none';
+      gallery.style.display = 'none';
     } else {
-      var celectedCards = createCards(selecledCardList);
-      gallerySelect.innerHTML = celectedCards;
-      gallerySelect.style.display = 'flex';
+      loadCards(selecledCardList);
+      gallery.style.display = 'flex';
       galleryNotice.style.display = 'none';
     }
-    galleryBlocks.style.display = 'none';
-    galleryList.style.display = 'none';
   }
   setFiltersHeight();
+}
+
+// Добавление новых карточек при скролле страницы:
+
+window.addEventListener('scroll', scrollGallery);
+
+function scrollGallery() {
+  var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+  if (scrolled * 2 + window.innerHeight >= document.body.clientHeight) {
+    if (countItems < curItems.length) {
+      loadCards();
+    }
+  }
 }
 
 // Переключение вида отображения карточек на странице:
@@ -608,7 +596,6 @@ window.addEventListener('resize', () => {
 });
 
 function toggleDisplayBtns(card) {
-  console.log(card);
   var numb = parseInt(card.dataset.numb),
       images = items[numb].images,
       carousel = card.querySelector('.carousel'),

@@ -13,7 +13,6 @@
     <link rel="stylesheet" type="text/css" href="css/media.css">
     <link rel="stylesheet" type="text/css" href="../css/map.css">
     <script src="https://use.fontawesome.com/b55bf484a9.js"></script>
-    <script src="http://b2b.topsports.ru/req/jquery/jquery-1.9.1.min.js"></script>
   </head>
 
   <body>
@@ -96,7 +95,7 @@
               </div>
             </div>
           </div>
-          <div id="gallery-blocks" class="gallery row">
+          <div id="gallery" class="gallery row">
             <div id="card-#numb#" class="min-card col" onclick="showFullCard(#numb#)">
               <img class="card-img" src="http://b2b.topsports.ru/c/productpage/#images#.jpg" alt="#title#">
               <div class="card-promo">
@@ -111,8 +110,6 @@
                 <div class="card-qty #isAvaliable#" title="#qtyTitle#"></div>
               </div>
             </div>
-          </div>
-          <div id="gallery-list" class="gallery row">
             <div id="big-card-#numb#" class="big-card card" data-numb="#numb#">
               <div class="big-card-container row">
                 <div class="card-container">
@@ -192,7 +189,6 @@
               </div>
             </div>
           </div>
-          <div id="gallery-select" class="gallery row"></div>
           <div id="gallery-notice" class="gallery red">
             <div>По вашему запросу ничего не найдено. Попробуйте изменить фильтры.</div>
           </div>
@@ -308,7 +304,7 @@
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
     <script src="js/cart.js"></script>
-    <script src="../js/map.js"></script>
+    <script src="http://b2b.topsports.ru/req/jquery/jquery-1.9.1.min.js"></script>
     <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script src="http://b2b.topsports.ru/d/js/map.js?v=1.1667"></script>
     <script type="application/json" id="map-points">
@@ -1174,6 +1170,7 @@
         }]
       }
     </script>
+    <script src="../js/map.js"></script>
 
   </body>
 </html>
