@@ -82,7 +82,13 @@ body > div:not(.header):not(.slider):not(.footer) {
   color: rgb(255, 255, 255);
   background-color: rgb(241,89,42);
   border-radius: 2px;
+  text-align: center;
   text-decoration: none;
+}
+
+.map-btn {
+  background-color: rgb(0,0,0);
+  margin-right: 1em;
 }
 
 .title {
@@ -416,11 +422,6 @@ a.header-phone, a.header-cabinet {
   margin-top: 2em;
 }
 
-.map-btn {
-  background-color: rgb(0,0,0);
-  margin-right: 1em;
-}
-
 .circle {
   width: 45%;
 }
@@ -556,7 +557,7 @@ a.header-phone, a.header-cabinet {
 
 .clients .step img {
   max-width: 180px;
-  margin: 0 auto 1em auto;
+  margin: 0 auto 1.5em auto;
   transition: 300ms;
 }
 

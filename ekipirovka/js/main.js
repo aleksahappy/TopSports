@@ -1,5 +1,7 @@
 'use strict';
 
+console.log(items);
+
 //=====================================================================================================
 // Первоначальные данные для работы:
 //=====================================================================================================
@@ -38,8 +40,8 @@ function removeReplays(template, subTemplate) {
 
 // Динамически изменяемые переменные:
 
-var view = 'blocks',
-    cardTemplate = minCardTemplate,
+var view = 'list',
+    cardTemplate,
     selecledCardList = '',
     countItems = 0,
     countItemsTo = 0,
@@ -51,6 +53,7 @@ var view = 'blocks',
 
 // Первоначальное заполнение контента на странице:
 
+setCardTemplate();
 initFilters();
 checkFilters();
 
@@ -66,18 +69,20 @@ function toggleSubmenu() {
 
 // Установка высоты меню опций:
 
-// window.addEventListener('scroll', setFiltersHeight);
+window.addEventListener('scroll', setFiltersHeight);
 window.addEventListener('resize', setFiltersHeight);
 
 function setFiltersHeight() {
   if (window.getComputedStyle(filters).position == 'fixed') {
     var scrolled = window.pageYOffset || document.documentElement.scrollTop,
         headerHeight = document.querySelector('.header').clientHeight,
+        headerMainHeight = Math.max((document.querySelector('.main-header').clientHeight - scrolled), 20),
         footerHeight = Math.max((window.innerHeight + scrolled - document.querySelector('.footer').offsetTop) + 20, 0),
-        filtersHeight = window.innerHeight - headerHeight - 70 - footerHeight;
+        filtersHeight = window.innerHeight - headerHeight - headerMainHeight - footerHeight;
+    filters.style.top = `${headerHeight + headerMainHeight}px`;
     filters.style.height = `${filtersHeight}px`;
+    console.log('высота фильтров установлена');
   }
-  console.log('установили высоту');
 }
 
 //=====================================================================================================
@@ -214,7 +219,7 @@ function createFilter(data) {
   }
   newFilter = newFilter.replace(itemsTemplate, listItem);
 
-  var classFilter = data.isShow ? '' : 'close';
+  var classFilter = data.isShow ? 'open' : '';
   newFilter = newFilter
     .replace('#isShow#', classFilter)
     .replace('#title#', data.title);
@@ -230,7 +235,9 @@ function checkFilters() {
       for (var filter in filtersInfo) {
         filtersInfo[filter].forEach(item => {
           var el = document.querySelector(`.filter-item[data-key="${filter}"][data-value="${item}"]`);
-          el.classList.add('check');
+          if (el) {
+            el.classList.add('check');
+          }
         })
       }
       selectCards();
@@ -251,7 +258,17 @@ function loadCards(cards) {
     countItems = countItemsTo;
   }
 
-  countItemsTo = countItems + 40;
+  var incr;
+  if (window.innerWidth > 2500) {
+    incr = 80;
+  } else if (window.innerWidth > 2000) {
+    incr = 60;
+  } else if (window.innerWidth < 1100) {
+    incr = 20;
+  } else {
+    incr = 40;
+  }
+  countItemsTo = countItems + incr;
   if (countItemsTo > curItems.length) {
     countItemsTo = curItems.length;
   }
@@ -264,9 +281,11 @@ function loadCards(cards) {
 
   if (countItems == 0) {
     gallery.innerHTML = listCard;
+    window.scrollTo(0,0);
   } else {
     gallery.insertAdjacentHTML('beforeend', listCard);
   }
+  setFiltersHeight();
 }
 
 // Создание одной карточки товара :
@@ -306,21 +325,17 @@ function createCard(card) {
 
     function createSizeInfo(info) {
       var size = info.size ? info.size : 'В корзину';
-      var sizesInfo = getInfo('sizesInfo');
-      var value = sizesInfo && sizesInfo[info.articul] ? sizesInfo[info.articul] : 0;
-      var inCart = value == 0 ? '' : 'in-cart';
       var qtyClass = info.free_qty != 0 ? '' : 'grey-gty';
       var gtyTitle = info.free_qty != 0 ? 'В наличии' : 'Ожидается';
       var newSize = sizesTemplate
-        .replace('#inCart#', inCart)
         .replace('#articul#', info.articul)
         .replace('#size#', size)
-        .replace(/#value#/gi, value)
-        .replace('#free_qty#', info.free_qty)
         .replace('#isAvalible#', qtyClass)
-        .replace('#qtyTitle#', gtyTitle);
+        .replace('#qtyTitle#', gtyTitle)
+        .replace('#free_qty#', info.free_qty);
       listSizes += newSize;
     }
+
 
     var listCarousel = '',
         carouselTemplate = cardTemplate.querySelector('.carousel-inner').innerHTML,
@@ -345,8 +360,8 @@ function createCard(card) {
       newCard = newCard.replace('#price_preorder#⁠.-', '');
     } else if (prop == 'isHiddenCarousel') {
       propCard = card.images.length > 1 ? '' : 'displayNone';
-    } else if (prop == 'isHiddenSizes') {
-      propCard = card.free_qty != 0 ? '' : 'displayNone';
+    } else if (prop == 'isHiddenBtn') {
+      propCard = card.images.length > 1 ? '' : 'hidden'
     } else if (prop == 'curPrice') {
       var curPrice = card.price_preorder1 < 1 ? card.price1 : card.price_preorder1;
       propCard = curPrice;
@@ -372,9 +387,9 @@ function createCard(card) {
 
 // Отображение/ скрытие подменю опций:
 
-function toggle(event) {
+function toggleFilter(event) {
   if (event.target.classList.contains('filter-title')) {
-    event.currentTarget.classList.toggle('close');
+    event.currentTarget.classList.toggle('open');
     filters.scrollTop = event.currentTarget.offsetTop;
   }
 }
@@ -466,25 +481,26 @@ function clearFilters() {
 
 function showCards() {
   if (selecledCardList === '') {
-    loadCards(items);
     gallery.style.display = 'flex';
     galleryNotice.style.display = 'none';
+    loadCards(items);
   } else {
     if (selecledCardList.length == 0) {
       galleryNotice.style.display = 'flex';
       gallery.style.display = 'none';
+      setFiltersHeight();
     } else {
-      loadCards(selecledCardList);
       gallery.style.display = 'flex';
       galleryNotice.style.display = 'none';
+      loadCards(selecledCardList);
     }
   }
-  setFiltersHeight();
 }
 
 // Добавление новых карточек при скролле страницы:
 
 window.addEventListener('scroll', scrollGallery);
+window.addEventListener('resize', scrollGallery);
 
 function scrollGallery() {
   var scrolled = window.pageYOffset || document.documentElement.scrollTop;
@@ -498,22 +514,23 @@ function scrollGallery() {
 // Переключение вида отображения карточек на странице:
 
 function toggleView(newView) {
-  event.currentTarget.classList.add('activ');
-  if (newView == 'blocks') {
-    if (view != 'blocks') {
-      document.querySelector('.view-list').classList.remove('activ');
-      view = 'blocks';
-      cardTemplate = minCardTemplate;
-      showCards();
-    }
+  if (view != newView) {
+    document.querySelector(`.view-${view}`).classList.remove('activ');
+    event.currentTarget.classList.add('activ');
+    document.querySelector('.content').classList.remove(`${view}`);
+    document.querySelector('.content').classList.add(`${newView}`);
+    view = newView;
+    setCardTemplate();
+    showCards();
   }
-  if (newView == 'list') {
-    if (view != 'list') {
-      document.querySelector('.view-blocks').classList.remove('activ');
-      view = 'list';
-      cardTemplate = bigCardTemplate;
-      showCards();
-    }
+}
+
+function setCardTemplate() {
+  if (view == 'blocks') {
+    cardTemplate = minCardTemplate;
+  }
+  if (view == 'list') {
+    cardTemplate = bigCardTemplate;
   }
 }
 
@@ -522,21 +539,20 @@ function toggleView(newView) {
 function openBigCard(event) {
   var card = event.currentTarget.closest('.big-card');
   card.classList.toggle('open');
+  setFiltersHeight();
 }
-
 
 // Отображение полной карточки товара:
 
 function showFullCard(numb) {
   cardTemplate = fullCardTemplate;
-
   var fullCard = createCard(items[numb]);
   fullCardContainer.innerHTML = fullCard;
   fullCardContainer.style.display = 'block';
+  setCardTemplate();
 
   var card = document.querySelector('.full-card');
   toggleDisplayBtns(card);
-  changeFullCardInfo();
 }
 
 // Скрытие полной карточки товара:
@@ -580,7 +596,7 @@ function moveCarousel(numb) {
   carousel.dataset.imgcounter = imgCounter;
   carouselInner.style.marginLeft = `-${imgCounter * imageWidth}px`;
 
-  if (cardTemplate == fullCardTemplate) {
+  if (card.classList.contains('full-card')) {
     showImg(event);
   }
   toggleDisplayBtns(card);
@@ -627,9 +643,13 @@ function toggleDisplayBtns(card) {
 // Переключение картинок в карусели при клике на миниатюру:
 
 function toggleImg(imgNumb) {
-  var carousel = event.currentTarget.closest('.carousel');
-  carousel.dataset.imgcounter = imgNumb;
-  showImg(event);
+  if (window.innerWidth < 769) {
+    showFullImg(event);
+  } else {
+    var carousel = event.currentTarget.closest('.carousel');
+    carousel.dataset.imgcounter = imgNumb;
+    showImg(event);
+  }
 }
 
 // Изменение основной картинки в карусели и выделение миниатюры:

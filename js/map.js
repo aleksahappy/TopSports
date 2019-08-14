@@ -24,7 +24,8 @@ function mapResize() {
 
 // Отображение карты дилеров на странице:
 
-function showDealersList() {
+function showDealersList(event) {
+  event.preventDefault();
   dealersList.style.display = 'block';
   mapResize();
 }

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../img/top_sports_logo_black_short_transparency.png">
-    <title>ТОП СПОРТС</title>
+    <title>ТОП СПОРТС - Экипировка</title>
     <meta name="keywords" content="ТОП СПОРТС">
     <meta name="description" content="ТОП СПОРТС">
     <link rel="stylesheet" type="text/css" href="../css/fonts.css">
@@ -23,7 +23,7 @@
           <div class="header-contacts row">
             <a class="header-phone hidden-xs" href="tel:+78463004499" target="_blank" >+7 (846) 300-44-99</a>
             <span class="hidden-xs">(8:00–17:00 мск)</span>
-            <a class="hidden-xs" href="#" onclick="showDealersList()">Карта дилеров</a>
+            <a class="hidden-xs" onclick="showDealersList(event)">Карта дилеров</a>
             <a class="hidden-xs" href="http://b2b.topsports.ru/register/" target="_blank" >Стать дилером</a>
             <a class="header-cabinet" href="http://b2b.topsports.ru/" target="_blank" class="cabinet_link">Личный кабинет</a>
           </div>
@@ -77,16 +77,17 @@
             <span class="cur-page">Экипировка</span>
           </div>
           <div class="sortbox row">
-            <div class="view-list" title="Вид каталога: список" onclick="toggleView('list')"></div>
-            <div class="view-blocks activ" title="Вид каталога: плитка" onclick="toggleView('blocks')"></div>
+            <div class="sortbox-title">Вид каталога:</div>
+            <div class="view-list activ" title="Cписок" onclick="toggleView('list')"></div>
+            <div class="view-blocks" title="Плитка" onclick="toggleView('blocks')"></div>
           </div>
         </div>
-        <div class="content row">
+        <div class="content list row">
           <div class="filters-container">
             <div class="filters">
               <div class="default-btn" onclick="clearFilters()">Очистить фильтры</div>
               <div id="menu-filters">
-                <div class="filter #isShow#" onclick="toggle(event)">
+                <div class="filter #isShow#" onclick="toggleFilter(event)">
                   <div class="filter-title">#title#</div>
                   <div class="filter-items" onclick="selectValue(event)">
                     <div class="filter-item" data-key="#key#" data-value="#value#">#item#</div>
@@ -95,7 +96,7 @@
               </div>
             </div>
           </div>
-          <div id="gallery" class="gallery row">
+          <div id="gallery" class="row">
             <div id="card-#numb#" class="min-card col" onclick="showFullCard(#numb#)">
               <img class="card-img" src="http://b2b.topsports.ru/c/productpage/#images#.jpg" alt="#title#">
               <div class="card-promo">
@@ -111,75 +112,74 @@
               </div>
             </div>
             <div id="big-card-#numb#" class="big-card card" data-numb="#numb#">
-              <div class="big-card-container row">
-                <div class="card-container">
-                  <div class="card-head">
+              <div class="big-card-head row">
+                <div class="card-head">
                     <div class="card-title">#title#</div>
                     <div class="card-articul grey">Код продукта: #articul#</div>
+                </div>
+                <div class="card-info-title row">
+                  <div class="card-promo">
+                    <div class="promo-title" style="background-color: #actioncolor#">#actiontitle#</div>
                   </div>
-                  <div class="row">
-                    <div class="carousel" data-imgcounter="0">
-                      <span class="left-btn" onclick="moveCarousel(#numb#)"></span>
-                      <span class="right-btn" onclick="moveCarousel(#numb#)"></span>
-                      <div class="carousel-container">
-                        <div class="carousel-gallery">
-                          <div class="carousel-inner row">
-                            <div class="carousel-item carousel-item-#imgNumb# row" onclick="showFullImg(event)">
-                              <img src="http://b2b.topsports.ru/c/productpage/#image#.jpg" alt="#title#">
-                            </div>
+                  <div class="card-price opt row">
+                    <div class="card-price-title grey">Оптовая цена:</div>
+                    <div class="card-price-wrap row">
+                        <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
+                        <div class="new-price red">#price_preorder#&#8288;.-</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="big-card-body row">
+                <div class="card-container-left row">
+                  <div class="carousel" data-imgcounter="0">
+                    <span class="left-btn" onclick="moveCarousel(#numb#)"></span>
+                    <span class="right-btn #isHiddenBtn#" onclick="moveCarousel(#numb#)"></span>
+                    <div class="carousel-container">
+                      <div class="carousel-gallery">
+                        <div class="carousel-inner row">
+                          <div class="carousel-item carousel-item-#imgNumb# row" onclick="showFullImg(event)">
+                            <img src="http://b2b.topsports.ru/c/productpage/#image#.jpg" alt="#title#">
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="card-wrap">
-                      <div class="card-price retail row ">
-                        <div class="card-price-title grey">РРЦ:</div>
-                        <div class="price-user">#price_user#.-</div>
-                      </div>
-                      <div class="card-options">
-                        <div class="card-option row">
-                          <div class="option-title grey">#optitle#</div>
-                          <div class="option-info">#opinfo#</div>
-                        </div>
+                  </div>
+                  <div class="card-options-container">
+                    <div class="card-price retail row ">
+                      <div class="card-price-title grey">РРЦ:</div>
+                      <div class="price-user">#price_user#.-</div>
+                    </div>
+                    <div class="card-options">
+                      <div class="card-option row">
+                        <div class="option-title grey">#optitle#</div>
+                        <div class="option-info">#opinfo#</div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="card-container">
-                  <div class="card-info-title row">
-                    <div class="card-promo">
-                      <div class="promo-title" style="background-color: #actioncolor#">#actiontitle#</div>
-                    </div>
-                    <div class="card-price opt row">
-                      <div class="card-price-title grey">Оптовая цена:</div>
-                      <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
-                      <div class="new-price red">#price_preorder#&#8288;.-</div>
-                    </div>
-                  </div>
-                  <div class="card-selectInfo">
-                    <div>
-                      Выбрано товаров:
-                      <span class="select-count red">0</span>&nbsp;шт. на сумму
-                      <span class="select-price red">0</span>&#8288;.–
-                    </div>
-                  </div>
-                  <div class="card-sizes row #isHiddenSizes#">
-                    <div class="card-size #inCart#">
+                <div class="card-container-right">
+                  <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
+                  <div class="card-sizes row">
+                    <div class="card-size">
                       <div class="size-articul grey">Артикул: #articul#</div>
                       <div class="size-choice row">
                         <span class="size-name">#size#</span>
                         <span class="size-qty row">
-                          <span class="btn-minus" title="Уменьшить" onclick="changeValue(event)">-</span>
-                          <input class="choice-gty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" onchange="changeValue(event)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
-                          <span class="btn-plus" title="Увеличить" onclick="changeValue(event)">+</span>
+                          <a class="btn-minus" href="http://b2b.topsports.ru/register/" target="_blank" title="Уменьшить" >-</a>
+                          <input class="choice-gty" type="text" value="0" autocomplete="off" disabled>
+                          <a class="btn-plus" href="http://b2b.topsports.ru/register/" target="_blank" title="Увеличить">+</a>
                         </span>
                       </div>
                       <div class="card-qty #isAvaliable#" title="#qtyTitle#">#free_qty#&nbsp;шт.</div>
                     </div>
                   </div>
-                  <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
                   <div class="card-notice red">#notice#</div>
-                  <div class="card-description">
+                  <div class="card-btns">
+                    <a class="dealer-button map-btn" onclick="showDealersList(event)">КАРТА ДИЛЕРОВ</a>
+                    <a class="dealer-button" href="http://b2b.topsports.ru/register/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
+                  </div>
+                  <div class="card-description hidden-xs">
                     <div class="description-title">Описание:</div>
                     <div class="card-text">#desc#</div>
                   </div>
@@ -190,14 +190,14 @@
             </div>
           </div>
           <div id="gallery-notice" class="gallery red">
-            <div>По вашему запросу ничего не найдено. Попробуйте изменить фильтры.</div>
+            <div>По выбранным фильтрам товаров не найдено</div>
           </div>
           <div id="full-card-container" onclick="closeFullCard(event)">
             <div id="full-card-#numb#" class="full-card card" data-numb="#numb#">
               <div class="close-btn"></div>
               <div class="card-container row">
                 <div class="card-imgbox">
-                  <div class="card-wrap" onclick="showFullImg(event)">
+                  <div class="card-imgbox-container" onclick="showFullImg(event)">
                     <span class="zoom-btn"></span>
                     <img id="img" class="card-img" src="http://b2b.topsports.ru/c/productpage/#images#.jpg" alt="#title#">
                   </div>
@@ -224,8 +224,10 @@
                     </div>
                     <div class="card-price opt row">
                         <div class="card-price-title">Оптовая цена:</div>
-                        <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
-                        <div class="new-price red">#price_preorder#&#8288;.-</div>
+                        <div class="card-price-wrap row">
+                            <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
+                            <div class="new-price red">#price_preorder#&#8288;.-</div>
+                        </div>
                     </div>
                     <div class="card-price retail row">
                       <div class="card-price-title grey">Розничная цена:</div>
@@ -239,29 +241,28 @@
                       <div class="option-info">#opinfo#</div>
                     </div>
                   </div>
-                  <div class="card-sizes row #isHiddenSizes#">
-                    <div class="card-size #inCart#">
+                  <div class="card-sizes row">
+                    <div class="card-size">
                       <div class="size-articul grey">Артикул: #articul#</div>
                       <div class="size-choice row">
                         <span class="size-name">#size#</span>
                         <span class="size-qty row">
-                          <span class="btn-minus" title="Уменьшить" onclick="changeValue(event)">-</span>
-                          <input class="choice-gty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" onchange="changeValue(event)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
-                          <span class="btn-plus" title="Увеличить" onclick="changeValue(event)">+</span>
+                          <a class="btn-minus" href="http://b2b.topsports.ru/register/" target="_blank" title="Уменьшить" >-</a>
+                          <input class="choice-gty" type="text" value="0" autocomplete="off" disabled>
+                          <a class="btn-plus" href="http://b2b.topsports.ru/register/" target="_blank" title="Увеличить">+</a>
                         </span>
                       </div>
                       <div class="card-qty #isAvaliable#" title="#qtyTitle#">#free_qty#&nbsp;шт.</div>
                     </div>
                   </div>
                   <div class="card-notice red">#notice#</div>
-                  <div class="card-selectInfo">
-                    Товаров выбрано:
-                    <span class="select-count">0</span>&nbsp;шт. на сумму
-                    <span class="select-price">0</span>&#8288;.–
+                  <div class="card-btns">
+                    <a class="dealer-button map-btn" href="" onclick="showDealersList(event)">КАРТА ДИЛЕРОВ</a>
+                    <a class="dealer-button" href="http://b2b.topsports.ru/register/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
                   </div>
                 </div>
               </div>
-              <div class="card-description">
+              <div class="card-description hidden-xs">
                 <div class="description-title">Описание:</div>
                 <div class="card-text">#desc#</div>
               </div>
@@ -280,8 +281,8 @@
     <div class="footer">
       <div class="container">
         <div class="footer-links row">
-          <a href="#top">Главная</a>
-          <a href="#" onclick="showDealersList()">Где купить</a>
+          <a href="#">Главная</a>
+          <a onclick="showDealersList(event)">Где купить</a>
           <a href="http://b2b.topsports.ru/register/" target="_blank">Стать дилером</a>
           <a href="https://goo.gl/forms/KlWpmVVR9FQR7MwW2" target="_blank">Стать райдером</a>
           <a href="http://b2b.topsports.ru/" target="_blank">Личный кабинет</a>
@@ -303,7 +304,6 @@
     <script src ="q2.php"></script>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/cart.js"></script>
     <script src="http://b2b.topsports.ru/req/jquery/jquery-1.9.1.min.js"></script>
     <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script src="http://b2b.topsports.ru/d/js/map.js?v=1.1667"></script>

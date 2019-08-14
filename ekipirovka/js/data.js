@@ -2,51 +2,56 @@
 
 // Содержимое фильтров:
 
-var mainCats = {
-  'Одежда': 'odegda',
-  'Обувь': 'obuv',
-  'Шлемы': 'shlem',
-  'Оптика': 'optic',
-  'Снаряжение': 'snarag',
-  'Защита': 'zashita',
-  'Сумки и рюкзаки': 'sumruk'
+var actiontitle = {
+  'НОВИНКА':'1',
+  'РАСПРОДАЖА': '1'
 };
 
-var odegda = {};
-var obuv = {};
-var shlem = {};
-var optic = {};
-var snarag = {};
-var zashita = {};
-var sumruk = {};
+// var mainCats = {
+//   'Одежда': 'odegda',
+//   'Обувь': 'obuv',
+//   'Шлемы': 'shlem',
+//   'Оптика': 'optic',
+//   'Снаряжение': 'snarag',
+//   'Защита': 'zashita',
+//   'Сумки и рюкзаки': 'sumruk'
+// };
 
-function createCats() {
-  for (var cat in cats) {
-    if (cats[cat] == '43') {
-      odegda[cat] = '1';
-    }
-    if (cats[cat] == '44') {
-      obuv[cat] = '1';
-    }
-    if (cats[cat] == '48') {
-      shlem[cat] = '1';
-    }
-    if (cats[cat] == '49') {
-      optic[cat] = '1';
-    }
-    if (cats[cat] == '50') {
-      snarag[cat] = '1';
-    }
-    if (cats[cat] == '51') {
-      zashita[cat] = '1';
-    }
-    if (cats[cat] == '52') {
-      sumruk[cat] = '1';
-    }
-  }
-}
+// var odegda = {};
+// var obuv = {};
+// var shlem = {};
+// var optic = {};
+// var snarag = {};
+// var zashita = {};
+// var sumruk = {};
 
-createCats();
+// function createCats() {
+//   for (var cat in cats) {
+//     if (cats[cat] == '43') {
+//       odegda[cat] = '1';
+//     }
+//     if (cats[cat] == '44') {
+//       obuv[cat] = '1';
+//     }
+//     if (cats[cat] == '48') {
+//       shlem[cat] = '1';
+//     }
+//     if (cats[cat] == '49') {
+//       optic[cat] = '1';
+//     }
+//     if (cats[cat] == '50') {
+//       snarag[cat] = '1';
+//     }
+//     if (cats[cat] == '51') {
+//       zashita[cat] = '1';
+//     }
+//     if (cats[cat] == '52') {
+//       sumruk[cat] = '1';
+//     }
+//   }
+// }
+
+// createCats();
 
 var use = {
   'Мотоцикл': 'moto',
@@ -109,10 +114,15 @@ var colors = {
 // Данные, которые будут переданы для создания фильтров:
 
 var dataForFilters = [{
-  title: 'Категория',
+  title: 'Спецпредложение',
   isShow: true,
-  key: 'mainCats',
-  items: mainCats
+  key: 'actiontitle',
+  items: actiontitle
+// }, {
+//   title: 'Категория',
+//   isShow: true,
+//   key: 'mainCats',
+//   items: mainCats
 // }, {
 //   title: 'Одежда',
 //   key: 'cat',

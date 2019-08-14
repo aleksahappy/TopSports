@@ -24,7 +24,7 @@
           <div class="header-contacts row">
             <a class="header-phone hidden-xs" href="tel:+78463004499" target="_blank" >+7 (846) 300-44-99</a>
             <span class="hidden-xs">(8:00–17:00 мск)</span>
-            <a class="hidden-xs" href="#" onclick="showDealersList()">Карта дилеров</a>
+            <a class="hidden-xs" onclick="showDealersList(event)">Карта дилеров</a>
             <a class="hidden-xs" href="http://b2b.topsports.ru/register/" target="_blank" >Стать дилером</a>
             <a class="header-cabinet" href="http://b2b.topsports.ru/" target="_blank" class="cabinet_link">Личный кабинет</a>
           </div>
@@ -166,7 +166,7 @@
               взаимодействия с клиентом.
             </div>
             <div class="geography-btns row">
-              <a class="dealer-button map-btn" href="#" onclick="showDealersList()">КАРТА ДИЛЕРОВ</a>
+              <a class="dealer-button map-btn" onclick="showDealersList(event)">КАРТА ДИЛЕРОВ</a>
               <a class="dealer-button" href="http://b2b.topsports.ru/register/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
             </div>
           </div>
@@ -262,7 +262,7 @@
               <div class="step-title">Регистрация<br>и проверка контрагента</div>
               <div class="step-text">
                 Для того, чтобы стать нашим дилером, необходимо
-                <a href="http://b2b.topsports.ru/register/">зарегистрироваться</a>
+                <a href="http://b2b.topsports.ru/register/" target="_blank">зарегистрироваться</a>
                 на дилерском портале.
               </div>
             </div>
@@ -277,7 +277,7 @@
               <div class="step-title">Доступ<br>на дилерский портал</div>
               <div class="step-text">
                 Вы получите доступ к каталогу товаров и личному кабинету, а так же сможете загрузить свои
-                магазины на <a onclick="showDealersList()">карту дилеров</a>.
+                магазины на <a onclick="showDealersList(event)">карту дилеров</a>.
               </div>
             </div>
             <div class="arrow"></div>
@@ -375,14 +375,14 @@
       <div class="container">
         <div class="footer-links row">
           <a href="#top">Главная</a>
-          <a href="#" onclick="showDealersList()">Где купить</a>
+          <a onclick="showDealersList(event)">Где купить</a>
           <a href="http://b2b.topsports.ru/register/" target="_blank">Стать дилером</a>
           <a href="https://goo.gl/forms/KlWpmVVR9FQR7MwW2" target="_blank">Стать райдером</a>
           <a href="http://b2b.topsports.ru/" target="_blank">Личный кабинет</a>
           <a class="youtube" href="https://www.youtube.com/channel/UCQYfNyA0dSoGVrUiDOaiVZw" target="_blank"></a>
         </div>
         <div class="footer-contacts row">
-          <div class="footer-phone">Телефон: <span class="decor">+7 (846) 300-44-99</span></div>
+          <div class="footer-phone">Телефон: <a class="decor" href="tel:+78463004499" target="_blank">+7 (846) 300-44-99</a></div>
           <div class="footer-work">График работы: <span>пн-пт 08:00-17:00 (мск)</span></div>
         </div>
       </div>
