@@ -1,7 +1,5 @@
 'use strict';
 
-console.log(items);
-
 //=====================================================================================================
 // Первоначальные данные для работы:
 //=====================================================================================================
@@ -72,6 +70,10 @@ function toggleSubmenu() {
 window.addEventListener('scroll', setFiltersHeight);
 window.addEventListener('resize', setFiltersHeight);
 
+// function setFiltersHeight() {
+//   filtersContainer.style.minHeight = filters.clientHeight + 'px';
+// }
+
 function setFiltersHeight() {
   if (window.getComputedStyle(filters).position == 'fixed') {
     var scrolled = window.pageYOffset || document.documentElement.scrollTop,
@@ -81,7 +83,6 @@ function setFiltersHeight() {
         filtersHeight = window.innerHeight - headerHeight - headerMainHeight - footerHeight;
     filters.style.top = `${headerHeight + headerMainHeight}px`;
     filters.style.height = `${filtersHeight}px`;
-    console.log('высота фильтров установлена');
   }
 }
 
@@ -260,10 +261,8 @@ function loadCards(cards) {
 
   var incr;
   if (window.innerWidth > 2500) {
-    incr = 80;
-  } else if (window.innerWidth > 2000) {
     incr = 60;
-  } else if (window.innerWidth < 1100) {
+  } else if (window.innerWidth < 1000) {
     incr = 20;
   } else {
     incr = 40;
@@ -344,7 +343,7 @@ function createCard(card) {
       var newCarouselItem = carouselTemplate
         .replace(/#imgNumb#/gi, i)
         .replace('#isActiv#', i == 0 ? 'img-active' : '')
-        .replace('#image#', card.images[i]);
+        .replace('#image#', `http://b2b.topsports.ru/c/productpage/${card.images[i]}.jpg`);
       listCarousel += newCarouselItem;
     }
     newCard = newCard.replace(carouselTemplate, listCarousel);
@@ -355,7 +354,7 @@ function createCard(card) {
     var propRegExp = new RegExp('#' + prop + '#', 'gi');
     var propCard;
     if (prop == 'images') {
-      propCard = card.images[0];
+      propCard = `http://b2b.topsports.ru/c/productpage/${card.images[0]}.jpg`;
     } else if (prop == 'price_preorder' && card.price_preorder1 < 1) {
       newCard = newCard.replace('#price_preorder#⁠.-', '');
     } else if (prop == 'isHiddenCarousel') {
@@ -397,7 +396,7 @@ function toggleFilter(event) {
 // Выбор значений фильтра:
 
 function selectValue(event) {
-  var filterItem = event.target;
+  var filterItem = event.currentTarget;
   var key = filterItem.dataset.key;
   var value = filterItem.dataset.value;
   if (filterItem.classList.contains('check')) {
@@ -431,21 +430,23 @@ function saveFiltersInfo(key, value) {
 
 function removeFiltersInfo(key, value) {
   var filtersInfo = getInfo('filtersInfo');
-  var index = filtersInfo[key].indexOf(value);
-  if (index !== -1) {
-    filtersInfo[key].splice(index, 1);
+  if (filtersInfo[key]) {
+    var index = filtersInfo[key].indexOf(value);
+    if (index !== -1) {
+      filtersInfo[key].splice(index, 1);
+    }
+    if (filtersInfo[key].length == 0) {
+      delete filtersInfo[key];
+    }
+    saveInfo('filtersInfo', filtersInfo);
   }
-  if (filtersInfo[key].length == 0) {
-    delete filtersInfo[key];
-  }
-  saveInfo('filtersInfo', filtersInfo);
 }
 
 // Фильтрация карточек:
 
 function selectCards() {
   var filtersInfo = getInfo('filtersInfo');
-  selecledCardList = items.filter(card => {
+  selecledCardList = sortedItems.filter(card => {
     for (var key in filtersInfo) {
       var isFound = false;
       for (var value of filtersInfo[key]) {
@@ -483,7 +484,7 @@ function showCards() {
   if (selecledCardList === '') {
     gallery.style.display = 'flex';
     galleryNotice.style.display = 'none';
-    loadCards(items);
+    loadCards(sortedItems);
   } else {
     if (selecledCardList.length == 0) {
       galleryNotice.style.display = 'flex';
@@ -546,7 +547,7 @@ function openBigCard(event) {
 
 function showFullCard(numb) {
   cardTemplate = fullCardTemplate;
-  var fullCard = createCard(items[numb]);
+  var fullCard = createCard(sortedItems[numb]);
   fullCardContainer.innerHTML = fullCard;
   fullCardContainer.style.display = 'block';
   setCardTemplate();
@@ -583,7 +584,7 @@ function moveCarousel(numb) {
   var card = event.currentTarget.closest('.card'),
       carousel = card.querySelector('.carousel'),
       imgCounter = parseInt(carousel.dataset.imgcounter),
-      images = items[numb].images,
+      images = sortedItems[numb].images,
       lastImg = images.length - 1,
       imageWidth = carousel.querySelector('.carousel-item').clientWidth,
       carouselInner = carousel.querySelector('.carousel-inner');
@@ -613,7 +614,7 @@ window.addEventListener('resize', () => {
 
 function toggleDisplayBtns(card) {
   var numb = parseInt(card.dataset.numb),
-      images = items[numb].images,
+      images = sortedItems[numb].images,
       carousel = card.querySelector('.carousel'),
       imageWidth = carousel.querySelector('.carousel-item').clientWidth,
       carouselWidth = carousel.querySelector('.carousel-gallery').clientWidth,

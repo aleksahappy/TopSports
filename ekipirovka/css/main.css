@@ -286,7 +286,7 @@ a.header-phone, a.header-cabinet {
 
 .submenu-item:hover,
 .submenu-item.activ {
-  background-color: rgb(118,125,141);
+  background-color: rgb(172,177,186);
 }
 
 .subsubmenu {
@@ -366,6 +366,26 @@ a.header-phone, a.header-cabinet {
 }
 
 /* Стили для фильтров: */
+
+/* .filters-container {
+  position: relative;
+  display: none;
+  min-width: 14em;
+  min-height: 400px;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+.filters {
+  position: absolute;
+  bottom: 0px;
+  width: 14em;
+  padding-right: 1.5em;
+  padding-bottom: 1em;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+} */
 
 .filters-container {
   display: none;

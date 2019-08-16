@@ -1,6 +1,7 @@
 @media only screen and  (min-width: 1824px) {
   .container {
-    margin: 0 15rem;
+    max-width: 1524px;
+    margin: 0 auto;
   }
   .left-btn {
     left: 7rem;
@@ -10,13 +11,6 @@
   }
   .work .step {
     width: 20%;
-  }
-}
-
-@media only screen and  (min-width: 2500px) {
-  .container {
-    max-width: 2200px;
-    margin: 0 auto;
   }
 }
 

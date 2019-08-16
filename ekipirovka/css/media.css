@@ -3,7 +3,8 @@
     font-size: 1.6rem;
   }
   .container {
-    margin: 0 15rem;
+    max-width: 1524px;
+    margin: 0 auto;
   }
   .search {
     width: 30%;
@@ -19,13 +20,6 @@
   }
   .full-card .carousel-item {
     width: 110px;
-  }
-}
-
-@media only screen and  (min-width: 2500px) {
-  .container {
-    max-width: 2200px;
-    margin: 0 auto;
   }
 }
 
