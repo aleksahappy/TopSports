@@ -286,6 +286,11 @@ body {
   text-overflow: ellipsis;
 }
 
+.filter-item.checked {
+  color: rgb(51,51,51);
+  background-color: rgb(247,247,249);
+}
+
 .filter-item::before {
   content: '\f096';
   font-family: 'FontAwesome';
@@ -294,14 +299,119 @@ body {
   left: 0;
 }
 
-.check {
-  color: rgb(51,51,51);
-  background-color: rgb(247,247,249);
-}
-
-.check::before {
+.filter-item.checked::before {
   content: '\f046';
 }
+
+#filter-color .filter-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#filter-color .filter-item {
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+  font-size: 0px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#filter-color .filter-item:hover {
+  transform: scale(1.1, 1.1);
+}
+
+#filter-color .filter-item.checked {
+  background-position-x: -25px;
+}
+
+#filter-color .filter-item::before {
+  content: '';
+}
+
+#filter-color .filter-item[data-value="white"] {
+  background-image: url(../img/content/white.png);
+}
+
+#filter-color .filter-item[data-value="turquoise"] {
+  background-image: url(../img/content);
+}
+
+/* #filter-color .filter-item[data-value="bordo"] {
+  background-image: url(../img/content);
+} */
+
+#filter-color .filter-item[data-value="cyan"] {
+  background-image: url(../img/content/lightblue.png);
+}
+
+#filter-color .filter-item[data-value="yellow"] {
+  background-image: url(../img/content/yellow.png);
+}
+
+#filter-color .filter-item[data-value="green"] {
+  background-image: url(../img/content/green.png);
+}
+
+/* #filter-color .filter-item[data-value="camo"] {
+  background-image: url(../img/content);
+} */
+
+#filter-color .filter-item[data-value="brown"] {
+  background-image: url(../img/content/brown.png);
+}
+
+#filter-color .filter-item[data-value="red"] {
+  background-image: url(../img/content/red.png);
+}
+
+#filter-color .filter-item[data-value="multicolor"] {
+  background-image: url(../img/content/colorful.png);
+}
+
+#filter-color .filter-item[data-value="orange"] {
+  background-image: url(../img/content/orange.png);
+}
+
+#filter-color .filter-item[data-value="transparent"] {
+  background-image: url(../img/content/transparent.png);
+}
+
+#filter-color .filter-item[data-value="pink"] {
+  background-image: url(../img/content/pink.png);
+}
+
+#filter-color .filter-item[data-value="grey"] {
+  background-image: url(../img/content/gray.png);
+}
+
+#filter-color .filter-item[data-value="blue"] {
+  background-image: url(../img/content/blue.png);
+}
+
+#filter-color .filter-item[data-value="fiol"] {
+  background-image: url(../img/content/purple.png);
+}
+
+/* #filter-color .filter-item[data-value="fuxy"] {
+  background-image: url(../img/content);
+} */
+
+#filter-color .filter-item[data-value="haki"] {
+  background-image: url(../img/content/khaki.png);
+}
+
+#filter-color .filter-item[data-value="black"] {
+  background-image: url(../img/content/black.png);
+}
+
+/* #filter-color .filter-item[data-value="black/pink"] {
+  background-image: url(../img/content);
+} */
+
+/* #filter-color .filter-item[data-value="black/grey"] {
+  background-image: url(../img/content);
+} */
 
 /* Стили для галереи: */
 

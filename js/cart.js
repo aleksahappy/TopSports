@@ -109,22 +109,22 @@ function changeColors(size, inputValue) {
 // Сохранение данных о выбранных размерах:
 
 function saveSizesInfo(key, value) {
-  var sizesInfo = getInfo('sizesInfo') ? getInfo('sizesInfo') : {};
+  var sizesInfo = getInfo(`sizesInfo_${pageId}`) ? getInfo(`sizesInfo_${pageId}`) : {};
   if (value == 0) {
     delete sizesInfo[key];
   } else {
     sizesInfo[key] = value;
   }
-  saveInfo('sizesInfo', sizesInfo);
+  saveInfo(`sizesInfo_${pageId}`, sizesInfo);
 }
 
 // Сохранение данных о состоянии корзины:
 
 function saveCartInfo(totalAmount, totalPrice) {
-  var cartInfo = getInfo('cartInfo')? getInfo('cartInfo') : {};
+  var cartInfo = getInfo(`cartInfo_${pageId}`)? getInfo('cartInfo') : {};
   cartInfo.totalAmount = totalAmount;
   cartInfo.totalPrice = totalPrice;
-  saveInfo('cartInfo', cartInfo);
+  saveInfo(`cartInfo_${pageId}`, cartInfo);
 }
 
 // Изменение информации о выбранном количестве товара и его стоимости в карточке товара:

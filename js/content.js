@@ -8,7 +8,8 @@ setPaddingBody();
 
 // Элементы DOM для работы с ними:
 
-var cartAmount = document.querySelector('.cart-amount span'),
+var pageId = document.body.id,
+    cartAmount = document.querySelector('.cart-amount span'),
     cartPrice = document.querySelector('.cart-price span'),
     submenu = document.querySelector('.submenu'),
     filtersContainer = document.querySelector('.filters-container'),
@@ -263,9 +264,9 @@ function createFilter(data) {
 // Проверка сохраненных значений фильтров и их визуальное отображение;
 
 function checkFilters() {
-  if (getInfo('filtersInfo')) {
-    if (Object.keys(getInfo('filtersInfo')).length != 0) {
-      var filtersInfo = getInfo('filtersInfo');
+  if (getInfo(`filtInfo_${pageId}`)) {
+    if (Object.keys(getInfo(`filtInfo_${pageId}`)).length != 0) {
+      var filtInfo = getInfo(`filtInfo_${pageId}`);
       for (var key in filtersInfo) {
         var filter = document.querySelector(`#filter-${key}`);
         if (filter) {
@@ -274,7 +275,7 @@ function checkFilters() {
         filtersInfo[key].forEach(value => {
           var el = document.querySelector(`.filter-item[data-key="${key}"][data-value="${value}"]`);
           if (el) {
-            el.classList.add('check');
+            el.classList.add('checked');
           }
         })
       }
@@ -451,14 +452,14 @@ function selectValue(event) {
   var filterItem = event.currentTarget;
   var key = filterItem.dataset.key;
   var value = filterItem.dataset.value;
-  if (filterItem.classList.contains('check')) {
+  if (filterItem.classList.contains('checked')) {
     removeFiltersInfo(key, value);
-    filterItem.classList.remove('check');
+    filterItem.classList.remove('checked');
   } else {
     saveFiltersInfo(key, value);
-    filterItem.classList.add('check');
+    filterItem.classList.add('checked');
   }
-  if (Object.keys(getInfo('filtersInfo')).length == 0) {
+  if (Object.keys(getInfo(`filtInfo_${pageId}`)).length == 0) {
     selecledCardList = '';
     showCards();
   } else {
@@ -469,19 +470,19 @@ function selectValue(event) {
 // Добавление данных о выбранных фильтрах:
 
 function saveFiltersInfo(key, value) {
-  var filtersInfo = getInfo('filtersInfo') ? getInfo('filtersInfo') : {};
+  var filtersInfo = getInfo(`filtInfo_${pageId}`) ? getInfo(`filtInfo_${pageId}`) : {};
   if (!filtersInfo[key]) {
     filtersInfo[key] = [value];
   } else if (!filtersInfo[key].includes(value)) {
     filtersInfo[key].push(value);
   }
-  saveInfo('filtersInfo', filtersInfo);
+  saveInfo(`filtInfo_${pageId}`, filtersInfo);
 }
 
 // Удаление данных о выбранных фильтрах:
 
 function removeFiltersInfo(key, value) {
-  var filtersInfo = getInfo('filtersInfo');
+  var filtersInfo = getInfo(`filtInfo_${pageId}`);
   if (filtersInfo[key]) {
     var index = filtersInfo[key].indexOf(value);
     if (index !== -1) {
@@ -490,14 +491,14 @@ function removeFiltersInfo(key, value) {
     if (filtersInfo[key].length == 0) {
       delete filtersInfo[key];
     }
-    saveInfo('filtersInfo', filtersInfo);
+    saveInfo(`filtInfo_${pageId}`, filtersInfo);
   }
 }
 
 // Фильтрация карточек:
 
 function selectCards() {
-  var filtersInfo = getInfo('filtersInfo');
+  var filtersInfo = getInfo(`filtInfo_${pageId}`);
   for (var key in filtersInfo) {
     filtersInfo[key] = filtersInfo[key].filter(value => {
       var el = document.querySelector(`.filter-item[data-key="${key}"][data-value="${value}"]`);
@@ -529,11 +530,11 @@ function selectCards() {
 // Очистка всех фильтров:
 
 function clearFilters() {
-  saveInfo('filtersInfo', {});
+  saveInfo(`filtInfo_${pageId}`, {});
   selecledCardList = '';
   showCards();
-  var activeElements = menuFilters.getElementsByClassName('check');
-  Array.from(activeElements).forEach(element => element.classList.remove('check'));
+  var activeElements = menuFilters.getElementsByClassName('checked');
+  Array.from(activeElements).forEach(element => element.classList.remove('checked'));
   setFiltersHeight();
 }
 
