@@ -1,0 +1,148 @@
+@media only screen and  (min-width: 1824px) {
+  .search {
+    width: 30%;
+  }
+  .select-filters {
+    width: 55%;
+  }
+  .select-oem {
+    width: 20%;
+  }
+}
+
+@media only screen and (max-width: 1080px) {
+  .header {
+    font-size: 1.2rem;
+  }
+  .logo {
+    width: 22%;
+  }
+  .header-contacts a {
+    margin-left: 1em;
+  }
+  .header-select > .row {
+    flex-wrap: wrap;
+  }
+  .select-filters {
+    width: 100%;
+  }
+  .select-item {
+    padding-bottom: 0;
+  }
+  .item-brands {
+    width: 30%;
+  }
+  .item-year {
+    width: 20%;
+  }
+  .item-model {
+    width: 35%;
+  }
+  .select-oem {
+    width: 30%;
+  }
+  .select-oem .search-btn {
+    top: 20%;
+  }
+  .footer  {
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .logo {
+    width: 60%;
+  }
+  .profile-info {
+    width: 40%;
+  }
+  .cart div, .account div {
+    display: none;
+  }
+  .cart, .account {
+    width: 2.5em;
+    height: 2.5em;
+    padding-left: 0;
+  }
+  .header-select > .row {
+    flex-wrap: nowrap;
+  }
+  .select-filters {
+    flex-direction: column;
+    width: 50%;
+    margin-right: 3.125em;
+  }
+  .select-item {
+    width: 100%;
+    margin-right: 0;
+  }
+  .item-model {
+    padding-bottom: 0.35em;
+  }
+  .select-filters .close-btn {
+    position: absolute;
+    bottom: 5%;
+    right: -1.5em;
+  }
+  .select-oem {
+    width: 50%;
+  }
+  .select-oem .search-btn {
+    top: 20%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .logo {
+    width: 70%;
+  }
+  .profile-info {
+    width: 30%;
+  }
+  .main-menu .container {
+    flex-direction: column;
+  }
+  .search {
+    width: 100%;
+    align-self: flex-start;
+  }
+  .search .search-btn {
+    top: 15%;
+  }
+  .ekipirovka {
+    max-height: 14em;
+  }
+  .submenu-items {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .submenu-item {
+    width: 140px;
+    padding: 1rem 1rem;
+  }
+  .header-select > .row {
+    flex-wrap: wrap;
+  }
+  .select-filters {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-right: 0;
+  }
+  .select-filters .select-item {
+    width: 90%;
+  }
+  .select-filters .close-btn {
+    position: static;
+  }
+  .select-oem {
+    width: 90%;
+    padding-top: 0;
+  }
+  .select-oem .search-btn {
+    top: 10%;
+  }
+  .footer-links a {
+    margin-right: 2em;
+  }
+}

@@ -1,0 +1,230 @@
+/* =====================================================================================================
+ Стили для шапки и её содержимого:
+===================================================================================================== */
+
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
+  z-index: 200;
+}
+
+.header-main {
+  padding: 1rem 0;
+  background-color: rgb(255,255,255);
+}
+
+.header-main .container {
+  align-items: center;
+}
+
+.logo {
+  height: 44px;
+  margin-right: 1em;
+}
+
+.logo img {
+  max-height: 44px;
+  max-width: 100%;
+}
+
+.header-contacts {
+  justify-content: flex-end;
+}
+
+.header-contacts a {
+  margin-left: 3em;
+  color: rgb(241,89,42);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.header-contacts :first-child {
+  margin-left: 0;
+}
+
+.header-contacts span {
+  padding-left: 0.5em;
+}
+
+a.header-phone, a.header-cabinet {
+  color: rgb(32,103,176);
+}
+
+.header-phone, .header-cabinet {
+  position: relative;
+  padding-left: 1.5em;
+}
+
+.header-phone::before, .header-cabinet::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  width: 1em;
+  height: 1em;
+  background-repeat: no-repeat;
+  background-size: 1em;
+}
+
+.header-phone::before {
+  background-image: url(../img/header_footer/ico_skype_bw.png);
+}
+
+.header-cabinet::before {
+  background-image: url(../img/header_footer/ico_profile_bw.png);
+}
+
+.header-menu a {
+  margin-right: -2px;
+}
+
+.header-menu a:hover {
+  color: rgb(255,255,255);
+}
+
+.main-menu {
+  color: rgb(255,255,255);
+  background-color: rgb(31,34,41);
+}
+
+.main-menu > .row {
+  justify-content: flex-start;
+  align-items: baseline;
+}
+
+.topmenu-item {
+  padding: 1rem 2rem;
+  /* font-family: 'TradeGothicProCyr'; */
+  font-family: 'FranklinGothic-DemiCond';
+  font-size: 1.8em;
+  line-height: 0.8;
+  text-transform: uppercase;
+  transition: 200ms;
+}
+
+.topmenu-item.activ,
+.topmenu-item:hover {
+  background-color: rgb(241,89,42);
+}
+
+.burger-btn {
+  position: relative;
+  font-family: 'FontAwesome';
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.burger-btn::before {
+  content: '\f0c9';
+}
+
+.submenu {
+  background-color: rgb(243,243,246);
+}
+
+.submenu.open {
+  display: block;
+}
+
+.submenu-items {
+  overflow: hidden;
+}
+
+.submenu-item {
+  padding: 1rem 2rem;
+  font-size: 1.15em;
+  transition: 200ms;
+}
+
+.submenu-item.activ,
+.submenu-item:hover {
+  background-color: rgb(172,177,186);
+}
+
+.subsubmenu {
+  background-color: rgb(238,238,238);
+}
+
+/* =====================================================================================================
+ Стили для футера и его содержимого:
+===================================================================================================== */
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  font-size: 1.4rem;
+  color: rgb(255, 255, 255);
+  background-color: rgb(31,34,41);
+  z-index: 100;
+}
+
+.footer-links, .footer-contacts, .copyright {
+  padding: 0.7em 0;
+}
+
+.footer-links {
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 0;
+}
+
+.footer-links a {
+  margin-right: 3em;
+  padding: 0.7em 0;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.footer-links a:last-child {
+  margin-right: 0;
+}
+
+.footer-links a:hover {
+  transition: 300ms;
+  color: rgb(241,89,42);
+}
+
+.youtube::before {
+  content: url(../img/header_footer/ico_youtube.png);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.youtube:hover {
+  transition: 300ms;
+  transform: scale(1.1);
+}
+
+.footer-contacts {
+  font-weight: 300;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-contacts > div {
+  margin-right: 2em;
+  padding: 0.35em 0;
+  text-align: center;
+}
+
+.footer-contacts:last-child {
+  margin-right: 0;
+}
+
+.decor {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.copyright {
+  font-size: 0.85em;
+  text-align: center;
+  border-top: 1px solid rgb(139,140,140);
+}

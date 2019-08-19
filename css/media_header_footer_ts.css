@@ -1,0 +1,86 @@
+@media only screen and (max-width: 1439px) {
+  .header-contacts a {
+    margin-left: 2em;
+  }
+}
+
+@media only screen and (max-width: 1080px) {
+  .header {
+    font-size: 1.2rem;
+  }
+  .logo {
+    width: 22%;
+  }
+  .header-contacts a {
+    margin-left: 1em;
+  }
+  .submenu-item {
+    padding: 1rem 1.9rem;
+  }
+  .footer  {
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .logo {
+    width: auto;
+  }
+  .header-cabinet {
+    padding-left: 3em;
+  }
+  .header-cabinet::before {
+    top: -0.3em;
+    width: 2em;
+    height: 2em;
+    background-size: 2em;
+  }
+  .burger-btn.visible-xs {
+    display: block;
+  }
+  .submenu {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
+  }
+  .main-menu > .row {
+    justify-content: space-between;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .header-cabinet {
+    width: 30px;
+    height: 44px;
+    overflow: hidden;
+  }
+  .header-cabinet::before {
+    top: 0.2em;
+    width: 3em;
+    height: 3em;
+    background-size: 3em;
+  }
+  .submenu-items {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .ekipirovka {
+    max-height: 14em;
+  }
+  .submenu-item {
+    width: 10em;
+    padding: 1rem 1rem;
+  }
+  .main-header {
+    flex-wrap: wrap;
+  }
+  .main-nav {
+    width: 100%;
+    padding-bottom: 1em;
+  }
+  .footer-links a {
+    margin-right: 2em;
+  }
+}

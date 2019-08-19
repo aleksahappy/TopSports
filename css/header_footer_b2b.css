@@ -1,0 +1,425 @@
+/* =====================================================================================================
+ Стили для шапки и её содержимого:
+===================================================================================================== */
+
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
+  z-index: 100;
+}
+
+.header-main {
+  padding: 1rem 0;
+  font-weight: 500;
+  background-color: rgb(255,255,255);
+}
+
+.header-main .container {
+  align-items: center;
+}
+
+.logo {
+  width: 50%;
+  height: 44px;
+  margin-right: 1em;
+}
+
+.logo img {
+  max-height: 44px;
+  max-width: 100%;
+}
+
+.profile-info {
+  width: 50%;
+  line-height: 1.5;
+}
+
+.cart, .account {
+  position: relative;
+  width: 50%;
+  padding-left: 3em;
+  z-index: 200;
+}
+
+.cart::before, .account::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  width: 2.5em;
+  height: 2.5em;
+  background-repeat: no-repeat;
+  background-size: 2.5em;
+}
+
+.cart::before {
+  background-image: url(../img/header_footer/ico_cart.png);
+}
+
+.cart:hover::before, .cart:active::before{
+  background-image: url(../img/header_footer/ico_cart_orange.png);
+}
+
+.account::before {
+  background-image: url(../img/header_footer/ico_profile.png);
+}
+
+.cart-amount, .cart-price {
+  display: inline-block;
+}
+
+.cart span {
+  font-weight: 700;
+}
+
+.cart-title {
+  color: rgb(241,89,42);
+}
+
+.account {
+  width: 13em;
+}
+
+.account-title {
+  font-weight: 700;
+  color: rgb(241,89,42);
+}
+
+.account-title::after {
+  content: '\f107';
+  font-family: 'FontAwesome';
+  padding-left: 0.7em;
+}
+
+.account:hover .account-title::after {
+  content: '\f106';
+}
+
+.account-username {
+  height: 1.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.account-menu {
+  display: none;
+  position: absolute;
+  top: 3em;
+  right: 0;
+  width: 13em;
+  background-color: rgb(255, 255, 255);
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(222, 222, 222, 0.7);
+}
+
+.account:hover .account-menu {
+  display: block;
+}
+
+.account-menu :first-child {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.account-menu :last-child {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.account-menu a {
+  width: 100%;
+  padding: 0.7em 1.4em;
+}
+
+.account-menu a:hover, .account-menu a:active {
+  color: rgb(255, 255, 255);
+  background-color: rgb(241,89,42);
+}
+
+.header-menu a {
+  margin-right: -2px;
+}
+
+.header-menu a:hover {
+  color: rgb(255,255,255);
+}
+
+.main-menu {
+  color: rgb(255,255,255);
+  background-color: rgb(31,34,41);
+}
+
+.main-menu > .row {
+  align-items: baseline;
+}
+
+.topmenu-item {
+  padding: 1rem 2rem;
+  /* font-family: 'TradeGothicProCyr'; */
+  font-family: 'FranklinGothic-DemiCond';
+  font-size: 1.8em;
+  line-height: 0.8;
+  text-transform: uppercase;
+  transition: 200ms;
+}
+
+.topmenu-item.activ,
+.topmenu-item:hover {
+  background-color: rgb(241,89,42);
+}
+
+.search {
+  position: relative;
+  align-self: center;
+  padding: 0.35em 0;
+  width: 40%;
+}
+
+.search .search-btn {
+  top: 10%;
+  right: 0.5em;
+  font-size: 1.5em;
+}
+
+#search {
+  width: 100%;
+  padding: 0.35em 2.5em 0.35em 0.7em;
+  font-size: 1em;
+  line-height: 1.2;
+  border-radius: 2px;
+  background-color: rgb(255,255,255);
+}
+
+.submenu {
+  background-color: rgb(243,243,246);
+}
+
+.submenu-items {
+  overflow: hidden;
+}
+
+.submenu-item {
+  padding: 1rem 2rem;
+  font-size: 1.15em;
+  transition: 200ms;
+}
+
+.submenu-item.activ,
+.submenu-item:hover {
+  background-color: rgb(172,177,186);
+}
+
+.subsubmenu {
+  background-color: rgb(246,246,248);
+}
+
+.header-select {
+  background-color: rgb(241,90,41);
+}
+
+.select-filters {
+  position: relative;
+  justify-content: flex-start;
+  align-items: center;
+  width: 65%;
+}
+
+.select-item {
+  margin-right: 3.125em;
+  padding: 0.5rem 0;
+}
+
+.select-filters .item-model {
+  margin-right: 0;
+}
+
+.item-brands {
+  width: 25%;
+}
+
+.item-year {
+  width: 25%;
+}
+
+.item-model {
+  width: 50%;
+}
+
+.select-filters .close-btn {
+  position: static;
+  margin-left: 0.8em;
+  font-size: 1.3em;
+  color: rgb(248,172,148);
+}
+
+.select-filters .close-btn.activ {
+  color: rgb(255,255,255);
+  opacity: 0.85;
+}
+
+.select-filters .close-btn.activ:hover {
+  opacity: 1;
+}
+
+.select-item select {
+  width: 100%;
+  height: 3rem;
+  padding: 0.5rem 0.75em;
+  font-size: 1em;
+  line-height: 1.2;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  background-color: rgb(255,255,255);
+  border: none;
+  border-radius: 2px;
+  outline: none;
+}
+
+.select-item select[disabled] {
+  opacity: 0.5;
+}
+
+.select-oem {
+  position: relative;
+  width: 25%;
+  margin-right: 0;
+  padding: 0.5rem 0;
+}
+
+.select-oem .search-btn {
+  top: 15%;
+  left: 0.5em;
+  font-size: 1.5em;
+}
+
+.select-oem .close-btn {
+  top: 25%;
+  right: 0.5em;
+  font-size: 1.2em;
+  color: rgb(180,180,180);
+}
+
+#oem {
+  width: 100%;
+  height: 3rem;
+  padding: 0.35em 0.7em 0.35em 2.5em;
+  font-size: 1em;
+  line-height: 1.5;
+  color: rgb(136,136,136);
+  background-color: rgb(255,255,255);
+  border-radius: 2px;
+}
+
+.oem-dropdown {
+  display: none;
+  position: absolute;
+  top: 80%;
+  width: 100%;
+  padding-top: 0.5em;
+  background-color: rgb(255,255,255);
+  border-radius: 2px;
+}
+
+.oem-not-found {
+  display: none;
+  padding: 0.35em 0.75em;
+  background-color: rgb(240,240,240);
+}
+
+#oem-list {
+  display: none;
+  max-height: 28em;
+  overflow-y: scroll;
+}
+
+.oem {
+  padding: 0.35em 0.75em;
+}
+
+.oem:hover{
+  background-color: rgb(0,136,204);
+}
+
+/* =====================================================================================================
+ Стили для футера и его содержимого:
+===================================================================================================== */
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  font-size: 1.4rem;
+  color: rgb(255, 255, 255);
+  background-color: rgb(31,34,41);
+  z-index: 100;
+}
+
+.footer-links, .footer-contacts, .copyright {
+  padding: 0.7em 0;
+}
+
+.footer-links {
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 0;
+}
+
+.footer-links a {
+  margin-right: 3em;
+  padding: 0.7em 0;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.footer-links a:last-child {
+  margin-right: 0;
+}
+
+.footer-links a:hover {
+  transition: 300ms;
+  color: rgb(241,89,42);
+}
+
+.youtube::before {
+  content: url(../img/header_footer/ico_youtube.png);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.youtube:hover {
+  transition: 300ms;
+  transform: scale(1.1);
+}
+
+.footer-contacts {
+  font-weight: 300;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-contacts > div {
+  margin-right: 2em;
+  padding: 0.35em 0;
+  text-align: center;
+}
+
+.footer-contacts :last-child {
+  margin-right: 0;
+}
+
+.decor {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.copyright {
+  font-size: 0.85em;
+  text-align: center;
+  border-top: 1px solid rgb(139,140,140);
+}
