@@ -265,7 +265,7 @@ body {
   background-repeat: no-repeat;
 }
 
-.open .filter-title::after {
+.filter.open .filter-title::after {
   background-position-x: 0;
 }
 
@@ -275,7 +275,7 @@ body {
   color: rgb(88, 88, 88);
 }
 
-.open .filter-items {
+.filter.open .filter-items {
   display: block;
 }
 
@@ -303,9 +303,11 @@ body {
   content: '\f046';
 }
 
-#filter-color .filter-items {
+#filter-color.open .filter-items {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
+  max-width: 15em;
 }
 
 #filter-color .filter-item {
@@ -667,6 +669,7 @@ body {
   padding: 0.7em;
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(232,232,232);
+  overflow: hidden;
   cursor: pointer;
 }
 

@@ -25,9 +25,9 @@ var pageId = document.body.id,
 
 var filterTemplate = document.querySelector('.filter').outerHTML,
     itemsTemplate = document.querySelector('.filter-items').innerHTML,
-    minCardTemplate = document.getElementById('card-#numb#'),
-    bigCardTemplate = document.getElementById('big-card-#numb#'),
-    fullCardTemplate = document.getElementById('full-card-#numb#');
+    minCardTemplate = document.getElementById('card-#object_id#'),
+    bigCardTemplate = document.getElementById('big-card-#object_id#'),
+    fullCardTemplate = document.getElementById('full-card-#object_id#');
 
 // Получение свойств #...# из шаблонов HTML:
 
@@ -59,7 +59,7 @@ var view = 'list',
 setCardTemplate();
 initFilters();
 checkFilters();
-changeCartInfo();
+changeCart();
 
 //=====================================================================================================
 // Визуальное отображение контента на странице:
@@ -217,10 +217,31 @@ function deleteCookie(key) {
 
 // Проверка сохраненных данных о корзине и их отображение:
 
-function changeCartInfo() {
-  if (getInfo('cartInfo') && cartAmount) {
-    cartAmount.textContent = getInfo('cartInfo').totalAmount;
-    cartPrice.textContent = convertPrice(getInfo('cartInfo').totalPrice);
+function changeCart() {
+  if (getInfo(`cartInfo_${pageId}`)) {
+    if (Object.keys(getInfo(`cartInfo_${pageId}`)).length != 0 && cartAmount) {
+      var cartInfo = getInfo(`cartInfo_${pageId}`),
+          totalAmountCart = 0,
+          totalPriceCart = 0;
+
+      for (var articul in cartInfo) {
+        var objectId = cartInfo[articul].objectId,
+            obj = items.find(item => item.object_id == objectId),
+            value = cartInfo[articul].qty,
+            curPrice = obj.price_preorder1 == 0 ? obj.price1 : obj.price_preorder1,
+            sizes = obj.sizes;
+        for (var key in sizes) {
+          if (sizes[key].articul == articul) {
+            value = value > sizes[key].free_qty ? sizes[key].free_qty : value;
+          }
+        }
+        var articulPrice = value * curPrice;
+        totalAmountCart += value;
+        totalPriceCart += articulPrice;
+      }
+      cartAmount.textContent = totalAmountCart;
+      cartPrice.textContent = convertPrice(totalPriceCart);
+    }
   }
 }
 
@@ -266,7 +287,7 @@ function createFilter(data) {
 function checkFilters() {
   if (getInfo(`filtInfo_${pageId}`)) {
     if (Object.keys(getInfo(`filtInfo_${pageId}`)).length != 0) {
-      var filtInfo = getInfo(`filtInfo_${pageId}`);
+      var filtersInfo = getInfo(`filtInfo_${pageId}`);
       for (var key in filtersInfo) {
         var filter = document.querySelector(`#filter-${key}`);
         if (filter) {
@@ -362,9 +383,11 @@ function createCard(card) {
     removeReplays(props, propsSizes);
 
     function createSizeInfo(info) {
-      var size = info.size ? info.size : 'В корзину',
-          sizesInfo = getInfo('sizesInfo'),
-          value = sizesInfo && sizesInfo[info.articul] ? sizesInfo[info.articul] : 0,
+      var cartInfo = getInfo(`cartInfo_${pageId}`),
+          size = info.size ? info.size : 'В корзину',
+          savedValue = cartInfo && cartInfo[info.articul] ? cartInfo[info.articul].qty : 0,
+          freeQty = info.free_qty,
+          value = (savedValue > freeQty) ? freeQty : savedValue,
           inCart = value == 0 ? '' : 'in-cart',
           qtyClass = info.free_qty != 0 ? '' : 'grey-gty',
           gtyTitle = info.free_qty != 0 ? 'В наличии' : 'Ожидается';
@@ -400,7 +423,7 @@ function createCard(card) {
     var propCard;
     if (prop == 'images') {
       propCard = `http://b2b.topsports.ru/c/productpage/${card.images[0]}.jpg`;
-    } else if (prop == 'price_preorder' && card.price_preorder1 < 1) {
+    } else if (prop == 'price_preorder' && card.price_preorder1 == 0) {
       newCard = newCard.replace('#price_preorder#⁠.-', '');
     } else if (prop == 'isHiddenCarousel') {
       propCard = card.images.length > 1 ? '' : 'displayNone';
@@ -420,7 +443,7 @@ function createCard(card) {
     } else if (prop == 'totalAmount') {
       propCard = totalValue;
     } else if (prop == 'totalPrice') {
-      propCard = convertPrice(totalValue * (card.price_preorder1 < 1 ? card.price1 : card.price_preorder1));
+      propCard = convertPrice(totalValue * (card.price_preorder1 == 0 ? card.price1 : card.price_preorder1));
     } else if (prop == 'notice') {
       propCard = card.free_qty != 0 ? 'Товар резервируется в момент подтверждения заказа!' : 'Товара нет в наличии!';
     } else if (card[prop] == undefined) {
@@ -608,9 +631,9 @@ function openBigCard(event) {
 
 // Отображение полной карточки товара:
 
-function showFullCard(numb) {
+function showFullCard(objectId) {
   cardTemplate = fullCardTemplate;
-  var fullCard = createCard(sortedItems.find(item => item.numb == numb));
+  var fullCard = createCard(items.find(item => item.object_id == objectId));
   fullCardContainer.innerHTML = fullCard;
   fullCardContainer.style.display = 'block';
   setCardTemplate();
@@ -643,11 +666,11 @@ function closeFullImg() {
 
 // Переключение картинок в карусели с помощью кнопок управления:
 
-function moveCarousel(numb) {
+function moveCarousel(objectId) {
   var card = event.currentTarget.closest('.card'),
       carousel = card.querySelector('.carousel'),
       imgCounter = parseInt(carousel.dataset.imgcounter),
-      images = sortedItems.find(item => item.numb == numb).images,
+      images = items.find(item => item.object_id == objectId).images,
       lastImg = images.length - 1,
       imageWidth = carousel.querySelector('.carousel-item').clientWidth,
       carouselInner = carousel.querySelector('.carousel-inner');
@@ -676,8 +699,8 @@ window.addEventListener('resize', () => {
 });
 
 function toggleDisplayBtns(card) {
-  var numb = parseInt(card.dataset.numb),
-      images = sortedItems.find(item => item.numb == numb).images,
+  var objectId = parseInt(card.dataset.objectId),
+      images = items.find(item => item.object_id == objectId).images,
       carousel = card.querySelector('.carousel'),
       imageWidth = carousel.querySelector('.carousel-item').clientWidth,
       carouselWidth = carousel.querySelector('.carousel-gallery').clientWidth,

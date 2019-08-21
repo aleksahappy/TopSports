@@ -17,8 +17,8 @@ function onFocusInput(input) {
 function onBlurInput(input) {
   if (input.value == '') {
     input.value = 0;
+    changeValue(event);
   }
-  changeValue(event);
 }
 
 // Запрет на ввод в инпут любого значения кроме цифр:
@@ -49,18 +49,14 @@ function getChar(event) {
 
 // Изменение информации о выбранном количестве товара и его стоимости:
 
-function changeValue(event) {
+function changeValue(objectId) {
   var card = event.currentTarget.closest('.card'),
       size = event.currentTarget.closest('.card-size'),
       articul = size.querySelector('.size-articul').textContent.replace('Артикул: ', ''),
       input = size.querySelector('.choice-gty'),
       inputValue = parseInt(input.value),
       qty = size.querySelector('.card-qty'),
-      qtyValue = parseInt(qty.textContent),
-      curPrice = input.dataset.price;
-
-  var totalAmount = getInfo('cartInfo') ? getInfo('cartInfo').totalAmount : 0;
-  var totalPrice = getInfo('cartInfo') ? getInfo('cartInfo').totalPrice : 0;
+      qtyValue = parseInt(qty.textContent);
 
   if (event.currentTarget.value === undefined) {
     var sign = event.currentTarget.textContent;
@@ -83,17 +79,12 @@ function changeValue(event) {
     }
   }
   input.value = inputValue;
-
-  var change = inputValue - parseInt(input.dataset.value);
-  totalAmount = totalAmount + change;
-  totalPrice = totalPrice + change * curPrice;
-
   input.dataset.value = inputValue;
+
   changeColors(size, inputValue);
-  saveSizesInfo(articul, inputValue);
-  changeCardInfo(card);
-  saveCartInfo(totalAmount, totalPrice);
-  changeCartInfo();
+  changeCard(card);
+  saveCartInfo(articul, inputValue, objectId);
+  changeCart();
 }
 
 // Изменение цвета элементов карточки при измении количества выбранных товаров:
@@ -106,30 +97,9 @@ function changeColors(size, inputValue) {
   }
 }
 
-// Сохранение данных о выбранных размерах:
-
-function saveSizesInfo(key, value) {
-  var sizesInfo = getInfo(`sizesInfo_${pageId}`) ? getInfo(`sizesInfo_${pageId}`) : {};
-  if (value == 0) {
-    delete sizesInfo[key];
-  } else {
-    sizesInfo[key] = value;
-  }
-  saveInfo(`sizesInfo_${pageId}`, sizesInfo);
-}
-
-// Сохранение данных о состоянии корзины:
-
-function saveCartInfo(totalAmount, totalPrice) {
-  var cartInfo = getInfo(`cartInfo_${pageId}`)? getInfo('cartInfo') : {};
-  cartInfo.totalAmount = totalAmount;
-  cartInfo.totalPrice = totalPrice;
-  saveInfo(`cartInfo_${pageId}`, cartInfo);
-}
-
 // Изменение информации о выбранном количестве товара и его стоимости в карточке товара:
 
-function changeCardInfo(card) {
+function changeCard(card) {
   var selectInfo = card.querySelector('.card-select-info'),
       sizes = card.querySelectorAll('.choice-gty'),
       curPrice = sizes[0].dataset.price,
@@ -148,4 +118,20 @@ function changeCardInfo(card) {
   } else {
     selectInfo.style.visibility = 'hidden';
   }
+}
+
+// Сохранение данных о состоянии корзины:
+
+function saveCartInfo(articul, value, objectId) {
+  var cartInfo = getInfo(`cartInfo_${pageId}`)? getInfo(`cartInfo_${pageId}`) : {};
+  if (value == 0) {
+    delete cartInfo[articul];
+  } else {
+    if (!cartInfo[articul]) {
+      cartInfo[articul] = {};
+    }
+    cartInfo[articul].qty = value;
+    cartInfo[articul].objectId = objectId;
+  }
+  saveInfo(`cartInfo_${pageId}`, cartInfo);
 }

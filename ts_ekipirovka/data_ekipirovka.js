@@ -3,7 +3,6 @@
 // Преобразование исходных данных:
 
 items.forEach((item, index) => {
-  item.numb = index;
   item.images = item.images.toString().split(';');
 });
 

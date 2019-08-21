@@ -131,7 +131,7 @@
             </div>
           </div>
           <div id="gallery" class="row">
-            <div id="card-#numb#" class="min-card col" onclick="showFullCard(#numb#)">
+            <div id="card-#object_id#" class="min-card col" onclick="showFullCard(#object_id#)">
               <img class="card-img" src="#images#" alt="#title#">
               <div class="card-promo">
                 <div class="promo-title" style="background-color: #actioncolor#">#actiontitle#</div>
@@ -145,7 +145,7 @@
                 <div class="card-qty #isAvaliable#" title="#qtyTitle#"></div>
               </div>
             </div>
-            <div id="big-card-#numb#" class="big-card card" data-numb="#numb#">
+            <div id="big-card-#object_id#" class="big-card card" data-object-id="#object_id#">
               <div class="big-card-head row">
                 <div class="card-head">
                     <div class="card-title">#title#</div>
@@ -167,8 +167,8 @@
               <div class="big-card-body row">
                 <div class="card-container-left row">
                   <div class="carousel" data-imgcounter="0">
-                    <span class="left-btn" onclick="moveCarousel(#numb#)"></span>
-                    <span class="right-btn #isHiddenBtn#" onclick="moveCarousel(#numb#)"></span>
+                    <span class="left-btn" onclick="moveCarousel(#object_id#)"></span>
+                    <span class="right-btn #isHiddenBtn#" onclick="moveCarousel(#object_id#)"></span>
                     <div class="carousel-container">
                       <div class="carousel-gallery">
                         <div class="carousel-inner row">
@@ -206,9 +206,9 @@
                       <div class="size-choice row">
                         <span class="size-name">#size#</span>
                         <span class="size-qty row">
-                          <span class="btn-minus" title="Уменьшить" onclick="changeValue(event)">-</span>
-                          <input class="choice-gty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" onchange="changeValue(event)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
-                          <span class="btn-plus" title="Увеличить" onclick="changeValue(event)">+</span>
+                          <span class="btn-minus" title="Уменьшить" onclick="changeValue(#object_id#)">-</span>
+                          <input class="choice-gty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" onchange="changeValue(#object_id#)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
+                          <span class="btn-plus" title="Увеличить" onclick="changeValue(#object_id#)">+</span>
                         </span>
                       </div>
                       <div class="card-qty #isAvaliable#" title="#qtyTitle#">#free_qty#&nbsp;шт.</div>
@@ -230,7 +230,7 @@
             <div>По выбранным фильтрам товаров не найдено</div>
           </div>
           <div id="full-card-container" onclick="closeFullCard(event)">
-            <div id="full-card-#numb#" class="full-card card" data-numb="#numb#">
+            <div id="full-card-#object_id#" class="full-card card" data-object-id="#object_id#">
               <div class="close-btn"></div>
               <div class="card-container row">
                 <div class="card-imgbox">
@@ -239,8 +239,8 @@
                     <img id="img" class="card-img" src="#images#" alt="#title#">
                   </div>
                   <div class="carousel #isHiddenCarousel#" data-imgcounter="0">
-                    <span class="left-btn" onclick="moveCarousel(#numb#)"></span>
-                    <span class="right-btn" onclick="moveCarousel(#numb#)"></span>
+                    <span class="left-btn" onclick="moveCarousel(#object_id#)"></span>
+                    <span class="right-btn" onclick="moveCarousel(#object_id#)"></span>
                     <div class="carousel-container">
                       <div class="carousel-gallery">
                         <div class="carousel-inner row">
@@ -284,9 +284,9 @@
                       <div class="size-choice row">
                         <span class="size-name">#size#</span>
                         <span class="size-qty row">
-                          <span class="btn-minus" title="Уменьшить" onclick="changeValue(event)">-</span>
-                          <input class="choice-gty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" onchange="changeValue(event)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
-                          <span class="btn-plus" title="Увеличить" onclick="changeValue(event)">+</span>
+                          <span class="btn-minus" title="Уменьшить" onclick="changeValue(#object_id#)">-</span>
+                          <input class="choice-gty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" onchange="changeValue(#object_id#)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
+                          <span class="btn-plus" title="Увеличить" onclick="changeValue(#object_id#)">+</span>
                         </span>
                       </div>
                       <div class="card-qty #isAvaliable#" title="#qtyTitle#">#free_qty#&nbsp;шт.</div>
@@ -341,7 +341,8 @@
       </div>
     </div>
 
-    <script src ="http://api.topsports.ru/spad/q2.php"></script>
+    <!-- <script src ="http://api.topsports.ru/spad/q2.php"></script> -->
+    <script src ="../../stand/qzip.php"></script>
     <script src="data_zip.js"></script>
     <script src="../js/content.js"></script>
     <script src="../js/cart.js"></script>
