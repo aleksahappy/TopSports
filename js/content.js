@@ -319,7 +319,7 @@ function loadCards(cards) {
   }
 
   var incr;
-  if (window.innerWidth > 2500) {
+  if (window.innerWidth > 2000) {
     incr = 60;
   } else if (window.innerWidth < 1000) {
     incr = 20;
@@ -358,7 +358,8 @@ function createCard(card) {
     var listOptions = '',
         optionsTemplate = cardTemplate.querySelector('.card-options').innerHTML,
         propsOptions = extractProps(optionsTemplate);
-    if (card.options != 0) {
+    removeReplays(props, propsOptions);
+    if (card.options) {
       for (var option in card.options) {
         var newOption = optionsTemplate
           .replace('#optitle#', optnames[option])
@@ -367,12 +368,12 @@ function createCard(card) {
       }
     }
     newCard = newCard.replace(optionsTemplate, listOptions);
-    removeReplays(props, propsOptions);
 
     var listSizes ='',
         sizesTemplate = cardTemplate.querySelector('.card-sizes').innerHTML,
         propsSizes = extractProps(sizesTemplate);
-    if (card.sizes != 0) {
+    removeReplays(props, propsSizes);
+    if (card.sizes) {
       for (var item in card.sizes) {
         createSizeInfo(card.sizes[item]);
       }
@@ -380,7 +381,6 @@ function createCard(card) {
       createSizeInfo(card);
     }
     newCard = newCard.replace(sizesTemplate, listSizes);
-    removeReplays(props, propsSizes);
 
     function createSizeInfo(info) {
       var cartInfo = getInfo(`cartInfo_${pageId}`),
@@ -407,6 +407,7 @@ function createCard(card) {
     var listCarousel = '',
         carouselTemplate = cardTemplate.querySelector('.carousel-inner').innerHTML,
         propsCarousel = extractProps(carouselTemplate);
+    removeReplays(props, propsCarousel);
     for (var i = 0; i < card.images.length; i++) {
       var newCarouselItem = carouselTemplate
         .replace(/#imgNumb#/gi, i)
@@ -415,7 +416,6 @@ function createCard(card) {
       listCarousel += newCarouselItem;
     }
     newCard = newCard.replace(carouselTemplate, listCarousel);
-    removeReplays(props, propsCarousel);
   }
 
   for (var prop of props) {

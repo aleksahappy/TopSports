@@ -3,7 +3,7 @@
     font-size: 1.6rem;
   }
   .container {
-    max-width: 1524px;
+    max-width: 1724px;
     margin: 0 auto;
   }
   .full-card {
@@ -22,7 +22,7 @@
 
 @media only screen and (max-width: 1439px) {
   .container {
-    margin: 0 5rem;
+    margin: 0 4rem;
   }
 }
 

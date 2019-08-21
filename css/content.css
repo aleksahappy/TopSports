@@ -51,7 +51,7 @@ body {
 }
 
 .container {
-  margin: 0 7rem;
+  margin: 0 5rem;
 }
 
 /* =====================================================================================================
@@ -214,14 +214,14 @@ body {
 
 .filters-container {
   display: none;
-  min-width: 14em;
+  min-width: 16em;
   margin-right: 1rem;
   cursor: pointer;
 }
 
 .filters {
   position: fixed;
-  width: 14em;
+  width: 16em;
   padding-right: 1.5em;
   padding-bottom: 1em;
   overflow-y: scroll;
@@ -306,7 +306,7 @@ body {
 #filter-color.open .filter-items {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   max-width: 15em;
 }
 

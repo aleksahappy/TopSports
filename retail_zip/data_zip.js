@@ -15,50 +15,22 @@ var specialOffer = {
   'Распродажа': 'sale'
 };
 
-var use = {
-  'Мотоцикл': 'moto',
-  'Квадроцикл': 'quadro',
-  'Велосипед': 'velo',
-  'Скейтборд': 'skatebord',
-  'Снегоход': 'sneghod',
-  'Сноубайк': 'snegbike',
-  'Сноуборд': 'snegbord',
-  'Горные лыжи': 'gornie',
-  'Фитнесс': 'fitness'
-};
-
-var ages = {
-  'Взрослые':'adult',
-  'Дети': 'child'
-};
-
-var gender = {
-  'Муж.':'male',
-  'Жен.':'female'
-};
-
-var sizes = {
-  '2XS': "1",
-  'XS': "1",
-  'S': "1",
-  'M': "1",
-  'L': "1",
-  'XL': "1",
-  '2XL': "1",
-  '3XL': "1",
-  '4XL': "1"
-};
+for (var cat in cats) {
+  var key = cats[cat];
+  delete cats[cat];
+  cats[key] = 1;
+}
 
 var colors = {
-  'Белый': 'white',
-  'Черный': 'black',
-  'Металик': '',
-  'Красный': '',
-  'Синий': '',
-  'Графитовый': '',
-  'Желтый': '',
-  'Серый': '',
-  'Оранжевый': ''
+  "Белый": 'white',
+  "Черный": 'black',
+  "Красный": 'red',
+  "Желтый": 'yellow',
+  "Серый": 'grey',
+  "Оранжевый": 'orange',
+  "Синий": 'blue', // нет в массиве
+  "Металик": 'metallic', // нет в массиве
+  "Графитовый": 'graphite' // нет в массиве
 };
 
 // Данные, которые будут переданы для создания фильтров:
@@ -69,27 +41,48 @@ var dataForFilters = [{
   key: 'specialOffer',
   items: specialOffer
 }, {
+  title: 'Категория',
+  isShow: true,
+  key: 'cat',
+  items: cats
+}, {
   title: 'Бренд',
   key: 'brand',
   items: brands
-}, {
-  title: 'Применяемость',
-  key: 'use',
-  items: use
-}, {
-  title: 'Возраст',
-  key: 'age',
-  items: ages
-}, {
-  title: 'Пол',
-  key: 'gender',
-  items: gender
-}, {
-  title: 'Размер',
-  key: 'size',
-  items: sizes
 }, {
   title: 'Цвет',
   key: 'color',
   items: colors
 }];
+
+
+var manuf = items[113].manuf;
+
+var newData = convertData(manuf);
+console.log(newData);
+
+function convertData(data) {
+  var manufData = JSON.parse(data);
+  console.log(manufData);
+  var manufInfo =  {};
+
+  for (var man in manufData.man) {
+    manufInfo[man] = {};
+    for (var k in manufData) {
+      manufInfo[man][k] = [];
+      for (var kk in manufData[k]) {
+        if (kk == man) {
+          manufInfo[man][k].push(kk);
+        } else {
+          for (var kkk in manufData[k][kk]) {
+            if (kkk = man) {
+              manufInfo[man][k].push(kk);
+            }
+          }
+        }
+      }
+      manufInfo[man][k].join(', ');
+    }
+  }
+  return manufInfo;
+}
