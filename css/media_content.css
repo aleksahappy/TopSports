@@ -27,6 +27,12 @@
 }
 
 @media only screen and (max-width: 1280px) {
+  .filters-container {
+    width: 25%;
+  }
+  #gallery {
+    width: 75%;
+  }
   .big-card .card-head {
     max-width: 100%;
     min-width: 0;
@@ -41,9 +47,6 @@
   .big-card .card-container-left {
     max-width: 100%;
     padding-right: 0;
-  }
-  .big-card .card-options-container {
-    max-width: 45em;
   }
   .big-card .card-select-info {
     text-align: left;
@@ -63,6 +66,12 @@
   .container {
     margin: 0 3rem;
   }
+  .filters-container {
+    width: 35%;
+  }
+  #gallery {
+    width: 65%;
+  }
   .big-card {
     height: 17em;
   }
@@ -71,6 +80,9 @@
   }
   .big-card .card-info-title {
     justify-content: flex-start;
+  }
+  .big-card .card-options-container {
+    max-width: 100%;
   }
   .full-card {
     max-width: 90%;
@@ -99,11 +111,22 @@
   .dealer-button {
     font-size: 1.5em;
   }
+  .filters-container {
+    max-width: 13em;
+    width: 100%;
+  }
+  .filters {
+    width: 13em;
+  }
+  #gallery {
+    width: 100%;
+  }
   .content.list {
     flex-direction: column;
     justify-content: flex-start;
   }
   .content.list .filters-container {
+    max-width: 100%;
     width: 100%;
     margin-right: 0;
   }
@@ -113,11 +136,8 @@
     height: 100% !important;
     padding-right: 0;
   }
-  .filters-container {
-    min-width: 13em;
-  }
-  .filters {
-    width: 13em;
+  .content.list #gallery {
+    width: 100%;
   }
   .big-card .card-info-title {
     min-width: 0;
@@ -127,6 +147,7 @@
   }
   .big-card .card-options-container {
     width: auto;
+    min-width: 25em;
   }
   .big-card .card-fade {
     width: 100%;
@@ -153,6 +174,9 @@
   .full-card .carousel-item {
     width: 250px;
   }
+  .full-card .card-info {
+    width: 100%;
+  }
 }
 
 @media only screen and (max-width: 480px) {
@@ -174,6 +198,7 @@
   }
   .filters-container {
     width: 100%;
+    max-width: 100%;
     margin-right: 0;
   }
   .filters {

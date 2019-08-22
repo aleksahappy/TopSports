@@ -214,7 +214,7 @@ body {
 
 .filters-container {
   display: none;
-  min-width: 16em;
+  width: 20%;
   margin-right: 1rem;
   cursor: pointer;
 }
@@ -308,6 +308,7 @@ body {
   flex-wrap: wrap;
   justify-content: flex-start;
   max-width: 15em;
+  margin: 0 auto;
 }
 
 #filter-color .filter-item {
@@ -421,7 +422,7 @@ body {
   display: none;
   flex-wrap: wrap;
   justify-content: flex-start;
-  width: 100%;
+  width: 80%;
 }
 
 #gallery-notice {
@@ -660,6 +661,30 @@ body {
   padding-bottom: 0.5em;
 }
 
+.card-manuf-info {
+  width: 100%;
+}
+
+.manuf-table {
+  font-size: 0.85em;
+  border-collapse: collapse;
+}
+
+.manuf-table th {
+  padding: 0.1em 0.3em;
+  font-weight: 400;
+  border: 1px solid rgb(232,232,232);
+}
+
+.manuf-table td {
+  padding: 0.1em 0.3em;
+  border: 1px solid rgb(232,232,232);
+}
+
+.manuf-table .manuf-oem {
+  min-width: 8em;
+}
+
 /* Стили для малой карточки: */
 
 .min-card {
@@ -769,7 +794,7 @@ body {
 
 .big-card .card-options-container {
   width: 100%;
-  min-width: 25em;
+  max-width: 45em;
   font-size: 0.85em;
   overflow: hidden;
 }
@@ -860,7 +885,8 @@ body {
   border: 1px solid rgb(188,188,188);
   border-radius: 4px;
   box-shadow: 1px -2px 3px 0 rgba(100,100,100,0.5);
-  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .full-card .close-btn {
@@ -873,15 +899,16 @@ body {
   color: rgb(241,90,41);
 }
 
+.full-card .card-imgbox {
+  position: relative;
+  width: 40%;
+  margin-right: 1.5em;
+  cursor: pointer;
+}
+
 .full-card .card-imgbox-container {
   width: 300px;
   margin: 1em auto;
-}
-
-.full-card .card-imgbox {
-  position: relative;
-  margin-right: 1.5em;
-  cursor: pointer;
 }
 
 .full-card .zoom-btn {
@@ -909,6 +936,7 @@ body {
 
 .full-card .card-info {
   justify-content: flex-start;
+  width: 60%;
 }
 
 .full-card .card-head {
@@ -931,6 +959,10 @@ body {
 }
 
 .full-card .card-options {
+  padding-bottom: 1.5em;
+}
+
+.full-card .card-manuf-info {
   padding-bottom: 1.5em;
 }
 

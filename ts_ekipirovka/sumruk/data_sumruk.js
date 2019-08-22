@@ -18,7 +18,7 @@ var specialOffer = {
 
 var sumruk = {};
 for (var cat in cats) {
-  if (cats[cat] == '51') {
+  if (cats[cat] == '52') {
     sumruk[cat] = '1';
   }
 }

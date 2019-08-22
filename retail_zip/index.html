@@ -189,6 +189,19 @@
                         <div class="option-info">#opinfo#</div>
                       </div>
                     </div>
+                    <div class="card-manuf-info hidden-xs #isHiddenManuf#">
+                      <table class="manuf-table">
+                        <tr class="grey">
+                          <th>Производитель</th>
+                          <th class="manuf-oem">ОЕМ</th>
+                          <th>Модель</th>
+                          <th>Год</th>
+                        </tr>
+                        <tr class="manuf-info">
+                          <td>#info#</td>
+                        </tr>
+                      </table>
+                    </div>
                   </div>
                 </div>
                 <div class="card-container-right">
@@ -215,7 +228,7 @@
                   </div>
                   <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
                   <div class="card-notice red">#notice#</div>
-                  <div class="card-description hidden-xs">
+                  <div class="card-description hidden-xs #isHiddenDesc#">
                     <div class="description-title">Описание:</div>
                     <div class="card-text">#desc#</div>
                   </div>
@@ -277,6 +290,19 @@
                       <div class="option-info">#opinfo#</div>
                     </div>
                   </div>
+                  <div class="card-manuf-info hidden-xs #isHiddenManuf#">
+                    <table class="manuf-table">
+                      <tr class="grey">
+                        <th>Производитель техники</th>
+                        <th>ОЕМ</th>
+                        <th>Модель техники</th>
+                        <th>Год модели техники</th>
+                      </tr>
+                      <tr class="manuf-info">
+                        <td>#info#</td>
+                      </tr>
+                    </table>
+                  </div>
                   <div class="card-sizes row">
                     <div class="card-size #inCart#">
                       <div class="size-articul grey">Артикул: #articul#</div>
@@ -299,7 +325,7 @@
                   </div>
                 </div>
               </div>
-              <div class="card-description hidden-xs">
+              <div class="card-description hidden-xs #isHiddenDesc#">
                 <div class="description-title">Описание:</div>
                 <div class="card-text">#desc#</div>
               </div>
@@ -340,7 +366,8 @@
       </div>
     </div>
 
-    <script src ="../../../stand/qzip.php"></script>
+    <!-- <script src ="../../../stand/qzip.php"></script> -->
+    <script src ="qzip.js"></script>
     <script src="data_zip.js"></script>
     <script src="../js/content.js"></script>
     <script src="../js/cart.js"></script>

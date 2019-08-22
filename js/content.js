@@ -218,30 +218,28 @@ function deleteCookie(key) {
 // Проверка сохраненных данных о корзине и их отображение:
 
 function changeCart() {
-  if (getInfo(`cartInfo_${pageId}`)) {
-    if (Object.keys(getInfo(`cartInfo_${pageId}`)).length != 0 && cartAmount) {
-      var cartInfo = getInfo(`cartInfo_${pageId}`),
-          totalAmountCart = 0,
-          totalPriceCart = 0;
+  if (getInfo(`cartInfo_${pageId}`) && cartAmount) {
+    var cartInfo = getInfo(`cartInfo_${pageId}`),
+        totalAmountCart = 0,
+        totalPriceCart = 0;
 
-      for (var articul in cartInfo) {
-        var objectId = cartInfo[articul].objectId,
-            obj = items.find(item => item.object_id == objectId),
-            value = cartInfo[articul].qty,
-            curPrice = obj.price_preorder1 == 0 ? obj.price1 : obj.price_preorder1,
-            sizes = obj.sizes;
-        for (var key in sizes) {
-          if (sizes[key].articul == articul) {
-            value = value > sizes[key].free_qty ? sizes[key].free_qty : value;
-          }
+    for (var articul in cartInfo) {
+      var objectId = cartInfo[articul].objectId,
+          obj = items.find(item => item.object_id == objectId),
+          value = cartInfo[articul].qty,
+          curPrice = obj.price_preorder1 == 0 ? obj.price1 : obj.price_preorder1,
+          sizes = obj.sizes;
+      for (var key in sizes) {
+        if (sizes[key].articul == articul) {
+          value = value > sizes[key].free_qty ? sizes[key].free_qty : value;
         }
-        var articulPrice = value * curPrice;
-        totalAmountCart += value;
-        totalPriceCart += articulPrice;
       }
-      cartAmount.textContent = totalAmountCart;
-      cartPrice.textContent = convertPrice(totalPriceCart);
+      var articulPrice = value * curPrice;
+      totalAmountCart += value;
+      totalPriceCart += articulPrice;
     }
+    cartAmount.textContent = totalAmountCart;
+    cartPrice.textContent = convertPrice(totalPriceCart);
   }
 }
 
@@ -358,28 +356,31 @@ function createCard(card) {
     var listOptions = '',
         optionsTemplate = cardTemplate.querySelector('.card-options').innerHTML,
         propsOptions = extractProps(optionsTemplate);
-    removeReplays(props, propsOptions);
-    if (card.options) {
+    if (card.options && card.options != 0) {
       for (var option in card.options) {
-        var newOption = optionsTemplate
+        console.log(option);
+        if (option != 7 && option != 31 && option != 32 && option != 33) {
+          var newOption = optionsTemplate
           .replace('#optitle#', optnames[option])
           .replace('#opinfo#', card.options[option]);
         listOptions += newOption;
+        }
       }
     }
+    removeReplays(props, propsOptions);
     newCard = newCard.replace(optionsTemplate, listOptions);
 
     var listSizes ='',
         sizesTemplate = cardTemplate.querySelector('.card-sizes').innerHTML,
         propsSizes = extractProps(sizesTemplate);
-    removeReplays(props, propsSizes);
-    if (card.sizes) {
+    if (card.sizes && card.sizes != 0) {
       for (var item in card.sizes) {
         createSizeInfo(card.sizes[item]);
       }
     } else {
       createSizeInfo(card);
     }
+    removeReplays(props, propsSizes);
     newCard = newCard.replace(sizesTemplate, listSizes);
 
     function createSizeInfo(info) {
@@ -407,7 +408,6 @@ function createCard(card) {
     var listCarousel = '',
         carouselTemplate = cardTemplate.querySelector('.carousel-inner').innerHTML,
         propsCarousel = extractProps(carouselTemplate);
-    removeReplays(props, propsCarousel);
     for (var i = 0; i < card.images.length; i++) {
       var newCarouselItem = carouselTemplate
         .replace(/#imgNumb#/gi, i)
@@ -415,7 +415,49 @@ function createCard(card) {
         .replace('#image#', `http://b2b.topsports.ru/c/productpage/${card.images[i]}.jpg`);
       listCarousel += newCarouselItem;
     }
+    removeReplays(props, propsCarousel);
     newCard = newCard.replace(carouselTemplate, listCarousel);
+
+    if (card.manuf) {
+      var listManufInfo = '',
+          manufRowTemplate = cardTemplate.querySelector('.manuf-info').outerHTML,
+          manufcellTemplate = cardTemplate.querySelector('.manuf-info').innerHTML,
+          propsManufInfo = extractProps(manufRowTemplate);
+      removeReplays(props, propsManufInfo);
+
+      var manufData;
+      try {
+        manufData = JSON.parse(card.manuf);
+      }
+      catch(error) {
+        console.error(error);
+      }
+      for (var man in manufData.man) {
+        var newRow = manufRowTemplate;
+        var listCells = '';
+        for (var k in manufData) {
+          var newCell = manufcellTemplate;
+          var cell = [];
+          for (var kk in manufData[k]) {
+            if (kk == man) {
+              cell.push(kk);
+            } else {
+              for (var kkk in manufData[k][kk]) {
+                if (kkk == man) {
+                  cell.push(kk);
+                }
+              }
+            }
+          }
+          cell = cell.join(', ');
+          newCell = newCell.replace('#info#', cell);
+          listCells += newCell;
+        }
+        newRow = newRow.replace(manufcellTemplate, listCells);
+        listManufInfo += newRow;
+      }
+      newCard = newCard.replace(manufRowTemplate, listManufInfo);
+    }
   }
 
   for (var prop of props) {
@@ -446,6 +488,10 @@ function createCard(card) {
       propCard = convertPrice(totalValue * (card.price_preorder1 == 0 ? card.price1 : card.price_preorder1));
     } else if (prop == 'notice') {
       propCard = card.free_qty != 0 ? 'Товар резервируется в момент подтверждения заказа!' : 'Товара нет в наличии!';
+    } else if (prop == 'isHiddenManuf') {
+      propCard = card.manuf ? '' : 'displayNone';
+    } else if (prop == 'isHiddenDesc') {
+      propCard = card.desc == '' ? 'displayNone' : '';
     } else if (card[prop] == undefined) {
       propCard = '';
     } else {

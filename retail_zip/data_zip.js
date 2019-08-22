@@ -29,8 +29,8 @@ var colors = {
   "Серый": 'grey',
   "Оранжевый": 'orange',
   "Синий": 'blue', // нет в массиве
-  "Металик": 'metallic', // нет в массиве
-  "Графитовый": 'graphite' // нет в массиве
+  // "Металик": 'metallic', // нет в массиве
+  // "Графитовый": 'graphite' // нет в массиве
 };
 
 // Данные, которые будут переданы для создания фильтров:
@@ -54,35 +54,3 @@ var dataForFilters = [{
   key: 'color',
   items: colors
 }];
-
-
-var manuf = items[113].manuf;
-
-var newData = convertData(manuf);
-console.log(newData);
-
-function convertData(data) {
-  var manufData = JSON.parse(data);
-  console.log(manufData);
-  var manufInfo =  {};
-
-  for (var man in manufData.man) {
-    manufInfo[man] = {};
-    for (var k in manufData) {
-      manufInfo[man][k] = [];
-      for (var kk in manufData[k]) {
-        if (kk == man) {
-          manufInfo[man][k].push(kk);
-        } else {
-          for (var kkk in manufData[k][kk]) {
-            if (kkk = man) {
-              manufInfo[man][k].push(kk);
-            }
-          }
-        }
-      }
-      manufInfo[man][k].join(', ');
-    }
-  }
-  return manufInfo;
-}
