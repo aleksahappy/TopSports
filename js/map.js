@@ -27,6 +27,7 @@ function mapResize() {
 function showDealersList(event) {
   event.preventDefault();
   dealersList.style.display = 'block';
+  document.getElementById('full-card-container').style.zIndex = 0;
   mapResize();
 }
 
@@ -34,4 +35,5 @@ function showDealersList(event) {
 
 function hideDealersList() {
   dealersList.style.display = 'none';
+  document.getElementById('full-card-container').style.zIndex = 30;
 }

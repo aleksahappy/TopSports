@@ -10,7 +10,7 @@
   font-size: 1.4rem;
   line-height: 1.2;
   box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
-  z-index: 100;
+  z-index: 10;
 }
 
 .header-main {
@@ -43,7 +43,7 @@
   position: relative;
   width: 50%;
   padding-left: 3em;
-  z-index: 200;
+  z-index: 20;
 }
 
 .cart::before, .account::before {
@@ -142,10 +142,11 @@
 }
 
 .header-menu a {
-  margin-right: -2px;
+  margin-right: -0.15em;
 }
 
-.header-menu a:hover {
+.header-menu a:hover,
+.header-menu a.activ {
   color: rgb(255,255,255);
 }
 
@@ -357,7 +358,7 @@
   font-size: 1.4rem;
   color: rgb(255, 255, 255);
   background-color: rgb(31,34,41);
-  z-index: 100;
+  z-index: 5;
 }
 
 .footer-links, .footer-contacts, .copyright {

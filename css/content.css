@@ -307,7 +307,6 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  max-width: 15em;
   margin: 0 auto;
 }
 
@@ -446,7 +445,6 @@ body {
 
 .card-img {
   width: 100%;
-  min-height: 11.43em;
 }
 
 .promo-title {
@@ -461,7 +459,7 @@ body {
   align-items: baseline;
 }
 
-.card-price :first-child {
+.card-price .card-price-title {
   padding-right: 1em;
 }
 
@@ -470,8 +468,8 @@ body {
   align-items: center;
 }
 
-.old-price {
-  padding-right: 0.5em;
+.new-price {
+  padding-left: 0.5em;
 }
 
 .card-qty {
@@ -570,6 +568,10 @@ body {
   text-overflow: ellipsis;
 }
 
+.option-title {
+  max-width: 15em;
+}
+
 .card-price-info {
   font-size: 0.85em;
   font-style: italic;
@@ -595,7 +597,7 @@ body {
 
 .size-name {
   width: 6.5em;
-  padding: 0.375em 0.5em;
+  padding: 0.37em 0.5em;
   background-color: rgb(249,249,249);
   border: 1px solid rgb(161,151,147);
   border-radius: 2px 0 0px 2px;
@@ -605,6 +607,7 @@ body {
 .in-cart .size-name {
   color: rgb(255,255,255);
   background-color: rgb(31,34,41);
+  border-color: rgb(0,0,0);
 }
 
 .size-qty {
@@ -685,33 +688,54 @@ body {
   min-width: 8em;
 }
 
+.manuf-table .manuf-model {
+  min-width: 5em;
+}
+
 /* Стили для малой карточки: */
 
 .min-card {
   width: 13em;
-  height: 21.5em;
   margin: 0 -1px -1px 0;
-  padding: 0.7em;
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(232,232,232);
   overflow: hidden;
   cursor: pointer;
 }
 
+.min-card:hover {
+  border: 1px solid rgb(188,188,188);
+  z-index: 1;
+}
+
+.min-card .card-imgbox-container {
+  display: flex;
+  align-items: center;
+  height: 178px;
+  margin: 0 auto;
+}
+
+.min-card .card-img {
+  max-width: 178px;
+}
+
 .min-card .card-promo {
-  height: 2.5em;
+  height: 1.7em;
   margin-bottom: 0.5em;
+  padding: 0 0.7em;
 }
 
 .min-card .card-title {
-  height: 6em;
+  height: 4.5em;
+  padding: 0 0.7em;
   margin-bottom: 0.5em;
-  overflow: auto;
+  overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .min-card .card-price-container {
   justify-content: space-between;
+  padding: 0 0.7em 0.7em 0.7em;
   align-items: center;
   width: 100%;
 }
@@ -774,10 +798,17 @@ body {
 
 .big-card .card-container-left {
   justify-content: flex-start;
-  width: 100%;
-  max-width: 45em;
   padding-right: 1em;
   margin-bottom: 1em;
+}
+
+body.ekipirovka .big-card .card-container-left {
+  width: 100%;
+  max-width: 45em;
+}
+
+body.zip .big-card .card-container-left {
+  width: 65%;
 }
 
 .big-card .carousel {
@@ -794,22 +825,38 @@ body {
 
 .big-card .card-options-container {
   width: 100%;
-  max-width: 45em;
   font-size: 0.85em;
   overflow: hidden;
 }
 
+body.zip .big-card .card-options {
+  max-width: 45em;
+  margin-bottom: 1em;
+}
+
 .big-card .retail {
-  justify-content: space-between;
+  justify-content: flex-start;
   border-bottom: 1px solid rgb(232,232,232);
+}
+
+body.zip .big-card .retail {
+  max-width: 45em;
 }
 
 .big-card .retail div {
   width: 50%;
 }
 
-.big-card .card-container-right {
+.big-card .retail .card-price-title {
+  max-width: 15em;
+}
+
+body.ekipirovka .big-card .card-container-right {
   width: 100%;
+}
+
+body.zip .big-card .card-container-right {
+  width: 35%;
 }
 
 .big-card .card-select-info {
@@ -847,11 +894,11 @@ body {
 
 .big-card .toggle-btn {
   position: absolute;
+  width: 4em;
+  height: 2.5em;
   bottom: 0;
   right: 40%;
-  width: 26px;
-  height: 17px;
-  background: url(../img/content/list_arrow_bottom.jpg) no-repeat center;
+  background: url(../img/content/list_arrow_bottom.jpg) no-repeat bottom center;
   cursor: pointer;
   z-index: 2;
 }
@@ -865,20 +912,19 @@ body {
 #full-card-container {
   display: none;
   position: fixed;
+  justify-content: center;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 300;
+  z-index: 30;
 }
 
 .full-card {
-  position: fixed;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  top: 20%;
   max-width: 70em;
-  max-height: 80%;
+  max-height: 50em;
   margin: 0 0 -1px -1px;
   padding: 2em 1.5em 1.5em 1.5em;
   background-color: rgb(255, 255, 255);
@@ -901,7 +947,6 @@ body {
 
 .full-card .card-imgbox {
   position: relative;
-  width: 40%;
   margin-right: 1.5em;
   cursor: pointer;
 }
@@ -936,7 +981,6 @@ body {
 
 .full-card .card-info {
   justify-content: flex-start;
-  width: 60%;
 }
 
 .full-card .card-head {
@@ -984,7 +1028,7 @@ body {
   bottom: 0;
   padding: 3em 0;
   background-color: rgb(30 ,30 ,30 ,0.9);
-  z-index: 400;
+  z-index: 40;
 }
 
 .full-imgbox-content {

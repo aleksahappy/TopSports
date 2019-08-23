@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="../css/media_header_footer_b2b.css">
   </head>
 
-  <body id="r_zip">
+  <body id="r_zip" class="zip">
     <div class="header">
       <div class="header-main">
         <div class="container row">
@@ -131,7 +131,9 @@
           </div>
           <div id="gallery" class="row">
             <div id="card-#object_id#" class="min-card col" onclick="showFullCard(#object_id#)">
-              <img class="card-img" src="#images#" alt="#title#">
+              <div class="card-imgbox-container">
+                <img class="card-img" src="#images#">
+              </div>
               <div class="card-promo">
                 <div class="promo-title" style="background-color: #actioncolor#">#actiontitle#</div>
               </div>
@@ -144,7 +146,7 @@
                 <div class="card-qty #isAvaliable#" title="#qtyTitle#"></div>
               </div>
             </div>
-            <div id="big-card-#object_id#" class="big-card card" data-object-id="#object_id#">
+            <div id="big-card-#object_id#" class="big-card card" data-object-id="#object_id#" onclick="closeBigCard(event)">
               <div class="big-card-head row">
                 <div class="card-head">
                     <div class="card-title">#title#</div>
@@ -172,7 +174,7 @@
                       <div class="carousel-gallery">
                         <div class="carousel-inner row">
                           <div class="carousel-item carousel-item-#imgNumb# row" onclick="showFullImg(event)">
-                            <img src="#image#" alt="#title#">
+                            <img src="#image#">
                           </div>
                         </div>
                       </div>
@@ -189,12 +191,12 @@
                         <div class="option-info">#opinfo#</div>
                       </div>
                     </div>
-                    <div class="card-manuf-info hidden-xs #isHiddenManuf#">
+                    <div class="card-manuf-info hidden-xxs #isHiddenManuf#">
                       <table class="manuf-table">
                         <tr class="grey">
                           <th>Производитель</th>
                           <th class="manuf-oem">ОЕМ</th>
-                          <th>Модель</th>
+                          <th class="manuf-model">Модель</th>
                           <th>Год</th>
                         </tr>
                         <tr class="manuf-info">
@@ -228,7 +230,7 @@
                   </div>
                   <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
                   <div class="card-notice red">#notice#</div>
-                  <div class="card-description hidden-xs #isHiddenDesc#">
+                  <div class="card-description hidden-xxs #isHiddenDesc#">
                     <div class="description-title">Описание:</div>
                     <div class="card-text">#desc#</div>
                   </div>
@@ -248,7 +250,7 @@
                 <div class="card-imgbox">
                   <div class="card-imgbox-container" onclick="showFullImg(event)">
                     <span class="zoom-btn"></span>
-                    <img id="img" class="card-img" src="#images#" alt="#title#">
+                    <img id="img" class="card-img" src="#images#">
                   </div>
                   <div class="carousel #isHiddenCarousel#" data-imgcounter="0">
                     <span class="left-btn" onclick="moveCarousel(#object_id#)"></span>
@@ -257,7 +259,7 @@
                       <div class="carousel-gallery">
                         <div class="carousel-inner row">
                           <div class="carousel-item carousel-item-#imgNumb# #isActiv# row" onclick="toggleImg(#imgNumb#)">
-                            <img src="#image#" alt="#title#">
+                            <img src="#image#">
                           </div>
                         </div>
                       </div>
@@ -290,7 +292,7 @@
                       <div class="option-info">#opinfo#</div>
                     </div>
                   </div>
-                  <div class="card-manuf-info hidden-xs #isHiddenManuf#">
+                  <div class="card-manuf-info hidden-xxs #isHiddenManuf#">
                     <table class="manuf-table">
                       <tr class="grey">
                         <th>Производитель техники</th>
@@ -325,7 +327,7 @@
                   </div>
                 </div>
               </div>
-              <div class="card-description hidden-xs #isHiddenDesc#">
+              <div class="card-description hidden-xxs #isHiddenDesc#">
                 <div class="description-title">Описание:</div>
                 <div class="card-text">#desc#</div>
               </div>
@@ -334,7 +336,7 @@
           <div id="full-imgbox" onclick="closeFullImg()">
             <div class="close-btn"></div>
             <div class="full-imgbox-content row">
-              <img id="full-img" src="#images#" alt="#title#">
+              <img id="full-img" src="#images#">
             </div>
           </div>
         </div>

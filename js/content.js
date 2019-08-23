@@ -358,7 +358,6 @@ function createCard(card) {
         propsOptions = extractProps(optionsTemplate);
     if (card.options && card.options != 0) {
       for (var option in card.options) {
-        console.log(option);
         if (option != 7 && option != 31 && option != 32 && option != 33) {
           var newOption = optionsTemplate
           .replace('#optitle#', optnames[option])
@@ -675,13 +674,23 @@ function openBigCard(event) {
   setFiltersHeight();
 }
 
+function closeBigCard(event) {
+  var card = event.currentTarget.closest('.big-card');
+  if (window.innerWidth < 768) {
+    if (!(event.target.classList.contains('toggle-btn') || event.target.closest('.carousel') || event.target.closest('.card-size') || event.target.classList.contains('dealer-button'))) {
+      card.classList.remove('open');
+      setFiltersHeight();
+    }
+  }
+}
+
 // Отображение полной карточки товара:
 
 function showFullCard(objectId) {
   cardTemplate = fullCardTemplate;
   var fullCard = createCard(items.find(item => item.object_id == objectId));
   fullCardContainer.innerHTML = fullCard;
-  fullCardContainer.style.display = 'block';
+  fullCardContainer.style.display = 'flex';
   setCardTemplate();
 
   var card = document.querySelector('.full-card');
@@ -691,7 +700,7 @@ function showFullCard(objectId) {
 // Скрытие полной карточки товара:
 
 function closeFullCard(event) {
-  if (!(event.target.closest('.card-imgbox') || (event.target.closest('.card-sizes')))) {
+  if (!(event.target.closest('.card-imgbox') || event.target.closest('.card-size') || event.target.classList.contains('dealer-button'))) {
     fullCardContainer.style.display = 'none';
   }
 }
@@ -776,7 +785,7 @@ function toggleDisplayBtns(card) {
 // Переключение картинок в карусели при клике на миниатюру:
 
 function toggleImg(imgNumb) {
-  if (window.innerWidth < 769) {
+  if (window.innerWidth < 768) {
     showFullImg(event);
   } else {
     var carousel = event.currentTarget.closest('.carousel');
