@@ -12,6 +12,8 @@ var pageId = document.body.id,
     cartAmount = document.querySelector('.cart-amount span'),
     cartPrice = document.querySelector('.cart-price span'),
     submenu = document.querySelector('.submenu'),
+    headerSelect = document.querySelector('.header-select'),
+    mainNav = document.getElementById('main-nav'),
     filtersContainer = document.querySelector('.filters-container'),
     filters = document.querySelector('.filters'),
     menuFilters = document.getElementById('menu-filters'),
@@ -23,7 +25,9 @@ var pageId = document.body.id,
 
 // Получение шаблонов из HTML:
 
-var filterTemplate = document.querySelector('.filter').outerHTML,
+var mainNavTemplate = document.getElementById('main-nav').innerHTML,
+    mainNavSubTemplate = document.getElementById('main-nav-subtemplate').innerHTML,
+    filterTemplate = document.querySelector('.filter').outerHTML,
     itemsTemplate = document.querySelector('.filter-items').innerHTML,
     minCardTemplate = document.getElementById('card-#object_id#'),
     bigCardTemplate = document.getElementById('big-card-#object_id#'),
@@ -45,6 +49,7 @@ function removeReplays(template, subTemplate) {
 
 var view = 'list',
     cardTemplate,
+    sortedItems,
     selecledCardList = '',
     countItems = 0,
     countItemsTo = 0,
@@ -58,7 +63,7 @@ var view = 'list',
 
 setCardTemplate();
 initFilters();
-checkFilters();
+sortItems();
 changeCart();
 
 //=====================================================================================================
@@ -69,6 +74,12 @@ changeCart();
 
 function toggleSubmenu() {
   submenu.classList.toggle('open');
+}
+
+// Открытие и закрытие фильтрации ЗИП на малых разрешениях:
+
+function toggleSelectMenu() {
+  headerSelect.classList.toggle('open');
 }
 
 // Установка отступов документа:
@@ -107,6 +118,70 @@ function setFiltersHeight() {
 
 function convertPrice(price) {
   return (price + '').replace(/(\d{1,3})(?=((\d{3})*)$)/g, " $1");
+}
+
+//=====================================================================================================
+// Функции для работы с URL и данными страницы:
+//=====================================================================================================
+
+// Фильтрация исходных данных в зависимости от страницы:
+
+function sortItems() {
+  if (location.search) {
+    var urlPath = location.search.replace('?', '');
+    renderNewPage(urlPath);
+  } else {
+    sortedItems = items;
+    checkFilters();
+  }
+}
+
+// Изменение URL без без перезагрузки страницы:
+
+window.addEventListener('popstate', openNewPage);
+
+function openNewPage() {
+  event.preventDefault();
+  if (event.state){
+    var urlPath = event.state.urlPath,
+        pageTitle = event.state.pageTitle;
+  } else {
+    var urlPath = event.currentTarget.dataset.href,
+        pageTitle = event.currentTarget.textContent,
+        newPath;
+    if (urlPath) {
+      newPath = '?' + urlPath;
+    } else {
+      newPath = location.href.split('?')[0];
+    }
+    window.history.pushState({'urlPath': urlPath, 'pageTitle': pageTitle},"", newPath);
+  }
+  document.title = `ТОП СПОРТС - ${pageTitle}`;
+  renderNewPage(urlPath);
+}
+
+// Изменение контента страницы:
+
+function renderNewPage(urlPath) {
+  if (urlPath) {
+    sortedItems = items.filter(item => item[urlPath] == 1);
+  } else {
+    sortedItems = items;
+  }
+  selecledCardList = '';
+  checkFilters();
+
+  var submenuItems = document.querySelectorAll('.submenu-item');
+  submenuItems.forEach(item => item.classList.remove('activ'));
+
+  var curPageTitle = document.querySelector(`.submenu-item[data-href="${urlPath}"]`);
+  if (curPageTitle) {
+    curPageTitle.classList.add('activ');
+    var newNav = mainNavSubTemplate.replace('#curPage#', curPageTitle.textContent);
+    mainNav.innerHTML = newNav;
+  } else {
+    mainNav.innerHTML = mainNavTemplate;
+  }
 }
 
 //=====================================================================================================
@@ -612,7 +687,7 @@ function clearFilters() {
 
 // Отображение карточек на странице:
 
-function showCards() {
+function showCards(isFirst = false) {
   if (selecledCardList === '') {
     gallery.style.display = 'flex';
     galleryNotice.style.display = 'none';

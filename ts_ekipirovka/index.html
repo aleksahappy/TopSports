@@ -25,7 +25,7 @@
             <a class="header-phone hidden-xs" href="tel:+78463004499" target="_blank" >+7 (846) 300-44-99</a>
             <span class="hidden-xs">(8:00–17:00 мск)</span>
             <a class="hidden-xs" onclick="showDealersList(event)">Карта дилеров</a>
-            <a class="hidden-xs" href="http://b2b.topsports.ru/register/" target="_blank" >Стать дилером</a>
+            <a class="hidden-xs" href="http://b2b.topsports.ru/" target="_blank" >Стать дилером</a>
             <a class="header-cabinet" href="http://b2b.topsports.ru/" target="_blank" class="cabinet_link">Личный кабинет</a>
           </div>
         </div>
@@ -48,7 +48,7 @@
         <div class="main-menu">
           <div class="container row">
             <div class="topmenu">
-              <a class="topmenu-item activ" href="#top">Экипировка</a>
+              <a class="topmenu-item activ" onclick="openNewPage()">Экипировка</a>
             </div>
             <div class="burger-btn visible-xs" onclick="toggleSubmenu()"></div>
           </div>
@@ -56,13 +56,13 @@
         <div class="submenu">
           <div class="container">
             <div class="submenu-items ekipirovka">
-              <a class="submenu-item" href="odegda/">Одежда</a>
-              <a class="submenu-item" href="obuv/">Обувь</a>
-              <a class="submenu-item" href="shlem/">Шлемы</a>
-              <a class="submenu-item" href="optic/">Оптика</a>
-              <a class="submenu-item" href="snarag/">Снаряжение</a>
-              <a class="submenu-item" href="zashita/">Защита</a>
-              <a class="submenu-item" href="sumruk/">Сумки и рюкзаки</a>
+              <a class="submenu-item" data-href="odegda" onclick="openNewPage()">Одежда</a>
+              <a class="submenu-item" data-href="obuv" onclick="openNewPage()">Обувь</a>
+              <a class="submenu-item" data-href="shlem" onclick="openNewPage()">Шлемы</a>
+              <a class="submenu-item" data-href="optic" onclick="openNewPage()">Оптика</a>
+              <a class="submenu-item" data-href="snarag" onclick="openNewPage()">Снаряжение</a>
+              <a class="submenu-item" data-href="zashita" onclick="openNewPage()">Защита</a>
+              <a class="submenu-item" data-href="sumruk" onclick="openNewPage()">Сумки и рюкзаки</a>
             </div>
           </div>
         </div>
@@ -72,10 +72,17 @@
     <div class="main">
       <div class="container">
         <div class="main-header row">
-          <div class="main-nav">
+          <div id="main-nav" class="main-nav">
             <a href="../ts_main/">Главная</a>
             <span class="nav-icon"></span>
             <span class="cur-page">Экипировка</span>
+          </div>
+          <div id="main-nav-subtemplate" class="main-nav">
+            <a href="../ts_main/">Главная</a>
+            <span class="nav-icon"></span>
+            <a onclick="openNewPage()">Экипировка</a>
+            <span class="nav-icon"></span>
+            <span class="cur-page">#curPage#</span>
           </div>
           <div class="sortbox row">
             <div class="sortbox-title">Вид каталога:</div>
@@ -168,9 +175,9 @@
                       <div class="size-choice row">
                         <span class="size-name">#size#</span>
                         <span class="size-qty row">
-                          <a class="btn-minus" href="http://b2b.topsports.ru/register/" target="_blank" title="Уменьшить" >-</a>
+                          <a class="btn-minus" href="http://b2b.topsports.ru/" target="_blank" title="Уменьшить" >-</a>
                           <input class="choice-gty" type="text" value="0" autocomplete="off" disabled>
-                          <a class="btn-plus" href="http://b2b.topsports.ru/register/" target="_blank" title="Увеличить">+</a>
+                          <a class="btn-plus" href="http://b2b.topsports.ru/" target="_blank" title="Увеличить">+</a>
                         </span>
                       </div>
                       <div class="card-qty #isAvaliable#" title="#qtyTitle#">#free_qty#&nbsp;шт.</div>
@@ -180,7 +187,7 @@
                   <div class="card-notice red">#notice#</div>
                   <div class="card-btns">
                     <a class="dealer-button map-btn" onclick="showDealersList(event)">КАРТА ДИЛЕРОВ</a>
-                    <a class="dealer-button" href="http://b2b.topsports.ru/register/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
+                    <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
                   </div>
                   <div class="card-description hidden-xxs #isHiddenDesc#">
                     <div class="description-title">Описание:</div>
@@ -250,9 +257,9 @@
                       <div class="size-choice row">
                         <span class="size-name">#size#</span>
                         <span class="size-qty row">
-                          <a class="btn-minus" href="http://b2b.topsports.ru/register/" target="_blank" title="Уменьшить" >-</a>
+                          <a class="btn-minus" href="http://b2b.topsports.ru/" target="_blank" title="Уменьшить" >-</a>
                           <input class="choice-gty" type="text" value="0" autocomplete="off" disabled>
-                          <a class="btn-plus" href="http://b2b.topsports.ru/register/" target="_blank" title="Увеличить">+</a>
+                          <a class="btn-plus" href="http://b2b.topsports.ru/" target="_blank" title="Увеличить">+</a>
                         </span>
                       </div>
                       <div class="card-qty #isAvaliable#" title="#qtyTitle#">#free_qty#&nbsp;шт.</div>
@@ -261,7 +268,7 @@
                   <div class="card-notice red">#notice#</div>
                   <div class="card-btns">
                     <a class="dealer-button map-btn" href="" onclick="showDealersList(event)">КАРТА ДИЛЕРОВ</a>
-                    <a class="dealer-button" href="http://b2b.topsports.ru/register/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
+                    <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
                   </div>
                 </div>
               </div>
@@ -286,7 +293,7 @@
         <div class="footer-links row">
           <a href="../ts_main/">Главная</a>
           <a onclick="showDealersList(event)">Где купить</a>
-          <a href="http://b2b.topsports.ru/register/" target="_blank">Стать дилером</a>
+          <a href="http://b2b.topsports.ru/" target="_blank">Стать дилером</a>
           <a href="https://goo.gl/forms/KlWpmVVR9FQR7MwW2" target="_blank">Стать райдером</a>
           <a href="http://b2b.topsports.ru/" target="_blank">Личный кабинет</a>
           <a class="youtube" href="https://www.youtube.com/channel/UCQYfNyA0dSoGVrUiDOaiVZw" target="_blank"></a>

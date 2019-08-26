@@ -55,11 +55,12 @@
           </div>
         </div>
         <div class="submenu">
-          <div class="container">
+          <div class="container row">
             <div class="submenu-items snegohody">
               <a class="submenu-item" href="zapchasti/">Запчасти</a>
               <a class="submenu-item" href="/">Аксессуары</a>
             </div>
+            <div class="burger-btn visible-xs" onclick="toggleSelectMenu()"></div>
           </div>
         </div>
         <div class="header-select">
@@ -104,10 +105,17 @@
     <div class="main">
       <div class="container">
         <div class="main-header row">
-          <div class="main-nav">
+          <div id="main-nav" class="main-nav">
             <a href="#">Главная</a>
             <span class="nav-icon"></span>
             <span class="cur-page">Снегоходы</span>
+          </div>
+          <div id="main-nav-subtemplate" class="main-nav">
+            <a href="../../ts_main/">Главная</a>
+            <span class="nav-icon"></span>
+            <a href="../">#prePage#</a>
+            <span class="nav-icon"></span>
+            <span class="cur-page">#curPage#</span>
           </div>
           <div class="sortbox row">
             <div class="sortbox-title">Вид каталога:</div>

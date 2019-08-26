@@ -14,7 +14,7 @@
   .header-contacts a {
     margin-left: 1em;
   }
-  .submenu-item {
+  .ekipirovka .submenu-item {
     padding: 1rem 1.9rem;
   }
   .footer  {
@@ -38,15 +38,12 @@
   .burger-btn.visible-xs {
     display: block;
   }
-  .submenu {
+  .ekipirovka .submenu {
     display: none;
     position: absolute;
     left: 0;
     right: 0;
     box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
-  }
-  .main-menu > .row {
-    justify-content: space-between;
   }
 }
 
@@ -62,23 +59,14 @@
     height: 3em;
     background-size: 3em;
   }
-  .submenu-items {
+  .submenu-items.ekipirovka {
     flex-direction: column;
     flex-wrap: wrap;
-  }
-  .submenu-items .ekipirovka {
     max-height: 14em;
   }
-  .submenu-item {
+  .ekipirovka .submenu-item {
     width: 10em;
     padding: 1rem 1rem;
-  }
-  .main-header {
-    flex-wrap: wrap;
-  }
-  .main-nav {
-    width: 100%;
-    padding-bottom: 1em;
   }
   .footer-links a {
     margin-right: 2em;

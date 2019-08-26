@@ -156,7 +156,7 @@
 }
 
 .main-menu > .row {
-  align-items: baseline;
+  align-items: center;
 }
 
 .topmenu-item {
@@ -176,7 +176,6 @@
 
 .search {
   position: relative;
-  align-self: center;
   padding: 0.35em 0;
   width: 40%;
 }
@@ -200,6 +199,10 @@
   background-color: rgb(243,243,246);
 }
 
+.ekipirovka .submenu.open {
+  display: block;
+}
+
 .submenu-items {
   overflow: hidden;
 }
@@ -215,12 +218,21 @@
   background-color: rgb(172,177,186);
 }
 
+.submenu > .row {
+  align-items: center;
+}
+
 .subsubmenu {
   background-color: rgb(246,246,248);
 }
 
 .header-select {
+  display: none;
   background-color: rgb(241,90,41);
+}
+
+.header-select.open {
+  display: block;
 }
 
 .select-filters {
@@ -232,6 +244,11 @@
 
 .select-item {
   margin-right: 3.125em;
+  padding: 0.5rem 0;
+}
+
+.select-item,
+.select-filters .close-btn {
   padding: 0.5rem 0;
 }
 
@@ -252,7 +269,7 @@
 }
 
 .select-filters .close-btn {
-  position: static;
+  position: relative;
   margin-left: 0.8em;
   font-size: 1.3em;
   color: rgb(248,172,148);

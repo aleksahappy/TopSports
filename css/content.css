@@ -74,6 +74,17 @@ body {
   align-items: flex-start;
 }
 
+.burger-btn {
+  position: relative;
+  font-family: 'FontAwesome';
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.burger-btn::before {
+  content: '\f0c9';
+}
+
 .search-btn {
   position: absolute;
   cursor: pointer;
@@ -175,6 +186,10 @@ body {
   background: url(../img/content/ico_nav.png);
   background-repeat: no-repeat;
   background-position: center;
+}
+
+#main-nav-subtemplate {
+  display: none;
 }
 
 .sortbox {
@@ -313,7 +328,7 @@ body {
 #filter-color .filter-item {
   width: 25px;
   height: 25px;
-  margin: 5px;
+  margin: 4px;
   font-size: 0px;
   background-size: cover;
   background-repeat: no-repeat;

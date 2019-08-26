@@ -6,8 +6,6 @@ items.forEach((item, index) => {
   item.images = item.images.toString().split(';');
 });
 
-var sortedItems = items;
-
 // Содержимое фильтров:
 
 var specialOffer = {

@@ -17,8 +17,8 @@
   .logo {
     width: 22%;
   }
-  .header-contacts a {
-    margin-left: 1em;
+  .ekipirovka .submenu-item {
+    padding: 1rem 1.9rem;
   }
   .header-select > .row {
     flex-wrap: wrap;
@@ -26,7 +26,8 @@
   .select-filters {
     width: 100%;
   }
-  .select-item {
+  .select-item,
+  .select-filters .close-btn {
     padding-bottom: 0;
   }
   .item-brands {
@@ -43,6 +44,9 @@
   }
   .select-oem .search-btn {
     top: 20%;
+  }
+  .select-oem .close-btn {
+    top: 30%;
   }
   .footer  {
     font-size: 1.2rem;
@@ -64,6 +68,30 @@
     height: 2.5em;
     padding-left: 0;
   }
+  .main-menu > .row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .search {
+    width: 80%;
+  }
+  .burger-btn.visible-xs {
+    display: block;
+  }
+  .ekipirovka .submenu {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
+  }
+  .header-select {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
+  }
   .header-select > .row {
     flex-wrap: nowrap;
   }
@@ -81,7 +109,7 @@
   }
   .select-filters .close-btn {
     position: absolute;
-    bottom: 5%;
+    bottom: 8%;
     right: -1.5em;
   }
   .select-oem {
@@ -99,9 +127,6 @@
   .profile-info {
     width: 30%;
   }
-  .main-menu .container {
-    flex-direction: column;
-  }
   .search {
     width: 100%;
     align-self: flex-start;
@@ -109,15 +134,13 @@
   .search .search-btn {
     top: 15%;
   }
-  .submenu-items .ekipirovka {
-    max-height: 14em;
-  }
-  .submenu-items {
+  .submenu-items.ekipirovka {
     flex-direction: column;
     flex-wrap: wrap;
+    max-height: 14em;
   }
-  .submenu-item {
-    width: 140px;
+  .ekipirovka .submenu-item {
+    width: 10em;
     padding: 1rem 1rem;
   }
   .header-select > .row {

@@ -94,8 +94,7 @@ a.header-phone, a.header-cabinet {
 }
 
 .main-menu > .row {
-  justify-content: flex-start;
-  align-items: baseline;
+  align-items: center;
 }
 
 .topmenu-item {
@@ -113,22 +112,11 @@ a.header-phone, a.header-cabinet {
   background-color: rgb(241,89,42);
 }
 
-.burger-btn {
-  position: relative;
-  font-family: 'FontAwesome';
-  font-size: 2em;
-  cursor: pointer;
-}
-
-.burger-btn::before {
-  content: '\f0c9';
-}
-
 .submenu {
   background-color: rgb(243,243,246);
 }
 
-.submenu.open {
+.ekipirovka .submenu.open {
   display: block;
 }
 
