@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../img/top_sports_logo_black_short_transparency.png">
-    <title>ТОП СПОРТС - ЗИП</title>
+    <title>ТОП СПОРТС - Cнегоходы</title>
     <meta name="keywords" content="ТОП СПОРТС">
     <meta name="description" content="ТОП СПОРТС">
     <link rel="stylesheet" type="text/css" href="../css/fonts.css">
@@ -45,8 +45,8 @@
         <div class="main-menu">
           <div class="container row">
             <div class="topmenu">
-              <a class="topmenu-item activ" href="#top">Снегоходы</a>
-              <a class="topmenu-item" href="#top">Лодки и моторы</a>
+              <a class="topmenu-item activ" data-level="1" data-href="snegohod" onclick="openPage()">Снегоходы</a>
+              <a class="topmenu-item" data-level="1" data-href="lodkimotor" onclick="openPage()">Лодки и моторы</a>
             </div>
             <div class="search">
               <input id="search" type="text" autocomplete="off" placeholder="Поиск">
@@ -56,11 +56,11 @@
         </div>
         <div class="submenu">
           <div class="container row">
-            <div class="submenu-items snegohody">
-              <a class="submenu-item" href="zapchasti/">Запчасти</a>
-              <a class="submenu-item" href="/">Аксессуары</a>
+            <div class="submenu-items">
+              <a class="submenu-item" data-level="2" data-href="zip" onclick="openPage()">Запчасти</a>
+              <a class="submenu-item" data-level="2" data-href="acc" onclick="openPage()">Аксессуары</a>
             </div>
-            <div class="burger-btn visible-xs" onclick="toggleSelectMenu()"></div>
+            <div class="burger-btn" onclick="toggleSelectMenu()"></div>
           </div>
         </div>
         <div class="header-select">
@@ -68,7 +68,7 @@
             <div class="select-filters row">
               <div class="select-item item-brands">
                 <select id="select-brands" onchange="unlockYear()">
-                  <option default selected hidden>Производитель</option>
+                  <option default selected hidden>Производитель:</option>
                   <option class="select-option">#manuf#</option>
                 </select>
               </div>
@@ -106,16 +106,8 @@
       <div class="container">
         <div class="main-header row">
           <div id="main-nav" class="main-nav">
-            <a href="#">Главная</a>
-            <span class="nav-icon"></span>
-            <span class="cur-page">Снегоходы</span>
-          </div>
-          <div id="main-nav-subtemplate" class="main-nav">
-            <a href="../../ts_main/">Главная</a>
-            <span class="nav-icon"></span>
-            <a href="../">#prePage#</a>
-            <span class="nav-icon"></span>
-            <span class="cur-page">#curPage#</span>
+            <a href="../ts_main/">Главная</a>
+            <span class="nav-item #isCurPage#" data-href="#pageUrl#" onclick="openPage()">#pageTitle#</span>
           </div>
           <div class="sortbox row">
             <div class="sortbox-title">Вид каталога:</div>
@@ -201,11 +193,11 @@
                     </div>
                     <div class="card-manuf-info hidden-xxs #isHiddenManuf#">
                       <table class="manuf-table">
-                        <tr class="grey">
-                          <th>Производитель</th>
-                          <th class="manuf-oem">ОЕМ</th>
-                          <th class="manuf-model">Модель</th>
-                          <th>Год</th>
+                        <tr id="manuf-title" class="grey">
+                          <th data-title="man">Производитель</th>
+                          <th data-title="oem">ОЕМ</th>
+                          <th data-title="model">Модель</th>
+                          <th data-title="years">Год модели</th>
                         </tr>
                         <tr class="manuf-info">
                           <td>#info#</td>
@@ -302,11 +294,11 @@
                   </div>
                   <div class="card-manuf-info hidden-xxs #isHiddenManuf#">
                     <table class="manuf-table">
-                      <tr class="grey">
-                        <th>Производитель техники</th>
-                        <th>ОЕМ</th>
-                        <th>Модель техники</th>
-                        <th>Год модели техники</th>
+                      <tr id="manuf-title" class="grey">
+                        <th data-title="man">Производитель</th>
+                        <th data-title="oem">ОЕМ</th>
+                        <th data-title="model">Модель</th>
+                        <th data-title="years">Год модели</th>
                       </tr>
                       <tr class="manuf-info">
                         <td>#info#</td>
@@ -376,8 +368,8 @@
       </div>
     </div>
 
-    <!-- <script src ="../../../stand/qzip.php"></script> -->
-    <script src ="qzip.js"></script>
+    <script src ="../../../stand/qzip.php"></script>
+    <!-- <script src ="qzip.js"></script> -->
     <script src="data_zip.js"></script>
     <script src="../js/content.js"></script>
     <script src="../js/cart.js"></script>

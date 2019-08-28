@@ -80,7 +80,8 @@ a.header-phone, a.header-cabinet {
 }
 
 .header-menu a {
-  margin-right: -0.15em;
+  margin-right: -0.25rem;
+  cursor: pointer;
 }
 
 .header-menu a:hover,

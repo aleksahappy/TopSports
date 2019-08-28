@@ -48,7 +48,7 @@
         <div class="main-menu">
           <div class="container row">
             <div class="topmenu">
-              <a class="topmenu-item activ" onclick="openNewPage()">Экипировка</a>
+              <a class="topmenu-item activ" data-level="1" data-href="ts_ek" onclick="openPage()">Экипировка</a>
             </div>
             <div class="burger-btn visible-xs" onclick="toggleSubmenu()"></div>
           </div>
@@ -56,13 +56,13 @@
         <div class="submenu">
           <div class="container">
             <div class="submenu-items ekipirovka">
-              <a class="submenu-item" data-href="odegda" onclick="openNewPage()">Одежда</a>
-              <a class="submenu-item" data-href="obuv" onclick="openNewPage()">Обувь</a>
-              <a class="submenu-item" data-href="shlem" onclick="openNewPage()">Шлемы</a>
-              <a class="submenu-item" data-href="optic" onclick="openNewPage()">Оптика</a>
-              <a class="submenu-item" data-href="snarag" onclick="openNewPage()">Снаряжение</a>
-              <a class="submenu-item" data-href="zashita" onclick="openNewPage()">Защита</a>
-              <a class="submenu-item" data-href="sumruk" onclick="openNewPage()">Сумки и рюкзаки</a>
+              <a class="submenu-item" data-cat-id="" data-level="2" data-href="odegda" onclick="openPage()">Одежда</a>
+              <a class="submenu-item" data-cat-id="" data-level="2" data-href="obuv" onclick="openPage()">Обувь</a>
+              <a class="submenu-item" data-cat-id="" data-level="2" data-href="shlem" onclick="openPage()">Шлемы</a>
+              <a class="submenu-item" data-cat-id="" data-level="2" data-href="optic" onclick="openPage()">Оптика</a>
+              <a class="submenu-item" data-cat-id="" data-level="2" data-href="snarag" onclick="openPage()">Снаряжение</a>
+              <a class="submenu-item" data-cat-id="" data-level="2" data-href="zashita" onclick="openPage()">Защита</a>
+              <a class="submenu-item" data-cat-id="" data-level="2" data-href="sumruk" onclick="openPage()">Сумки и рюкзаки</a>
             </div>
           </div>
         </div>
@@ -74,15 +74,7 @@
         <div class="main-header row">
           <div id="main-nav" class="main-nav">
             <a href="../ts_main/">Главная</a>
-            <span class="nav-icon"></span>
-            <span class="cur-page">Экипировка</span>
-          </div>
-          <div id="main-nav-subtemplate" class="main-nav">
-            <a href="../ts_main/">Главная</a>
-            <span class="nav-icon"></span>
-            <a onclick="openNewPage()">Экипировка</a>
-            <span class="nav-icon"></span>
-            <span class="cur-page">#curPage#</span>
+            <span class="nav-item #isCurPage#" data-href="#pageUrl#" onclick="openPage()">#pageTitle#</span>
           </div>
           <div class="sortbox row">
             <div class="sortbox-title">Вид каталога:</div>

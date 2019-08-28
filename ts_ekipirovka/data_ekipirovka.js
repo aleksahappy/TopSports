@@ -6,6 +6,54 @@ items.forEach((item, index) => {
   item.images = item.images.toString().split(';');
 });
 
+var odegda = {};
+var obuv = {};
+var shlem = {};
+var optic = {};
+var snarag = {};
+var zashita = {};
+var sumruk = {};
+
+var catId = {
+  43: 'odegda',
+  44: 'obuv',
+  48: 'shlem',
+  49: 'optic',
+  50: 'snarag',
+  51: 'zashita',
+  52: 'sumruk'
+};
+
+function createCats() {
+  for (var k in )
+
+  for (var cat in cats) {
+    if (cats[cat] == '43') {
+      odegda[cat] = '1';
+    }
+    if (cats[cat] == '44') {
+      obuv[cat] = '1';
+    }
+    if (cats[cat] == '48') {
+      shlem[cat] = '1';
+    }
+    if (cats[cat] == '49') {
+      optic[cat] = '1';
+    }
+    if (cats[cat] == '50') {
+      snarag[cat] = '1';
+    }
+    if (cats[cat] == '51') {
+      zashita[cat] = '1';
+    }
+    if (cats[cat] == '52') {
+      sumruk[cat] = '1';
+    }
+  }
+}
+
+createCats();
+
 // Содержимое фильтров:
 
 var specialOffer = {
@@ -73,7 +121,7 @@ var colors = {
 
 // Данные, которые будут переданы для создания фильтров:
 
-var dataForFilters = [{
+var filtersEkipirovka = [{
   title: 'Спецпредложение',
   isShow: true,
   key: 'specialOffer',
@@ -103,3 +151,6 @@ var dataForFilters = [{
   key: 'color',
   items: colors
 }];
+
+var filtersOdegda = 
+var dataForFilters = ;

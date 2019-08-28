@@ -142,7 +142,8 @@
 }
 
 .header-menu a {
-  margin-right: -0.15em;
+  margin-right: -0.25rem;
+  cursor: pointer;
 }
 
 .header-menu a:hover,
@@ -199,6 +200,10 @@
   background-color: rgb(243,243,246);
 }
 
+.submenu .burger-btn {
+  display: none;
+}
+
 .ekipirovka .submenu.open {
   display: block;
 }
@@ -231,8 +236,8 @@
   background-color: rgb(241,90,41);
 }
 
-.header-select.open {
-  display: block;
+#r_zip .header-select.open {
+  display: block !important;
 }
 
 .select-filters {

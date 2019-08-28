@@ -75,7 +75,7 @@
   .search {
     width: 80%;
   }
-  .burger-btn.visible-xs {
+  .submenu.zip .burger-btn {
     display: block;
   }
   .ekipirovka .submenu {
@@ -86,7 +86,7 @@
     box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
   }
   .header-select {
-    display: none;
+    display: none !important;
     position: absolute;
     left: 0;
     right: 0;
