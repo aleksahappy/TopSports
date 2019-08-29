@@ -1,86 +1,42 @@
 'use strict';
 
-// Преобразование исходных данных:
-
-items.forEach((item, index) => {
-  item.images = item.images.toString().split(';');
-});
-
-var odegda = {};
-var obuv = {};
-var shlem = {};
-var optic = {};
-var snarag = {};
-var zashita = {};
-var sumruk = {};
-
-var catId = {
-  43: 'odegda',
-  44: 'obuv',
-  48: 'shlem',
-  49: 'optic',
-  50: 'snarag',
-  51: 'zashita',
-  52: 'sumruk'
-};
-
-function createCats() {
-  for (var k in )
-
-  for (var cat in cats) {
-    if (cats[cat] == '43') {
-      odegda[cat] = '1';
-    }
-    if (cats[cat] == '44') {
-      obuv[cat] = '1';
-    }
-    if (cats[cat] == '48') {
-      shlem[cat] = '1';
-    }
-    if (cats[cat] == '49') {
-      optic[cat] = '1';
-    }
-    if (cats[cat] == '50') {
-      snarag[cat] = '1';
-    }
-    if (cats[cat] == '51') {
-      zashita[cat] = '1';
-    }
-    if (cats[cat] == '52') {
-      sumruk[cat] = '1';
-    }
-  }
-}
-
-createCats();
-
 // Содержимое фильтров:
 
+var catId = {
+  'odegda': 43,
+  'obuv': 44,
+  'shlem': 48,
+  'optic': 49,
+  'snarag': 50,
+  'zashita': 51,
+  'sumruk': 52
+};
+
 var specialOffer = {
-  'Новинка': 'is_new',
-  'Распродажа': 'sale'
+  'is_new': 'Новинка',
+  'sale': 'Распродажа'
 };
 
 var use = {
-  'Мотоцикл': 'moto',
-  'Квадроцикл': 'quadro',
-  'Велосипед': 'velo',
-  'Скейтборд': 'skatebord',
-  'Снегоход': 'sneghod',
-  'Сноубайк': 'snegbike',
-  'Сноуборд': 'snegbord',
-  'Горные лыжи': 'gornie',
-  'Фитнесс': 'fitness'
+  'moto': 'Мотоцикл',
+  'quadro': 'Квадроцикл',
+  'velo': 'Велосипед',
+  'skatebord': 'Скейтборд',
+  'sneghod': 'Снегоход',
+  'snegbike': 'Сноубайк',
+  'snegbord': 'Сноуборд',
+  'gornie': 'Горные лыжи',
+  'fitness': 'Фитнесс'
 };
 
 var ages = {
-  'Взрослые':'adult',
-  'Дети': 'child'
+  'adult':'Взрослые',
+  'child': 'Дети'
 };
 
 var gender = {
-  'Муж.':'male',
-  'Жен.':'female'
+  'male':'Муж.',
+  'female':'Жен.'
 };
 
 var sizes = {
@@ -96,32 +52,32 @@ var sizes = {
 };
 
 var colors = {
-  'Белый': 'white',
-  // 'Бирюзовый': 'turquoise', // нет в массиве
-  // 'Бордовый': 'bordo',
-  'Голубой': 'cyan',
-  'Желтый': 'yellow',
-  'Зеленый': 'green',
-  // 'Камуфляж': 'camo',
-  'Коричневый': 'brown',
-  'Красный': 'red',
-  'Мульти': 'multicolor',
-  'Оранжевый': 'orange',
-  'Прозрачный': 'transparent',
-  'Розовый': 'pink',
-  'Серый': 'grey',
-  'Синий': 'blue', // нет в массиве
-  'Фиолетовый': 'fiol',
-  // 'Фуксия': 'fuxy',
-  'Хаки': 'haki',
-  'Черный': 'black',
-  // 'Черный/розовый': 'black/pink',
-  // 'Черный/серый': 'black/grey'
+  'white': 'Белый',
+  // 'turquoise': 'Бирюзовый', // нет в массиве
+  // 'bordo': 'Бордовый',
+  'cyan': 'Голубой',
+  'yellow': 'Желтый',
+  'green': 'Зеленый',
+  // 'camo': 'Камуфляж',
+  'brown': 'Коричневый',
+  'red': 'Красный',
+  'multicolor': 'Мульти',
+  'orange': 'Оранжевый',
+  'transparent': 'Прозрачный',
+  'pink': 'Розовый',
+  'grey': 'Серый',
+  'blue': 'Синий', // нет в массиве
+  'fiol': 'Фиолетовый',
+  // 'fuxy': 'Фуксия',
+  'haki': 'Хаки',
+  'black': 'Черный',
+  // 'black/pink': 'Черный/розовый',
+  // 'black/grey': 'Черный/серый'
 };
 
 // Данные, которые будут переданы для создания фильтров:
 
-var filtersEkipirovka = [{
+var dataForFilters = [{
   title: 'Спецпредложение',
   isShow: true,
   key: 'specialOffer',
@@ -151,6 +107,3 @@ var filtersEkipirovka = [{
   key: 'color',
   items: colors
 }];
-
-var filtersOdegda = 
-var dataForFilters = ;

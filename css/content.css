@@ -312,19 +312,19 @@ body {
   display: block;
 }
 
-.filter-item {
+.filter-item-title {
   position: relative;
   padding: 0.5em 0 0 1.4em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.filter-item.checked {
+.filter-item-title.checked {
   color: rgb(51,51,51);
   background-color: rgb(247,247,249);
 }
 
-.filter-item::before {
+.filter-item-title::before {
   content: '\f096';
   font-family: 'FontAwesome';
   position: absolute;
@@ -332,7 +332,7 @@ body {
   left: 0;
 }
 
-.filter-item.checked::before {
+.filter-item-title.checked::before {
   content: '\f046';
 }
 
@@ -343,7 +343,7 @@ body {
   margin: 0 auto;
 }
 
-#filter-color .filter-item {
+#filter-color .filter-item-title {
   width: 25px;
   height: 25px;
   margin: 4px;
@@ -352,79 +352,79 @@ body {
   background-repeat: no-repeat;
 }
 
-#filter-color .filter-item:hover {
+#filter-color .filter-item-title:hover {
   transform: scale(1.1, 1.1);
 }
 
-#filter-color .filter-item.checked {
+#filter-color .filter-item-title.checked {
   background-position-x: -25px;
 }
 
-#filter-color .filter-item::before {
+#filter-color .filter-item-title::before {
   content: '';
 }
 
-#filter-color .filter-item[data-value="white"] {
+#filter-color .filter-item-title[data-value="white"] {
   background-image: url(../img/content/white.png);
 }
 
-#filter-color .filter-item[data-value="turquoise"] {
+#filter-color .filter-item-title[data-value="turquoise"] {
   background-image: url(../img/content);
 }
 
-/* #filter-color .filter-item[data-value="bordo"] {
+/* #filter-color .filter-item-title[data-value="bordo"] {
   background-image: url(../img/content);
 } */
 
-#filter-color .filter-item[data-value="cyan"] {
+#filter-color .filter-item-title[data-value="cyan"] {
   background-image: url(../img/content/lightblue.png);
 }
 
-#filter-color .filter-item[data-value="yellow"] {
+#filter-color .filter-item-title[data-value="yellow"] {
   background-image: url(../img/content/yellow.png);
 }
 
-#filter-color .filter-item[data-value="green"] {
+#filter-color .filter-item-title[data-value="green"] {
   background-image: url(../img/content/green.png);
 }
 
-/* #filter-color .filter-item[data-value="camo"] {
+/* #filter-color .filter-item-title[data-value="camo"] {
   background-image: url(../img/content);
 } */
 
-#filter-color .filter-item[data-value="brown"] {
+#filter-color .filter-item-title[data-value="brown"] {
   background-image: url(../img/content/brown.png);
 }
 
-#filter-color .filter-item[data-value="red"] {
+#filter-color .filter-item-title[data-value="red"] {
   background-image: url(../img/content/red.png);
 }
 
-#filter-color .filter-item[data-value="multicolor"] {
+#filter-color .filter-item-title[data-value="multicolor"] {
   background-image: url(../img/content/colorful.png);
 }
 
-#filter-color .filter-item[data-value="orange"] {
+#filter-color .filter-item-title[data-value="orange"] {
   background-image: url(../img/content/orange.png);
 }
 
-#filter-color .filter-item[data-value="transparent"] {
+#filter-color .filter-item-title[data-value="transparent"] {
   background-image: url(../img/content/transparent.png);
 }
 
-#filter-color .filter-item[data-value="pink"] {
+#filter-color .filter-item-title[data-value="pink"] {
   background-image: url(../img/content/pink.png);
 }
 
-#filter-color .filter-item[data-value="grey"] {
+#filter-color .filter-item-title[data-value="grey"] {
   background-image: url(../img/content/gray.png);
 }
 
-#filter-color .filter-item[data-value="blue"] {
+#filter-color .filter-item-title[data-value="blue"] {
   background-image: url(../img/content/blue.png);
 }
 
-#filter-color .filter-item[data-value="fiol"] {
+#filter-color .filter-item-title[data-value="fiol"] {
   background-image: url(../img/content/purple.png);
 }
 
@@ -432,21 +432,29 @@ body {
   background-image: url(../img/content);
 } */
 
-#filter-color .filter-item[data-value="haki"] {
+#filter-color .filter-item-title[data-value="haki"] {
   background-image: url(../img/content/khaki.png);
 }
 
-#filter-color .filter-item[data-value="black"] {
+#filter-color .filter-item-title[data-value="black"] {
   background-image: url(../img/content/black.png);
 }
 
-/* #filter-color .filter-item[data-value="black/pink"] {
+/* #filter-color .filter-item-title[data-value="black/pink"] {
   background-image: url(../img/content);
 } */
 
-/* #filter-color .filter-item[data-value="black/grey"] {
+/* #filter-color .filter-item-title[data-value="black/grey"] {
   background-image: url(../img/content);
 } */
+
+.filter-subitems {
+  display: none;
+}
+
+.filter-item.open .filter-subitems {
+  display: block;
+}
 
 /* Стили для галереи: */
 

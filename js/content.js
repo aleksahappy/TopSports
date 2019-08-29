@@ -3,6 +3,14 @@
 setPaddingBody();
 
 //=====================================================================================================
+// // Преобразование исходных данных:
+//=====================================================================================================
+
+items.forEach((item, index) => {
+  item.images = item.images.toString().split(';');
+});
+
+//=====================================================================================================
 // Первоначальные данные для работы:
 //=====================================================================================================
 
@@ -29,7 +37,8 @@ var pageId = document.body.id,
 var mainNavTemplate = document.getElementById('main-nav').innerHTML,
     navItemTemplate = document.querySelector('.nav-item').outerHTML,
     filterTemplate = document.querySelector('.filter').outerHTML,
-    filterItemsTemplate = document.querySelector('.filter-items').innerHTML,
+    filterItemTemplate = document.querySelector('.filter-item').outerHTML,
+    filterSubitemTemplate = document.querySelector('.filter-subitem').outerHTML,
     minCardTemplate = document.getElementById('card-#object_id#'),
     bigCardTemplate = document.getElementById('big-card-#object_id#'),
     fullCardTemplate = document.getElementById('full-card-#object_id#');
@@ -139,9 +148,6 @@ function sortItems() {
     }
   });
 
-  dataForFilters = dataForFilters.path[path.length - 1];
-
-  initFilters(dataForFilters);
   toggleMenuItems(path);
   createMainNav(path);
   renderContent(path);
@@ -243,6 +249,7 @@ function renderContent(path) {
     }
   }
   selecledCardList = '';
+  initFilters(path[path.length - 1]);
   checkFilters();
 }
 
@@ -382,37 +389,101 @@ function changeCart() {
 
 // Создание меню фильтров:
 
-function createFilters(dataArray) {
-  var listFilters = dataArray.map(data => createFilter(data)).join('');
-  return listFilters;
-}
+function initFilters(urlPage) {
+  var data = dataForFilters.slice();
+  if (typeof catId != 'undefined' && Object.keys(catId).includes(urlPage)) {
+    var newData = createNewData(catId[urlPage]);
+    data.splice(1, 0, newData);
+  }
 
-function initFilters(data) {
+  data.forEach(filter => {
+    var isExsist;
+    for (var item in filter.items) {
+      if (typeof filter.items[item] == 'object') {
+        for (var subItem in filter.items[item]) {
+          isExsist = sortedItems.find(card => {
+            if (card.subcat == subItem) {
+              return true;
+            }
+          });
+          if (!isExsist) {
+            delete filter.items[item][subItem];
+          }
+        }
+      }
+      isExsist = sortedItems.find(card => {
+        if (card[item] || card.cat == item) {
+          return true;
+        }
+      });
+      if (!isExsist) {
+        delete filter.items[item];
+      }
+    }
+  });
+
   var createdFilters = createFilters(data);
   menuFilters.innerHTML = createdFilters;
   filtersContainer.style.display = 'block';
 }
 
+function createNewData(key) {
+  var cat = {};
+  for (var catName in cats) {
+    if (cats[catName] == key) {
+      cat[catName] = '1';s
+    }
+  }
+  var newFilter = {
+    title: 'Категория',
+    isShow: true,
+    key: 'cat',
+    items: cat
+  }
+  return newFilter;
+}
+
+function createFilters(data) {
+  var listFilters = data.map(element => createFilter(element)).join('');
+  return listFilters;
+}
+
 // Создание одного фильтра:
 
 function createFilter(data) {
-  var newFilter = filterTemplate;
-  var listItem = '';
+  var newFilter = filterTemplate,
+      listItems = '',
+      curItem;
   for (var item in data.items) {
-    var value = data.items[item] == 1 ? item : data.items[item];
-    var newItem = filterItemsTemplate
+    var listSubItems = '';
+
+    if (typeof data.items[item] == 'object') {
+      for (var subitem in data.items[item]) {
+        var newSubitem = filterSubitemTemplate
+          .replace('#key#', 'subcat')
+          .replace('#value#', data.items[item][subitem])
+          .replace('#item#', data.items[item][subitem]);
+        listSubItems += newSubitem;
+      }
+    }
+
+    if ((data.items[item] == 1) || (typeof data.items[item] == 'object')) {
+      curItem = item;
+    } else {
+      curItem = data.items[item];
+    }
+
+    var newItem = filterItemTemplate
+      .replace(filterSubitemTemplate, listSubItems)
       .replace('#key#', data.key)
-      .replace('#value#', value)
-      .replace('#item#', item);
-    listItem += newItem;
+      .replace('#value#', item)
+      .replace('#item#', curItem);
+    listItems += newItem;
   }
   newFilter = newFilter
-  .replace('#key#', data.key)
-  .replace(filterItemsTemplate, listItem);
-
-  var classFilter = data.isShow ? 'open' : '';
-  newFilter = newFilter
-    .replace('#isShow#', classFilter)
+    .replace(filterItemTemplate, listItems)
+    .replace('#key#', data.key)
+    .replace('#isShow#', data.isShow ? 'open' : '')
     .replace('#title#', data.title);
   return newFilter;
 }
@@ -652,7 +723,7 @@ function createCard(card) {
 //  Функции для работы с фильтрами:
 //=====================================================================================================
 
-// Отображение/ скрытие подменю опций:
+// Отображение/ скрытие фильтра:
 
 function toggleFilter(event) {
   if (event.target.classList.contains('filter-title')) {
@@ -661,18 +732,26 @@ function toggleFilter(event) {
   }
 }
 
+// Отображение/ скрытие подфильтра:
+
+function toggleFilterItem(event) {
+  if (event.target.classList.contains('filter-item-title') || event.target.classList.contains('open-btn')) {
+    event.currentTarget.classList.toggle('open');
+  }
+}
+
 // Выбор значений фильтра:
 
 function selectValue(event) {
-  var filterItem = event.currentTarget;
-  var key = filterItem.dataset.key;
-  var value = filterItem.dataset.value;
-  if (filterItem.classList.contains('checked')) {
+  var curItem = event.currentTarget;
+  var key = curItem.dataset.key;
+  var value = curItem.dataset.value;
+  if (curItem.classList.contains('checked')) {
     removeFiltersInfo(key, value);
-    filterItem.classList.remove('checked');
+    curItem.classList.remove('checked');
   } else {
     saveFiltersInfo(key, value);
-    filterItem.classList.add('checked');
+    curItem.classList.add('checked');
   }
   if (Object.keys(getInfo(`filtInfo_${pageId}`)).length == 0) {
     selecledCardList = '';
@@ -714,9 +793,10 @@ function removeFiltersInfo(key, value) {
 
 function selectCards() {
   var filtersInfo = getInfo(`filtInfo_${pageId}`);
+
   for (var key in filtersInfo) {
     filtersInfo[key] = filtersInfo[key].filter(value => {
-      var el = document.querySelector(`.filter-item[data-key="${key}"][data-value="${value}"]`);
+      var el = document.querySelector(`[data-key="${key}"][data-value="${value}"]`);
       if (el) {
         return true;
       }
@@ -725,6 +805,7 @@ function selectCards() {
       delete filtersInfo[key];
     }
   }
+
   selecledCardList = sortedItems.filter(card => {
     for (var key in filtersInfo) {
       var isFound = false;

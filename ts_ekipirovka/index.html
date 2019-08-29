@@ -56,13 +56,13 @@
         <div class="submenu">
           <div class="container">
             <div class="submenu-items ekipirovka">
-              <a class="submenu-item" data-cat-id="" data-level="2" data-href="odegda" onclick="openPage()">Одежда</a>
-              <a class="submenu-item" data-cat-id="" data-level="2" data-href="obuv" onclick="openPage()">Обувь</a>
-              <a class="submenu-item" data-cat-id="" data-level="2" data-href="shlem" onclick="openPage()">Шлемы</a>
-              <a class="submenu-item" data-cat-id="" data-level="2" data-href="optic" onclick="openPage()">Оптика</a>
-              <a class="submenu-item" data-cat-id="" data-level="2" data-href="snarag" onclick="openPage()">Снаряжение</a>
-              <a class="submenu-item" data-cat-id="" data-level="2" data-href="zashita" onclick="openPage()">Защита</a>
-              <a class="submenu-item" data-cat-id="" data-level="2" data-href="sumruk" onclick="openPage()">Сумки и рюкзаки</a>
+              <a class="submenu-item" data-level="2" data-href="odegda" onclick="openPage()">Одежда</a>
+              <a class="submenu-item" data-level="2" data-href="obuv" onclick="openPage()">Обувь</a>
+              <a class="submenu-item" data-level="2" data-href="shlem" onclick="openPage()">Шлемы</a>
+              <a class="submenu-item" data-level="2" data-href="optic" onclick="openPage()">Оптика</a>
+              <a class="submenu-item" data-level="2" data-href="snarag" onclick="openPage()">Снаряжение</a>
+              <a class="submenu-item" data-level="2" data-href="zashita" onclick="openPage()">Защита</a>
+              <a class="submenu-item" data-level="2" data-href="sumruk" onclick="openPage()">Сумки и рюкзаки</a>
             </div>
           </div>
         </div>
@@ -90,7 +90,13 @@
                 <div id=filter-#key# class="filter #isShow#" onclick="toggleFilter(event)">
                   <div class="filter-title">#title#</div>
                   <div class="filter-items">
-                    <div class="filter-item" data-key="#key#" data-value="#value#" onclick="selectValue(event)">#item#</div>
+                    <div class="filter-item" onclick="toggleFilterItem(event)">
+                      <div class="filter-item-title" data-key="#key#" data-value="#value#" onclick="selectValue(event)">#item#</div>
+                      <div class="filter-subitems">
+                        <div class="filter-subitem" data-key="#key#" data-value="#value#" onclick="selectValue(event)">#item#</div>
+                      </div>
+                      <div class="open-btn"></div>
+                    </div>
                   </div>
                 </div>
               </div>
