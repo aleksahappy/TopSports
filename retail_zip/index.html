@@ -19,7 +19,7 @@
     <div class="header">
       <div class="header-main">
         <div class="container row">
-          <a class="logo" href="#top"><img src="../img/header_footer/top_sports_logo.png" alt="Логотип"/></a>
+          <a class="logo" href="#main"><img src="../img/header_footer/top_sports_logo.png" alt="Логотип"/></a>
           <div class="profile-info row">
             <a class="cart" href="#" target="_blank">
               <div class="cart-title">Корзина</div>
@@ -106,7 +106,7 @@
       <div class="container">
         <div class="main-header row">
           <div id="main-nav" class="main-nav">
-            <a href="../ts_main/">Главная</a>
+            <a href="#main">Главная</a>
             <span class="nav-item #isCurPage#" data-href="#pageUrl#" onclick="openPage()">#pageTitle#</span>
           </div>
           <div class="sortbox row">
@@ -123,12 +123,17 @@
                 <div id=filter-#key# class="filter #isShow#" onclick="toggleFilter(event)">
                   <div class="filter-title">#title#</div>
                   <div class="filter-items">
-                    <div class="filter-item" onclick="toggleFilterItem(event)">
-                      <div class="filter-item-title" data-key="#key#" data-value="#value#" onclick="selectValue(event)">#item#</div>
-                      <div class="filter-subitems">
-                        <div class="filter-subitem" data-key="#key#" data-value="#value#" onclick="selectValue(event)">#item#</div>
+                    <div class="filter-item item" data-key="#key#" data-value="#value#" onclick="selectValue(event)">
+                      <div class="filter-title-container row">
+                        <div class="filter-item-title">#title#</div>
+                        <div class="open-btn" onclick="toggleFilterItem(event)"></div>
+                        <div class="close-btn"></div>
                       </div>
-                      <div class="open-btn"></div>
+                      <div class="filter-subitems">
+                        <div class="filter-item subitem" data-key="#key#" data-value="#value#" onclick="selectValue(event)">
+                          <div class="filter-item-title">#title#</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

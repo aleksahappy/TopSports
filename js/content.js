@@ -38,7 +38,7 @@ var mainNavTemplate = document.getElementById('main-nav').innerHTML,
     navItemTemplate = document.querySelector('.nav-item').outerHTML,
     filterTemplate = document.querySelector('.filter').outerHTML,
     filterItemTemplate = document.querySelector('.filter-item').outerHTML,
-    filterSubitemTemplate = document.querySelector('.filter-subitem').outerHTML,
+    filterSubitemTemplate = document.querySelector('.filter-item.subitem').outerHTML,
     minCardTemplate = document.getElementById('card-#object_id#'),
     bigCardTemplate = document.getElementById('big-card-#object_id#'),
     fullCardTemplate = document.getElementById('full-card-#object_id#');
@@ -390,19 +390,27 @@ function changeCart() {
 // Создание меню фильтров:
 
 function initFilters(urlPage) {
-  var data = dataForFilters.slice();
+  var data = JSON.parse(JSON.stringify(dataForFilters));
   if (typeof catId != 'undefined' && Object.keys(catId).includes(urlPage)) {
     var newData = createNewData(catId[urlPage]);
     data.splice(1, 0, newData);
   }
 
-  data.forEach(filter => {
-    var isExsist;
+  var isExsist = false;
+  for (var filter of data) {
     for (var item in filter.items) {
+      isExsist = sortedItems.find(card => {
+        if (card[filter.key] == item || card[item] == 1) {
+          return true;
+        }
+      });
+      if (!isExsist) {
+        delete filter.items[item];
+      }
       if (typeof filter.items[item] == 'object') {
         for (var subItem in filter.items[item]) {
           isExsist = sortedItems.find(card => {
-            if (card.subcat == subItem) {
+            if (card.subcat == [filter.items[item][subItem]]) {
               return true;
             }
           });
@@ -411,16 +419,8 @@ function initFilters(urlPage) {
           }
         }
       }
-      isExsist = sortedItems.find(card => {
-        if (card[item] || card.cat == item) {
-          return true;
-        }
-      });
-      if (!isExsist) {
-        delete filter.items[item];
-      }
     }
-  });
+  }
 
   var createdFilters = createFilters(data);
   menuFilters.innerHTML = createdFilters;
@@ -431,7 +431,7 @@ function createNewData(key) {
   var cat = {};
   for (var catName in cats) {
     if (cats[catName] == key) {
-      cat[catName] = '1';s
+      cat[catName] = '1';
     }
   }
   var newFilter = {
@@ -462,7 +462,7 @@ function createFilter(data) {
         var newSubitem = filterSubitemTemplate
           .replace('#key#', 'subcat')
           .replace('#value#', data.items[item][subitem])
-          .replace('#item#', data.items[item][subitem]);
+          .replace('#title#', data.items[item][subitem]);
         listSubItems += newSubitem;
       }
     }
@@ -477,7 +477,7 @@ function createFilter(data) {
       .replace(filterSubitemTemplate, listSubItems)
       .replace('#key#', data.key)
       .replace('#value#', item)
-      .replace('#item#', curItem);
+      .replace('#title#', curItem);
     listItems += newItem;
   }
   newFilter = newFilter
@@ -500,9 +500,13 @@ function checkFilters() {
           filter.classList.add('open');
         }
         filtersInfo[key].forEach(value => {
-          var el = document.querySelector(`.filter-item[data-key="${key}"][data-value="${value}"]`);
+          var el = document.querySelector(`[data-key="${key}"][data-value="${value}"]`);
           if (el) {
             el.classList.add('checked');
+            var filterItem = el.closest('.filter-item');
+            if (filterItem) {
+              filterItem.classList.add('open');
+            }
           }
         })
       }
@@ -735,23 +739,38 @@ function toggleFilter(event) {
 // Отображение/ скрытие подфильтра:
 
 function toggleFilterItem(event) {
-  if (event.target.classList.contains('filter-item-title') || event.target.classList.contains('open-btn')) {
-    event.currentTarget.classList.toggle('open');
-  }
+  event.currentTarget.closest('.filter-item').classList.toggle('open');
 }
 
 // Выбор значений фильтра:
 
 function selectValue(event) {
-  var curItem = event.currentTarget;
-  var key = curItem.dataset.key;
-  var value = curItem.dataset.value;
+  console.log(event.target);
+  event.stopPropagation();
+  if (!event.target.classList.contains('filter-item-title')) {
+    return;
+  }
+  var curItem = event.currentTarget,
+      key = curItem.dataset.key,
+      value = curItem.dataset.value;
   if (curItem.classList.contains('checked')) {
     removeFiltersInfo(key, value);
     curItem.classList.remove('checked');
+    curItem.classList.remove('open');
+
+    var subItems = curItem.querySelectorAll('.filter-item.checked');
+    if (subItems) {
+      for (var subItem of subItems) {
+        var key = subItem.dataset.key,
+            value = subItem.dataset.value;
+        removeFiltersInfo(key, value);
+        subItem.classList.remove('checked');
+      }
+    }
   } else {
     saveFiltersInfo(key, value);
     curItem.classList.add('checked');
+    curItem.classList.add('open');
   }
   if (Object.keys(getInfo(`filtInfo_${pageId}`)).length == 0) {
     selecledCardList = '';

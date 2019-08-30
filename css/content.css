@@ -312,28 +312,90 @@ body {
   display: block;
 }
 
+.filter-title-container {
+  position: relative;
+  justify-content: flex-start;
+  padding-top: 0.5em;
+}
+
+#filter-cat .filter-title-container {
+  padding-right: 17px;
+}
+
 .filter-item-title {
   position: relative;
-  padding: 0.5em 0 0 1.4em;
+  flex-shrink: 0;
+  padding-left: 1.4em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.filter-item-title.checked {
-  color: rgb(51,51,51);
-  background-color: rgb(247,247,249);
+#filter-cat .filter-item-title {
+  padding-left: 0;
 }
 
 .filter-item-title::before {
   content: '\f096';
   font-family: 'FontAwesome';
   position: absolute;
-  top: 25%;
+  top: auto;
   left: 0;
 }
 
-.filter-item-title.checked::before {
+.filter-item.checked .filter-item-title {
+  color: rgb(51,51,51);
+  background-color: rgb(247,247,249);
+}
+
+#filter-cat .filter-item.checked .filter-title-container > .filter-item-title,
+#filter-cat .filter-item.checked.subitem > .filter-item-title {
+  color: rgb(88, 88, 88);
+  font-weight: 800;
+}
+
+.filter-item.checked .filter-item-title::before {
   content: '\f046';
+}
+
+#filter-cat .filter-item-title::before {
+  content: '';
+}
+
+#filter-cat .open-btn {
+  position: relative;
+  width: 100%;
+  height: 1.5em;
+  z-index: 2;
+}
+
+#filter-cat .open-btn::before {
+  content: '\f105';
+  font-family: 'FontAwesome';
+  position: absolute;
+  top: 0;
+  left: 0.5em;
+  transition: 100ms;
+}
+
+#filter-cat .filter-item.open .open-btn::before {
+  transform: rotate(90deg);
+  transition: 300ms;
+}
+
+.filter-item .close-btn {
+  display: none;
+}
+
+#filter-cat .filter-item.cheked .close-btn {
+  display: block;
+  top: auto;
+  right: 0;
+}
+
+#filter-cat .close-btn::before {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 #filter-color.open .filter-items {
@@ -356,7 +418,7 @@ body {
   transform: scale(1.1, 1.1);
 }
 
-#filter-color .filter-item-title.checked {
+#filter-color .filter-item.checked .filter-item-title{
   background-position-x: -25px;
 }
 
@@ -364,87 +426,87 @@ body {
   content: '';
 }
 
-#filter-color .filter-item-title[data-value="white"] {
+#filter-color .filter-item[data-value="white"] .filter-item-title {
   background-image: url(../img/content/white.png);
 }
 
-#filter-color .filter-item-title[data-value="turquoise"] {
+#filter-color .filter-item[data-value="turquoise"] .filter-item-title {
   background-image: url(../img/content);
 }
 
-/* #filter-color .filter-item-title[data-value="bordo"] {
+/* #filter-color .filter-item[data-value="bordo"] .filter-item-title {
   background-image: url(../img/content);
 } */
 
-#filter-color .filter-item-title[data-value="cyan"] {
+#filter-color .filter-item[data-value="cyan"] .filter-item-title {
   background-image: url(../img/content/lightblue.png);
 }
 
-#filter-color .filter-item-title[data-value="yellow"] {
+#filter-color .filter-item[data-value="yellow"] .filter-item-title {
   background-image: url(../img/content/yellow.png);
 }
 
-#filter-color .filter-item-title[data-value="green"] {
+#filter-color .filter-item[data-value="green"] .filter-item-title {
   background-image: url(../img/content/green.png);
 }
 
-/* #filter-color .filter-item-title[data-value="camo"] {
+/* #filter-color .filter-item[data-value="camo"] .filter-item-title {
   background-image: url(../img/content);
 } */
 
-#filter-color .filter-item-title[data-value="brown"] {
+#filter-color .filter-item[data-value="brown"] .filter-item-title {
   background-image: url(../img/content/brown.png);
 }
 
-#filter-color .filter-item-title[data-value="red"] {
+#filter-color .filter-item[data-value="red"] .filter-item-title {
   background-image: url(../img/content/red.png);
 }
 
-#filter-color .filter-item-title[data-value="multicolor"] {
+#filter-color .filter-item[data-value="multicolor"] .filter-item-title {
   background-image: url(../img/content/colorful.png);
 }
 
-#filter-color .filter-item-title[data-value="orange"] {
+#filter-color .filter-item[data-value="orange"] .filter-item-title {
   background-image: url(../img/content/orange.png);
 }
 
-#filter-color .filter-item-title[data-value="transparent"] {
+#filter-color .filter-item[data-value="transparent"] .filter-item-title {
   background-image: url(../img/content/transparent.png);
 }
 
-#filter-color .filter-item-title[data-value="pink"] {
+#filter-color .filter-item[data-value="pink"] .filter-item-title {
   background-image: url(../img/content/pink.png);
 }
 
-#filter-color .filter-item-title[data-value="grey"] {
+#filter-color .filter-item[data-value="grey"] .filter-item-title {
   background-image: url(../img/content/gray.png);
 }
 
-#filter-color .filter-item-title[data-value="blue"] {
+#filter-color .filter-item[data-value="blue"] .filter-item-title {
   background-image: url(../img/content/blue.png);
 }
 
-#filter-color .filter-item-title[data-value="fiol"] {
+#filter-color .filter-item[data-value="fiol"] .filter-item-title {
   background-image: url(../img/content/purple.png);
 }
 
-/* #filter-color .filter-item[data-value="fuxy"] {
+/* #filter-color .filter-item[data-value="fuxy"] .filter-item-title {
   background-image: url(../img/content);
 } */
 
-#filter-color .filter-item-title[data-value="haki"] {
+#filter-color .filter-item[data-value="haki"] .filter-item-title {
   background-image: url(../img/content/khaki.png);
 }
 
-#filter-color .filter-item-title[data-value="black"] {
+#filter-color .filter-item[data-value="black"] .filter-item-title {
   background-image: url(../img/content/black.png);
 }
 
-/* #filter-color .filter-item-title[data-value="black/pink"] {
+/* #filter-color .filter-item[data-value="black/pink"] .filter-item-title {
   background-image: url(../img/content);
 } */
 
-/* #filter-color .filter-item-title[data-value="black/grey"] {
+/* #filter-color .filter-item[data-value="black/grey"] .filter-item-title {
   background-image: url(../img/content);
 } */
 
@@ -454,6 +516,32 @@ body {
 
 .filter-item.open .filter-subitems {
   display: block;
+}
+
+.filter-item.subitem {
+  padding-left: 1em;
+}
+
+.filter-item.subitem {
+  position: relative;
+  padding-top: 0.5em;
+  padding-right: 17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.filter-item.subitem.checked {
+  color: rgb(88, 88, 88);
+  font-weight: 800;
+  background-color: rgb(247,247,249);
+}
+
+.filter-item.subitem.checked::before {
+  content: '\f00d';
+  font-family: 'FontAwesome';
+  position: absolute;
+  top: auto;
+  right: 0;
 }
 
 /* Стили для галереи: */
