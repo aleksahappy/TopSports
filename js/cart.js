@@ -84,7 +84,7 @@ function changeValue(objectId) {
   changeColors(size, inputValue);
   changeCard(card);
   saveCartInfo(articul, inputValue, objectId);
-  changeCart();
+  renderCart();
 }
 
 // Изменение цвета элементов карточки при измении количества выбранных товаров:

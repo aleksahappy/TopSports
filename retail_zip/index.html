@@ -110,9 +110,18 @@
             <span class="nav-item #isCurPage#" data-href="#pageUrl#" onclick="openPage()">#pageTitle#</span>
           </div>
           <div class="sortbox row">
-            <div class="sortbox-title">Вид каталога:</div>
-            <div class="view-list activ" title="Cписок" onclick="toggleView('list')"></div>
-            <div class="view-blocks" title="Плитка" onclick="toggleView('blocks')"></div>
+            <div class="view row">
+              <div class="view-title">Вид каталога:</div>
+              <div class="view-list activ" title="Cписок" onclick="toggleView('list')"></div>
+              <div class="view-blocks" title="Плитка" onclick="toggleView('blocks')"></div>
+            </div>
+            <select id="sort" onchange="sortItems()">
+              <option selected disabled>Сортировать по</option>
+              <option value="title">По наименованию</option>
+              <option value="price1">Цена по возрастанию</option>
+              <option value="-price1">Цена по убыванию</option>
+              <option value="-is_new">Новые поступления</option>
+            </select>
           </div>
         </div>
         <div class="content list row">
@@ -120,13 +129,13 @@
             <div class="filters">
               <div class="default-btn" onclick="clearFilters()">Очистить фильтры</div>
               <div id="menu-filters">
-                <div id=filter-#key# class="filter #isShow#" onclick="toggleFilter(event)">
+                <div id=filter-#key# class="filter #isShowFilter#" onclick="toggleFilter(event)">
                   <div class="filter-title">#title#</div>
                   <div class="filter-items">
                     <div class="filter-item item" data-key="#key#" data-value="#value#" onclick="selectValue(event)">
                       <div class="filter-title-container row">
                         <div class="filter-item-title">#title#</div>
-                        <div class="open-btn" onclick="toggleFilterItem(event)"></div>
+                        <div class="open-btn #isHiddenOpenBtn#" onclick="toggleFilterItem(event)"></div>
                         <div class="close-btn"></div>
                       </div>
                       <div class="filter-subitems">
@@ -180,7 +189,7 @@
                 <div class="card-container-left row">
                   <div class="carousel" data-imgcounter="0">
                     <span class="left-btn" onclick="moveCarousel(#object_id#)"></span>
-                    <span class="right-btn #isHiddenBtn#" onclick="moveCarousel(#object_id#)"></span>
+                    <span class="right-btn #isHiddenRightBtn#" onclick="moveCarousel(#object_id#)"></span>
                     <div class="carousel-container">
                       <div class="carousel-gallery">
                         <div class="carousel-inner row">

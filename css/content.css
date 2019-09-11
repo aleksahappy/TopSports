@@ -214,7 +214,12 @@ body {
   align-items: center;
 }
 
-.sortbox-title {
+.view {
+  align-items: center;
+  margin-right: 1em;
+}
+
+.view-title {
   margin-right: 1em;
   color: rgb(91,91,93);
 }
@@ -243,6 +248,24 @@ body {
 
 .view-blocks::before {
   content: '\f00a';
+}
+
+#sort {
+  position: relative;
+  padding: 0.15em 1.5em 0.2em 0.3em;
+  font-size: 1em;
+  line-height: 1;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  border: 1px solid rgb(204,204,204);
+  border-radius: 4px;
+  outline: none;
+  background-image: url(../img/content/ico_drop_down.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .filters-container {
