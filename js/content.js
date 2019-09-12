@@ -1,12 +1,12 @@
 'use strict';
 
-setPaddingBody();
+setPaddingToBody();
 
 //=====================================================================================================
 // // Преобразование исходных данных:
 //=====================================================================================================
 
-items.forEach((item, index) => {
+items.forEach(item => {
   item.images = item.images.toString().split(';');
 });
 
@@ -22,6 +22,7 @@ var pageId = document.body.id,
     submenu = document.querySelector('.submenu'),
     headerSelect = document.querySelector('.header-select'),
     mainNav = document.getElementById('main-nav'),
+    content = document.getElementById('content'),
     filtersContainer = document.querySelector('.filters-container'),
     filters = document.querySelector('.filters'),
     menuFilters = document.getElementById('menu-filters'),
@@ -57,7 +58,7 @@ function removeReplays(template, subTemplate) {
 
 // Динамически изменяемые переменные:
 
-var view = 'list',
+var view = content.classList.item(0),
     cardTemplate,
     sortedItems,
     selecledCardList = '',
@@ -79,6 +80,49 @@ renderCart();
 // Визуальное отображение контента на странице:
 //=====================================================================================================
 
+// Установка отступов документа:
+
+window.addEventListener('resize', setPaddingToBody);
+
+function setPaddingToBody() {
+  var headerHeight = document.querySelector('.header').clientHeight;
+  var footerHeight = document.querySelector('.footer').clientHeight;
+  document.body.style.paddingTop = `${headerHeight}px`;
+  document.body.style.paddingBottom = `${footerHeight + 20}px`;
+}
+
+// Установка ширины галереи и малых карточек товара:
+
+window.addEventListener('resize', setGalleryWidth);
+
+function setGalleryWidth() {
+  gallery.style.width = (content.clientWidth - filters.clientWidth) + 'px';
+}
+
+// Установка ширины малых карточек товаров:
+
+window.addEventListener('resize', setMinCardWidth);
+
+function setMinCardWidth() {
+  if (content.classList.contains('list')) {
+    return;
+  }
+  var standartWidth = (13 * parseInt(getComputedStyle(gallery).fontSize, 10)),
+      countCards = Math.floor(gallery.clientWidth / standartWidth),
+      restGallery = gallery.clientWidth - countCards * standartWidth,
+      changeMinCard = restGallery / countCards,
+      minCardWidth = 0;
+  if (changeMinCard <= 110) {
+    minCardWidth = standartWidth + changeMinCard;
+  } else {
+    countCards = countCards + 1;
+    minCardWidth = gallery.clientWidth / countCards;
+  }
+  document.querySelectorAll('.min-card').forEach(minCard => {
+    minCard.style.width = minCardWidth + 'px';
+  })
+}
+
 // Открытие и закрытие подменю на малых разрешениях:
 
 function toggleSubmenu() {
@@ -91,25 +135,10 @@ function toggleSelectMenu() {
   headerSelect.classList.toggle('open');
 }
 
-// Установка отступов документа:
-
-window.addEventListener('resize', setPaddingBody);
-
-function setPaddingBody() {
-  var headerHeight = document.querySelector('.header').clientHeight;
-  var footerHeight = document.querySelector('.footer').clientHeight;
-  document.body.style.paddingTop = `${headerHeight}px`;
-  document.body.style.paddingBottom = `${footerHeight + 20}px`;
-}
-
-// Установка высоты меню опций:
+// Установка высоты меню фильтров:
 
 window.addEventListener('scroll', setFiltersHeight);
 window.addEventListener('resize', setFiltersHeight);
-
-// function setFiltersHeight() {
-//   filtersContainer.style.minHeight = filters.clientHeight + 'px';
-// }
 
 function setFiltersHeight() {
   if (window.getComputedStyle(filters).position == 'fixed') {
@@ -151,6 +180,8 @@ function initPage() {
   toggleMenuItems(path);
   createMainNav(path);
   renderContent(path);
+  setGalleryWidth();
+  setMinCardWidth();
 }
 
 // Изменение URL без перезагрузки страницы:
@@ -233,7 +264,7 @@ function createMainNav(path) {
       submenu.classList.remove('zip');
     }
   }
-  setPaddingBody();
+  setPaddingToBody();
 
   var newMainNav = mainNavTemplate.replace(navItemTemplate, listNavItems);
   mainNav.innerHTML = newMainNav;
@@ -475,7 +506,7 @@ function createFilter(data) {
         if (data.items[item][subitem] !== '') {
           isHiddenOpenBtn = '';
           var newSubitem = filterSubitemTemplate
-          .replace('#key#', 'subcat')
+          .replace('#key#', item)
           .replace('#value#', data.items[item][subitem])
           .replace('#title#', data.items[item][subitem])
         listSubItems += newSubitem;
@@ -511,13 +542,13 @@ function checkFilters() {
   if (getInfo(`filtInfo_${pageId}`)) {
     if (Object.keys(getInfo(`filtInfo_${pageId}`)).length != 0) {
       var filtersInfo = getInfo(`filtInfo_${pageId}`);
-      for (var key in filtersInfo) {
-        var filter = document.querySelector(`#filter-${key}`);
+      for (var k in filtersInfo) {
+        var filter = document.querySelector(`#filter-${k}`);
         if (filter) {
           filter.classList.add('open');
         }
-        filtersInfo[key].forEach(value => {
-          var el = document.querySelector(`[data-key="${key}"][data-value="${value}"]`);
+        for (var kk in filtersInfo[k]) {
+          var el = document.querySelector(`[data-key="${k}"][data-value="${kk}"]`);
           if (el) {
             el.classList.add('checked');
             var filterItem = el.closest('.filter-item');
@@ -525,7 +556,17 @@ function checkFilters() {
               filterItem.classList.add('open');
             }
           }
-        })
+          for (var kkk in filtersInfo[k][kk]) {
+            var el = document.querySelector(`[data-key="${kk}"][data-value="${kkk}"]`);
+            if (el) {
+              el.classList.add('checked');
+              var filterItem = el.closest('.filter-item');
+              if (filterItem) {
+                filterItem.classList.add('open');
+              }
+            }
+          }
+        }
       }
       selectCards();
       return;
@@ -557,31 +598,30 @@ function toggleFilterItem(event) {
 
 function selectValue(event) {
   event.stopPropagation();
-  if (!event.target.classList.contains('filter-item-title')) {
+  if (event.target.classList.contains('open-btn')) {
     return;
   }
   var curItem = event.currentTarget,
+      type = curItem.dataset.type,
       key = curItem.dataset.key,
       value = curItem.dataset.value;
 
   if (curItem.classList.contains('checked')) {
-    removeFiltersInfo(key, value);
+    removeFiltersInfo(type, key, value);
     curItem.classList.remove('checked');
     curItem.classList.remove('open');
 
     var subItems = curItem.querySelectorAll('.filter-item.checked');
-    if (subItems) {
-      for (var subItem of subItems) {
-        var key = subItem.dataset.key,
-            value = subItem.dataset.value;
-        removeFiltersInfo(key, value);
-        subItem.classList.remove('checked');
-      }
-    }
+    subItems.forEach(subItem => subItem.classList.remove('checked'));
   } else {
-    saveFiltersInfo(key, value);
+    saveFiltersInfo(type, key, value);
     curItem.classList.add('checked');
     curItem.classList.add('open');
+
+    var filterItem = curItem.closest('.filter-item.item');
+    if (filterItem) {
+      filterItem.classList.add('checked');
+    }
   }
   if (Object.keys(getInfo(`filtInfo_${pageId}`)).length == 0) {
     selecledCardList = '';
@@ -593,32 +633,45 @@ function selectValue(event) {
 
 // Добавление данных о выбранных фильтрах:
 
-function saveFiltersInfo(key, value) {
+function saveFiltersInfo(type, key, value) {
   var filtersInfo = getInfo(`filtInfo_${pageId}`) ? getInfo(`filtInfo_${pageId}`) : {};
-  if (!filtersInfo[key]) {
-    filtersInfo[key] = [value];
-  } else {
-    if (!filtersInfo[key].indexOf(value) >= 0) {
-      filtersInfo[key].push(value);
+  if (type == 'item') {
+    if (!filtersInfo[key]) {
+      filtersInfo[key] = {};
     }
+    if (!filtersInfo[key][value]) {
+      filtersInfo[key][value] = '';
+    }
+  }
+  if (type == 'subitem') {
+    if (!filtersInfo.cat) {
+      filtersInfo.cat = {};
+    }
+    if (!filtersInfo.cat[key]) {
+      filtersInfo.cat[key] = {};
+    }
+    filtersInfo.cat[key][value] = '';
   }
   saveInfo(`filtInfo_${pageId}`, filtersInfo);
 }
 
 // Удаление данных о выбранных фильтрах:
 
-function removeFiltersInfo(key, value) {
+function removeFiltersInfo(type, key, value) {
   var filtersInfo = getInfo(`filtInfo_${pageId}`);
-  if (filtersInfo[key]) {
-    var index = filtersInfo[key].indexOf(value);
-    if (index !== -1) {
-      filtersInfo[key].splice(index, 1);
-    }
-    if (filtersInfo[key].length == 0) {
+  if (type == 'item') {
+    delete filtersInfo[key][value];
+    if (Object.keys(filtersInfo[key]).length == 0) {
       delete filtersInfo[key];
     }
-    saveInfo(`filtInfo_${pageId}`, filtersInfo);
   }
+  if (type == 'subitem') {
+    delete filtersInfo.cat[key][value];
+    if (filtersInfo.cat[key] && Object.keys(filtersInfo.cat[key]).length == 0) {
+      filtersInfo.cat[key] = '';
+    }
+  }
+  saveInfo(`filtInfo_${pageId}`, filtersInfo);
 }
 
 // Фильтрация карточек:
@@ -626,27 +679,37 @@ function removeFiltersInfo(key, value) {
 function selectCards() {
   var filtersInfo = getInfo(`filtInfo_${pageId}`);
 
-  for (var key in filtersInfo) {
-    filtersInfo[key] = filtersInfo[key].filter(value => {
-      var el = document.querySelector(`[data-key="${key}"][data-value="${value}"]`);
-      if (el) {
-        return true;
+  for (var k in filtersInfo) {
+    for (var kk in filtersInfo[k]) {
+      var el = document.querySelector(`[data-key="${k}"][data-value="${kk}"]`);
+      if (!el) {
+        delete filtersInfo[k][kk];
       }
-    });
-    if (filtersInfo[key].length == 0) {
-      delete filtersInfo[key];
+      for (var kkk in filtersInfo[k][kk]) {
+        var el = document.querySelector(`[data-key="${kk}"][data-value="${kkk}"]`);
+        if (!el) {
+          delete filtersInfo[k][kk][kkk];
+        }
+        if (Object.keys(filtersInfo[k][kk]).length == 0) {
+          delete filtersInfo[k][kk];
+        }
+      }
+      if (Object.keys(filtersInfo[k]).length == 0) {
+        delete filtersInfo[k];
+      }
     }
   }
+  console.log(filtersInfo);
 
   selecledCardList = sortedItems.filter(card => {
-    var cat;
     for (var k in filtersInfo) {
       var isFound = false;
-      for (var kk of filtersInfo[k]) {
-        if (k == 'subcat') {
-          cat = document.querySelector(`[data-key="${k}"][data-value="${kk}"]`).closest('.item').dataset.value;
-          if ((card.cat != cat) || (card.cat == cat && card[k] == kk)) {
-            isFound = true;
+      for (var kk in filtersInfo[k]) {
+        if (filtersInfo[k][kk] && Object.keys(filtersInfo[k][kk]).length != 0) {
+          for (var kkk in filtersInfo[k][kk]) {
+            if (card.cat == kk && card.subcat == kkk) {
+              isFound = true;
+            }
           }
         } else {
           if (card[k] == kk || card[kk] == 1) {
@@ -716,6 +779,8 @@ function loadCards(cards) {
     gallery.insertAdjacentHTML('beforeend', listCard);
   }
   setFiltersHeight();
+  setGalleryWidth();
+  setMinCardWidth();
 }
 
 // Создание одной карточки товара :
@@ -927,7 +992,6 @@ function toggleView(newView) {
   if (view != newView) {
     document.querySelector(`.view-${view}`).classList.remove('activ');
     event.currentTarget.classList.add('activ');
-    var content = document.querySelector('.content');
     content.classList.remove(`${view}`);
     content.classList.add(`${newView}`);
     view = newView;
@@ -1003,7 +1067,7 @@ function closeFullImg() {
 function moveCarousel(objectId) {
   var card = event.currentTarget.closest('.card'),
       carousel = card.querySelector('.carousel'),
-      imgCounter = parseInt(carousel.dataset.imgcounter),
+      imgCounter = parseInt(carousel.dataset.imgcounter, 10),
       images = items.find(item => item.object_id == objectId).images,
       lastImg = images.length - 1,
       imageWidth = carousel.querySelector('.carousel-item').clientWidth,
@@ -1033,7 +1097,7 @@ window.addEventListener('resize', () => {
 });
 
 function toggleDisplayBtns(card) {
-  var objectId = parseInt(card.dataset.objectId),
+  var objectId = parseInt(card.dataset.objectId, 10),
       images = items.find(item => item.object_id == objectId).images,
       carousel = card.querySelector('.carousel'),
       imageWidth = carousel.querySelector('.carousel-item').clientWidth,
@@ -1041,7 +1105,7 @@ function toggleDisplayBtns(card) {
       carouselInner = carousel.querySelector('.carousel-inner'),
       leftBtn = carousel.querySelector('.left-btn'),
       rightBtn = carousel.querySelector('.right-btn'),
-      imgCounter = parseInt(carousel.dataset.imgcounter);
+      imgCounter = parseInt(carousel.dataset.imgcounter, 10);
 
   if (carouselWidth >= imageWidth * images.length) {
     rightBtn.style.visibility = 'hidden';
@@ -1053,7 +1117,7 @@ function toggleDisplayBtns(card) {
       leftBtn.style.visibility = 'visible';
     }
 
-    if (-parseInt(carouselInner.style.marginLeft) >= imageWidth * images.length - carouselWidth) {
+    if (-parseInt(carouselInner.style.marginLeft, 10) >= imageWidth * images.length - carouselWidth) {
       rightBtn.style.visibility = 'hidden';
     } else {
       rightBtn.style.visibility = 'visible';
@@ -1077,7 +1141,7 @@ function toggleImg(imgNumb) {
 
 function showImg(event) {
   var carousel = event.currentTarget.closest('.carousel'),
-      imgCounter = parseInt(carousel.dataset.imgcounter),
+      imgCounter = parseInt(carousel.dataset.imgcounter, 10),
       img = carousel.querySelector(`.carousel-item-${imgCounter} img`);
 
   carousel.querySelector('.img-active').classList.remove('img-active');

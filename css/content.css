@@ -152,10 +152,105 @@ body {
 }
 
 /* =====================================================================================================
+ Стили для всплывающих подсказок:
+===================================================================================================== */
+
+[tooltip] {
+  position: relative;
+}
+
+[tooltip]::before,
+[tooltip]::after {
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  display: none;
+  opacity: 0;
+  text-transform: none;
+  font-size: .9em;
+  /* transition: all 10s ease; */
+}
+
+[tooltip]::before {
+  content: '';
+  z-index: 1001;
+  border: 5px solid transparent;
+}
+
+[tooltip]::after {
+  content: attr(tooltip);
+  z-index: 1000;
+  text-align: center;
+  min-width: 3em;
+  max-width: 21em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 1ch 1.5ch;
+  border-radius: .3ch;
+  box-shadow: 0 1em 2em -.5em rgba(0, 0, 0, 0.35);
+  background: #333;
+  color: #fff;
+}
+
+[tooltip]:hover::before,
+[tooltip]:hover::after {
+    display: block;
+}
+
+/* ONLY the ::before */
+[tooltip]::before {
+  bottom: 100%;
+  border-bottom-width: 0;
+  border-top-color: #333;
+}
+ 
+/* ONLY the ::after */
+[tooltip]::after {
+  bottom: calc(100% + 5px);
+}
+ 
+/* Both ::before & ::after */
+[tooltip]::before,
+[tooltip]::after {
+    left: 50%;
+    transform: translate(-50%, -.5em);
+}
+
+/* [tooltip]:hover::before,
+[tooltip]:hover::after {
+  opacity: 0.9;
+} */
+
+@keyframes tooltips-vert {
+  to {
+    opacity: .9;
+    transform: translate(-50%, 0);
+  }
+}
+ 
+@keyframes tooltips-horz {
+  to {
+    opacity: .9;
+    transform: translate(0, -50%);
+  }
+}
+
+[tooltip]:hover::before,
+[tooltip]:hover::after {
+    animation:
+        tooltips-vert
+        300ms
+        ease-out
+        forwards;
+}
+
+/* =====================================================================================================
  Стили для основного содержимого:
 ===================================================================================================== */
 
-.content {
+#content {
   min-height: 60vh;
 }
 
@@ -167,10 +262,6 @@ body {
   align-items: center;
   flex-wrap: wrap;
   padding: 1em 0;
-}
-
-.main-header > div {
-  flex-shrink: 0;
 }
 
 .main-nav {
@@ -212,10 +303,12 @@ body {
 
 .sortbox {
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .view {
   align-items: center;
+  flex-shrink: 0;
   margin-right: 1em;
 }
 
@@ -270,7 +363,7 @@ body {
 
 .filters-container {
   display: none;
-  width: 20%;
+  width: 16em;
   margin-right: 1rem;
   cursor: pointer;
 }
@@ -335,10 +428,18 @@ body {
   display: block;
 }
 
+.filter-items .filter-item.item:first-child .filter-title-container {
+  padding-top: 0.5em;
+}
+
+#filter-color .filter-items .filter-item.item:first-child .filter-title-container {
+  padding-top: 0;
+}
+
 .filter-title-container {
   position: relative;
   justify-content: flex-start;
-  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 
 #filter-cat .filter-title-container {
@@ -365,7 +466,7 @@ body {
   left: 0;
 }
 
-.filter-item.checked .filter-item-title {
+.filter-item.checked > .filter-item-title {
   color: rgb(51,51,51);
   background-color: rgb(247,247,249);
 }
@@ -409,7 +510,7 @@ body {
   display: none;
 }
 
-#filter-cat .filter-item.cheked .close-btn {
+#filter-cat .filter-item.checked .close-btn {
   display: block;
   top: auto;
   right: 0;
@@ -547,7 +648,7 @@ body {
 
 .filter-item.subitem {
   position: relative;
-  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   padding-right: 17px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -573,7 +674,6 @@ body {
   display: none;
   flex-wrap: wrap;
   justify-content: flex-start;
-  width: 80%;
 }
 
 #gallery-notice {
@@ -721,7 +821,7 @@ body {
 }
 
 .option-title {
-  max-width: 15em;
+  max-width: 20em;
 }
 
 .card-price-info {
@@ -1000,7 +1100,7 @@ body.zip .big-card .retail {
 }
 
 .big-card .retail .card-price-title {
-  max-width: 15em;
+  max-width: 20em;
 }
 
 body.ekipirovka .big-card .card-container-right {

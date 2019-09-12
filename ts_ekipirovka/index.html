@@ -91,7 +91,7 @@
             </select>
           </div>
         </div>
-        <div class="content list row">
+        <div id="content" class="list row">
           <div class="filters-container">
             <div class="filters">
               <div class="default-btn" onclick="clearFilters()">Очистить фильтры</div>
@@ -99,14 +99,14 @@
                 <div id=filter-#key# class="filter #isShowFilter#" onclick="toggleFilter(event)">
                   <div class="filter-title">#title#</div>
                   <div class="filter-items">
-                    <div class="filter-item item" data-key="#key#" data-value="#value#" onclick="selectValue(event)">
+                    <div class="filter-item item" data-type="item" data-key="#key#" data-value="#value#" onclick="selectValue(event)">
                       <div class="filter-title-container row">
                         <div class="filter-item-title">#title#</div>
                         <div class="open-btn #isHiddenOpenBtn#" onclick="toggleFilterItem(event)"></div>
                         <div class="close-btn"></div>
                       </div>
                       <div class="filter-subitems">
-                        <div class="filter-item subitem" data-key="#key#" data-value="#value#" onclick="selectValue(event)">
+                        <div class="filter-item subitem" data-type="subitem" data-key="#key#" data-value="#value#" onclick="selectValue(event)">
                           <div class="filter-item-title">#title#</div>
                         </div>
                       </div>
