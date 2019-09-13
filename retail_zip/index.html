@@ -49,8 +49,9 @@
               <a class="topmenu-item" data-level="1" data-href="lodkimotor" onclick="openPage()">Лодки и моторы</a>
             </div>
             <div class="search">
-              <input id="search" type="text" autocomplete="off" placeholder="Поиск">
-              <div class="search-btn"></div>
+              <input id="search" type="text" autocomplete="off" placeholder="Поиск" onkeydown="findOnPage(event)">
+              <div class="search-btn" onclick="findOnPage(event)"></div>
+              <div class="close-btn" onclick="clearSearch()"></div>
             </div>
           </div>
         </div>
@@ -84,7 +85,9 @@
                   <option class="select-option">#model#</option>
                 </select>
               </div>
-              <div class="close-btn" title="Сброс фильтра" onclick=""></div>
+              <div class="tooltip" tooltip="Сброс фильтра">
+                <div class="close-btn" onclick=""></div>
+              </div>
             </div>
             <div class="select-oem">
               <div class="search-btn" onclick=""></div>
@@ -113,10 +116,11 @@
             <div class="view row">
               <div class="view-title">Вид каталога:</div>
               <div class="tooltip" tooltip="Cписок">
-                <div class="view-list activ" onclick="toggleView('list')">
+                <div class="view-list activ" onclick="toggleView('list')"></div>
               </div>
+              <div class="tooltip" tooltip="Плитка">
+                <div class="view-blocks" onclick="toggleView('blocks')"></div>
               </div>
-              <div class="view-blocks" tooltip="Плитка" onclick="toggleView('blocks')"></div>
             </div>
             <select id="sort" onchange="sortItems()">
               <option selected disabled>Сортировать по</option>
@@ -166,7 +170,9 @@
                   <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
                   <div class="new-price red">#price_preorder#&#8288;.-</div>
                 </div>
-                <div class="card-qty #isAvaliable#" title="#qtyTitle#"></div>
+                <div class="tooltip" tooltip="#qtyTitle#">
+                  <div class="card-qty #isAvaliable#"></div>
+                </div>
               </div>
             </div>
             <div id="big-card-#object_id#" class="big-card card" data-object-id="#object_id#" onclick="closeBigCard(event)">
@@ -243,12 +249,15 @@
                       <div class="size-choice row">
                         <span class="size-name">#size#</span>
                         <span class="size-qty row">
-                          <span class="btn-minus" title="Уменьшить" onclick="changeValue(#object_id#)">-</span>
+                          <span class="btn-minus" tooltip="Удалить" onclick="changeValue(#object_id#)">-</span>
                           <input class="choice-gty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" onchange="changeValue(#object_id#)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
-                          <span class="btn-plus" title="Увеличить" onclick="changeValue(#object_id#)">+</span>
+                          <span class="btn-plus" tooltip="Добавить" onclick="changeValue(#object_id#)">+</span>
                         </span>
                       </div>
-                      <div class="card-qty #isAvaliable#" title="#qtyTitle#">#free_qty#&nbsp;шт.</div>
+                      <div class="tooltip row" tooltip="#qtyTitle#">
+                        <div class="card-qty #isAvaliable#"></div>
+                        <div class="card-qty-count">#free_qty#&nbsp;шт.</div>
+                      </div>
                     </div>
                   </div>
                   <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
@@ -258,7 +267,7 @@
                     <div class="card-text">#desc#</div>
                   </div>
                   <div class="card-fade"></div>
-                  <div class="toggle-btn" onclick="openBigCard(event)"></div>
+                  <div class="toggle-btn" tooltip="Раскрыть" onclick="openBigCard(event)"></div>
                 </div>
               </div>
             </div>
@@ -334,12 +343,14 @@
                       <div class="size-choice row">
                         <span class="size-name">#size#</span>
                         <span class="size-qty row">
-                          <span class="btn-minus" title="Уменьшить" onclick="changeValue(#object_id#)">-</span>
+                          <span class="btn-minus" tooltip="Удалить" onclick="changeValue(#object_id#)">-</span>
                           <input class="choice-gty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" onchange="changeValue(#object_id#)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
-                          <span class="btn-plus" title="Увеличить" onclick="changeValue(#object_id#)">+</span>
+                          <span class="btn-plus" tooltip="Добавить" onclick="changeValue(#object_id#)">+</span>
                         </span>
                       </div>
-                      <div class="card-qty #isAvaliable#" title="#qtyTitle#">#free_qty#&nbsp;шт.</div>
+                      <div class="tooltip" tooltip="#qtyTitle#">
+                        <div class="card-qty #isAvaliable#">#free_qty#&nbsp;шт.</div>
+                      </div>
                     </div>
                   </div>
                   <div class="card-notice red">#notice#</div>

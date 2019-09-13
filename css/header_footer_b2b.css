@@ -181,10 +181,24 @@
   width: 40%;
 }
 
-.search .search-btn {
-  top: 14%;
-  right: 0.5em;
-  font-size: 1.5em;
+.search .search-btn,
+.search .close-btn {
+  top: 0;
+  right: 0;
+  background: url(../img/header_footer/search.png) no-repeat center;
+  background-size: 1.2em;
+  width: 30px;
+  height: 100%;
+}
+
+.search .close-btn {
+  display: none;
+  background: url(../img/header_footer/ico_search_clear.png) no-repeat center;
+}
+
+.search .search-btn::before,
+.search .close-btn::before {
+  content: '';
 }
 
 #search {

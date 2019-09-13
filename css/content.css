@@ -157,93 +157,52 @@ body {
 
 [tooltip] {
   position: relative;
+  max-width: 3.5em;
 }
 
 [tooltip]::before,
 [tooltip]::after {
+  display: none;
+  position: absolute;
+  left: 50%;
+  font-size: 1.2rem;
   line-height: 1;
   user-select: none;
   pointer-events: none;
-  position: absolute;
-  display: none;
-  opacity: 0;
   text-transform: none;
-  font-size: .9em;
-  /* transition: all 10s ease; */
+  opacity: 0;
+  transform: translate(-50%, -.5em);
 }
 
 [tooltip]::before {
   content: '';
-  z-index: 1001;
+  top: 0;
   border: 5px solid transparent;
+  border-bottom-width: 0;
+  border-top-color: #333;
+  z-index: 1001;
 }
 
 [tooltip]::after {
   content: attr(tooltip);
-  z-index: 1000;
-  text-align: center;
   min-width: 3em;
   max-width: 21em;
+  top: -24px;
+  padding: 0.5em 0.7em;
+  color: #fff;
+  background: #333;
+  border-radius: 4px;
+  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 1ch 1.5ch;
-  border-radius: .3ch;
-  box-shadow: 0 1em 2em -.5em rgba(0, 0, 0, 0.35);
-  background: #333;
-  color: #fff;
+  z-index: 1000;
 }
 
 [tooltip]:hover::before,
 [tooltip]:hover::after {
     display: block;
-}
-
-/* ONLY the ::before */
-[tooltip]::before {
-  bottom: 100%;
-  border-bottom-width: 0;
-  border-top-color: #333;
-}
- 
-/* ONLY the ::after */
-[tooltip]::after {
-  bottom: calc(100% + 5px);
-}
- 
-/* Both ::before & ::after */
-[tooltip]::before,
-[tooltip]::after {
-    left: 50%;
-    transform: translate(-50%, -.5em);
-}
-
-/* [tooltip]:hover::before,
-[tooltip]:hover::after {
-  opacity: 0.9;
-} */
-
-@keyframes tooltips-vert {
-  to {
-    opacity: .9;
-    transform: translate(-50%, 0);
-  }
-}
- 
-@keyframes tooltips-horz {
-  to {
-    opacity: .9;
-    transform: translate(0, -50%);
-  }
-}
-
-[tooltip]:hover::before,
-[tooltip]:hover::after {
-    animation:
-        tooltips-vert
-        300ms
-        ease-out
-        forwards;
+    opacity: 0.9;
 }
 
 /* =====================================================================================================
@@ -313,13 +272,16 @@ body {
 }
 
 .view-title {
-  margin-right: 1em;
   color: rgb(91,91,93);
+}
+
+.view .tooltip {
+  margin-left: 1em;
 }
 
 .view-list, .view-blocks {
   position: relative;
-  width: 1.5em;
+  width: 1em;
   height:  1.5em;
   font-family: 'FontAwesome';
   font-size: 1.3em;
@@ -329,10 +291,6 @@ body {
 .view-list.activ, .view-blocks.activ {
   color: rgb(255,102,50);
   cursor: default;
-}
-
-.view-list {
-  margin-right: 0.5em;
 }
 
 .view-list::before {
@@ -373,9 +331,9 @@ body {
   width: 16em;
   padding-right: 1.5em;
   padding-bottom: 1em;
-  overflow-y: scroll;
+  /* overflow-y: scroll;
   overflow-x: hidden;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis; */
 }
 
 .default-btn {
@@ -392,7 +350,7 @@ body {
 
 .filter-title {
   position: relative;
-  padding: 0.5em 2em 0.3em 0.5em;
+  padding: 0.5em 2em 0.3em 0;
   font-family: 'FranklinGothic-DemiCond';
   font-size: 1.15em;
   font-weight: 500;
@@ -683,6 +641,7 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
+  font-size: 1.15em;
 }
 
 /* Общие стили для карточек: */
@@ -724,10 +683,15 @@ body {
   padding-left: 0.5em;
 }
 
+.card-size .tooltip {
+  justify-content: flex-start;
+  margin-top: 0.3em;
+}
+
 .card-qty {
   display: inline-block;
   position: relative;
-  height: 1.5em;
+  height: 1em;
   padding-left: 20px;
   font-size: 0.8em;
   color: rgb(0,176,104);
@@ -736,12 +700,17 @@ body {
 .card-qty::before {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 2px;
   content: '';
   width: 15px;
   height: 15px;
   background-image: url(../img/content/ico_stock_arrive_new.png);
   background-size: cover;
+}
+
+.card-qty-count {
+  font-size: 0.8em;
+  color: rgb(0,176,104);
 }
 
 .grey-gty::before {
@@ -750,28 +719,30 @@ body {
 
 .carousel {
   position: relative;
+  cursor: pointer;
 }
 
 .left-btn, .right-btn {
   position: absolute;
-  top: 45%;
+  top: 0;
+  height: 100%;
+  width: 1.5em;
+  opacity: 0.5;
+}
+
+.left-btn:hover, .right-btn:hover {
+  opacity: 1;
 }
 
 .left-btn {
   left: 0;
   visibility: hidden;
+  background: url(../img/content/list_slider_arrow_left.jpg) no-repeat center;
 }
 
 .right-btn {
   right: 0;
-}
-
-.left-btn::before {
-  content: url(../img/content/list_slider_arrow_left.jpg);
-}
-
-.right-btn::before {
-  content: url(../img/content/list_slider_arrow_right.jpg);
+  background: url(../img/content/list_slider_arrow_right.jpg) no-repeat center;
 }
 
 .carousel-container {
@@ -951,7 +922,6 @@ body {
   margin: 0 -1px -1px 0;
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(232,232,232);
-  overflow: hidden;
   cursor: pointer;
 }
 
@@ -965,6 +935,7 @@ body {
   align-items: center;
   height: 178px;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 .min-card .card-img {
@@ -975,6 +946,7 @@ body {
   height: 1.7em;
   margin-bottom: 0.5em;
   padding: 0 0.7em;
+  overflow: hidden;
 }
 
 .min-card .card-title {
@@ -1146,8 +1118,8 @@ body.zip .big-card .card-container-right {
 
 .big-card .toggle-btn {
   position: absolute;
-  width: 4em;
-  height: 2.5em;
+  width: 28px;
+  height: 20px;
   bottom: 0;
   right: 40%;
   background: url(../img/content/list_arrow_bottom.jpg) no-repeat bottom center;

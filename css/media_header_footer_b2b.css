@@ -131,9 +131,6 @@
     width: 100%;
     align-self: flex-start;
   }
-  .search .search-btn {
-    top: 15%;
-  }
   .submenu-items.ekipirovka {
     flex-direction: column;
     flex-wrap: wrap;

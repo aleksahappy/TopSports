@@ -19,6 +19,9 @@ items.forEach(item => {
 var pageId = document.body.id,
     cartAmount = document.querySelector('.cart-amount span'),
     cartPrice = document.querySelector('.cart-price span'),
+    search = document.getElementById('search'),
+    searchBtn = document.querySelector('.search .search-btn'),
+    clearSearchBtn = document.querySelector('.search .close-btn'),
     submenu = document.querySelector('.submenu'),
     headerSelect = document.querySelector('.header-select'),
     mainNav = document.getElementById('main-nav'),
@@ -60,11 +63,12 @@ function removeReplays(template, subTemplate) {
 
 var view = content.classList.item(0),
     cardTemplate,
-    sortedItems,
+    curItems,
+    itemsForSearch,
     selecledCardList = '',
     countItems = 0,
     countItemsTo = 0,
-    curItems;
+    itemsToLoad;
 
 //=====================================================================================================
 // Заполнение контента страницы:
@@ -156,6 +160,16 @@ function setFiltersHeight() {
 
 function convertPrice(price) {
   return (price + '').replace(/(\d{1,3})(?=((\d{3})*)$)/g, " $1");
+}
+
+// Добавление всплывающих подсказок:
+
+function addTooltips(key) {
+  var elements = document.querySelectorAll(`[data-key=${key}]`);
+  elements.forEach(el => {
+    var tooltipText = el.textContent.trim();
+    el.setAttribute('tooltip', tooltipText);
+  });
 }
 
 //=====================================================================================================
@@ -273,15 +287,15 @@ function createMainNav(path) {
 // Изменение контента страницы:
 
 function renderContent(path) {
-  sortedItems = items;
+  curItems = items;
   for (var key of path) {
     if (key != pageId) {
-      sortedItems = sortedItems.filter(item => item[key] == 1);
+      curItems = curItems.filter(item => item[key] == 1);
     }
   }
-  selecledCardList = '';
-  initFilters(path[path.length - 1]);
+  selecledCardList = curItems;
   checkFilters();
+  prepeareData(curItems);
 }
 
 //=====================================================================================================
@@ -424,17 +438,33 @@ function renderCart() {
 
 // Подготовка данных для создания меню фильтров и отображение фильтров на странице:
 
-function initFilters(urlPage) {
+function initFilters() {
+  var path = location.search.split('?');
+  var urlPage = path[path.length - 1];
+  if (urlPage == '') {
+    urlPage = pageId;
+  }
+
   var data = JSON.parse(JSON.stringify(dataForFilters));
   if (typeof catId != 'undefined' && Object.keys(catId).indexOf(urlPage) >= 0) {
     var newData = createNewData(catId[urlPage]);
     data.splice(1, 0, newData);
   }
 
-  var isExsist = false;
+  var isExsist = false,
+      curItemsArray = selecledCardList;
+
+  console.log(selecledCardList);
+
+  if (selecledCardList == '') {
+    curItemsArray = curItems;
+  }
+
+  console.log(curItemsArray);
+
   for (var filter of data) {
     for (var item in filter.items) {
-      isExsist = sortedItems.find(card => {
+      isExsist = curItemsArray.find(card => {
         if (card[filter.key] == item || card[item] == 1) {
           return true;
         }
@@ -444,7 +474,7 @@ function initFilters(urlPage) {
       }
       if (typeof filter.items[item] == 'object') {
         for (var subItem in filter.items[item]) {
-          isExsist = sortedItems.find(card => {
+          isExsist = curItemsArray.find(card => {
             if (card.subcat == [filter.items[item][subItem]]) {
               return true;
             }
@@ -460,6 +490,7 @@ function initFilters(urlPage) {
   var createdFilters = createFilters(data);
   menuFilters.innerHTML = createdFilters;
   filtersContainer.style.display = 'block';
+  addTooltips('color');
 }
 
 // Создание фильтра категорий в экипировке:
@@ -484,6 +515,11 @@ function createNewData(key) {
 
 function createFilters(data) {
   var listFilters = data.map(element => {
+    // var count = 1;
+    // if (element.key == 'specialOffer') {
+    //   count = 0;
+    // }
+    // console.log(count);
     if (Object.keys(element.items).length > 0) {
       return createFilter(element);
     }
@@ -536,43 +572,51 @@ function createFilter(data) {
   return newFilter;
 }
 
-// Проверка сохраненных значений фильтров и их визуальное отображение;
+// Проверка сохраненных значений фильтров:
 
 function checkFilters() {
   if (getInfo(`filtInfo_${pageId}`)) {
     if (Object.keys(getInfo(`filtInfo_${pageId}`)).length != 0) {
-      var filtersInfo = getInfo(`filtInfo_${pageId}`);
-      for (var k in filtersInfo) {
-        var filter = document.querySelector(`#filter-${k}`);
-        if (filter) {
-          filter.classList.add('open');
-        }
-        for (var kk in filtersInfo[k]) {
-          var el = document.querySelector(`[data-key="${k}"][data-value="${kk}"]`);
-          if (el) {
-            el.classList.add('checked');
-            var filterItem = el.closest('.filter-item');
-            if (filterItem) {
-              filterItem.classList.add('open');
-            }
-          }
-          for (var kkk in filtersInfo[k][kk]) {
-            var el = document.querySelector(`[data-key="${kk}"][data-value="${kkk}"]`);
-            if (el) {
-              el.classList.add('checked');
-              var filterItem = el.closest('.filter-item');
-              if (filterItem) {
-                filterItem.classList.add('open');
-              }
-            }
-          }
-        }
-      }
       selectCards();
+      initFilters();
+      selectFilters();
       return;
     }
   }
+  initFilters();
   showCards();
+}
+
+// Визуальное отображение сохраненных значений фильтров:
+
+function selectFilters() {
+  var filtersInfo = getInfo(`filtInfo_${pageId}`);
+  for (var k in filtersInfo) {
+    var filter = document.querySelector(`#filter-${k}`);
+    if (filter) {
+      filter.classList.add('open');
+    }
+    for (var kk in filtersInfo[k]) {
+      var el = document.querySelector(`[data-key="${k}"][data-value="${kk}"]`);
+      if (el) {
+        el.classList.add('checked');
+        var filterItem = el.closest('.filter-item');
+        if (filterItem) {
+          filterItem.classList.add('open');
+        }
+      }
+      for (var kkk in filtersInfo[k][kk]) {
+        var el = document.querySelector(`[data-key="${kk}"][data-value="${kkk}"]`);
+        if (el) {
+          el.classList.add('checked');
+          var filterItem = el.closest('.filter-item');
+          if (filterItem) {
+            filterItem.classList.add('open');
+          }
+        }
+      }
+    }
+  }
 }
 
 //=====================================================================================================
@@ -629,6 +673,8 @@ function selectValue(event) {
   } else {
     selectCards();
   }
+  initFilters();
+  selectFilters();
 }
 
 // Добавление данных о выбранных фильтрах:
@@ -699,9 +745,9 @@ function selectCards() {
       }
     }
   }
-  console.log(filtersInfo);
+  // console.log(filtersInfo);
 
-  selecledCardList = sortedItems.filter(card => {
+  selecledCardList = curItems.filter(card => {
     for (var k in filtersInfo) {
       var isFound = false;
       for (var kk in filtersInfo[k]) {
@@ -723,7 +769,7 @@ function selectCards() {
     }
     return true;
   });
-  console.log(selecledCardList);
+  // console.log(selecledCardList);
   showCards();
 }
 
@@ -735,6 +781,8 @@ function clearFilters() {
   showCards();
   var activeElements = menuFilters.getElementsByClassName('checked');
   Array.from(activeElements).forEach(element => element.classList.remove('checked'));
+  initFilters();
+  selectFilters();
   setFiltersHeight();
 }
 
@@ -747,7 +795,7 @@ function clearFilters() {
 function loadCards(cards) {
 	if (cards){
     countItems = 0;
-    curItems = cards;
+    itemsToLoad = cards;
 	}
 	else {
     countItems = countItemsTo;
@@ -762,13 +810,13 @@ function loadCards(cards) {
     incr = 40;
   }
   countItemsTo = countItems + incr;
-  if (countItemsTo > curItems.length) {
-    countItemsTo = curItems.length;
+  if (countItemsTo > itemsToLoad.length) {
+    countItemsTo = itemsToLoad.length;
   }
 
   var listCard = '';
   for (var i = countItems; i < countItemsTo; i++) {
-    var card = createCard(curItems[i]);
+    var card = createCard(itemsToLoad[i]);
     listCard += card;
   }
 
@@ -960,7 +1008,7 @@ function showCards() {
   if (selecledCardList === '') {
     gallery.style.display = 'flex';
     galleryNotice.style.display = 'none';
-    loadCards(sortedItems);
+    loadCards(curItems);
   } else {
     if (selecledCardList.length == 0) {
       galleryNotice.style.display = 'flex';
@@ -1152,7 +1200,7 @@ function showImg(event) {
 }
 
 //=====================================================================================================
-//  Функции сортировки карточек товаров:
+//  Сортировка карточек товаров:
 //=====================================================================================================
 
 // Сортировка карточек товаров:
@@ -1160,7 +1208,7 @@ function showImg(event) {
 function sortItems() {
   var sort = document.getElementById('sort');
   var selectedOption = sort.options[sort.selectedIndex].value;
-  sortedItems.sort(dynamicSort(selectedOption));
+  curItems.sort(dynamicSort(selectedOption));
   if (selecledCardList !== '') {
     selecledCardList.sort(dynamicSort(selectedOption));
   }
@@ -1187,4 +1235,75 @@ function dynamicSort(property) {
       return result * sortOrder;
     }
   }
+}
+
+
+//=====================================================================================================
+// Поиск на странице:
+//=====================================================================================================
+
+// Подготовка данных для поиска на странице:
+
+function prepeareData(data) {
+  itemsForSearch = items.map((el, i) => {
+    var newEl = {};
+    newEl.index = i;
+
+    function setProperties(props) {
+      var args = Array.from(arguments);
+      for (var prop of args) {
+        if (el[prop]) {
+          newEl[prop] = el[prop];
+        }
+      }
+    }
+
+    setProperties('title', 'brand', 'articul' , 'cat', 'subcat', 'colors', 'manuf', 'options', 'actiontitle', 'sizes');
+    return newEl;
+  });
+  console.log(itemsForSearch);
+}
+
+// Поиск совпадений с введенным текстом:
+
+function findOnPage(event) {
+  if (event.currentTarget.classList.contains('search-btn') || event.keyCode === 13) {
+    searchBtn.style.display = 'none';
+    clearSearchBtn.style.display = 'block';
+    var textToFind = search.value;
+    console.log(textToFind);
+
+    re = new RegExp(text, 'i');
+	for(key in items)
+	{   
+		for(kk in items[key])
+		{
+		 
+		  	var a = String(items[key][kk]);
+
+			if(a.search(re) != -1){
+				searchar.push(items[key]);
+				break;
+			}
+
+		}
+		
+	}
+
+    // var selectedItems = itemsForSearch.map(el => {
+    //   return curItems[el.index];
+    // });
+
+    // var result = selectedItems.map(el => {
+    //   return curItems[el.index];
+    // });
+  }
+}
+
+// Очистка поиска:
+
+function clearSearch() {
+  searchBtn.style.display = 'block';
+  clearSearchBtn.style.display = 'none';
+  search.value = '';
 }
