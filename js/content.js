@@ -19,7 +19,7 @@ items.forEach(item => {
 var pageId = document.body.id,
     cartAmount = document.querySelector('.cart-amount span'),
     cartPrice = document.querySelector('.cart-price span'),
-    search = document.getElementById('search'),
+    searchInput = document.getElementById('search'),
     searchBtn = document.querySelector('.search .search-btn'),
     clearSearchBtn = document.querySelector('.search .close-btn'),
     submenu = document.querySelector('.submenu'),
@@ -49,10 +49,10 @@ var mainNavTemplate = document.getElementById('main-nav').innerHTML,
 
 // Получение свойств #...# из шаблонов HTML:
 
-var re =/#[^#]+#/gi;
+var regExpTemplate =/#[^#]+#/gi;
 
 function extractProps(template) {
-  return template.match(re).map(prop => prop = prop.replace(/#/g, ''));
+  return template.match(regExpTemplate).map(prop => prop = prop.replace(/#/g, ''));
 }
 
 function removeReplays(template, subTemplate) {
@@ -61,11 +61,14 @@ function removeReplays(template, subTemplate) {
 
 // Динамически изменяемые переменные:
 
-var view = content.classList.item(0),
+var pageUrl =  pageId,
+    view = content.classList.item(0),
     cardTemplate,
     curItems,
+    dataForPageFilters,
     itemsForSearch,
     selecledCardList = '',
+    searchedCardList = [],
     countItems = 0,
     countItemsTo = 0,
     itemsToLoad;
@@ -173,134 +176,10 @@ function addTooltips(key) {
 }
 
 //=====================================================================================================
-// Функции для работы с URL и данными страницы:
+// Сохранение и извлечение данных на компьютере пользователя:
 //=====================================================================================================
 
-// Фильтрация исходных данных в зависимости от страницы:
-
-function initPage() {
-  if (pageId == 'r_zip' && !location.search) {
-    window.history.pushState({'path': ['snegohod']},'', '?snegohod');
-  }
-
-  var path = location.search.split('?').map(element => {
-    if (element == '') {
-      return pageId;
-    } else {
-      return element;
-    }
-  });
-
-  toggleMenuItems(path);
-  createMainNav(path);
-  renderContent(path);
-  setGalleryWidth();
-  setMinCardWidth();
-}
-
-// Изменение URL без перезагрузки страницы:
-
-window.addEventListener('popstate', openPage);
-
-function openPage() {
-  event.preventDefault();
-  var path;
-
-  if (event.state) {
-    path = event.state.path;
-  } else {
-    var levelNewUrl = event.currentTarget.dataset.level,
-        newUrl = event.currentTarget.dataset.href;
-    path = Array.from(document.querySelector('.header-menu').querySelectorAll('.activ'))
-      .filter(element => element.dataset.level < levelNewUrl)
-      .map(element => element.dataset.href);
-    path.push(newUrl);
-
-    var urlPath = path
-      .map(element => {
-        if (element == pageId) {
-          return location.href.split('?')[0];
-        } else {
-          return '?' + element;
-        }
-      })
-      .join('');
-
-    window.history.pushState({'path': path},'', urlPath);
-  }
-
-  var pageUrl = path[path.length - 1],
-      pageTitle = document.querySelector(`[data-href="${pageUrl}"]`).textContent;
-  document.title = `ТОП СПОРТС - ${pageTitle}`;
-  toggleMenuItems(path);
-  createMainNav(path);
-  renderContent(path);
-}
-
-// Изменение подсвечивания разделов меню:
-
-function toggleMenuItems(path) {
-  document.querySelector('.header-menu').querySelectorAll('.activ').forEach(item => item.classList.remove('activ'));
-  for (var key of path) {
-    var curMenuItem = document.querySelector(`[data-href="${key}"]`);
-    if (curMenuItem) {
-      curMenuItem.classList.add('activ');
-    }
-  }
-}
-
-// Изменение хлебных крошек:
-
-function createMainNav(path) {
-  var pageUrl,
-      curMenuItem,
-      listNavItems = '';
-
-  for (var i = 0; i < path.length; i++) {
-    pageUrl = path[i];
-    curMenuItem = document.querySelector(`[data-href="${pageUrl}"]`);
-
-    if (curMenuItem) {
-      var newNavItem = navItemTemplate
-      .replace('#isCurPage#', i == path.length - 1 ? 'cur-page' : '')
-      .replace('#pageUrl#', pageUrl)
-      .replace('#pageTitle#', curMenuItem.textContent);
-      listNavItems += newNavItem;
-    }
-  }
-
-  if (path[path.length - 1] == 'zip') {
-    headerSelect.style.display = 'block';
-    submenu.classList.add('zip');
-  } else {
-    if (headerSelect) {
-      headerSelect.style.display = 'none';
-      submenu.classList.remove('zip');
-    }
-  }
-  setPaddingToBody();
-
-  var newMainNav = mainNavTemplate.replace(navItemTemplate, listNavItems);
-  mainNav.innerHTML = newMainNav;
-}
-
-// Изменение контента страницы:
-
-function renderContent(path) {
-  curItems = items;
-  for (var key of path) {
-    if (key != pageId) {
-      curItems = curItems.filter(item => item[key] == 1);
-    }
-  }
-  selecledCardList = curItems;
-  checkFilters();
-  prepeareData(curItems);
-}
-
-//=====================================================================================================
-// Работа с локальным хранилищем и cookie:
-//=====================================================================================================
+// Проверка доступности storage:
 
 function storageAvailable(type) {
 	try {
@@ -315,9 +194,9 @@ function storageAvailable(type) {
 	}
 }
 
-// Сохранение данныx:
+// Сохранение данныx в storage или cookie:
 
-function saveInfo(key, data) {
+function saveInLocal(key, data) {
   var stringData = JSON.stringify(data);
   if (storageAvailable('localStorage')) {
     localStorage[key] = stringData;
@@ -330,9 +209,9 @@ function saveInfo(key, data) {
   }
 }
 
-// Получение данных:
+// Получение данных из storage или cookie:
 
-function getInfo(key) {
+function getFromLocal(key) {
   if (storageAvailable('localStorage')) {
     if (localStorage[key]) {
       return JSON.parse(localStorage[key]);
@@ -400,6 +279,159 @@ function deleteCookie(key) {
   setCookie(key, '', {expires: -1});
 }
 
+// Получение данных о странице по ключу:
+
+function getInfo(key) {
+  var pageInfo = getFromLocal(pageId) ? getFromLocal(pageId) : {};
+  if (!pageInfo[key]) {
+    pageInfo[key] = {};
+  }
+  return pageInfo[key];
+}
+
+// Сохранение данных о странице по ключу:
+
+function saveInfo(key, data) {
+  var pageInfo = getFromLocal(pageId) ? getFromLocal(pageId) : {};
+  if (!pageInfo[key]) {
+    pageInfo[key] = {};
+  }
+  pageInfo[key] = data;
+  saveInLocal(pageId, pageInfo);
+}
+
+//=====================================================================================================
+// Функции для работы с URL и данными страницы:
+//=====================================================================================================
+
+// Фильтрация исходных данных в зависимости от страницы:
+
+function initPage() {
+  if (pageId == 'r_zip' && !location.search) {
+    window.history.pushState({'path': ['snegohod']},'', '?snegohod');
+  }
+
+  var path = location.search.split('?').map(element => {
+    if (element == '') {
+      return pageId;
+    } else {
+      return element;
+    }
+  });
+
+  toggleMenuItems(path);
+  createMainNav(path);
+  renderContent(path);
+  setGalleryWidth();
+  setMinCardWidth();
+}
+
+// Изменение URL без перезагрузки страницы:
+
+window.addEventListener('popstate', openPage);
+
+function openPage() {
+  event.preventDefault();
+  var path;
+
+  if (event.state) {
+    path = event.state.path;
+  } else {
+    var levelNewUrl = event.currentTarget.dataset.level,
+        newUrl = event.currentTarget.dataset.href;
+    path = Array.from(document.querySelector('.header-menu').querySelectorAll('.activ'))
+      .filter(element => element.dataset.level < levelNewUrl)
+      .map(element => element.dataset.href);
+    path.push(newUrl);
+
+    var urlPath = path
+      .map(element => {
+        if (element == pageId) {
+          return location.href.split('?')[0];
+        } else {
+          return '?' + element;
+        }
+      })
+      .join('');
+
+    window.history.pushState({'path': path},'', urlPath);
+  }
+
+  var curUrl = path[path.length - 1],
+      pageTitle = document.querySelector(`[data-href="${curUrl}"]`).textContent;
+  document.title = `ТОП СПОРТС - ${pageTitle}`;
+  toggleMenuItems(path);
+  createMainNav(path);
+  renderContent(path);
+}
+
+// Изменение выбранных разделов меню:
+
+function toggleMenuItems(path) {
+  document.querySelector('.header-menu').querySelectorAll('.activ').forEach(item => item.classList.remove('activ'));
+  for (var key of path) {
+    var curMenuItem = document.querySelector(`[data-href="${key}"]`);
+    if (curMenuItem) {
+      curMenuItem.classList.add('activ');
+    }
+  }
+
+  if (path[path.length - 1] == 'zip') {
+    headerSelect.style.display = 'block';
+    submenu.classList.add('zip');
+  } else {
+    if (headerSelect) {
+      headerSelect.style.display = 'none';
+      submenu.classList.remove('zip');
+    }
+  }
+  setPaddingToBody();
+}
+
+// Изменение хлебных крошек:
+
+function createMainNav(path) {
+  var curUrl,
+      curMenuItem,
+      listNavItems = '';
+
+  for (var i = 0; i < path.length; i++) {
+    curUrl = path[i];
+    curMenuItem = document.querySelector(`[data-href="${curUrl}"]`);
+
+    if (curMenuItem) {
+      var newNavItem = navItemTemplate
+      .replace('#isCurPage#', i == path.length - 1 ? 'cur-page' : '')
+      .replace('#pageUrl#', curUrl)
+      .replace('#pageTitle#', curMenuItem.textContent);
+      listNavItems += newNavItem;
+    }
+  }
+  var newMainNav = mainNavTemplate.replace(navItemTemplate, listNavItems);
+  mainNav.innerHTML = newMainNav;
+}
+
+// Изменение контента страницы:
+
+function renderContent(path) {
+  curItems = items;
+  for (var key of path) {
+    if (key != pageId) {
+      curItems = curItems.filter(item => item[key] == 1);
+    }
+  }
+  pageUrl = location.search;
+  clearSearch();
+
+  dataForPageFilters = JSON.parse(JSON.stringify(dataForFilters));
+  if (typeof catId != 'undefined' && Object.keys(catId).indexOf(path[path.length - 1]) >= 0) {
+    var dataCats = createDataCats(catId[path[path.length - 1]]);
+    dataForPageFilters.splice(1, 0, dataCats);
+  }
+  initFilters();
+  checkFilters();
+}
+
 //=====================================================================================================
 //  Функции для отображения корзины на странице:
 //=====================================================================================================
@@ -407,8 +439,8 @@ function deleteCookie(key) {
 // Проверка сохраненных данных о корзине и их отображение:
 
 function renderCart() {
-  if (getInfo(`cartInfo_${pageId}`) && cartAmount) {
-    var cartInfo = getInfo(`cartInfo_${pageId}`),
+  if (Object.keys(getInfo('cart')).length > 0  && cartAmount) {
+    var cartInfo = getInfo('cart'),
         totalAmountCart = 0,
         totalPriceCart = 0;
 
@@ -433,34 +465,39 @@ function renderCart() {
 }
 
 //=====================================================================================================
-//  Функции для отображения фильтров на странице:
+//  Функции для создания фильтров на странице:
 //=====================================================================================================
 
-// Подготовка данных для создания меню фильтров и отображение фильтров на странице:
+// Создание фильтра категорий в экипировке:
+
+function createDataCats(key) {
+  var cat = {};
+  for (var catName in cats) {
+    if (cats[catName] == key) {
+      cat[catName] = '1';
+    }
+  }
+  var newFilter = {
+    title: 'Категория',
+    isShow: true,
+    key: 'cat',
+    items: cat
+  }
+  return newFilter;
+}
+
+// Отображение фильтров на странице:
 
 function initFilters() {
-  var path = location.search.split('?');
-  var urlPage = path[path.length - 1];
-  if (urlPage == '') {
-    urlPage = pageId;
-  }
+  console.log('initFilters');
+  var data =  JSON.parse(JSON.stringify(dataForPageFilters));
 
-  var data = JSON.parse(JSON.stringify(dataForFilters));
-  if (typeof catId != 'undefined' && Object.keys(catId).indexOf(urlPage) >= 0) {
-    var newData = createNewData(catId[urlPage]);
-    data.splice(1, 0, newData);
-  }
-
-  var isExsist = false,
-      curItemsArray = selecledCardList;
-
-  console.log(selecledCardList);
+  var curItemsArray = selecledCardList,
+      isExsist = false;
 
   if (selecledCardList == '') {
     curItemsArray = curItems;
   }
-
-  console.log(curItemsArray);
 
   for (var filter of data) {
     for (var item in filter.items) {
@@ -493,33 +530,10 @@ function initFilters() {
   addTooltips('color');
 }
 
-// Создание фильтра категорий в экипировке:
-
-function createNewData(key) {
-  var cat = {};
-  for (var catName in cats) {
-    if (cats[catName] == key) {
-      cat[catName] = '1';
-    }
-  }
-  var newFilter = {
-    title: 'Категория',
-    isShow: true,
-    key: 'cat',
-    items: cat
-  }
-  return newFilter;
-}
-
 // Создание меню фильтров:
 
 function createFilters(data) {
   var listFilters = data.map(element => {
-    // var count = 1;
-    // if (element.key == 'specialOffer') {
-    //   count = 0;
-    // }
-    // console.log(count);
     if (Object.keys(element.items).length > 0) {
       return createFilter(element);
     }
@@ -572,53 +586,6 @@ function createFilter(data) {
   return newFilter;
 }
 
-// Проверка сохраненных значений фильтров:
-
-function checkFilters() {
-  if (getInfo(`filtInfo_${pageId}`)) {
-    if (Object.keys(getInfo(`filtInfo_${pageId}`)).length != 0) {
-      selectCards();
-      initFilters();
-      selectFilters();
-      return;
-    }
-  }
-  initFilters();
-  showCards();
-}
-
-// Визуальное отображение сохраненных значений фильтров:
-
-function selectFilters() {
-  var filtersInfo = getInfo(`filtInfo_${pageId}`);
-  for (var k in filtersInfo) {
-    var filter = document.querySelector(`#filter-${k}`);
-    if (filter) {
-      filter.classList.add('open');
-    }
-    for (var kk in filtersInfo[k]) {
-      var el = document.querySelector(`[data-key="${k}"][data-value="${kk}"]`);
-      if (el) {
-        el.classList.add('checked');
-        var filterItem = el.closest('.filter-item');
-        if (filterItem) {
-          filterItem.classList.add('open');
-        }
-      }
-      for (var kkk in filtersInfo[k][kk]) {
-        var el = document.querySelector(`[data-key="${kk}"][data-value="${kkk}"]`);
-        if (el) {
-          el.classList.add('checked');
-          var filterItem = el.closest('.filter-item');
-          if (filterItem) {
-            filterItem.classList.add('open');
-          }
-        }
-      }
-    }
-  }
-}
-
 //=====================================================================================================
 //  Функции для работы с фильтрами:
 //=====================================================================================================
@@ -638,7 +605,7 @@ function toggleFilterItem(event) {
   event.currentTarget.closest('.filter-item').classList.toggle('open');
 }
 
-// Выбор значений фильтра:
+// Выбор значения фильтра:
 
 function selectValue(event) {
   event.stopPropagation();
@@ -667,63 +634,71 @@ function selectValue(event) {
       filterItem.classList.add('checked');
     }
   }
-  if (Object.keys(getInfo(`filtInfo_${pageId}`)).length == 0) {
+  var filtersInfo = getInfo('filters')[pageUrl];
+  if (filtersInfo && Object.keys(filtersInfo).length == 0) {
     selecledCardList = '';
     showCards();
   } else {
     selectCards();
   }
-  initFilters();
-  selectFilters();
+  // initFilters();
+  // selectFilters();
 }
 
 // Добавление данных о выбранных фильтрах:
 
 function saveFiltersInfo(type, key, value) {
-  var filtersInfo = getInfo(`filtInfo_${pageId}`) ? getInfo(`filtInfo_${pageId}`) : {};
+  var filtersInfo = getInfo('filters');
+
+  if (!filtersInfo[pageUrl]) {
+    filtersInfo[pageUrl] = {};
+  }
   if (type == 'item') {
-    if (!filtersInfo[key]) {
-      filtersInfo[key] = {};
+    if (!filtersInfo[pageUrl][key]) {
+      filtersInfo[pageUrl][key] = {};
     }
-    if (!filtersInfo[key][value]) {
-      filtersInfo[key][value] = '';
+    if (!filtersInfo[pageUrl][key][value]) {
+      filtersInfo[pageUrl][key][value] = '';
     }
   }
   if (type == 'subitem') {
-    if (!filtersInfo.cat) {
-      filtersInfo.cat = {};
+    if (!filtersInfo[pageUrl].cat) {
+      filtersInfo[pageUrl].cat = {};
     }
-    if (!filtersInfo.cat[key]) {
-      filtersInfo.cat[key] = {};
+    if (!filtersInfo[pageUrl].cat[key]) {
+      filtersInfo[pageUrl].cat[key] = {};
     }
-    filtersInfo.cat[key][value] = '';
+    filtersInfo[pageUrl].cat[key][value] = '';
   }
-  saveInfo(`filtInfo_${pageId}`, filtersInfo);
+  saveInfo('filters', filtersInfo);
 }
 
 // Удаление данных о выбранных фильтрах:
 
 function removeFiltersInfo(type, key, value) {
-  var filtersInfo = getInfo(`filtInfo_${pageId}`);
+  var filtersInfo = getInfo('filters');
   if (type == 'item') {
-    delete filtersInfo[key][value];
-    if (Object.keys(filtersInfo[key]).length == 0) {
-      delete filtersInfo[key];
+    delete filtersInfo[pageUrl][key][value];
+    if (Object.keys(filtersInfo[pageUrl][key]).length == 0) {
+      delete filtersInfo[pageUrl][key];
     }
   }
   if (type == 'subitem') {
-    delete filtersInfo.cat[key][value];
-    if (filtersInfo.cat[key] && Object.keys(filtersInfo.cat[key]).length == 0) {
-      filtersInfo.cat[key] = '';
+    delete filtersInfo[pageUrl].cat[key][value];
+    if (filtersInfo[pageUrl].cat[key] && Object.keys(filtersInfo[pageUrl].cat[key]).length == 0) {
+      filtersInfo[pageUrl].cat[key] = '';
     }
   }
-  saveInfo(`filtInfo_${pageId}`, filtersInfo);
+  saveInfo('filters', filtersInfo);
 }
 
 // Фильтрация карточек:
 
 function selectCards() {
-  var filtersInfo = getInfo(`filtInfo_${pageId}`);
+  var filtersInfo = getInfo('filters')[pageUrl];
+  if (!filtersInfo) {
+    return;
+  }
 
   for (var k in filtersInfo) {
     for (var kk in filtersInfo[k]) {
@@ -745,7 +720,6 @@ function selectCards() {
       }
     }
   }
-  // console.log(filtersInfo);
 
   selecledCardList = curItems.filter(card => {
     for (var k in filtersInfo) {
@@ -769,21 +743,72 @@ function selectCards() {
     }
     return true;
   });
-  // console.log(selecledCardList);
   showCards();
 }
 
 // Очистка всех фильтров:
 
 function clearFilters() {
-  saveInfo(`filtInfo_${pageId}`, {});
-  selecledCardList = '';
-  showCards();
+  var filtersInfo = getInfo('filters');
+  filtersInfo[pageUrl] = {};
+  saveInfo(`filters`, filtersInfo);
+
   var activeElements = menuFilters.getElementsByClassName('checked');
   Array.from(activeElements).forEach(element => element.classList.remove('checked'));
-  initFilters();
-  selectFilters();
+
+  selecledCardList = '';
+  showCards();
+
+  // initFilters();
   setFiltersHeight();
+}
+
+// Проверка сохраненных значений фильтров:
+
+function checkFilters() {
+  var filtersInfo = getInfo('filters')[pageUrl];
+  if (!filtersInfo || Object.keys(filtersInfo).length == 0){
+    showCards();
+  } else {
+    selectCards();
+    // initFilters();
+    selectFilters();
+  }
+}
+
+// Визуальное отображение выбранных фильтров:
+
+function selectFilters() {
+  var filtersInfo = getInfo('filters')[pageUrl];
+  if (!filtersInfo) {
+    return;
+  }
+  for (var k in filtersInfo) {
+    var filter = document.querySelector(`#filter-${k}`);
+    if (filter) {
+      filter.classList.add('open');
+    }
+    for (var kk in filtersInfo[k]) {
+      var el = document.querySelector(`[data-key="${k}"][data-value="${kk}"]`);
+      if (el) {
+        el.classList.add('checked');
+        var filterItem = el.closest('.filter-item');
+        if (filterItem) {
+          filterItem.classList.add('open');
+        }
+      }
+      for (var kkk in filtersInfo[k][kk]) {
+        var el = document.querySelector(`[data-key="${kk}"][data-value="${kkk}"]`);
+        if (el) {
+          el.classList.add('checked');
+          var filterItem = el.closest('.filter-item');
+          if (filterItem) {
+            filterItem.classList.add('open');
+          }
+        }
+      }
+    }
+  }
 }
 
 //=====================================================================================================
@@ -921,9 +946,9 @@ function createCard(card) {
     newCard = newCard.replace(sizesTemplate, listSizes);
 
     function createSizeInfo(info) {
-      var cartInfo = getInfo(`cartInfo_${pageId}`),
+      var cartInfo = getInfo('cart'),
           size = info.size ? info.size : 'В корзину',
-          savedValue = cartInfo && cartInfo[info.articul] ? cartInfo[info.articul].qty : 0,
+          savedValue = cartInfo[info.articul] ? cartInfo[info.articul].qty : 0,
           freeQty = info.free_qty,
           value = (savedValue > freeQty) ? freeQty : savedValue,
           inCart = value == 0 ? '' : 'in-cart',
@@ -1266,38 +1291,47 @@ function prepeareData(data) {
 
 // Поиск совпадений с введенным текстом:
 
+var regExpSearch,
+    textToFind,
+    checkedText;
+
 function findOnPage(event) {
-  if (event.currentTarget.classList.contains('search-btn') || event.keyCode === 13) {
-    searchBtn.style.display = 'none';
-    clearSearchBtn.style.display = 'block';
-    var textToFind = search.value;
-    console.log(textToFind);
-
-    re = new RegExp(text, 'i');
-	for(key in items)
-	{   
-		for(kk in items[key])
-		{
-		 
-		  	var a = String(items[key][kk]);
-
-			if(a.search(re) != -1){
-				searchar.push(items[key]);
-				break;
-			}
-
-		}
-		
-	}
-
-    // var selectedItems = itemsForSearch.map(el => {
-    //   return curItems[el.index];
-    // });
-
-    // var result = selectedItems.map(el => {
-    //   return curItems[el.index];
-    // });
+  if (!event.currentTarget.classList.contains('search-btn') && event.keyCode !== 13) {
+    return;
   }
+
+  searchBtn.style.display = 'none';
+  clearSearchBtn.style.display = 'block';
+
+  textToFind = searchInput.value;
+  regExpSearch = new RegExp(textToFind, 'i');
+
+  selecledCardList = curItems.filter(card => convertToString(card));
+  function convertToString(obj) {
+    var prop;
+    for (var k in obj) {
+      prop = obj[k];
+      if (typeof prop === 'string') {
+        checkedText = String(card[key]);
+        if (checkedText.search(regExpSearch) >= 0){
+          console.log(checkedText);
+          return true;
+        }
+      } else if (typeof prop === 'object') {
+        crossObj(prop);
+      }
+    }
+  }
+  selecledCardList = curItems.filter(card => {
+    for (var key in card) {
+      checkedText = String(card[key]);
+      if (checkedText.search(regExpSearch) >= 0){
+        console.log(checkedText);
+        return true;
+      }
+    }
+  });
+  showCards();
 }
 
 // Очистка поиска:
@@ -1306,4 +1340,20 @@ function clearSearch() {
   searchBtn.style.display = 'block';
   clearSearchBtn.style.display = 'none';
   search.value = '';
+  selecledCardList = '';
+  checkFilters();
+}
+
+// Проход по всей вложенности объектов:
+
+function crossObj(obj) {
+  var prop;
+  for (var k in obj) {
+    prop = obj[k];
+    if (typeof prop === 'string') {
+      console.log(prop);
+    } else if (typeof prop === 'object') {
+      crossObj(prop);
+    }
+  }
 }

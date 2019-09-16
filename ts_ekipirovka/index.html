@@ -73,7 +73,7 @@
       <div class="container">
         <div class="main-header row">
           <div id="main-nav" class="main-nav">
-            <a href="#main">Главная</a>
+            <a href="../ts_main/">Главная</a>
             <span class="nav-item #isCurPage#" data-href="#pageUrl#" onclick="openPage()">#pageTitle#</span>
           </div>
           <div class="sortbox row">
@@ -184,48 +184,31 @@
                         <div class="option-info">#opinfo#</div>
                       </div>
                     </div>
-                    <div class="card-manuf-info hidden-xxs #isHiddenManuf#">
-                      <table class="manuf-table">
-                        <tr id="manuf-title" class="grey">
-                          <th data-title="man">Производитель</th>
-                          <th data-title="oem">ОЕМ</th>
-                          <th data-title="model">Модель</th>
-                          <th data-title="years">Год модели</th>
-                        </tr>
-                        <tr class="manuf-info">
-                          <td>#info#</td>
-                        </tr>
-                      </table>
-                    </div>
                   </div>
                 </div>
                 <div class="card-container-right">
-                  <div class="card-select-info #isHiddenInfo#">
-                    <div>
-                      Выбрано товаров:
-                      <span class="select-count red">#totalAmount#</span>&nbsp;шт. на сумму
-                      <span class="select-price red">#totalPrice#</span>&#8288;.–
-                    </div>
-                  </div>
                   <div class="card-sizes row">
-                    <div class="card-size #inCart#">
+                    <div class="card-size">
                       <div class="size-articul grey">Артикул: #articul#</div>
                       <div class="size-choice row">
                         <span class="size-name">#size#</span>
                         <span class="size-qty row">
-                          <span class="btn-minus" tooltip="Удалить" onclick="changeValue(#object_id#)">-</span>
-                          <input class="choice-gty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" onchange="changeValue(#object_id#)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
-                          <span class="btn-plus" tooltip="Добавить" onclick="changeValue(#object_id#)">+</span>
+                          <a class="btn-minus" href="http://b2b.topsports.ru/" target="_blank">-</a>
+                          <input class="choice-gty" type="text" value="0" autocomplete="off" disabled>
+                          <a class="btn-plus" href="http://b2b.topsports.ru/" target="_blank">+</a>
                         </span>
                       </div>
-                      <div class="tooltip row" tooltip="#qtyTitle#">
-                        <div class="card-qty #isAvaliable#"></div>
-                        <div class="card-qty-count">#free_qty#&nbsp;шт.</div>
+                      <div class="tooltip" tooltip="#qtyTitle#">
+                        <div class="card-qty #isAvaliable#">#free_qty#&nbsp;шт.</div>
                       </div>
                     </div>
                   </div>
                   <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
                   <div class="card-notice red">#notice#</div>
+                  <div class="card-btns">
+                    <a class="dealer-button map-btn" onclick="showDealersList(event)">КАРТА ДИЛЕРОВ</a>
+                    <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
+                  </div>
                   <div class="card-description hidden-xxs #isHiddenDesc#">
                     <div class="description-title">Описание:</div>
                     <div class="card-text">#desc#</div>
@@ -288,28 +271,15 @@
                       <div class="option-info">#opinfo#</div>
                     </div>
                   </div>
-                  <div class="card-manuf-info hidden-xxs #isHiddenManuf#">
-                    <table class="manuf-table">
-                      <tr id="manuf-title" class="grey">
-                        <th data-title="man">Производитель</th>
-                        <th data-title="oem">ОЕМ</th>
-                        <th data-title="model">Модель</th>
-                        <th data-title="years">Год модели</th>
-                      </tr>
-                      <tr class="manuf-info">
-                        <td>#info#</td>
-                      </tr>
-                    </table>
-                  </div>
                   <div class="card-sizes row">
-                    <div class="card-size #inCart#">
+                    <div class="card-size">
                       <div class="size-articul grey">Артикул: #articul#</div>
                       <div class="size-choice row">
                         <span class="size-name">#size#</span>
                         <span class="size-qty row">
-                          <span class="btn-minus" tooltip="Удалить" onclick="changeValue(#object_id#)">-</span>
-                          <input class="choice-gty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" onchange="changeValue(#object_id#)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
-                          <span class="btn-plus" tooltip="Добавить" onclick="changeValue(#object_id#)">+</span>
+                          <a class="btn-minus" href="http://b2b.topsports.ru/" target="_blank">-</a>
+                          <input class="choice-gty" type="text" value="0" autocomplete="off" disabled>
+                          <a class="btn-plus" href="http://b2b.topsports.ru/" target="_blank">+</a>
                         </span>
                       </div>
                       <div class="tooltip" tooltip="#qtyTitle#">
@@ -318,10 +288,9 @@
                     </div>
                   </div>
                   <div class="card-notice red">#notice#</div>
-                  <div class="card-select-info #isHiddenInfo#">
-                    Товаров выбрано:
-                    <span class="select-count">#totalAmount#</span>&nbsp;шт. на сумму
-                    <span class="select-price">#totalPrice#</span>&#8288;.–
+                  <div class="card-btns">
+                    <a class="dealer-button map-btn" href="" onclick="showDealersList(event)">КАРТА ДИЛЕРОВ</a>
+                    <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
                   </div>
                 </div>
               </div>

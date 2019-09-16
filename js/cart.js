@@ -50,6 +50,7 @@ function getChar(event) {
 // Изменение информации о выбранном количестве товара и его стоимости:
 
 function changeValue(objectId) {
+
   var card = event.currentTarget.closest('.card'),
       size = event.currentTarget.closest('.card-size'),
       articul = size.querySelector('.size-articul').textContent.replace('Артикул: ', ''),
@@ -123,7 +124,7 @@ function changeCard(card) {
 // Сохранение данных о состоянии корзины:
 
 function saveCartInfo(articul, value, objectId) {
-  var cartInfo = getInfo(`cartInfo_${pageId}`)? getInfo(`cartInfo_${pageId}`) : {};
+  var cartInfo = getInfo('cart');
   if (value == 0) {
     delete cartInfo[articul];
   } else {
@@ -133,5 +134,5 @@ function saveCartInfo(articul, value, objectId) {
     cartInfo[articul].qty = value;
     cartInfo[articul].objectId = objectId;
   }
-  saveInfo(`cartInfo_${pageId}`, cartInfo);
+  saveInfo(`cart`, cartInfo);
 }

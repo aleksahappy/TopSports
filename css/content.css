@@ -685,7 +685,6 @@ body {
 
 .card-size .tooltip {
   justify-content: flex-start;
-  margin-top: 0.3em;
 }
 
 .card-qty {
@@ -706,11 +705,6 @@ body {
   height: 15px;
   background-image: url(../img/content/ico_stock_arrive_new.png);
   background-size: cover;
-}
-
-.card-qty-count {
-  font-size: 0.8em;
-  color: rgb(0,176,104);
 }
 
 .grey-gty::before {
