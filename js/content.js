@@ -21,9 +21,12 @@ var pageId = document.body.id,
     cartPrice = document.querySelector('.cart-price span'),
     searchInput = document.getElementById('search'),
     searchBtn = document.querySelector('.search .search-btn'),
+    searchInfo = document.getElementById('search-info'),
+    searchCount = document.getElementById('search-count'),
     clearSearchBtn = document.querySelector('.search .close-btn'),
     submenu = document.querySelector('.submenu'),
     headerSelect = document.querySelector('.header-select'),
+    mainHeader = document.querySelector('.main-header'),
     mainNav = document.getElementById('main-nav'),
     content = document.getElementById('content'),
     filtersContainer = document.querySelector('.filters-container'),
@@ -144,19 +147,49 @@ function toggleSelectMenu() {
 
 // Установка высоты меню фильтров:
 
-window.addEventListener('scroll', setFiltersHeight);
-window.addEventListener('resize', setFiltersHeight);
+window.addEventListener('scroll', setFiltersPosition);
+window.addEventListener('resize', setFiltersPosition);
+
+var filtersPosition,
+    scrolled,
+    headerHeight,
+    headerMainHeight,
+    footerHeight,
+    filtersHeight;
+
+function setFiltersPosition() {
+  if (window.innerWidth > 767) {
+    filtersPosition = window.getComputedStyle(filters).position;
+    if (filtersPosition == 'fixed') {
+      if (filters.clientHeight >= gallery.clientHeight) {
+        console.log('setFiltersPosition static');
+        filters.style.position = 'static';
+        filters.style.top = '0px';
+        filters.style.height = 'auto';
+      } else {
+        setFiltersHeight();
+      }
+    }
+    if (filtersPosition == 'static') {
+      console.log('setFiltersPosition fixed');
+      if (filters.clientHeight < gallery.clientHeight) {
+        filters.style.position = 'fixed';
+        setFiltersHeight();
+      }
+    }
+  }
+}
 
 function setFiltersHeight() {
-  if (window.getComputedStyle(filters).position == 'fixed') {
-    var scrolled = window.pageYOffset || document.documentElement.scrollTop,
-        headerHeight = document.querySelector('.header').clientHeight,
-        headerMainHeight = Math.max((document.querySelector('.main-header').clientHeight - scrolled), 20),
-        footerHeight = Math.max((window.innerHeight + scrolled - document.querySelector('.footer').offsetTop) + 20, 0),
-        filtersHeight = window.innerHeight - headerHeight - headerMainHeight - footerHeight;
-    filters.style.top = `${headerHeight + headerMainHeight}px`;
-    filters.style.height = `${filtersHeight}px`;
-  }
+  console.log('setFiltersHeight height');
+  scrolled = window.pageYOffset || document.documentElement.scrollTop;
+  headerHeight = document.querySelector('.header').clientHeight;
+  headerMainHeight = Math.max((document.querySelector('.main-header').clientHeight - scrolled), 20);
+  footerHeight = Math.max((window.innerHeight + scrolled - document.querySelector('.footer').offsetTop) + 20, 0);
+  filtersHeight = window.innerHeight - headerHeight - headerMainHeight - footerHeight;
+
+  filters.style.top = `${headerHeight + headerMainHeight}px`;
+  filters.style.height = `${filtersHeight}px`;
 }
 
 // Функция преобразования цены к формату с пробелами:
@@ -319,8 +352,6 @@ function initPage() {
     }
   });
 
-  toggleMenuItems(path);
-  createMainNav(path);
   renderContent(path);
   setGalleryWidth();
   setMinCardWidth();
@@ -360,8 +391,6 @@ function openPage() {
   var curUrl = path[path.length - 1],
       pageTitle = document.querySelector(`[data-href="${curUrl}"]`).textContent;
   document.title = `ТОП СПОРТС - ${pageTitle}`;
-  toggleMenuItems(path);
-  createMainNav(path);
   renderContent(path);
 }
 
@@ -414,14 +443,23 @@ function createMainNav(path) {
 // Изменение контента страницы:
 
 function renderContent(path) {
+  toggleMenuItems(path);
+  createMainNav(path);
+  if (mainHeader.style.display != 'flex') {
+    mainHeader.style.display = 'flex';
+  }
+
   curItems = items;
   for (var key of path) {
     if (key != pageId) {
       curItems = curItems.filter(item => item[key] == 1);
     }
   }
+  prepeareForSearch(curItems);
+  if (searchInfo.style.visibility == 'visible') {
+    clearSearch();
+  }
   pageUrl = location.search;
-  clearSearch();
 
   dataForPageFilters = JSON.parse(JSON.stringify(dataForFilters));
   if (typeof catId != 'undefined' && Object.keys(catId).indexOf(path[path.length - 1]) >= 0) {
@@ -641,6 +679,9 @@ function selectValue(event) {
   } else {
     selectCards();
   }
+  if (searchInfo.style.visibility == 'visible') {
+    clearSearchInfo();
+  }
   // initFilters();
   // selectFilters();
 }
@@ -756,11 +797,12 @@ function clearFilters() {
   var activeElements = menuFilters.getElementsByClassName('checked');
   Array.from(activeElements).forEach(element => element.classList.remove('checked'));
 
-  selecledCardList = '';
-  showCards();
-
+  if (searchInfo.style.visibility == 'hidden') {
+    selecledCardList = '';
+    showCards();
+  }
   // initFilters();
-  setFiltersHeight();
+  // setFiltersPosition();
 }
 
 // Проверка сохраненных значений фильтров:
@@ -851,7 +893,7 @@ function loadCards(cards) {
   } else {
     gallery.insertAdjacentHTML('beforeend', listCard);
   }
-  setFiltersHeight();
+  setFiltersPosition();
   setGalleryWidth();
   setMinCardWidth();
 }
@@ -1038,7 +1080,7 @@ function showCards() {
     if (selecledCardList.length == 0) {
       galleryNotice.style.display = 'flex';
       gallery.style.display = 'none';
-      setFiltersHeight();
+      setFiltersPosition();
     } else {
       gallery.style.display = 'flex';
       galleryNotice.style.display = 'none';
@@ -1087,15 +1129,21 @@ function setCardTemplate() {
 function openBigCard(event) {
   var card = event.currentTarget.closest('.big-card');
   card.classList.toggle('open');
-  setFiltersHeight();
+  if (card.classList.contains('open')) {
+    event.currentTarget.setAttribute('tooltip', 'Свернуть');
+  } else {
+    event.currentTarget.setAttribute('tooltip', 'Раскрыть');
+  }
+  setFiltersPosition();
 }
 
 function closeBigCard(event) {
   var card = event.currentTarget.closest('.big-card');
-  if (window.innerWidth < 768) {
+  if (window.innerWidth > 767) {
     if (!(event.target.classList.contains('toggle-btn') || event.target.closest('.carousel') || event.target.closest('.card-size') || event.target.classList.contains('dealer-button'))) {
       card.classList.remove('open');
-      setFiltersHeight();
+      card.querySelector('.toggle-btn').setAttribute('tooltip', 'Раскрыть');
+      setFiltersPosition();
     }
   }
 }
@@ -1248,7 +1296,6 @@ function dynamicSort(property) {
       sortOrder = -1;
       property = property.substr(1);
   }
-
   if (property == 'price1') {
     return function (a, b) {
       var result = a[property] - b[property];
@@ -1262,98 +1309,78 @@ function dynamicSort(property) {
   }
 }
 
-
 //=====================================================================================================
 // Поиск на странице:
 //=====================================================================================================
 
 // Подготовка данных для поиска на странице:
 
-function prepeareData(data) {
-  itemsForSearch = items.map((el, i) => {
-    var newEl = {};
-    newEl.index = i;
+function prepeareForSearch(data) {
+  itemsForSearch = data.map((el, i) => {
+    return {index: i, value: convertToString(el)};
+  });
+}
 
-    function setProperties(props) {
-      var args = Array.from(arguments);
-      for (var prop of args) {
-        if (el[prop]) {
-          newEl[prop] = el[prop];
-        }
+// Конвертация всей вложенности свойств объекта в строку:
+
+function convertToString(obj) {
+  var objProps = '';
+  crossObj(obj);
+  return objProps;
+
+  function crossObj(obj) {
+    var prop;
+    for (var k in obj) {
+      prop = obj[k];
+      if (typeof prop === 'string') {
+        objProps += prop + ',';
+      } else if (typeof prop === 'object') {
+        crossObj(prop);
       }
     }
-
-    setProperties('title', 'brand', 'articul' , 'cat', 'subcat', 'colors', 'manuf', 'options', 'actiontitle', 'sizes');
-    return newEl;
-  });
-  console.log(itemsForSearch);
+  }
 }
 
 // Поиск совпадений с введенным текстом:
 
-var regExpSearch,
-    textToFind,
+var textToFind,
+    regExpSearch,
     checkedText;
 
 function findOnPage(event) {
   if (!event.currentTarget.classList.contains('search-btn') && event.keyCode !== 13) {
     return;
   }
+  textToFind = searchInput.value.trim();
+  if (textToFind == '') {
+    return;
+  }
+  regExpSearch = new RegExp(textToFind, 'i');
+  selecledCardList = [];
+
+  itemsForSearch.filter(el => el.value.search(regExpSearch) >= 0).forEach(el => selecledCardList.push(curItems[el.index]));
+  showCards();
+  console.log(selecledCardList);
 
   searchBtn.style.display = 'none';
   clearSearchBtn.style.display = 'block';
-
-  textToFind = searchInput.value;
-  regExpSearch = new RegExp(textToFind, 'i');
-
-  selecledCardList = curItems.filter(card => convertToString(card));
-  function convertToString(obj) {
-    var prop;
-    for (var k in obj) {
-      prop = obj[k];
-      if (typeof prop === 'string') {
-        checkedText = String(card[key]);
-        if (checkedText.search(regExpSearch) >= 0){
-          console.log(checkedText);
-          return true;
-        }
-      } else if (typeof prop === 'object') {
-        crossObj(prop);
-      }
-    }
-  }
-  selecledCardList = curItems.filter(card => {
-    for (var key in card) {
-      checkedText = String(card[key]);
-      if (checkedText.search(regExpSearch) >= 0){
-        console.log(checkedText);
-        return true;
-      }
-    }
-  });
-  showCards();
+  searchCount.textContent = selecledCardList.length;
+  searchInfo.style.visibility = 'visible';
 }
 
 // Очистка поиска:
 
 function clearSearch() {
-  searchBtn.style.display = 'block';
-  clearSearchBtn.style.display = 'none';
-  search.value = '';
+  clearSearchInfo();
   selecledCardList = '';
   checkFilters();
 }
 
-// Проход по всей вложенности объектов:
+// Очистка поля поиска и поля вывода результата:
 
-function crossObj(obj) {
-  var prop;
-  for (var k in obj) {
-    prop = obj[k];
-    if (typeof prop === 'string') {
-      console.log(prop);
-    } else if (typeof prop === 'object') {
-      crossObj(prop);
-    }
-  }
+function clearSearchInfo() {
+  searchBtn.style.display = 'block';
+  clearSearchBtn.style.display = 'none';
+  searchInfo.style.visibility = 'hidden';
+  search.value = '';
 }

@@ -113,6 +113,45 @@ a.header-phone, a.header-cabinet {
   background-color: rgb(241,89,42);
 }
 
+.search {
+  position: relative;
+  padding: 0.35em 0;
+  width: 50%;
+  max-width: 700px;
+}
+
+.search .search-btn,
+.search .close-btn {
+  top: 0;
+  right: 0;
+  background-size: 1.2em;
+  width: 30px;
+  height: 100%;
+}
+
+.search .search-btn {
+  background: url(../img/header_footer/search.png) no-repeat center;
+}
+
+.search .close-btn {
+  display: none;
+  background: url(../img/header_footer/ico_search_clear.png) no-repeat center;
+}
+
+.search .search-btn::before,
+.search .close-btn::before {
+  content: '';
+}
+
+#search {
+  width: 100%;
+  padding: 0.35em 2.5em 0.35em 0.7em;
+  font-size: 1em;
+  line-height: 1.2;
+  border-radius: 2px;
+  background-color: rgb(255,255,255);
+}
+
 .submenu {
   background-color: rgb(243,243,246);
 }

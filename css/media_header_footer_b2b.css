@@ -1,6 +1,6 @@
 @media only screen and  (min-width: 1824px) {
   .search {
-    width: 30%;
+    width: 40%;
   }
   .select-filters {
     width: 55%;
@@ -73,7 +73,7 @@
     align-items: flex-start;
   }
   .search {
-    width: 80%;
+    width: 100%;
   }
   .submenu.zip .burger-btn {
     display: block;
@@ -126,10 +126,6 @@
   }
   .profile-info {
     width: 30%;
-  }
-  .search {
-    width: 100%;
-    align-self: flex-start;
   }
   .submenu-items.ekipirovka {
     flex-direction: column;

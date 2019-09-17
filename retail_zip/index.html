@@ -112,6 +112,10 @@
             <a href="#main">Главная</a>
             <span class="nav-item #isCurPage#" data-href="#pageUrl#" onclick="openPage()">#pageTitle#</span>
           </div>
+          <div id="search-info">
+            Результаты поиска (<span id="search-count">0</span>)
+            <div class="close-btn" onclick="clearSearch()"></div>
+          </div>
           <div class="sortbox row">
             <div class="view row">
               <div class="view-title">Вид каталога:</div>
@@ -406,7 +410,6 @@
     <script src="data_zip.js"></script>
     <script src="../js/content.js"></script>
     <script src="../js/cart.js"></script>
-    <!-- <script src="js/zip.js"></script> -->
 
   </body>
 </html>

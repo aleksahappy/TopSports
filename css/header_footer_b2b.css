@@ -178,17 +178,21 @@
 .search {
   position: relative;
   padding: 0.35em 0;
-  width: 40%;
+  width: 50%;
+  max-width: 700px;
 }
 
 .search .search-btn,
 .search .close-btn {
   top: 0;
   right: 0;
-  background: url(../img/header_footer/search.png) no-repeat center;
   background-size: 1.2em;
   width: 30px;
   height: 100%;
+}
+
+.search .search-btn {
+  background: url(../img/header_footer/search.png) no-repeat center;
 }
 
 .search .close-btn {

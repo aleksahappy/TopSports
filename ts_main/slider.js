@@ -4,6 +4,8 @@
 // Работа слайдера:
 //=====================================================================================================
 
+// Переменные для работы:
+
 var imgListInit = document.querySelectorAll('.slider-item'),
     imgCount = document.querySelectorAll('.slider-item').length,
     curImg = 0,
@@ -11,7 +13,11 @@ var imgListInit = document.querySelectorAll('.slider-item'),
     isCompleted = true,
     changeTimeout;
 
+// Запуск слайдера при загрузке страницы:
+
 changeTimeout = setTimeout(() => moveSlider(), 6000);
+
+// Ограничение частоты вызова функций:
 
 function throttle(callback, delay) {
   let isWaiting = false;
@@ -28,7 +34,7 @@ function throttle(callback, delay) {
 
 // Анимация слайдера:
 
-const moveSlider = throttle((action) => {
+var moveSlider = throttle((action) => {
   var imgWidth = document.querySelector('.slider-item').clientWidth;
   var slider = document.querySelector('.slider-inner');
 

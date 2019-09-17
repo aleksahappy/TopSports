@@ -157,7 +157,6 @@ body {
 
 [tooltip] {
   position: relative;
-  max-width: 3.5em;
 }
 
 [tooltip]::before,
@@ -218,6 +217,7 @@ body {
 }
 
 .main-header {
+  display: none;
   align-items: center;
   flex-wrap: wrap;
   padding: 1em 0;
@@ -258,6 +258,32 @@ body {
 
 #main-nav-template {
   display: none;
+}
+
+#search-info {
+  position: relative;
+  padding-right: 30px;
+  /* font-family: 'TradeGothicProCyr'; */
+  font-family: 'FranklinGothic-DemiCond';
+  font-size: 1.5em;
+  text-transform: uppercase;
+  visibility: hidden;
+}
+
+#search-info .close-btn {
+  top: 0;
+  right: 0;
+  background-size: 1.2em;
+  width: 30px;
+  height: 100%;
+}
+
+#search-info .close-btn {
+  background: url(../img/header_footer/ico_search_clear.png) no-repeat center;
+}
+
+#search-info .close-btn::before {
+  content: '';
 }
 
 .sortbox {
@@ -327,13 +353,14 @@ body {
 }
 
 .filters {
-  position: fixed;
+  /* position: fixed; */
+  position: static;
   width: 16em;
   padding-right: 1.5em;
   padding-bottom: 1em;
-  /* overflow-y: scroll;
-  overflow-x: hidden;
-  text-overflow: ellipsis; */
+  overflow-y: scroll;
+  /* overflow-x: hidden; */
+  text-overflow: ellipsis;
 }
 
 .default-btn {
@@ -402,6 +429,10 @@ body {
 
 #filter-cat .filter-title-container {
   padding-right: 17px;
+}
+
+#filter-color .filter-title-container {
+  padding-bottom: 0;
 }
 
 .filter-item-title {
@@ -478,6 +509,10 @@ body {
   position: absolute;
   top: 0;
   right: 0;
+}
+
+#filter-color .filter-items {
+  padding: 0 1.5em;
 }
 
 #filter-color.open .filter-items {
@@ -685,6 +720,7 @@ body {
 
 .card-size .tooltip {
   justify-content: flex-start;
+  max-width: 5em;
 }
 
 .card-qty {
@@ -810,6 +846,10 @@ body {
 
 .size-articul {
   font-size: 0.8em;
+}
+
+.size-choice {
+  align-items: stretch;
 }
 
 .size-name {

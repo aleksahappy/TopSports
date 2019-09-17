@@ -1,3 +1,9 @@
+@media only screen and  (min-width: 1824px) {
+  .search {
+    width: 40%;
+  }
+}
+
 @media only screen and (max-width: 1439px) {
   .header-contacts a {
     margin-left: 2em;
@@ -35,8 +41,14 @@
     height: 2em;
     background-size: 2em;
   }
+  .main-menu > .row {
+    flex-wrap: wrap;
+  }
   .burger-btn.visible-xs {
     display: block;
+  }
+  .search {
+    width: 100%;
   }
   .ekipirovka .submenu {
     display: none;
