@@ -3,12 +3,6 @@
     max-width: 1724px;
     margin: 0 auto;
   }
-  .left-btn {
-    left: 7rem;
-  }
-  .right-btn {
-    right: 7rem;
-  }
   .work .step {
     width: 20%;
   }
@@ -18,11 +12,8 @@
   .container {
     margin: 0 4rem;
   }
-  .left-btn {
-    left: 2rem;
-  }
-  .right-btn {
-    right: 2rem;
+  .left-btn, .right-btn {
+    width: 4rem;
   }
   .geography-descr {
     width: 60%;
@@ -58,8 +49,14 @@
   .subtitle {
     text-align: center;
   }
-  .slider-content .container {
+  .left-btn, .right-btn {
+    width: 5rem;
+  }
+  .carousel-title .container {
     margin: 0 5rem;
+  }
+  .carousel-title .title {
+    font-size: 2.5em;
   }
   .about-item {
     width: 50%;
@@ -115,15 +112,15 @@
   .dealer-button {
     font-size: 1.5em;
   }
-  .slider-item {
+  .carousel-item {
     height: auto;
     background-image: none !important;
   }
-  .slider-item img {
+  .carousel-item img {
     display: block;
     height: auto !important;
   }
-  .slider-content .title {
+  .carousel-title .title {
     font-size: 1.5em;
   }
   .about-item {
@@ -162,19 +159,16 @@
   .subtitle {
     font-size: 1.5em;
   }
-  .left-btn {
-    left: 0.5rem;
+  .left-btn, .right-btn {
+    width: 3rem;
   }
-  .right-btn {
-    right: 0.5rem;
-  }
-  .slider-content .container {
+  .carousel-title .container {
     margin: 0 3rem;
   }
-  .slider-content .title {
+  .carousel-title .title {
     font-size: 1em;
   }
-  .slider-content .dealer-button {
+  .carousel-title .dealer-button {
     width: 100%;
     font-size: 1.25em;
     text-align: center;

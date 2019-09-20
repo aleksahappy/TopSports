@@ -20,6 +20,9 @@
   .header-contacts a {
     margin-left: 1em;
   }
+  #search {
+    font-size: 1.6rem;
+  }
   .ekipirovka .submenu-item {
     padding: 1rem 1.9rem;
   }
@@ -48,7 +51,7 @@
     display: block;
   }
   .search {
-    width: 100%;
+    width: 80%;
   }
   .ekipirovka .submenu {
     display: none;
@@ -70,6 +73,9 @@
     width: 3em;
     height: 3em;
     background-size: 3em;
+  }
+  .search {
+    width: 100%;
   }
   .submenu-items.ekipirovka {
     flex-direction: column;

@@ -6,9 +6,6 @@
     max-width: 1724px;
     margin: 0 auto;
   }
-  .full-card {
-    max-height: 70%;
-  }
   .full-card .card-imgbox-container {
     width: 330px;
   }
@@ -169,7 +166,6 @@
     right: 0;
   }
   .full-card {
-    max-height: 80%;
     padding: 0.7em;
   }
   .full-card .card-container {
@@ -247,7 +243,7 @@
   }
   .full-card {
     top: 10%;
-    max-height: 85%;
+    max-height: 85vh;
   }
   .full-card .carousel-gallery {
     width: 200px;

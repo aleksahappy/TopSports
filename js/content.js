@@ -23,7 +23,7 @@ var pageId = document.body.id,
     searchBtn = document.querySelector('.search .search-btn'),
     searchInfo = document.getElementById('search-info'),
     searchCount = document.getElementById('search-count'),
-    clearSearchBtn = document.querySelector('.search .close-btn'),
+    clearSearchBtn = document.querySelector('.search .clear-search-btn'),
     submenu = document.querySelector('.submenu'),
     headerSelect = document.querySelector('.header-select'),
     mainHeader = document.querySelector('.main-header'),
@@ -46,7 +46,7 @@ var mainNavTemplate = document.getElementById('main-nav').innerHTML,
     filterTemplate = document.querySelector('.filter').outerHTML,
     filterItemTemplate = document.querySelector('.filter-item').outerHTML,
     filterSubitemTemplate = document.querySelector('.filter-item.subitem').outerHTML,
-    minCardTemplate = document.getElementById('card-#object_id#'),
+    minCardTemplate = document.getElementById('min-card-#object_id#'),
     bigCardTemplate = document.getElementById('big-card-#object_id#'),
     fullCardTemplate = document.getElementById('full-card-#object_id#');
 
@@ -89,6 +89,21 @@ renderCart();
 //=====================================================================================================
 // Визуальное отображение контента на странице:
 //=====================================================================================================
+
+// Ограничение частоты вызова функций:
+
+function throttle(callback, delay) {
+  let isWaiting = false;
+  return function () {
+    if (!isWaiting) {
+      callback.apply(this, arguments);
+      isWaiting = true;
+      setTimeout(() => {
+        isWaiting = false;
+      }, delay);
+    }
+  }
+}
 
 // Установка отступов документа:
 
@@ -162,7 +177,7 @@ function setFiltersPosition() {
     filtersPosition = window.getComputedStyle(filters).position;
     if (filtersPosition == 'fixed') {
       if (filters.clientHeight >= gallery.clientHeight) {
-        console.log('setFiltersPosition static');
+        // console.log('setFiltersPosition static');
         filters.style.position = 'static';
         filters.style.top = '0px';
         filters.style.height = 'auto';
@@ -171,7 +186,7 @@ function setFiltersPosition() {
       }
     }
     if (filtersPosition == 'static') {
-      console.log('setFiltersPosition fixed');
+      // console.log('setFiltersPosition fixed');
       if (filters.clientHeight < gallery.clientHeight) {
         filters.style.position = 'fixed';
         setFiltersHeight();
@@ -181,7 +196,7 @@ function setFiltersPosition() {
 }
 
 function setFiltersHeight() {
-  console.log('setFiltersHeight height');
+  // console.log('setFiltersHeight height');
   scrolled = window.pageYOffset || document.documentElement.scrollTop;
   headerHeight = document.querySelector('.header').clientHeight;
   headerMainHeight = Math.max((document.querySelector('.main-header').clientHeight - scrolled), 20);
@@ -797,7 +812,7 @@ function clearFilters() {
   var activeElements = menuFilters.getElementsByClassName('checked');
   Array.from(activeElements).forEach(element => element.classList.remove('checked'));
 
-  if (searchInfo.style.visibility == 'hidden') {
+  if (searchInfo.style.visibility == '' || searchInfo.style.visibility == 'hidden') {
     selecledCardList = '';
     showCards();
   }
@@ -1010,17 +1025,27 @@ function createCard(card) {
     }
 
     var listCarousel = '',
-        carouselTemplate = cardTemplate.querySelector('.carousel-inner').innerHTML,
-        propsCarousel = extractProps(carouselTemplate);
+        carouselTemplate = cardTemplate.querySelector('.carousel').innerHTML,
+        propsCarousel = extractProps(carouselTemplate),
+        carouselItemTemplate = cardTemplate.querySelector('.carousel-gallery').innerHTML,
+        carouselItemNavTemplate;
+
+    if (cardTemplate.querySelector('.carousel-nav')) {
+      carouselItemNavTemplate = cardTemplate.querySelector('.carousel-nav').innerHTML;
+    }
     for (var i = 0; i < card.images.length; i++) {
-      var newCarouselItem = carouselTemplate
-        .replace(/#imgNumb#/gi, i)
+      var newCarouselItem = carouselItemTemplate
         .replace('#isActiv#', i == 0 ? 'img-active' : '')
+        .replace('#imgNumb#', i)
         .replace('#image#', `http://b2b.topsports.ru/c/productpage/${card.images[i]}.jpg`);
       listCarousel += newCarouselItem;
     }
+
     removeReplays(props, propsCarousel);
-    newCard = newCard.replace(carouselTemplate, listCarousel);
+    newCard = newCard.replace(carouselItemTemplate, listCarousel);
+    if (carouselItemNavTemplate) {
+      newCard = newCard.replace(carouselItemNavTemplate, listCarousel)
+    }
   }
 
   for (var prop of props) {
@@ -1030,9 +1055,9 @@ function createCard(card) {
       propCard = `http://b2b.topsports.ru/c/productpage/${card.images[0]}.jpg`;
     } else if (prop == 'price_preorder' && card.price_preorder1 == 0) {
       newCard = newCard.replace('#price_preorder#⁠.-', '');
-    } else if (prop == 'isHiddenCarousel') {
+    } else if (prop == 'isHiddenCarouselNav') {
       propCard = card.images.length > 1 ? '' : 'displayNone';
-    } else if (prop == 'isHiddenRightBtn') {
+    } else if (prop == 'isHiddenBtn') {
       propCard = card.images.length > 1 ? '' : 'hidden'
     } else if (prop == 'isHiddenPromo') {
       propCard = card.actiontitle == undefined ? 'displayNone' : '';
@@ -1139,7 +1164,7 @@ function openBigCard(event) {
 
 function closeBigCard(event) {
   var card = event.currentTarget.closest('.big-card');
-  if (window.innerWidth > 767) {
+  if (window.innerWidth < 767) {
     if (!(event.target.classList.contains('toggle-btn') || event.target.closest('.carousel') || event.target.closest('.card-size') || event.target.classList.contains('dealer-button'))) {
       card.classList.remove('open');
       card.querySelector('.toggle-btn').setAttribute('tooltip', 'Раскрыть');
@@ -1158,7 +1183,7 @@ function showFullCard(objectId) {
   setCardTemplate();
 
   var card = document.querySelector('.full-card');
-  toggleDisplayBtns(card);
+  // toggleDisplayBtns(card);
 }
 
 // Скрытие полной карточки товара:
@@ -1181,95 +1206,6 @@ function showFullImg(event) {
 
 function closeFullImg() {
   fullImgBox.style.display = 'none';
-}
-
-// Переключение картинок в карусели с помощью кнопок управления:
-
-function moveCarousel(objectId) {
-  var card = event.currentTarget.closest('.card'),
-      carousel = card.querySelector('.carousel'),
-      imgCounter = parseInt(carousel.dataset.imgcounter, 10),
-      images = items.find(item => item.object_id == objectId).images,
-      lastImg = images.length - 1,
-      imageWidth = carousel.querySelector('.carousel-item').clientWidth,
-      carouselInner = carousel.querySelector('.carousel-inner');
-
-  if (event.currentTarget.classList.contains('left-btn')) {
-    imgCounter = imgCounter == 0 ? 0 : --imgCounter;
-  } else {
-    imgCounter = imgCounter == lastImg ? lastImg : ++imgCounter;
-  }
-  carousel.dataset.imgcounter = imgCounter;
-  carouselInner.style.marginLeft = `-${imgCounter * imageWidth}px`;
-
-  if (card.classList.contains('full-card')) {
-    showImg(event);
-  }
-  toggleDisplayBtns(card);
-}
-
-// Переключение отображения кнопок карусели:
-
-window.addEventListener('resize', () => {
-  if (fullCardContainer.style.display == 'block') {
-    var card = document.querySelector('.full-card');
-    toggleDisplayBtns(card);
-  }
-});
-
-function toggleDisplayBtns(card) {
-  var objectId = parseInt(card.dataset.objectId, 10),
-      images = items.find(item => item.object_id == objectId).images,
-      carousel = card.querySelector('.carousel'),
-      imageWidth = carousel.querySelector('.carousel-item').clientWidth,
-      carouselWidth = carousel.querySelector('.carousel-gallery').clientWidth,
-      carouselInner = carousel.querySelector('.carousel-inner'),
-      leftBtn = carousel.querySelector('.left-btn'),
-      rightBtn = carousel.querySelector('.right-btn'),
-      imgCounter = parseInt(carousel.dataset.imgcounter, 10);
-
-  if (carouselWidth >= imageWidth * images.length) {
-    rightBtn.style.visibility = 'hidden';
-    leftBtn.style.visibility = 'hidden';
-  } else  {
-    if (imgCounter == 0) {
-      leftBtn.style.visibility = 'hidden';
-    } else {
-      leftBtn.style.visibility = 'visible';
-    }
-
-    if (-parseInt(carouselInner.style.marginLeft, 10) >= imageWidth * images.length - carouselWidth) {
-      rightBtn.style.visibility = 'hidden';
-    } else {
-      rightBtn.style.visibility = 'visible';
-    }
-  }
-}
-
-// Переключение картинок в карусели при клике на миниатюру:
-
-function toggleImg(imgNumb) {
-  if (window.innerWidth < 768) {
-    showFullImg(event);
-  } else {
-    var carousel = event.currentTarget.closest('.carousel');
-    carousel.dataset.imgcounter = imgNumb;
-    showImg(event);
-  }
-}
-
-// Изменение основной картинки в карусели и выделение миниатюры:
-
-function showImg(event) {
-  var carousel = event.currentTarget.closest('.carousel'),
-      imgCounter = parseInt(carousel.dataset.imgcounter, 10),
-      img = carousel.querySelector(`.carousel-item-${imgCounter} img`);
-
-  carousel.querySelector('.img-active').classList.remove('img-active');
-  carousel.querySelector(`.carousel-item-${imgCounter}`).classList.add('img-active');
-
-  var curImg = document.getElementById('img');
-  curImg.src = img.src;
 }
 
 //=====================================================================================================
@@ -1316,8 +1252,8 @@ function dynamicSort(property) {
 // Подготовка данных для поиска на странице:
 
 function prepeareForSearch(data) {
-  itemsForSearch = data.map((el, i) => {
-    return {index: i, value: convertToString(el)};
+  itemsForSearch = data.map(el => {
+    return {objectId: el.object_id, value: convertToString(el)};
   });
 }
 
@@ -1348,19 +1284,15 @@ var textToFind,
     checkedText;
 
 function findOnPage(event) {
-  if (!event.currentTarget.classList.contains('search-btn') && event.keyCode !== 13) {
-    return;
-  }
+  event.preventDefault();
   textToFind = searchInput.value.trim();
   if (textToFind == '') {
     return;
   }
   regExpSearch = new RegExp(textToFind, 'i');
   selecledCardList = [];
-
-  itemsForSearch.filter(el => el.value.search(regExpSearch) >= 0).forEach(el => selecledCardList.push(curItems[el.index]));
+  itemsForSearch.filter(el => el.value.search(regExpSearch) >= 0).forEach(el => selecledCardList.push(curItems.find(item => item.object_id == el.objectId)));
   showCards();
-  console.log(selecledCardList);
 
   searchBtn.style.display = 'none';
   clearSearchBtn.style.display = 'block';
