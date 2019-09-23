@@ -98,6 +98,14 @@ a.header-phone, a.header-cabinet {
   align-items: center;
 }
 
+.topmenu {
+  align-items: center;
+}
+
+.topmenu .burger-btn {
+  margin-left: 1em;
+}
+
 .topmenu-item {
   padding: 1rem 2rem;
   /* font-family: 'TradeGothicProCyr'; */
