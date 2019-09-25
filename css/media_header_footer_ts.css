@@ -47,11 +47,15 @@
   .main-menu > .row {
     flex-wrap: wrap;
   }
+  .topmenu {
+    width: 100%;
+  }
   .burger-btn.visible-xs {
     display: block;
   }
   .search {
-    width: 80%;
+    width: 100%;
+    max-width: 100%;
   }
   .ekipirovka .submenu {
     display: none;

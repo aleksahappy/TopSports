@@ -161,8 +161,8 @@
             </div>
           </div>
           <div id="gallery" class="row">
-            <div id="card-#object_id#" class="min-card col" onclick="showFullCard(#object_id#)">
-              <div class="card-imgbox-container">
+          <div id="min-card-#object_id#" class="min-card card col" onclick="showFullCard(#object_id#)">
+              <div class="card-img-wrap">
                 <img class="card-img" src="#images#">
               </div>
               <div class="card-promo">
@@ -200,25 +200,12 @@
               </div>
               <div class="big-card-body row">
                 <div class="card-container-left row">
-                  <!-- <div class="carousel" data-imgcounter="0">
-                    <div class="left-btn" onclick="moveCarousel(#object_id#)"></div>
-                    <div class="right-btn #isHiddenRightBtn#" onclick="moveCarousel(#object_id#)"></div>
-                    <div class="carousel-container">
-                      <div class="carousel-gallery">
-                        <div class="carousel-inner row">
-                          <div class="carousel-item carousel-item-#imgNumb# row" onclick="showFullImg(event)">
-                            <img src="#image#">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div> -->
-                  <div class="carousel" data-cur-pos="0" data-cur-img="0" data-infinitie="" data-duration="" data-isMove="" data-direction="" data-delay="" onclick="moveCarousel(this)">
-                    <div class="left-btn btn #isHiddenBtn#" data-wait="true"></div>
-                    <div class="right-btn btn #isHiddenBtn#" data-wait="true"></div>
+                  <div class="carousel" data-type="bigCard" data-pos="0" data-cur-img="0" onclick="moveCarousel(this)">
+                    <div class="left-btn btn #isHiddenBtn#"></div>
+                    <div class="right-btn btn #isHiddenBtn#"></div>
                     <div class="carousel-gallery-wrap">
                       <div class="carousel-gallery">
-                        <div class="carousel-item row" data-numb="#imgNumb#" onclick="showFullImg(event)">
+                        <div class="carousel-item row" style="left: #style#;" data-numb="#imgNumb#" onclick="showFullImg(#object_id#)">
                           <img src="#image#">
                         </div>
                       </div>
@@ -293,22 +280,20 @@
             <div id="full-card-#object_id#" class="full-card card" data-object-id="#object_id#">
               <div class="close-btn"></div>
               <div class="card-container row">
-                <div class="card-imgbox">
-                  <div class="card-imgbox-container" onclick="showFullImg(event)">
-                    <div class="search-btn"></div>
-                    <img id="img" class="card-img" src="#images#">
-                  </div>
-                  <div class="carousel #isHiddenCarousel#" data-imgcounter="0">
-                    <div class="left-btn" onclick="moveCarousel(#object_id#)"></div>
-                    <div class="right-btn" onclick="moveCarousel(#object_id#)"></div>
-                    <div class="carousel-container">
-                      <div class="carousel-gallery">
-                        <div class="carousel-inner row">
-                          <div class="carousel-item carousel-item-#imgNumb# #isActiv# row" onclick="toggleImg(#imgNumb#)">
-                            <img src="#image#">
-                          </div>
-                        </div>
+                <div class="carousel" data-type="fullCard" data-pos="0" data-cur-img="0" onclick="moveCarousel(this)">
+                  <div class="search-btn" onclick="showFullImg(#object_id#)"></div>
+                  <div class="carousel-gallery-wrap">
+                    <div class="left-btn btn #isHiddenBtn#"></div>
+                    <div class="right-btn btn #isHiddenBtn#"></div>
+                    <div class="carousel-gallery">
+                      <div class="carousel-item row" style="left: #style#;" data-numb="#imgNumb#" onclick="showFullImg(#object_id#)">
+                        <img src="#image#">
                       </div>
+                    </div>
+                  </div>
+                  <div class="carousel-nav row #isHiddenCarouselNav#">
+                    <div class="carousel-item item-nav #isActive# row" data-numb="#imgNumb#">
+                      <img src="#image#">
                     </div>
                   </div>
                 </div>
@@ -382,14 +367,28 @@
             </div>
           </div>
           <div id="full-imgbox" onclick="closeFullImg()">
-            <div class="close-btn"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path>
+            </svg>
             <div class="full-imgbox-content row">
-              <img id="full-img" src="#images#">
+              <div class="carousel" data-pos="0" data-cur-img="0" onclick="moveCarousel(this)">
+                <div class="left-btn btn #isHiddenBtn#"></div>
+                <div class="right-btn btn #isHiddenBtn#"></div>
+                <div class="carousel-gallery-wrap">
+                  <div class="carousel-gallery">
+                    <div class="carousel-item row" style="left: #style#;" data-numb="#imgNumb#">
+                      <img id="full-img" src="#image#">
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <div id="loader"></div>
 
     <div class="footer">
       <div class="container">
@@ -419,6 +418,7 @@
     <!-- <script src ="../../../stand/qzip.php"></script> -->
     <script src ="qzip.js"></script>
     <script src="data_zip.js"></script>
+    <script src="../js/carousel.js"></script>
     <script src="../js/content.js"></script>
     <script src="../js/cart.js"></script>
 

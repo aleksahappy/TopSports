@@ -181,26 +181,28 @@ body > div:not(.header):not(.carousel):not(.footer) {
  Стили для карусели:
 ===================================================================================================== */
 
+.carousel {
+  position: relative;
+  cursor: pointer;
+}
+
 .carousel-gallery-wrap {
   position: relative;
   width: 100%;
-  overflow: hidden;
   margin-bottom: 1.5em;
+  overflow: hidden;
 }
 
 .carousel-gallery {
   position: relative;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  top: 0;
-  left: 0;
-  width: 1000vw;
+  width: 100%;
 }
 
-.carousel-item {
-  position: relative;
+.carousel-gallery .carousel-item {
+  position: absolute;
   width: 100%;
+  top: 0;
+  left: 0;
   height: 95vh;
   height: calc(100vh - 100px);
   height: -moz-calc(100vh - 100px);
@@ -210,10 +212,15 @@ body > div:not(.header):not(.carousel):not(.footer) {
   background-position: top center;
 }
 
+.carousel-gallery :first-child {
+  position: relative;
+}
+
 .carousel-item img {
   display: none;
   height: auto;
   max-width: 100%;
+  margin: 0 auto;
 }
 
 .carousel-title {

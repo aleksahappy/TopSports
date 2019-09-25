@@ -1,8 +1,10 @@
 'use strict';
 
-var carousel = document.getElementById('carousel'),
-    carouselIsMove = carousel.dataset.move;
+var carousel = document.getElementById('carousel');
 
-if (carouselIsMove && carouselIsMove == 'true') {
-  startCarouselMove(carousel);
-}
+// Кастомные настройки карусели:
+window.mainCarousel = new Carousel();
+window.mainCarousel.isMove = true;
+
+checkSettings(carousel);
+startCarouselMove(carousel);

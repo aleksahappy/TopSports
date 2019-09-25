@@ -112,7 +112,7 @@
   .dealer-button {
     font-size: 1.5em;
   }
-  .carousel-item {
+  .carousel-gallery .carousel-item {
     height: auto;
     background-image: none !important;
   }

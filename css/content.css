@@ -34,6 +34,10 @@ input {
   outline: none;
 }
 
+ul {
+  list-style-position: inside;
+}
+
 /* =====================================================================================================
  Основные стили:
 ===================================================================================================== */
@@ -102,12 +106,13 @@ body {
   height: 100%;
   background-size: 1.2em;
   cursor: pointer;
+  z-index: 2;
 }
 
 .close-btn {
   position: absolute;
   cursor: pointer;
-  z-index: 1;
+  z-index: 5;
 }
 
 .close-btn::before {
@@ -116,28 +121,22 @@ body {
   cursor: pointer;
 }
 
-.left-btn, .right-btn {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 1.5em;
-  opacity: 0.5;
-  z-index: 1;
-  cursor: pointer;
-}
-
-.left-btn:hover, .right-btn:hover {
-  opacity: 1;
-}
-
 .left-btn {
   left: 0;
-  background: url(../img/content/list_slider_arrow_left.jpg) no-repeat center;
+  background: url(../img//slider/slider_nav_left.png) no-repeat center;
 }
 
 .right-btn {
   right: 0;
-  background: url(../img/content/list_slider_arrow_right.jpg) no-repeat center;
+  background: url(../img/slider/slider_nav_right.png) no-repeat center;
+}
+
+.left-btn, .right-btn {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 1;
+  cursor: pointer;
 }
 
 .dealer-button {
@@ -175,11 +174,65 @@ body {
 }
 
 .displayNone {
-  display: none;
+  display: none !important;
 }
 
 .hidden {
   visibility: hidden;
+}
+
+/* =====================================================================================================
+ Общие стили для карусели:
+===================================================================================================== */
+
+.carousel {
+  position: relative;
+  cursor: pointer;
+}
+
+.carousel-gallery-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-gallery {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-gallery .carousel-item {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.carousel-gallery :first-child {
+  position: relative;
+}
+
+.carousel-nav {
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.carousel-nav .carousel-item {
+  padding-right: 0.5em;
+  padding-bottom: 0.5em;
+  opacity: 0.6;
+}
+
+.carousel-nav .carousel-item.active {
+  opacity: 1;
+}
+
+.carousel-item img {
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 /* =====================================================================================================
@@ -248,6 +301,8 @@ body {
 #content {
   min-height: 60vh;
 }
+
+/* Стили для навигации по контенту: */
 
 .main {
   background-color: rgb(247,249,249);
@@ -370,6 +425,8 @@ body {
   appearance: none;
 }
 
+/* Стили для фильтров: */
+
 .filters-container {
   display: none;
   width: 16em;
@@ -442,22 +499,14 @@ body {
   padding-top: 0.5em;
 }
 
-#filter-color .filter-items .filter-item.item:first-child .filter-title-container {
-  padding-top: 0;
-}
-
 .filter-title-container {
   position: relative;
   justify-content: flex-start;
   padding-bottom: 0.5em;
 }
 
-#filter-cat .filter-title-container {
-  padding-right: 17px;
-}
-
-#filter-color .filter-title-container {
-  padding-bottom: 0;
+.filter-item.disabled{
+  color: rgb(204, 204, 204);
 }
 
 .filter-item-title {
@@ -466,10 +515,6 @@ body {
   padding-left: 1.4em;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-#filter-cat .filter-item-title {
-  padding-left: 0;
 }
 
 .filter-item-title::before {
@@ -485,55 +530,54 @@ body {
   background-color: rgb(247,247,249);
 }
 
-#filter-cat .filter-item.checked .filter-title-container > .filter-item-title,
-#filter-cat .filter-item.checked.subitem > .filter-item-title {
-  color: rgb(88, 88, 88);
-  font-weight: 800;
-}
-
 .filter-item.checked .filter-item-title::before {
   content: '\f046';
-}
-
-#filter-cat .filter-item-title::before {
-  content: '';
-}
-
-#filter-cat .open-btn {
-  position: relative;
-  width: 100%;
-  height: 1.5em;
-  z-index: 2;
-}
-
-#filter-cat .open-btn::before {
-  content: '\f105';
-  font-family: 'FontAwesome';
-  position: absolute;
-  top: 0;
-  left: 0.5em;
-  transition: 100ms;
-}
-
-#filter-cat .filter-item.open .open-btn::before {
-  transform: rotate(90deg);
-  transition: 300ms;
 }
 
 .filter-item .close-btn {
   display: none;
 }
 
-#filter-cat .filter-item.checked .close-btn {
+.filter-subitems {
+  display: none;
+}
+
+.filter-item.open .filter-subitems {
   display: block;
+}
+
+.filter-item.subitem {
+  padding-left: 1em;
+}
+
+.filter-item.subitem {
+  position: relative;
+  padding-bottom: 0.5em;
+  padding-right: 17px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.filter-item.subitem.checked {
+  color: rgb(88, 88, 88);
+  font-weight: 800;
+  background-color: rgb(247,247,249);
+}
+
+.filter-item.subitem.checked::before {
+  content: '\f00d';
+  font-family: 'FontAwesome';
+  position: absolute;
   top: auto;
   right: 0;
 }
 
-#filter-cat .close-btn::before {
-  position: absolute;
-  top: 0;
-  right: 0;
+#filter-color .filter-items .filter-item.item:first-child .filter-title-container {
+  padding-top: 0;
+}
+
+#filter-color .filter-title-container {
+  padding-bottom: 0;
 }
 
 #filter-color .filter-items {
@@ -652,37 +696,53 @@ body {
   background-image: url(../img/content);
 } */
 
-.filter-subitems {
-  display: none;
-}
-
-.filter-item.open .filter-subitems {
-  display: block;
-}
-
-.filter-item.subitem {
-  padding-left: 1em;
-}
-
-.filter-item.subitem {
-  position: relative;
-  padding-bottom: 0.5em;
+#filter-cat .filter-title-container {
   padding-right: 17px;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
-.filter-item.subitem.checked {
+#filter-cat .filter-item-title {
+  padding-left: 0;
+}
+
+#filter-cat .filter-item.checked .filter-title-container > .filter-item-title,
+#filter-cat .filter-item.checked.subitem > .filter-item-title {
   color: rgb(88, 88, 88);
   font-weight: 800;
-  background-color: rgb(247,247,249);
 }
 
-.filter-item.subitem.checked::before {
-  content: '\f00d';
+#filter-cat .filter-item-title::before {
+  content: '';
+}
+
+#filter-cat .open-btn {
+  position: relative;
+  width: 100%;
+  height: 1.5em;
+  z-index: 2;
+}
+
+#filter-cat .open-btn::before {
+  content: '\f105';
   font-family: 'FontAwesome';
   position: absolute;
+  top: 0;
+  left: 0.5em;
+  transition: 100ms;
+}
+
+#filter-cat .filter-item.open .open-btn::before {
+  transform: rotate(90deg);
+  transition: 300ms;
+}
+
+#filter-cat .filter-item.checked .close-btn {
+  display: block;
   top: auto;
+  right: 0;
+}
+
+#filter-cat .close-btn::before {
+  position: absolute;
   right: 0;
 }
 
@@ -770,49 +830,6 @@ body {
 
 .grey-gty::before {
   background-position-x: -15px;
-}
-
-.carousel {
-  position: relative;
-}
-
-.carousel-gallery-wrap {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-.carousel-gallery {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  top: 0;
-  left: 0;
-  width: 1000vw;
-}
-
-.carousel-nav {
-
-}
-
-
-.carousel-nav .carousel-item {
-  opacity: 0.6;
-}
-
-.carousel-nav .carousel-item.active {
-  opacity: 1;
-}
-
-.carousel-item {
-  align-items: center;
-  min-height: 10em;
-  padding-right: 0.5em;
-}
-
-.carousel-item img {
-  max-width: 100%;
 }
 
 .card-options {
@@ -1087,8 +1104,21 @@ body.zip .big-card .card-container-left {
 
 .big-card .carousel {
   width: 150px;
+  min-width: 150px;
   margin-left: 1.5em;
   margin-right: 2.5em;
+}
+
+.big-card .carousel .left-btn,
+.big-card .carousel .right-btn {
+  width: 1.5em;
+  background-size: 0.7em;
+  opacity: 0.5;
+}
+
+.big-card .carousel .left-btn:hover,
+.big-card .carousel .right-btn:hover {
+  opacity: 1;
 }
 
 .big-card .carousel .left-btn {
@@ -1099,8 +1129,9 @@ body.zip .big-card .card-container-left {
   right: -1.5em;
 }
 
-.big-card .carousel-item {
+.big-card .carousel-gallery img {
   width: 150px;
+  height: 150px;
 }
 
 .big-card .card-options-container {
@@ -1193,7 +1224,7 @@ body.zip .big-card .card-container-right {
   display: none;
   position: fixed;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   top: 0;
   left: 0;
   right: 0;
@@ -1204,9 +1235,8 @@ body.zip .big-card .card-container-right {
 
 .full-card {
   position: relative;
-  top: 20%;
-  max-width: 900px;
-  max-height: 75vh;
+  max-width: 1000px;
+  max-height: 70vh;
   margin: 0 0 -1px -1px;
   padding: 2em 1.5em 1.5em 1.5em;
   background-color: rgb(255, 255, 255);
@@ -1219,41 +1249,52 @@ body.zip .big-card .card-container-right {
 
 .full-card .close-btn {
   top: 0;
-  right: 0.5em;
-  font-size: 2em;
+  right: 0;
+  width: 1.5em;
+  font-size: 1.5em;
+  text-align: center;
 }
 
 .full-card .close-btn:hover {
   color: rgb(241,90,41);
 }
 
-.full-card .card-imgbox {
-  position: relative;
-  margin-right: 1.5em;
-  cursor: pointer;
+.full-card .carousel {
+  width: 40%;
+  margin-right: 1em;
+  margin-bottom: 1em;
 }
 
-.full-card .card-imgbox-container {
-  width: 300px;
-  margin: 1em auto;
+.full-card .carousel-gallery-wrap {
+  margin-bottom: 1.5em;
 }
 
-.full-card .search-btn {
+.full-card .carousel .search-btn {
   left: 0;
   height: 30px;
 }
 
-.full-card .carousel-gallery {
-  width: 300px;
+.full-card .carousel .left-btn,
+.full-card .carousel .right-btn {
+  width: 3em;
+  background-color: rgb(255, 255, 255, 0.4);
+  opacity: 0;
 }
 
-.full-card .carousel-item {
-  width: 100px;
+.full-card .carousel-gallery-wrap:hover .left-btn,
+.full-card .carousel-gallery-wrap:hover .right-btn {
+  opacity: 1;
 }
 
+.full-card .carousel-nav .carousel-item {
+  width: 25%;
+  max-width: 100px;
+  min-width: 80px;
+}
 
 .full-card .card-info {
   justify-content: flex-start;
+  width: 60%;
 }
 
 .full-card .card-head {
@@ -1292,15 +1333,21 @@ body.zip .big-card .card-container-right {
   padding-bottom: 0.5em;
 }
 
+.full-card .card-description {
+  padding-left: 1.5em;
+}
+
+/* / Стили для изображения на весь экран: */
+
 #full-imgbox {
-  display: none;
+  visibility: hidden;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   padding: 3em 0;
-  background-color: rgba(43,46,56,0.9);
+  background-color: rgba(43, 46, 56, 0.9);
   z-index: 40;
 }
 
@@ -1311,19 +1358,60 @@ body.zip .big-card .card-container-right {
   height: 100%;
 }
 
-#full-imgbox .close-btn {
+#full-imgbox svg {
+  position: absolute;
   top: 0;
-  right: 0.5em;
-  font-size: 3em;
-  color: rgb(255, 255, 255);
+  right: 0;
+  width: 3em;
+  margin: 1em;
+  z-index: 1;
 }
 
-#full-imgbox  .close-btn:hover {
-  color: rgb(241,90,41);
+#full-imgbox svg path {
+  fill: rgb(255, 255, 255);
 }
 
-#full-img {
-  max-width: 80%;
-  max-height: 80%;
+#full-imgbox svg:hover path {
+  fill: rgb(241,90,41);
+}
+
+#full-imgbox .carousel {
+  max-width: 80vw;
+  max-height: 80vh;
+}
+
+#full-imgbox .carousel-gallery img {
+  max-width: 80vw;
+  max-height: 80vh;
+}
+
+#full-imgbox .carousel-gallery-wrap {
   border-radius: 5px;
+}
+
+#full-imgbox .carousel .left-btn,
+#full-imgbox .carousel .right-btn {
+  width: 3.5em;
+  background-color: rgb(255, 255, 255, 0.4);
+  opacity: 0;
+}
+
+#full-imgbox .carousel:hover .left-btn,
+#full-imgbox .carousel:hover .right-btn {
+  opacity: 1;
+}
+
+#loader {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(43, 46, 56, 0.9);
+  background-image: url(../img/content/page_loader.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80px;
+  z-index: 40;
 }
