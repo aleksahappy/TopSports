@@ -77,7 +77,9 @@ var pageUrl =  pageId,
     searchedCardList = [],
     countItems = 0,
     countItemsTo = 0,
-    itemsToLoad;
+    itemsToLoad,
+    curItemsArray,
+    isExsist;
 
 //=====================================================================================================
 // Заполнение контента страницы:
@@ -492,6 +494,7 @@ function renderContent(path) {
   selecledCardList = '';
   initFilters();
   checkFilters();
+  toggleToActualFilters();
 }
 
 //=====================================================================================================
@@ -553,8 +556,8 @@ function createDataCats(key) {
 function initFilters() {
   console.log('initFilters');
   var data =  JSON.parse(JSON.stringify(dataForPageFilters));
-  var curItemsArray = curItems,
-      isExsist = false;
+  curItemsArray = curItems;
+  isExsist = false;
 
   if (selecledCardList != '') {
     curItemsArray = selecledCardList;
@@ -670,7 +673,7 @@ function toggleFilterItem(event) {
 
 function selectValue(event) {
   event.stopPropagation();
-  if (event.target.classList.contains('open-btn')) {
+  if (event.target.classList.contains('open-btn') || event.currentTarget.classList.contains('disabled')) {
     return;
   }
   var curItem = event.currentTarget,
@@ -705,49 +708,8 @@ function selectValue(event) {
   if (searchInfo.style.visibility == 'visible') {
     clearSearchInfo();
   }
-
-  disableFilters();
+  toggleToActualFilters();
 }
-
-// Заблокировать лишние фильтры:
-
-function disableFilters() {
-  var filtItems = document.querySelectorAll('.filter-item.item'),
-      filtSubItems = document.querySelectorAll('.filter-item.subitem'),
-      curItemsArray = curItems,
-      isExsist;
-
-  if (selecledCardList != '') {
-    curItemsArray = selecledCardList;
-  }
-
-  isExsist = false;
-  for (var item of filtItems) {
-    isExsist = curItemsArray.find(card => {
-      if (card[item.dataset.key] == item.dataset.value || card[item.dataset.value] == 1) {
-        item.classList.remove('disabled');
-        return true;
-      }
-    });
-    if (!isExsist) {
-      item.classList.add('disabled');
-    }
-  }
-
-  isExsist = false;
-  for (var item of filtSubItems) {
-    isExsist = curItemsArray.find(card => {
-      if (card.subcat == item.dataset.value) {
-        item.classList.remove('disabled');
-        return true;
-      }
-    });
-    if (!isExsist) {
-      item.classList.add('disabled');
-    }
-  }
-}
-
 
 // Добавление данных в хранилище о выбранных фильтрах:
 
@@ -850,6 +812,44 @@ function selectCards() {
   showCards();
 }
 
+// Блокировка лишних фильтров:
+
+function toggleToActualFilters() {
+  var filterItems = menuFilters.querySelectorAll('.filter-item.item.checked'),
+      key,
+      value,
+      items;
+
+  if (filterItems.length == 0) {
+    menuFilters.querySelectorAll('.filter-item.disabled').forEach(el => el.classList.remove('disabled'));
+    return;
+  }
+
+  curItemsArray = curItems;
+  if (selecledCardList != '') {
+    curItemsArray = selecledCardList;
+  }
+
+  for (var item of filterItems) {
+    items = menuFilters.querySelectorAll(`.filter-item.item:not([data-key="${item.dataset.key}"])`);
+    isExsist = false;
+
+    for (var item of items) {
+      key = item.dataset.key;
+      value = item.dataset.value;
+      isExsist = curItemsArray.find(card => {
+        if (card[key] == value || card[value] == 1) {
+          item.classList.remove('disabled');
+          return true;
+        }
+      });
+      if (!isExsist) {
+        item.classList.add('disabled');
+      }
+    }
+  }
+}
+
 // Очистка всех фильтров:
 
 function clearFilters() {
@@ -857,8 +857,8 @@ function clearFilters() {
   filtersInfo[pageUrl] = {};
   saveInfo(`filters`, filtersInfo);
 
-  menuFilters.querySelectorAll('.filter-item.checked').forEach(el => el.classList.remove('checked'));
-  menuFilters.querySelectorAll('.filter-item.open').forEach(el => el.classList.remove('open'));
+  menuFilters.querySelectorAll('.checked').forEach(el => el.classList.remove('checked'));
+  menuFilters.querySelectorAll('.disabled').forEach(el => el.classList.remove('disabled'));
 
   if (searchInfo.style.visibility == 'visible') {
     return;
@@ -875,41 +875,33 @@ function checkFilters() {
     showCards();
   } else {
     selectCards();
-    // initFilters();
-    selectFilters();
+    selectFilters(filtersInfo);
   }
 }
 
 // Визуальное отображение выбранных фильтров:
 
-function selectFilters() {
-  var filtersInfo = getInfo('filters')[pageUrl];
-  if (!filtersInfo) {
-    return;
-  }
+function selectFilters(filtersInfo) {
   for (var k in filtersInfo) {
     var filter = document.querySelector(`#filter-${k}`);
     if (filter) {
       filter.classList.add('open');
     }
     for (var kk in filtersInfo[k]) {
-      var el = document.querySelector(`[data-key="${k}"][data-value="${kk}"]`);
-      if (el) {
-        el.classList.add('checked');
-        var filterItem = el.closest('.filter-item');
-        if (filterItem) {
-          filterItem.classList.add('open');
-        }
-      }
+      changeFilterClass(k, kk);
       for (var kkk in filtersInfo[k][kk]) {
-        var el = document.querySelector(`[data-key="${kk}"][data-value="${kkk}"]`);
-        if (el) {
-          el.classList.add('checked');
-          var filterItem = el.closest('.filter-item');
-          if (filterItem) {
-            filterItem.classList.add('open');
-          }
-        }
+        changeFilterClass(kk, kkk);
+      }
+    }
+  }
+
+  function changeFilterClass(key, value) {
+    var el = document.querySelector(`[data-key="${key}"][data-value="${value}"]`);
+    if (el) {
+      el.classList.add('checked');
+      var filterItem = el.closest('.filter-item');
+      if (filterItem) {
+        filterItem.classList.add('open');
       }
     }
   }
@@ -987,9 +979,33 @@ function createCard(card) {
         if ((option == 7 || option == 31 || option == 32 || option == 33) && manufData && Object.keys(manufData.man).length > 1) {
           continue;
         } else {
+          var opinfo;
+          if (option == 32) {
+            var years = card.options[option].split(',');
+            opinfo = [];
+            for (var i = 0; i < years.length; i++) {
+              if ((parseInt(years[i], 10) - 1 != parseInt(years[i - 1], 10)) || (parseInt(years[i], 10) + 1 != parseInt(years[i + 1], 10))) {
+                opinfo.push(years[i]);
+              }
+            }
+            for (var i = 0; i < opinfo.length; i++) {
+              if (i != opinfo.length - 1 && (parseInt(opinfo[i], 10) + 1 != parseInt(opinfo[i + 1], 10))) {
+                console.log('ndash')
+                // opinfo.splice(i, 0, '&ndash');
+              }
+            }
+            opinfo = opinfo.splice('');
+            console.log(opinfo);
+            // &ndash
+
+          } else {
+            opinfo = card.options[option]
+              .replace(/\,/gi, ', ')
+              .replace(/\//gi, '/ ')
+          }
           var newOption = optionsTemplate
             .replace('#optitle#', optnames[option])
-            .replace('#opinfo#', card.options[option]);
+            .replace('#opinfo#', opinfo);
           listOptions += newOption;
         }
       }
