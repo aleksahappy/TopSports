@@ -431,7 +431,6 @@ body {
   display: none;
   width: 16em;
   margin-right: 1rem;
-  cursor: pointer;
 }
 
 .filters {
@@ -455,6 +454,7 @@ body {
   text-align: center;
   border: 1px solid rgb(51,51,51);
   border-radius: 2px;
+  cursor: pointer;
 }
 
 .filter-title {
@@ -467,6 +467,7 @@ body {
   border-bottom: 1px solid rgb(139,140,140);
   overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer;
 }
 
 .filter-title::after {
@@ -495,6 +496,10 @@ body {
   display: block;
 }
 
+.filter-item {
+  cursor: pointer;
+}
+
 .filter-items .filter-item.item:first-child .filter-title-container {
   padding-top: 0.5em;
 }
@@ -507,6 +512,7 @@ body {
 
 .filter-item.disabled{
   color: rgb(183,183,183);
+  cursor: default;
 }
 
 .filter-item-title {
