@@ -1,3 +1,8 @@
+/* .container {
+  max-width: 1340px !important;
+  margin: 0 auto;
+} */
+
 @media only screen and  (min-width: 1824px) {
   body {
     font-size: 1.6rem;
@@ -96,9 +101,6 @@
     max-width: 90vw;
     max-height: 80vh;
   }
-  /* .full-card .carousel-nav .carousel-item {
-    max-width: 90px;
-  } */
   .full-card .card-option {
     min-width: 24em;
   }
@@ -214,9 +216,6 @@
   .full-card .carousel-gallery img {
     max-width: 300px;
   }
-  /* .full-card .carousel-nav .carousel-item {
-    max-width: 110px;
-  } */
   .full-card .card-info {
     width: 100%;
   }
@@ -281,9 +280,6 @@
   .full-card .carousel-gallery img {
     max-width: 200px;
   }
-  /* .full-card .carousel-nav .carousel-item {
-    max-width: 85px;
-  } */
   .full-card .card-option {
     min-width: 0;
   }

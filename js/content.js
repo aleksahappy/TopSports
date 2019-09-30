@@ -32,7 +32,7 @@ var pageId = document.body.id,
     filtersContainer = document.querySelector('.filters-container'),
     filters = document.querySelector('.filters'),
     menuFilters = document.getElementById('menu-filters'),
-    manufTitle =document.getElementById('manuf-title'),
+    manufTitle = document.getElementById('manuf-title'),
     gallery = document.getElementById('gallery'),
     galleryNotice = document.getElementById('gallery-notice'),
     fullCardContainer = document.getElementById('full-card-container'),
@@ -102,6 +102,9 @@ window.bigCardCarousel.duration = 400;
 
 window.fullCardCarousel = new Carousel();
 window.fullCardCarousel.duration = 500;
+
+window.fullImgCarousel = new Carousel();
+window.fullImgCarousel.duration = 500;
 
 // Ограничение частоты вызова функций:
 
@@ -235,23 +238,30 @@ function convertPrice(price) {
 // Функция преобразования строки с годами к укороченному формату:
 
 var years,
-    reduceYears,
+    curYear,
+    nextYear,
+    prevYear,
     resultYears;
 
 function convertYears(stringYears) {
   years = stringYears.split(',');
-  reduceYears = [];
   resultYears = [];
+
   for (var i = 0; i < years.length; i++) {
-    if ((parseInt(years[i], 10) - 1 != parseInt(years[i - 1], 10)) || (parseInt(years[i], 10) + 1 != parseInt(years[i + 1], 10))) {
-      reduceYears.push(years[i]);
-    }
-  }
-  for (var i = 0; i < reduceYears.length; i++) {
-    if (i != reduceYears.length - 1 && (parseInt(reduceYears[i], 10) + 1 != parseInt(reduceYears[i + 1], 10))) {
-      resultYears.push(reduceYears[i] + '&ndash;');
-    } else {
-      resultYears.push(reduceYears[i]);
+    curYear = parseInt(years[i].trim(), 10);
+    nextYear = parseInt(years[i + 1], 10);
+    prevYear = parseInt(years[i - 1], 10);
+
+    if (curYear + 1 != nextYear) {
+      if (i == years.length -  1) {
+        resultYears.push(curYear);
+      } else {
+        resultYears.push(curYear + ', ');
+      }
+    } else if (curYear - 1 != prevYear) {
+      resultYears.push(curYear);
+    } else if (curYear + 1 == nextYear && resultYears[resultYears.length - 1] != ' &ndash; ') {
+      resultYears.push(' &ndash; ');
     }
   }
   return resultYears = resultYears.join('');
@@ -803,26 +813,26 @@ function selectCards() {
     return;
   }
 
-  for (var k in filtersInfo) {
-    for (var kk in filtersInfo[k]) {
-      var el = document.querySelector(`[data-key="${k}"][data-value="${kk}"]`);
-      if (!el) {
-        delete filtersInfo[k][kk];
-      }
-      for (var kkk in filtersInfo[k][kk]) {
-        var el = document.querySelector(`[data-key="${kk}"][data-value="${kkk}"]`);
-        if (!el) {
-          delete filtersInfo[k][kk][kkk];
-        }
-        if (Object.keys(filtersInfo[k][kk]).length == 0) {
-          delete filtersInfo[k][kk];
-        }
-      }
-      if (Object.keys(filtersInfo[k]).length == 0) {
-        delete filtersInfo[k];
-      }
-    }
-  }
+  // for (var k in filtersInfo) {
+  //   for (var kk in filtersInfo[k]) {
+  //     var el = document.querySelector(`[data-key="${k}"][data-value="${kk}"]`);
+  //     if (!el) {
+  //       delete filtersInfo[k][kk];
+  //     }
+  //     for (var kkk in filtersInfo[k][kk]) {
+  //       var el = document.querySelector(`[data-key="${kk}"][data-value="${kkk}"]`);
+  //       if (!el) {
+  //         delete filtersInfo[k][kk][kkk];
+  //       }
+  //       if (Object.keys(filtersInfo[k][kk]).length == 0) {
+  //         delete filtersInfo[k][kk];
+  //       }
+  //     }
+  //     if (Object.keys(filtersInfo[k]).length == 0) {
+  //       delete filtersInfo[k];
+  //     }
+  //   }
+  // }
 
   selecledCardList = curItems.filter(card => {
     for (var k in filtersInfo) {
@@ -863,7 +873,9 @@ function toggleToActualFilters(filter) {
     curItemsArray = selecledCardList;
   }
 
-  var filters = menuFilters.querySelectorAll(`.filter-item.item.checked[data-key="${filter.dataset.key}"]`);
+  var filters = menuFilters.querySelectorAll(`.filter-item.item.checked[data-key="${filter.dataset.key}"]`),
+      checked = menuFilters.querySelectorAll(`.filter-item.item.checked`);
+
   if (filters.length != 0) {
     items = menuFilters.querySelectorAll(`.filter-item.item:not([data-key="${filter.dataset.key}"])`);
   } else {
@@ -873,17 +885,22 @@ function toggleToActualFilters(filter) {
   for (var item of items) {
     key = item.dataset.key;
     value = item.dataset.value;
-    isExsist = curItemsArray.find(card => {
-      if (card[key] == value || card[value] == 1) {
-        item.classList.remove('disabled');
-        return true;
-      }
-    });
-    if (!isExsist) {
-      item.classList.add('disabled');
-      if (item.classList.contains('checked')) {
-        item.classList.remove('checked', 'open');
-        removeFiltersInfo(item);
+
+    if (checked.length == 1 && key == checked[0].dataset.key) {
+      item.classList.remove('disabled');
+    } else {
+      isExsist = curItemsArray.find(card => {
+        if (card[key] == value || card[value] == 1) {
+          item.classList.remove('disabled');
+          return true;
+        }
+      });
+      if (!isExsist) {
+        item.classList.add('disabled');
+        if (item.classList.contains('checked')) {
+          item.classList.remove('checked', 'open');
+          removeFiltersInfo(item);
+        }
       }
     }
   }
@@ -1078,9 +1095,14 @@ function createCard(card) {
           }
           if (cell.length == 0) {
             cell.push('&ndash;');
+            cell = cell.join(', ');
+          } else {
+            cell = cell.join(', ');
+            if (k == 'years') {
+              cell = convertYears(cell);
+            }
           }
-          cell = cell.join(', ');
-          cell = convertYears(cell);
+
           newCell = newCell.replace('#info#', cell);
           listCells += newCell;
         }
@@ -1339,6 +1361,8 @@ function showFullImg(objectId) {
     loader.style.display = 'none';
     fullImgBox.style.visibility = 'visible';
   });
+
+  document.body.style.overflow = "hidden";
 }
 
 // Скрытие картинки полного размера:
@@ -1348,6 +1372,7 @@ function closeFullImg() {
     return;
   }
   fullImgBox.style.visibility = 'hidden';
+  document.body.style.overflow = "visible";
 }
 
 //=====================================================================================================
@@ -1458,12 +1483,3 @@ function clearSearchInfo() {
   searchInfo.style.visibility = 'hidden';
   search.value = '';
 }
-
-
-// 27 сентября:
-// - Исправлены ошибки в функционале по блокировке тех фильтров, которые не участвуют в выборке
-// - Исправлены "скачки" в прокрутке страницы при выборе/ снятии фильтров
-// - Добавлен запрет на прокрутку страницы, когда открыто окно с полной карточкой товаров
-
-// Текущие задачи к выполнению:
-// - Реализовать функционал по акциям и скидкам

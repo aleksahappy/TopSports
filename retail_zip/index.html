@@ -252,7 +252,7 @@
                         <div class="size-name">#size#</div>
                         <div class="size-qty row">
                           <div class="btn-minus" tooltip="Удалить" onclick="changeValue(#object_id#)">-</div>
-                          <input class="choice-gty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" onchange="changeValue(#object_id#)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
+                          <input class="choice-gty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" placeholder="0" onchange="changeValue(#object_id#)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
                           <div class="btn-plus" tooltip="Добавить" onclick="changeValue(#object_id#)">+</div>
                         </div>
                       </div>
@@ -343,7 +343,7 @@
                         <div class="size-name">#size#</div>
                         <div class="size-qty row">
                           <div class="btn-minus" tooltip="Удалить" onclick="changeValue(#object_id#)">-</div>
-                          <input class="choice-gty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" onchange="changeValue(#object_id#)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
+                          <input class="choice-gty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" placeholder="0" onchange="changeValue(#object_id#)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
                           <div class="btn-plus" tooltip="Добавить" onclick="changeValue(#object_id#)">+</div>
                         </div>
                       </div>
@@ -371,7 +371,7 @@
               <path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path>
             </svg>
             <div class="full-imgbox-content row">
-              <div class="carousel" data-pos="0" data-cur-img="0" onclick="moveCarousel(this)">
+              <div class="carousel" data-type="fullImg" data-pos="0" data-cur-img="0" onclick="moveCarousel(this)">
                 <div class="left-btn btn #isHiddenBtn#"></div>
                 <div class="right-btn btn #isHiddenBtn#"></div>
                 <div class="carousel-gallery-wrap">

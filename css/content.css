@@ -35,7 +35,8 @@ input {
 }
 
 ul {
-  list-style-position: inside;
+  list-style-position: outside;
+  margin-left: 15px;
 }
 
 /* =====================================================================================================
@@ -528,7 +529,7 @@ body {
   font-family: 'FontAwesome';
   position: absolute;
   top: auto;
-  left: 0;
+  left: 1px;
 }
 
 .filter-item.checked > .filter-item-title {
@@ -536,7 +537,8 @@ body {
   background-color: rgb(247,247,249);
 }
 
-.filter-item.checked .filter-item-title::before {
+.filter-item.checked .filter-title-container > .filter-item-title::before,
+.filter-item.checked > .filter-item-title::before {
   content: '\f046';
 }
 
@@ -564,19 +566,19 @@ body {
   text-overflow: ellipsis;
 }
 
-.filter-item.subitem.checked {
+/* .filter-item.subitem.checked {
   color: rgb(88, 88, 88);
   font-weight: 800;
   background-color: rgb(247,247,249);
-}
+} */
 
-.filter-item.subitem.checked::before {
+/* .filter-item.subitem.checked::before {
   content: '\f00d';
   font-family: 'FontAwesome';
   position: absolute;
   top: auto;
   right: 0;
-}
+} */
 
 #filter-color .filter-items .filter-item.item:first-child .filter-title-container {
   padding-top: 0;
@@ -726,15 +728,15 @@ body {
   /* background-image: url(../img/content); */
 }
 
-#filter-cat .filter-title-container {
+/* #filter-cat .filter-title-container {
   padding-right: 17px;
-}
+} */
 
-#filter-cat .filter-item-title {
+/* #filter-cat .filter-item-title {
   padding-left: 0;
-}
+} */
 
-#filter-cat .filter-item.checked .filter-title-container > .filter-item-title,
+/* #filter-cat .filter-item.checked .filter-title-container > .filter-item-title,
 #filter-cat .filter-item.checked.subitem > .filter-item-title {
   color: rgb(88, 88, 88);
   font-weight: 800;
@@ -742,7 +744,7 @@ body {
 
 #filter-cat .filter-item-title::before {
   content: '';
-}
+} */
 
 #filter-cat .open-btn {
   position: relative;
@@ -765,16 +767,16 @@ body {
   transition: 300ms;
 }
 
+/* #filter-cat .close-btn::before {
+  position: absolute;
+  right: 0;
+}
+
 #filter-cat .filter-item.checked .close-btn {
   display: block;
   top: auto;
   right: 0;
-}
-
-#filter-cat .close-btn::before {
-  position: absolute;
-  right: 0;
-}
+} */
 
 /* Стили для галереи: */
 
@@ -994,6 +996,7 @@ body {
 }
 
 .manuf-table th {
+  min-width: 8em;
   padding: 0.1em 0.3em;
   font-weight: 400;
   border: 1px solid rgb(232,232,232);
@@ -1002,14 +1005,6 @@ body {
 .manuf-table td {
   padding: 0.1em 0.3em;
   border: 1px solid rgb(232,232,232);
-}
-
-.manuf-table .manuf-oem {
-  min-width: 8em;
-}
-
-.manuf-table .manuf-model {
-  min-width: 5em;
 }
 
 /* Стили для малой карточки: */
