@@ -55,6 +55,12 @@ body {
   background-color: rgb(247,249,249);
 }
 
+body.no-scroll {
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+}
+
 .container {
   margin: 0 5rem;
 }
@@ -79,7 +85,8 @@ body {
   align-items: flex-start;
 }
 
-.burger-btn {
+.burger-btn,
+.search-icon {
   position: relative;
   font-family: 'FontAwesome';
   font-size: 2em;
@@ -88,6 +95,10 @@ body {
 
 .burger-btn::before {
   content: '\f0c9';
+}
+
+.search-icon::before {
+  content: '\f002';
 }
 
 .search-btn {
@@ -311,7 +322,7 @@ body {
 
 .main-header {
   display: none;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   padding: 1em 0;
 }
@@ -349,8 +360,8 @@ body {
   cursor: default;
 }
 
-#main-nav-template {
-  display: none;
+.main-info {
+  width: 60%;
 }
 
 #search-info {
@@ -555,13 +566,13 @@ body {
 }
 
 .filter-item.subitem {
-  padding-left: 1em;
+  padding-left: 1.3em;
 }
 
 .filter-item.subitem {
   position: relative;
   padding-bottom: 0.5em;
-  padding-right: 17px;
+  /* padding-right: 17px; */
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -961,7 +972,7 @@ body {
   cursor: pointer;
 }
 
-.choice-gty {
+.choice-qty {
   width: 2em;
   font-size: 0.85em;
   font-weight: 700;
@@ -969,7 +980,16 @@ body {
   text-align: center;
 }
 
-.in-cart .choice-gty {
+.choice-qty::-webkit-input-placeholder { color: rgb(185,183,190); }
+.choice-qty::-ms-input-placeholder { color: rgb(185,183,190); }
+.choice-qty::-ms-input-placeholder { color: rgb(185,183,190); }
+.choice-qty::placeholder { color: rgb(185,183,190); }
+
+.choice-qty:disabled {
+  opacity: 1
+}
+
+.in-cart .choice-qty {
   color: rgb(0,0,0);
 }
 
@@ -1128,8 +1148,8 @@ body.zip .big-card .card-container-left {
 }
 
 .big-card .carousel {
-  width: 150px;
-  min-width: 150px;
+  width: 140px;
+  min-width: 140px;
   margin-left: 1.5em;
   margin-right: 2.5em;
 }
@@ -1155,8 +1175,7 @@ body.zip .big-card .card-container-left {
 }
 
 .big-card .carousel-gallery img {
-  width: 150px;
-  height: 150px;
+  height: 140px;
 }
 
 .big-card .card-options-container {
@@ -1286,6 +1305,7 @@ body.zip .big-card .card-container-right {
 
 .full-card .carousel {
   width: 40%;
+  min-height: 300px;
   margin-right: 1em;
   margin-bottom: 1em;
 }

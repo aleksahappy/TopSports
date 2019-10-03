@@ -160,6 +160,11 @@
   align-items: center;
 }
 
+.main-menu .burger-btn,
+.main-menu .search-icon {
+  margin-left: 1em;
+}
+
 .topmenu-item {
   padding: 1rem 2rem;
   /* font-family: 'TradeGothicProCyr'; */
@@ -184,20 +189,31 @@
 
 .search .clear-search-btn {
   display: none;
+  top: 1px;
+  right: 2.5rem;
+  background-size: 1em;
 }
 
 #search {
   width: 100%;
   height: 2.8rem;
-  padding: 0 2.5em 0 0.7em;
+  padding: 0 4em 0 0.7em;
   font-size: 1em;
   line-height: 1.2;
   border-radius: 2px;
   background-color: rgb(255,255,255);
 }
 
+.search.open {
+  display: block;
+}
+
 .submenu {
   background-color: rgb(243,243,246);
+}
+
+.zip .submenu.open {
+  display: block;
 }
 
 .submenu .burger-btn {
@@ -293,7 +309,7 @@
 
 .select-item select {
   width: 100%;
-  height: 3rem;
+  height: 2.8rem;
   padding: 0 0.75em;
   font-size: 1em;
   line-height: 1.2;
@@ -322,7 +338,7 @@
 
 #oem {
   width: 100%;
-  height: 3rem;
+  height: 2.8rem;
   padding: 0 2em;
   font-size: 1em;
   line-height: 1.5;

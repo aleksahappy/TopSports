@@ -54,7 +54,7 @@ function changeValue(objectId) {
   var card = event.currentTarget.closest('.card'),
       size = event.currentTarget.closest('.card-size'),
       articul = size.querySelector('.size-articul').textContent.replace('Артикул: ', ''),
-      input = size.querySelector('.choice-gty'),
+      input = size.querySelector('.choice-qty'),
       inputValue = parseInt(input.value),
       qty = size.querySelector('.card-qty'),
       qtyValue = parseInt(qty.textContent);
@@ -102,7 +102,7 @@ function changeColors(size, inputValue) {
 
 function changeCard(card) {
   var selectInfo = card.querySelector('.card-select-info'),
-      sizes = card.querySelectorAll('.choice-gty'),
+      sizes = card.querySelectorAll('.choice-qty'),
       curPrice = sizes[0].dataset.price,
       amount = card.querySelector('.select-count'),
       price = card.querySelector('.select-price');

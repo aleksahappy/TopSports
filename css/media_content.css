@@ -56,6 +56,16 @@
   .container {
     margin: 0 3rem;
   }
+  .main-info {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+  }
+  #search-info {
+    align-self: flex-start;
+  }
+  .view, #sort {
+    margin-bottom: 0.6em;
+  }
   .big-card {
     height: 17em;
   }
@@ -139,9 +149,14 @@
   .main-nav {
     width: 100%;
     margin-right: 0;
+    margin-bottom: 0.6em;
   }
-  .sortbox {
+  .main-info {
     width: 100%;
+    align-items: flex-start;
+  }
+  #search-info {
+    align-self: center;
   }
   #content.list {
     flex-direction: column;
@@ -245,6 +260,9 @@
   }
   .dealer-button {
     width: 100%;
+  }
+  #search-info {
+    font-size: 1.3em;
   }
   #content {
     flex-direction: column;

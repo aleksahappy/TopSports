@@ -3,14 +3,6 @@
 setPaddingToBody();
 
 //=====================================================================================================
-// // Преобразование исходных данных:
-//=====================================================================================================
-
-items.forEach(item => {
-  item.images = item.images.toString().split(';');
-});
-
-//=====================================================================================================
 // Первоначальные данные для работы:
 //=====================================================================================================
 
@@ -19,8 +11,8 @@ items.forEach(item => {
 var pageId = document.body.id,
     cartAmount = document.querySelector('.cart-amount span'),
     cartPrice = document.querySelector('.cart-price span'),
+    search = document.querySelector('.search'),
     searchInput = document.getElementById('search'),
-    searchBtn = document.querySelector('.search .search-btn'),
     searchInfo = document.getElementById('search-info'),
     searchCount = document.getElementById('search-count'),
     clearSearchBtn = document.querySelector('.search .clear-search-btn'),
@@ -79,7 +71,23 @@ var pageUrl =  pageId,
     countItemsTo = 0,
     itemsToLoad,
     curItemsArray,
-    isExsist;
+    isExsist,
+    scrollTop;
+
+
+//=====================================================================================================
+// // Преобразование исходных данных:
+//=====================================================================================================
+
+// Преобразование данных о картинках в карточке товара из строки в массив:
+
+items.forEach(item => {
+  item.images = item.images.toString().split(';');
+});
+
+// Сортировка товаров по категориям (чтобы не отражались на сайте вразноброс):
+
+items.sort(dynamicSort(('catid')));
 
 //=====================================================================================================
 // Заполнение контента страницы:
@@ -167,13 +175,36 @@ function setMinCardWidth() {
 // Открытие и закрытие подменю на малых разрешениях:
 
 function toggleSubmenu() {
-  submenu.classList.toggle('open');
+  if (submenu.classList.contains('open')) {
+    submenu.classList.remove('open');
+  } else {
+    submenu.classList.add('open');
+    search.classList.remove('open');
+  }
+}
+
+// Открытие и закрытие поиска на малых разрешениях:
+
+function toggleSearch() {
+  if (search.classList.contains('open')) {
+    search.classList.remove('open');
+  } else {
+    search.classList.add('open');
+    submenu.classList.remove('open');
+    if (headerSelect) {
+      headerSelect.classList.remove('open');
+    }
+  }
 }
 
 // Открытие и закрытие фильтрации ЗИП на малых разрешениях:
 
 function toggleSelectMenu() {
-  headerSelect.classList.toggle('open');
+  if (headerSelect.classList.contains('open')) {
+    headerSelect.classList.remove('open');
+  } else {
+    headerSelect.classList.add('open');
+  }
 }
 
 // Установка высоты меню фильтров:
@@ -523,7 +554,7 @@ function renderContent(path) {
   dataForPageFilters = JSON.parse(JSON.stringify(dataForFilters));
   if (typeof catId != 'undefined' && Object.keys(catId).indexOf(path[path.length - 1]) >= 0) {
     var dataCats = createDataCats(catId[path[path.length - 1]]);
-    dataForPageFilters.splice(1, 0, dataCats);
+    dataForPageFilters.splice(1, 1, dataCats);
   }
   selecledCardList = '';
   initFilters();
@@ -579,7 +610,7 @@ function createDataCats(key) {
     title: 'Категория',
     isShow: true,
     key: 'cat',
-    items: cat
+    items: sortObjByKey(cat)
   }
   return newFilter;
 }
@@ -678,7 +709,7 @@ function createFilter(data) {
   newFilter = newFilter
     .replace(filterItemTemplate, listItems)
     .replace('#key#', data.key)
-    .replace('#isShowFilter#', data.isShow ? 'open' : '')
+    .replace('#isShowFilter#', data.isShow && window.innerWidth > 767 ? 'open' : '')
     .replace('#title#', data.title);
   return newFilter;
 }
@@ -710,8 +741,8 @@ function selectValue(event) {
     return;
   }
 
-  var scrollTop = window.pageYOffset || document.documentElement.scrollTop,
-      curItem = event.currentTarget;
+  scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  var curItem = event.currentTarget;
 
   if (curItem.classList.contains('checked')) {
     curItem.classList.remove('checked', 'open');
@@ -1312,8 +1343,9 @@ function showFullCard(objectId) {
   var fullCard = createCard(items.find(item => item.object_id == objectId));
   fullCardContainer.innerHTML = fullCard;
   fullCardContainer.style.display = 'flex';
+  document.body.classList.add('no-scroll');
+  scrollTop = window.pageYOffset || document.documentElement.scrollTop;
   setCardTemplate();
-  document.body.style.overflow = "hidden";
 }
 
 // Скрытие полной карточки товара:
@@ -1321,7 +1353,9 @@ function showFullCard(objectId) {
 function closeFullCard(event) {
   if (!(event.target.closest('.carousel') || event.target.closest('.card-size') || event.target.classList.contains('dealer-button'))) {
     fullCardContainer.style.display = 'none';
-    document.body.style.overflow = "visible";
+    document.body.classList.remove('no-scroll');
+    document.documentElement.scrollTop = scrollTop;
+    document.body.scrollTop = scrollTop;
   }
 }
 
@@ -1338,7 +1372,11 @@ function showFullImg(objectId) {
     var newCarouselItem = carouselItemTemplate
       .replace('#style#', i * 100 + '%')
       .replace('#imgNumb#', i)
-      .replace('#image#', `http://b2b.topsports.ru/c/source/${imgs[i]}.jpg`);
+    if (window.innerWidth > 400) {
+      newCarouselItem = newCarouselItem.replace('#image#', `http://b2b.topsports.ru/c/source/${imgs[i]}.jpg`);
+    } else {
+      newCarouselItem = newCarouselItem.replace('#image#', `http://b2b.topsports.ru/c/productpage/${imgs[i]}.jpg`);
+    }
     listCarousel += newCarouselItem;
   }
 
@@ -1361,8 +1399,8 @@ function showFullImg(objectId) {
     loader.style.display = 'none';
     fullImgBox.style.visibility = 'visible';
   });
-
-  document.body.style.overflow = "hidden";
+  document.body.classList.add('no-scroll');
+  scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 }
 
 // Скрытие картинки полного размера:
@@ -1372,14 +1410,16 @@ function closeFullImg() {
     return;
   }
   fullImgBox.style.visibility = 'hidden';
-  document.body.style.overflow = "visible";
+  document.body.classList.remove('no-scroll');
+  document.documentElement.scrollTop = scrollTop;
+  document.body.scrollTop = scrollTop;
 }
 
 //=====================================================================================================
 //  Сортировка карточек товаров:
 //=====================================================================================================
 
-// Сортировка карточек товаров:
+// Сортировка карточек товаров на странице:
 
 function sortItems() {
   var sort = document.getElementById('sort');
@@ -1420,6 +1460,7 @@ function dynamicSort(property) {
 
 function prepeareForSearch(data) {
   itemsForSearch = data.map(el => {
+    delete el.desc;
     return {object_id: el.object_id, value: convertToString(el)};
   });
 }
@@ -1460,8 +1501,6 @@ function findOnPage(event) {
   selecledCardList = [];
   itemsForSearch.filter(el => el.value.search(regExpSearch) >= 0).forEach(el => selecledCardList.push(curItems.find(item => item.object_id == el.object_id)));
   showCards();
-
-  searchBtn.style.display = 'none';
   clearSearchBtn.style.display = 'block';
   searchCount.textContent = selecledCardList.length;
   searchInfo.style.visibility = 'visible';
@@ -1478,8 +1517,8 @@ function clearSearch() {
 // Очистка поля поиска и поля вывода результата:
 
 function clearSearchInfo() {
-  searchBtn.style.display = 'block';
+  search.classList.remove('open');
   clearSearchBtn.style.display = 'none';
   searchInfo.style.visibility = 'hidden';
-  search.value = '';
+  searchInput.value = '';
 }

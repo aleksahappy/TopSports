@@ -23,6 +23,36 @@
   #search {
     font-size: 1.6rem;
   }
+  .burger-btn.visible-xs,
+  .search-icon.visible-xs {
+    display: block;
+  }
+  .search {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.35em 2rem;
+    background-color: rgb(31,34,41);
+    box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
+  }
+  .search .search-btn {
+    right: 2rem;
+  }
+  .search .clear-search-btn {
+    right: 4.5rem;
+  }
+  .ekipirovka .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
+  }
   .ekipirovka .submenu-item {
     padding: 1rem 1.9rem;
   }
@@ -44,26 +74,6 @@
     height: 2em;
     background-size: 2em;
   }
-  .main-menu > .row {
-    flex-wrap: wrap;
-  }
-  .topmenu {
-    width: 100%;
-  }
-  .burger-btn.visible-xs {
-    display: block;
-  }
-  .search {
-    width: 100%;
-    max-width: 100%;
-  }
-  .ekipirovka .submenu {
-    display: none;
-    position: absolute;
-    left: 0;
-    right: 0;
-    box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
-  }
 }
 
 @media only screen and (max-width: 480px) {
@@ -79,7 +89,17 @@
     background-size: 3em;
   }
   .search {
-    width: 100%;
+    padding: 0.35em 1.5rem;
+  }
+  .search .search-btn,
+  .search .clear-search-btn {
+    right: 1.5rem;
+  }
+  .search .search-btn {
+    right: 1.5rem;
+  }
+  .search .clear-search-btn {
+    right: 4rem;
   }
   .submenu-items.ekipirovka {
     flex-direction: column;
