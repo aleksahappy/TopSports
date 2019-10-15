@@ -42,8 +42,7 @@ var mainNavTemplate = document.getElementById('main-nav').innerHTML,
     minCardTemplate = document.getElementById('min-card-#object_id#'),
     bigCardTemplate = document.getElementById('big-card-#object_id#'),
     fullCardTemplate = document.getElementById('full-card-#object_id#'),
-    fullImgBoxTemplate = document.getElementById('full-imgbox').innerHTML,
-    fullImgBoxContentTemplate = document.querySelector('.full-imgbox-content').outerHTML;
+    fullImgBoxTemplate = document.getElementById('full-imgbox').innerHTML;
 
 // Получение свойств #...# из шаблонов HTML:
 
@@ -71,18 +70,40 @@ var pageUrl =  pageId,
     countItemsTo = 0,
     itemsToLoad,
     curItemsArray,
+    pageInfo,
+    filtersInfo,
+    cartInfo,
     isExsist,
-    scrollTop;
-
+    scrollTop,
+    item,
+    key,
+    k,
+    kk,
+    kkk,
+    i;
 
 //=====================================================================================================
 // // Преобразование исходных данных:
 //=====================================================================================================
 
-// Преобразование данных о картинках в карточке товара из строки в массив:
+// Преобразование:
+// - данных о картинках в карточке товара из строки в массив;
+// - данных о годах в укороченный формат
+// - добавление пробелов
 
 items.forEach(item => {
   item.images = item.images.toString().split(';');
+  if (item.options && item.options != 0) {
+    for (key in item.options) {
+      if (key == 32) {
+        item.options[key] = convertYears(item.options[key]);
+      } else {
+        item.options[key] = item.options[key]
+          .replace(/\,/gi, ', ')
+          .replace(/\//gi, '/ ')
+      }
+    }
+  }
 });
 
 // Сортировка товаров по категориям (чтобы не отражались на сайте вразноброс):
@@ -105,29 +126,22 @@ renderCart();
 
 // Кастомные настройки каруселей:
 
-window.bigCardCarousel = new Carousel();
-window.bigCardCarousel.duration = 400;
+var bigCardCarousel = {
+  durationBtns: 400,
+  durationNav: 200,
+};
 
-window.fullCardCarousel = new Carousel();
-window.fullCardCarousel.duration = 500;
+var fullCardCarousel = {
+  isNav: true,
+  durationBtns: 500,
+  durationNav: 200,
+  isLoupe: true
+};
 
-window.fullImgCarousel = new Carousel();
-window.fullImgCarousel.duration = 500;
-
-// Ограничение частоты вызова функций:
-
-function throttle(callback, delay) {
-  let isWaiting = false;
-  return function () {
-    if (!isWaiting) {
-      callback.apply(this, arguments);
-      isWaiting = true;
-      setTimeout(() => {
-        isWaiting = false;
-      }, delay);
-    }
-  }
-}
+var fullImgCarousel = {
+  durationBtns: 500,
+  durationNav: 200,
+};
 
 // Установка отступов документа:
 
@@ -207,7 +221,7 @@ function toggleSelectMenu() {
   }
 }
 
-// Установка высоты меню фильтров:
+// Изменение позиционирования меню фильтров:
 
 window.addEventListener('scroll', setFiltersPosition);
 window.addEventListener('resize', setFiltersPosition);
@@ -238,6 +252,8 @@ function setFiltersPosition() {
     }
   }
 }
+
+// Установка высоты меню фильтров:
 
 function setFiltersHeight() {
   scrolled = window.pageYOffset || document.documentElement.scrollTop;
@@ -278,7 +294,7 @@ function convertYears(stringYears) {
   years = stringYears.split(',');
   resultYears = [];
 
-  for (var i = 0; i < years.length; i++) {
+  for (i = 0; i < years.length; i++) {
     curYear = parseInt(years[i].trim(), 10);
     nextYear = parseInt(years[i + 1], 10);
     prevYear = parseInt(years[i - 1], 10);
@@ -296,6 +312,19 @@ function convertYears(stringYears) {
     }
   }
   return resultYears = resultYears.join('');
+}
+
+// Получение текущей прокрутки документа:
+
+function getDocumentScroll() {
+  scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+}
+
+// Установка прокрутки документа:
+
+function setDocumentScroll() {
+  document.documentElement.scrollTop = scrollTop;
+  document.body.scrollTop = scrollTop;
 }
 
 //=====================================================================================================
@@ -358,9 +387,9 @@ function setCookie(key, value, options) {
   var expires = options.expires;
 
   if (typeof expires == "number" && expires) {
-    var d = new Date();
-    d.setTime(d.getTime() + expires * 1000);
-    expires = options.expires = d;
+    var date = new Date();
+    date.setTime(date.getTime() + expires * 1000);
+    expires = options.expires = date;
   }
   if (expires && expires.toUTCString) {
     options.expires = expires.toUTCString();
@@ -369,9 +398,9 @@ function setCookie(key, value, options) {
   value = encodeURIComponent(value);
   var updatedCookie = key + '=' + value;
 
-  for (var propName in options) {
-    updatedCookie += "; " + propName;
-    var propValue = options[propName];
+  for (key in options) {
+    updatedCookie += "; " + key;
+    var propValue = options[key];
     if (propValue !== true) {
       updatedCookie += "=" + propValue;
     }
@@ -405,7 +434,7 @@ function deleteCookie(key) {
 // Получение данных о странице по ключу:
 
 function getInfo(key) {
-  var pageInfo = getFromLocal(pageId) ? getFromLocal(pageId) : {};
+  pageInfo = getFromLocal(pageId) ? getFromLocal(pageId) : {};
   if (!pageInfo[key]) {
     pageInfo[key] = {};
   }
@@ -415,7 +444,7 @@ function getInfo(key) {
 // Сохранение данных о странице по ключу:
 
 function saveInfo(key, data) {
-  var pageInfo = getFromLocal(pageId) ? getFromLocal(pageId) : {};
+  pageInfo = getFromLocal(pageId) ? getFromLocal(pageId) : {};
   if (!pageInfo[key]) {
     pageInfo[key] = {};
   }
@@ -458,6 +487,7 @@ function openPage() {
   if (event.state) {
     path = event.state.path;
   } else {
+    submenu.classList.remove('open');
     var levelNewUrl = event.currentTarget.dataset.level,
         newUrl = event.currentTarget.dataset.href;
     path = Array.from(document.querySelector('.header-menu').querySelectorAll('.activ'))
@@ -488,7 +518,7 @@ function openPage() {
 
 function toggleMenuItems(path) {
   document.querySelector('.header-menu').querySelectorAll('.activ').forEach(item => item.classList.remove('activ'));
-  for (var key of path) {
+  for (key of path) {
     var curMenuItem = document.querySelector(`[data-href="${key}"]`);
     if (curMenuItem) {
       curMenuItem.classList.add('activ');
@@ -514,7 +544,7 @@ function createMainNav(path) {
       curMenuItem,
       listNavItems = '';
 
-  for (var i = 0; i < path.length; i++) {
+  for (i = 0; i < path.length; i++) {
     curUrl = path[i];
     curMenuItem = document.querySelector(`[data-href="${curUrl}"]`);
 
@@ -540,7 +570,7 @@ function renderContent(path) {
   }
 
   curItems = items;
-  for (var key of path) {
+  for (key of path) {
     if (key != pageId) {
       curItems = curItems.filter(item => item[key] == 1);
     }
@@ -569,19 +599,19 @@ function renderContent(path) {
 
 function renderCart() {
   if (cartAmount) {
-    var cartInfo = getInfo('cart'),
-        totalAmountCart = 0,
+    cartInfo = getInfo('cart');
+    var totalAmountCart = 0,
         totalPriceCart = 0;
 
-    for (var articul in cartInfo) {
-      var objectId = cartInfo[articul].objectId,
+    for (k in cartInfo) {
+      var objectId = cartInfo[k].objectId,
           obj = items.find(item => item.object_id == objectId),
-          value = cartInfo[articul].qty,
+          value = cartInfo[k].qty,
           curPrice = obj.price_preorder1 == 0 ? obj.price1 : obj.price_preorder1,
           sizes = obj.sizes;
-      for (var key in sizes) {
-        if (sizes[key].articul == articul) {
-          value = value > sizes[key].free_qty ? sizes[key].free_qty : value;
+      for (kk in sizes) {
+        if (sizes[kk].k == k) {
+          value = value > sizes[kk].free_qty ? sizes[kk].free_qty : value;
         }
       }
       var articulPrice = value * curPrice;
@@ -599,11 +629,11 @@ function renderCart() {
 
 // Создание фильтра категорий в экипировке:
 
-function createDataCats(key) {
+function createDataCats(id) {
   var cat = {};
-  for (var catName in cats) {
-    if (cats[catName] == key) {
-      cat[catName] = '1';
+  for (key in cats) {
+    if (cats[key] == id) {
+      cat[key] = '1';
     }
   }
   var newFilter = {
@@ -627,25 +657,25 @@ function initFilters() {
     curItemsArray = selecledCardList;
   }
 
-  for (var filter of data) {
-    for (var item in filter.items) {
+  for (item of data) {
+    for (k in item.items) {
       isExsist = curItemsArray.find(card => {
-        if (card[filter.key] == item || card[item] == 1) {
+        if (card[item.key] == k || card[k] == 1) {
           return true;
         }
       });
       if (!isExsist) {
-        delete filter.items[item];
+        delete item.items[k];
       }
-      if (typeof filter.items[item] == 'object') {
-        for (var subItem in filter.items[item]) {
+      if (typeof item.items[k] == 'object') {
+        for (kk in item.items[k]) {
           isExsist = curItemsArray.find(card => {
-            if (card.subcat == filter.items[item][subItem]) {
+            if (card[item.key] == k && card.subcat == item.items[k][kk]) {
               return true;
             }
           });
           if (!isExsist) {
-            delete filter.items[item][subItem];
+            delete item.items[k][kk];
           }
         }
       }
@@ -675,33 +705,33 @@ function createFilter(data) {
   var newFilter = filterTemplate,
       listItems = '',
       curTitle;
-  for (var item in data.items) {
+  for (k in data.items) {
     var listSubItems = '',
         isHiddenOpenBtn = 'hidden';
 
-    if (typeof data.items[item] === 'object') {
-      for (var subitem in data.items[item]) {
-        if (data.items[item][subitem] !== '') {
+    if (typeof data.items[k] === 'object') {
+      for (kk in data.items[k]) {
+        if (data.items[k][kk] !== '') {
           isHiddenOpenBtn = '';
           var newSubitem = filterSubitemTemplate
-          .replace('#key#', item)
-          .replace('#value#', data.items[item][subitem])
-          .replace('#title#', data.items[item][subitem])
+          .replace('#key#', k)
+          .replace('#value#', data.items[k][kk])
+          .replace('#title#', data.items[k][kk])
         listSubItems += newSubitem;
         }
       }
     }
 
-    if ((data.items[item] == 1) || (data.key == 'cat')) {
-      curTitle = item;
+    if ((data.items[k] == 1) || (data.key == 'cat')) {
+      curTitle = k;
     } else {
-      curTitle = data.items[item];
+      curTitle = data.items[k];
     }
 
     var newItem = filterItemTemplate
       .replace(filterSubitemTemplate, listSubItems)
       .replace('#key#', data.key)
-      .replace('#value#', item)
+      .replace('#value#', k)
       .replace('#title#', curTitle)
       .replace('#isHiddenOpenBtn#', isHiddenOpenBtn);
     listItems += newItem;
@@ -709,7 +739,7 @@ function createFilter(data) {
   newFilter = newFilter
     .replace(filterItemTemplate, listItems)
     .replace('#key#', data.key)
-    .replace('#isShowFilter#', data.isShow && window.innerWidth > 767 ? 'open' : '')
+    .replace('#isShowFilter#', data.isShow && window.innerWidth > 767 ? 'open default-open' : '')
     .replace('#title#', data.title);
   return newFilter;
 }
@@ -741,7 +771,7 @@ function selectValue(event) {
     return;
   }
 
-  scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  getDocumentScroll();
   var curItem = event.currentTarget;
 
   if (curItem.classList.contains('checked')) {
@@ -759,7 +789,7 @@ function selectValue(event) {
     }
     saveFiltersInfo(curItem);
   }
-  var filtersInfo = getInfo('filters')[pageUrl];
+  filtersInfo = getInfo('filters')[pageUrl];
   if (filtersInfo && Object.keys(filtersInfo).length == 0) {
     selecledCardList = '';
     showCards();
@@ -773,12 +803,10 @@ function selectValue(event) {
 
   if (window.innerWidth > 767) {
     if (filters.style.position != 'fixed') {
-      document.documentElement.scrollTop = scrollTop;
-      document.body.scrollTop = scrollTop;
+      setDocumentScroll();
     }
   } else {
-    document.documentElement.scrollTop = scrollTop;
-    document.body.scrollTop = scrollTop;
+    setDocumentScroll();
   }
 }
 
@@ -787,8 +815,8 @@ function selectValue(event) {
 function saveFiltersInfo(curItem) {
   var type = curItem.dataset.type,
       key = curItem.dataset.key,
-      value = curItem.dataset.value,
-      filtersInfo = getInfo('filters');
+      value = curItem.dataset.value;
+  filtersInfo = getInfo('filters');
 
   if (!filtersInfo[pageUrl]) {
     filtersInfo[pageUrl] = {};
@@ -818,8 +846,8 @@ function saveFiltersInfo(curItem) {
 function removeFiltersInfo(curItem) {
   var type = curItem.dataset.type,
       key = curItem.dataset.key,
-      value = curItem.dataset.value,
-      filtersInfo = getInfo('filters');
+      value = curItem.dataset.value;
+  filtersInfo = getInfo('filters');
 
   if (type == 'item') {
     delete filtersInfo[pageUrl][key][value];
@@ -839,18 +867,18 @@ function removeFiltersInfo(curItem) {
 // Фильтрация карточек:
 
 function selectCards() {
-  var filtersInfo = getInfo('filters')[pageUrl];
+  filtersInfo = getInfo('filters')[pageUrl];
   if (!filtersInfo) {
     return;
   }
 
-  // for (var k in filtersInfo) {
-  //   for (var kk in filtersInfo[k]) {
+  // for (k in filtersInfo) {
+  //   for (kk in filtersInfo[k]) {
   //     var el = document.querySelector(`[data-key="${k}"][data-value="${kk}"]`);
   //     if (!el) {
   //       delete filtersInfo[k][kk];
   //     }
-  //     for (var kkk in filtersInfo[k][kk]) {
+  //     for (kkk in filtersInfo[k][kk]) {
   //       var el = document.querySelector(`[data-key="${kk}"][data-value="${kkk}"]`);
   //       if (!el) {
   //         delete filtersInfo[k][kk][kkk];
@@ -866,11 +894,11 @@ function selectCards() {
   // }
 
   selecledCardList = curItems.filter(card => {
-    for (var k in filtersInfo) {
+    for (k in filtersInfo) {
       var isFound = false;
-      for (var kk in filtersInfo[k]) {
+      for (kk in filtersInfo[k]) {
         if (filtersInfo[k][kk] && Object.keys(filtersInfo[k][kk]).length != 0) {
-          for (var kkk in filtersInfo[k][kk]) {
+          for (kkk in filtersInfo[k][kk]) {
             if (card.cat == kk && card.subcat == kkk) {
               isFound = true;
             }
@@ -893,8 +921,7 @@ function selectCards() {
 // Блокировка лишних фильтров:
 
 function toggleToActualFilters(filter) {
-  var key,
-      value,
+  var value,
       items;
 
   curItemsArray = curItems;
@@ -913,7 +940,7 @@ function toggleToActualFilters(filter) {
     items = menuFilters.querySelectorAll(`.filter-item.item`);
   }
 
-  for (var item of items) {
+  for (item of items) {
     key = item.dataset.key;
     value = item.dataset.value;
 
@@ -940,24 +967,27 @@ function toggleToActualFilters(filter) {
 // Очистка всех фильтров:
 
 function clearFilters() {
-  var filtersInfo = getInfo('filters');
+  getDocumentScroll();
+  filtersInfo = getInfo('filters');
   filtersInfo[pageUrl] = {};
   saveInfo(`filters`, filtersInfo);
 
   menuFilters.querySelectorAll('.checked').forEach(el => el.classList.remove('checked'));
   menuFilters.querySelectorAll('.disabled').forEach(el => el.classList.remove('disabled'));
+  menuFilters.querySelectorAll('.open:not(.default-open)').forEach(el => el.classList.remove('open'));
 
   if (searchInfo.style.visibility == 'visible') {
     return;
   }
   selecledCardList = '';
   showCards();
+  setDocumentScroll();
 }
 
 // Проверка сохраненных значений фильтров:
 
 function checkFilters() {
-  var filtersInfo = getInfo('filters')[pageUrl];
+  filtersInfo = getInfo('filters')[pageUrl];
   if (!filtersInfo || Object.keys(filtersInfo).length == 0){
     showCards();
   } else {
@@ -969,14 +999,14 @@ function checkFilters() {
 // Визуальное отображение выбранных фильтров:
 
 function selectFilters(filtersInfo) {
-  for (var k in filtersInfo) {
+  for (k in filtersInfo) {
     var filter = document.querySelector(`#filter-${k}`);
     if (filter) {
       filter.classList.add('open');
     }
-    for (var kk in filtersInfo[k]) {
+    for (kk in filtersInfo[k]) {
       changeFilterClass(k, kk);
-      for (var kkk in filtersInfo[k][kk]) {
+      for (kkk in filtersInfo[k][kk]) {
         changeFilterClass(kk, kkk);
       }
     }
@@ -1003,6 +1033,8 @@ function changeFilterClass(key, value) {
 
 // Создание карточек товаров из массива:
 
+var incr;
+
 function loadCards(cards) {
 	if (cards){
     countItems = 0;
@@ -1012,7 +1044,6 @@ function loadCards(cards) {
     countItems = countItemsTo;
   }
 
-  var incr;
   if (window.innerWidth > 2000) {
     if (view == 'list') {
       incr = 30;
@@ -1052,6 +1083,13 @@ function loadCards(cards) {
   setFiltersPosition();
   setGalleryWidth();
   setMinCardWidth();
+
+  if (view == 'list') {
+    var curCarousels = gallery.querySelectorAll('.carousel');
+    for (var i = countItems; i < countItemsTo; i++) {
+      startCarouselInit(curCarousels[i]);
+    }
+  }
 }
 
 // Создание одной карточки товара :
@@ -1075,23 +1113,16 @@ function createCard(card) {
 
     var listOptions = '',
         optionsTemplate = cardTemplate.querySelector('.card-options').innerHTML,
-        propsOptions = extractProps(optionsTemplate);
+        propsOptions = extractProps(optionsTemplate),
+        option;
     if (card.options && card.options != 0) {
-      for (var option in card.options) {
+      for (option in card.options) {
         if ((option == 7 || option == 31 || option == 32 || option == 33) && manufData && Object.keys(manufData.man).length > 1) {
           continue;
         } else {
-          var opinfo;
-          if (option == 32) {
-            opinfo = convertYears(card.options[option]);
-          } else {
-            opinfo = card.options[option]
-              .replace(/\,/gi, ', ')
-              .replace(/\//gi, '/ ')
-          }
           var newOption = optionsTemplate
             .replace('#optitle#', optnames[option])
-            .replace('#opinfo#', opinfo);
+            .replace('#option#', card.options[option]);
           listOptions += newOption;
         }
       }
@@ -1106,19 +1137,19 @@ function createCard(card) {
           propsManufInfo = extractProps(manufRowTemplate),
           manufListTitle = Array.from(manufTitle.querySelectorAll('th')).map(element => element.dataset.title);
 
-      for (var man in manufData.man) {
+      for (item in manufData.man) {
         var newRow = manufRowTemplate;
         var listCells = '';
 
-        for (var k of manufListTitle) {
+        for (k of manufListTitle) {
           var newCell = manufcellTemplate;
           var cell = [];
-          for (var kk in manufData[k]) {
-            if (kk == man) {
+          for (kk in manufData[k]) {
+            if (kk == item) {
               cell.push(kk);
             } else {
-              for (var kkk in manufData[k][kk]) {
-                if (kkk == man) {
+              for (kkk in manufData[k][kk]) {
+                if (kkk == item) {
                   cell.push(kk);
                 }
               }
@@ -1148,8 +1179,8 @@ function createCard(card) {
         sizesTemplate = cardTemplate.querySelector('.card-sizes').innerHTML,
         propsSizes = extractProps(sizesTemplate);
     if (card.sizes && card.sizes != 0) {
-      for (var item in card.sizes) {
-        createSizeInfo(card.sizes[item]);
+      for (key in card.sizes) {
+        createSizeInfo(card.sizes[key]);
       }
     } else {
       createSizeInfo(card);
@@ -1158,8 +1189,8 @@ function createCard(card) {
     newCard = newCard.replace(sizesTemplate, listSizes);
 
     function createSizeInfo(info) {
-      var cartInfo = getInfo('cart'),
-          size = info.size ? info.size : 'В корзину',
+      cartInfo = getInfo('cart');
+      var size = info.size ? info.size : 'В корзину',
           savedValue = cartInfo[info.articul] ? cartInfo[info.articul].qty : 0,
           freeQty = info.free_qty,
           value = (savedValue > freeQty) ? freeQty : savedValue,
@@ -1181,72 +1212,52 @@ function createCard(card) {
 
     var listCarousel = '',
         carouselTemplate = cardTemplate.querySelector('.carousel').innerHTML,
-        propsCarousel = extractProps(carouselTemplate),
         carouselItemTemplate = cardTemplate.querySelector('.carousel-gallery').innerHTML,
-        carouselItemNavTemplate;
+        propsCarousel = extractProps(carouselTemplate);
 
-    if (cardTemplate.querySelector('.carousel-nav')) {
-      carouselItemNavTemplate = cardTemplate.querySelector('.carousel-nav').innerHTML;
-    }
-    for (var i = 0; i < card.images.length; i++) {
+    for (i = 0; i < card.images.length; i++) {
       var newCarouselItem = carouselItemTemplate
-        .replace('#style#', i * 100 + '%')
         .replace('#imgNumb#', i)
-        .replace('#image#', `http://b2b.topsports.ru/c/productpage/${card.images[i]}.jpg`);
+        .replace('#image#', `http://b2b.topsports.ru/c/productpage/${card.images[i]}.jpg`)
+        .replace('#full-image#', `http://b2b.topsports.ru/c/source/${card.images[i]}.jpg`);
       listCarousel += newCarouselItem;
     }
     newCard = newCard.replace(carouselItemTemplate, listCarousel);
-    if (carouselItemNavTemplate) {
-      listCarousel = '';
-      for (var i = 0; i < card.images.length; i++) {
-
-        var newCarouselItem = carouselItemNavTemplate
-          .replace('#isActive#', i == 0 ? 'active' : '')
-          .replace('#imgNumb#', i)
-          .replace('#image#', `http://b2b.topsports.ru/c/productpage/${card.images[i]}.jpg`);
-        listCarousel += newCarouselItem;
-      }
-      newCard = newCard.replace(carouselItemNavTemplate, listCarousel)
-    }
     removeReplays(props, propsCarousel);
   }
 
-  for (var prop of props) {
-    var propRegExp = new RegExp('#' + prop + '#', 'gi');
+  for (key of props) {
+    var propRegExp = new RegExp('#' + key + '#', 'gi');
     var propCard;
-    if (prop == 'images') {
+    if (key == 'images') {
       propCard = `http://b2b.topsports.ru/c/productpage/${card.images[0]}.jpg`;
-    } else if (prop == 'price_preorder' && card.price_preorder1 == 0) {
+    } else if (key == 'price_preorder' && card.price_preorder1 == 0) {
       newCard = newCard.replace('#price_preorder#⁠.-', '');
-    } else if (prop == 'isHiddenCarouselNav') {
-      propCard = card.images.length > 1 ? '' : 'displayNone';
-    } else if (prop == 'isHiddenBtn') {
-      propCard = card.images.length > 1 ? '' : 'hidden'
-    } else if (prop == 'isHiddenPromo') {
+    } else if (key == 'isHiddenPromo') {
       propCard = card.actiontitle == undefined ? 'displayNone' : '';
-    } else if (prop == 'curPrice') {
+    } else if (key == 'curPrice') {
       var curPrice = card.price_preorder1 < 1 ? card.price1 : card.price_preorder1;
       propCard = curPrice;
-    } else if (prop == 'isAvaliable') {
+    } else if (key == 'isAvaliable') {
       propCard = card.free_qty != 0 ? '' : 'grey-gty';
-    } else if (prop == "qtyTitle") {
+    } else if (key == "qtyTitle") {
       propCard = card.free_qty != 0 ? 'В наличии' : 'Ожидается';
-    } else if (prop == 'isHiddenInfo') {
+    } else if (key == 'isHiddenInfo') {
       propCard = totalValue == 0 ? 'hidden' : '';
-    } else if (prop == 'totalAmount') {
+    } else if (key == 'totalAmount') {
       propCard = totalValue;
-    } else if (prop == 'totalPrice') {
+    } else if (key == 'totalPrice') {
       propCard = convertPrice(totalValue * (card.price_preorder1 == 0 ? card.price1 : card.price_preorder1));
-    } else if (prop == 'notice') {
+    } else if (key == 'notice') {
       propCard = card.free_qty != 0 ? 'Товар резервируется в момент подтверждения заказа!' : 'Товара нет в наличии!';
-    } else if (prop == 'isHiddenManuf') {
+    } else if (key == 'isHiddenManuf') {
       propCard = manufData && Object.keys(manufData.man).length > 1 ? '' : 'displayNone';
-    } else if (prop == 'isHiddenDesc') {
+    } else if (key == 'isHiddenDesc') {
       propCard = card.desc == '' ? 'displayNone' : '';
-    } else if (card[prop] == undefined) {
+    } else if (card[key] == undefined) {
       propCard = '';
     } else {
-      propCard = card[prop];
+      propCard = card[key];
     }
     newCard = newCard.replace(propRegExp, propCard);
   }
@@ -1338,13 +1349,23 @@ function closeBigCard(event) {
 
 // Отображение полной карточки товара:
 
+var curCard,
+    curCarousel,
+    curImg;
+
 function showFullCard(objectId) {
+  getDocumentScroll();
   cardTemplate = fullCardTemplate;
-  var fullCard = createCard(items.find(item => item.object_id == objectId));
-  fullCardContainer.innerHTML = fullCard;
+  curCard = createCard(items.find(item => item.object_id == objectId));
+  fullCardContainer.innerHTML = curCard;
   fullCardContainer.style.display = 'flex';
+  curCarousel = fullCardContainer.querySelector('.carousel');
+  startCarouselInit(curCarousel);
+
+  curCarousel.querySelector('.carousel-gallery-wrap').addEventListener('click', () => showFullImg(objectId));
+  curCarousel.querySelector('.search-btn').addEventListener('click', () => showFullImg(objectId));
+
   document.body.classList.add('no-scroll');
-  scrollTop = window.pageYOffset || document.documentElement.scrollTop;
   setCardTemplate();
 }
 
@@ -1354,23 +1375,25 @@ function closeFullCard(event) {
   if (!(event.target.closest('.carousel') || event.target.closest('.card-size') || event.target.classList.contains('dealer-button'))) {
     fullCardContainer.style.display = 'none';
     document.body.classList.remove('no-scroll');
-    document.documentElement.scrollTop = scrollTop;
-    document.body.scrollTop = scrollTop;
+    setDocumentScroll();
   }
 }
 
 // Отображение картинки полного размера на экране:
 
 function showFullImg(objectId) {
+  if (event.target.classList.contains('btn')) {
+    return;
+  }
+  getDocumentScroll();
   loader.style.display = 'block';
   var listCarousel = '',
       imgs = curItems.find(item => item.object_id == objectId).images,
       newFullImgBox = fullImgBoxTemplate,
       carouselItemTemplate = fullImgBoxContent.querySelector('.carousel-gallery').innerHTML;
 
-  for (var i = 0; i < imgs.length; i++) {
+  for (i = 0; i < imgs.length; i++) {
     var newCarouselItem = carouselItemTemplate
-      .replace('#style#', i * 100 + '%')
       .replace('#imgNumb#', i)
     if (window.innerWidth > 400) {
       newCarouselItem = newCarouselItem.replace('#image#', `http://b2b.topsports.ru/c/source/${imgs[i]}.jpg`);
@@ -1379,28 +1402,21 @@ function showFullImg(objectId) {
     }
     listCarousel += newCarouselItem;
   }
-
-  newFullImgBox = newFullImgBox
-    .replace(/#isHiddenBtn#/gi, imgs.length > 1 ? '' : 'hidden')
-    .replace(carouselItemTemplate, listCarousel);
+  newFullImgBox = newFullImgBox.replace(carouselItemTemplate, listCarousel);
   fullImgBox.innerHTML = newFullImgBox;
 
-  var curImg = event.currentTarget.closest('.carousel').dataset.curImg;
-
+  curCarousel = fullImgBox.querySelector('.carousel');
+  curImg = event.currentTarget.closest('.carousel').dataset.img;
   if (curImg != 0) {
-    var carousel = fullImgBox.querySelector('.carousel'),
-        gallery = carousel.querySelector('.carousel-gallery');
-    carousel.dataset.pos = curImg;
-    carousel.dataset.curImg = curImg;
-    gallery.style.left = -(curImg * 100) + '%';
+    curCarousel.dataset.img = curImg;
   }
-
+  setTimeout(() => startCarouselInit(curCarousel), 200);
   fullImgBox.querySelectorAll('img')[curImg].addEventListener('load', () => {
     loader.style.display = 'none';
     fullImgBox.style.visibility = 'visible';
+    fullImgBox.style.opacity = '1';
   });
   document.body.classList.add('no-scroll');
-  scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 }
 
 // Скрытие картинки полного размера:
@@ -1410,9 +1426,10 @@ function closeFullImg() {
     return;
   }
   fullImgBox.style.visibility = 'hidden';
+  fullImgBox.style.opacity = '0';
+  curCarousel.style.visibility = 'hidden';
   document.body.classList.remove('no-scroll');
-  document.documentElement.scrollTop = scrollTop;
-  document.body.scrollTop = scrollTop;
+  setDocumentScroll();
 }
 
 //=====================================================================================================
@@ -1459,10 +1476,10 @@ function dynamicSort(property) {
 // Подготовка данных для поиска на странице:
 
 function prepeareForSearch(data) {
-  itemsForSearch = data.map(el => {
-    delete el.desc;
-    return {object_id: el.object_id, value: convertToString(el)};
-  });
+  itemsForSearch = JSON.parse(JSON.stringify(data)).map(el => {
+      delete el.desc;
+      return {object_id: el.object_id, value: convertToString(el)};
+    });
 }
 
 // Конвертация всей вложенности свойств объекта в строку:
@@ -1474,7 +1491,7 @@ function convertToString(obj) {
 
   function crossObj(obj) {
     var prop;
-    for (var k in obj) {
+    for (k in obj) {
       prop = obj[k];
       if (typeof prop === 'string') {
         objProps += prop + ',';
@@ -1493,7 +1510,10 @@ var textToFind,
 
 function findOnPage(event) {
   event.preventDefault();
-  textToFind = searchInput.value.trim();
+  textToFind = searchInput.value
+    .trim()
+    .replace(/\, /gi, ',')
+    .replace(/\/ /gi, '/')
   if (textToFind == '') {
     return;
   }

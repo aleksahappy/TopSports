@@ -124,7 +124,7 @@ function changeCard(card) {
 // Сохранение данных о состоянии корзины:
 
 function saveCartInfo(articul, value, objectId) {
-  var cartInfo = getInfo('cart');
+  cartInfo = getInfo('cart');
   if (value == 0) {
     delete cartInfo[articul];
   } else {

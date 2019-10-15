@@ -77,6 +77,10 @@
   }
   .big-card .card-options-container {
     max-width: 100%;
+    }
+  .big-card .carousel .left-btn,
+  .big-card .carousel .right-btn {
+    opacity: 0.3 !important;
   }
   body.zip .big-card .card-container-left {
     flex-wrap: wrap;
@@ -93,6 +97,7 @@
   body.zip .big-card .carousel .right-btn {
     width: 3em;
     background-size: 1em;
+    opacity: 0.3 !important;
   }
   body.zip .big-card .carousel .left-btn {
     left: -3em;
@@ -115,13 +120,10 @@
     min-width: 24em;
   }
   .full-card .carousel .left-btn,
-  .full-card .carousel .right-btn {
-    opacity: 1;
-    background-color: transparent;
-  }
+  .full-card .carousel .right-btn,
   #full-imgbox .carousel .left-btn,
   #full-imgbox .carousel .right-btn {
-    opacity: 1;
+    opacity: 0.3 !important;
     background-color: transparent;
   }
 }
@@ -218,7 +220,7 @@
     width: 100%;
   }
   .full-card {
-    max-height: 90vh;
+    top: 5%;
     padding: 0.7em;
   }
   .full-card .card-container {
@@ -240,10 +242,14 @@
     margin: 0 3em;
   }
   #full-imgbox .carousel .left-btn {
-    left: -3em;
+    background: url(../img//slider/slider_nav_left.png) no-repeat center;
+    left: -1.5em;
+    opacity: 1 !important;
   }
   #full-imgbox .carousel .right-btn {
-    right: -3em;
+    background: url(../img//slider/slider_nav_right.png) no-repeat center;
+    right: -1.5em;
+    opacity: 1 !important;
   }
   #full-imgbox .carousel-gallery img {
     max-width: 80vw;
@@ -294,6 +300,9 @@
   }
   .big-card .card-options-container {
     min-width: 100%;
+  }
+  .full-card .carousel {
+    min-height: 200px;
   }
   .full-card .carousel-gallery img {
     max-width: 200px;

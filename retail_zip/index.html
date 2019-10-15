@@ -16,7 +16,7 @@
   </head>
 
   <body id="r_zip" class="zip">
-    <div class="header">
+    <div class="header noselect">
       <div class="header-main">
         <div class="container row">
           <a class="logo" href="#main"><img src="../img/header_footer/top_sports_logo.png" alt="Логотип"/></a>
@@ -186,97 +186,99 @@
               </div>
             </div>
             <div id="big-card-#object_id#" class="big-card card" data-object-id="#object_id#" onclick="closeBigCard(event)">
-              <div class="big-card-head row">
-                <div class="card-head">
-                    <div class="card-title">#title#</div>
-                    <div class="card-articul grey">Код продукта: #articul#</div>
-                </div>
-                <div class="card-info-title row">
-                  <div class="card-promo #isHiddenPromo#">
-                    <div class="promo-title" style="background-color: #actioncolor#">#actiontitle#</div>
+              <div class="card-container">
+                <div class="big-card-head row">
+                  <div class="card-head">
+                      <div class="card-title">#title#</div>
+                      <div class="card-articul grey">Код продукта: #articul#</div>
                   </div>
-                  <div class="card-price opt row">
-                    <div class="card-price-title grey">Оптовая цена:</div>
-                    <div class="card-price-wrap row">
-                        <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
-                        <div class="new-price red">#price_preorder#&#8288;.-</div>
+                  <div class="card-info-title row">
+                    <div class="card-promo #isHiddenPromo#">
+                      <div class="promo-title" style="background-color: #actioncolor#">#actiontitle#</div>
+                    </div>
+                    <div class="card-price opt row">
+                      <div class="card-price-title grey">Оптовая цена:</div>
+                      <div class="card-price-wrap row">
+                          <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
+                          <div class="new-price red">#price_preorder#&#8288;.-</div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="big-card-body row">
-                <div class="card-container-left row">
-                  <div class="carousel" data-type="bigCard" data-pos="0" data-cur-img="0" onclick="moveCarousel(this)">
-                    <div class="left-btn btn #isHiddenBtn#"></div>
-                    <div class="right-btn btn #isHiddenBtn#"></div>
-                    <div class="carousel-gallery-wrap">
-                      <div class="carousel-gallery">
-                        <div class="carousel-item row" style="left: #style#;" data-numb="#imgNumb#" onclick="showFullImg(#object_id#)">
-                          <img src="#image#">
+                <div class="big-card-body row">
+                  <div class="card-container-left row">
+                    <div class="carousel" data-type="bigCard" data-img="0">
+                      <div class="left-btn btn"></div>
+                      <div class="right-btn btn"></div>
+                      <div class="carousel-gallery-wrap">
+                        <div class="carousel-gallery">
+                          <div class="carousel-item" data-numb="#imgNumb#" onclick="showFullImg(#object_id#)">
+                            <img src="#image#">
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="card-options-container">
-                    <div class="card-price retail row ">
-                      <div class="card-price-title grey">РРЦ:</div>
-                      <div class="price-user">#price_user#.-</div>
-                    </div>
-                    <div class="card-options">
-                      <div class="card-option row">
-                        <div class="option-title grey">#optitle#</div>
-                        <div class="option-info">#opinfo#</div>
+                    <div class="card-options-container">
+                      <div class="card-price retail row ">
+                        <div class="card-price-title grey">РРЦ:</div>
+                        <div class="price-user">#price_user#.-</div>
                       </div>
-                    </div>
-                    <div class="card-manuf-info hidden-xxs #isHiddenManuf#">
-                      <table class="manuf-table">
-                        <tr id="manuf-title" class="grey">
-                          <th data-title="man">Производитель</th>
-                          <th data-title="oem">ОЕМ</th>
-                          <th data-title="model">Модель</th>
-                          <th data-title="years">Год модели</th>
-                        </tr>
-                        <tr class="manuf-info">
-                          <td>#info#</td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-container-right">
-                  <div class="card-select-info #isHiddenInfo#">
-                    <div>
-                      Выбрано товаров:
-                      <span class="select-count red">#totalAmount#</span>&nbsp;шт. на сумму
-                      <span class="select-price red">#totalPrice#</span>&#8288;.–
-                    </div>
-                  </div>
-                  <div class="card-sizes row">
-                    <div class="card-size #inCart#">
-                      <div class="size-articul grey">Артикул: #articul#</div>
-                      <div class="size-choice row">
-                        <div class="size-name">#size#</div>
-                        <div class="size-qty row">
-                          <div class="btn-minus" tooltip="Удалить" onclick="changeValue(#object_id#)">-</div>
-                          <input class="choice-qty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" placeholder="0" onchange="changeValue(#object_id#)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
-                          <div class="btn-plus" tooltip="Добавить" onclick="changeValue(#object_id#)">+</div>
+                      <div class="card-options">
+                        <div class="card-option row">
+                          <div class="option-title grey">#optitle#</div>
+                          <div class="option-info">#option#</div>
                         </div>
                       </div>
-                      <div class="tooltip" tooltip="#qtyTitle#">
-                        <div class="card-qty #isAvaliable#">#free_qty#&nbsp;шт.</div>
+                      <div class="card-manuf-info hidden-xxs #isHiddenManuf#">
+                        <table class="manuf-table">
+                          <tr id="manuf-title" class="grey">
+                            <th data-title="man">Производитель</th>
+                            <th data-title="oem">ОЕМ</th>
+                            <th data-title="model">Модель</th>
+                            <th data-title="years">Год модели</th>
+                          </tr>
+                          <tr class="manuf-info">
+                            <td>#info#</td>
+                          </tr>
+                        </table>
                       </div>
                     </div>
                   </div>
-                  <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
-                  <div class="card-notice red">#notice#</div>
-                  <div class="card-description hidden-xxs #isHiddenDesc#">
-                    <div class="description-title">Описание:</div>
-                    <div class="card-text">#desc#</div>
+                  <div class="card-container-right">
+                    <div class="card-select-info #isHiddenInfo#">
+                      <div>
+                        Выбрано товаров:
+                        <span class="select-count red">#totalAmount#</span>&nbsp;шт. на сумму
+                        <span class="select-price red">#totalPrice#</span>&#8288;.–
+                      </div>
+                    </div>
+                    <div class="card-sizes row">
+                      <div class="card-size #inCart#">
+                        <div class="size-articul grey">Артикул: #articul#</div>
+                        <div class="size-choice row">
+                          <div class="size-name">#size#</div>
+                          <div class="size-qty row">
+                            <div class="btn-minus" tooltip="Удалить" onclick="changeValue(#object_id#)">-</div>
+                            <input class="choice-qty" type="text" value="#value#" data-value="#value#" data-price="#curPrice#" autocomplete="off" placeholder="0" onchange="changeValue(#object_id#)" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onkeypress="return checkValue(event)">
+                            <div class="btn-plus" tooltip="Добавить" onclick="changeValue(#object_id#)">+</div>
+                          </div>
+                        </div>
+                        <div class="tooltip" tooltip="#qtyTitle#">
+                          <div class="card-qty #isAvaliable#">#free_qty#&nbsp;шт.</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
+                    <div class="card-notice red">#notice#</div>
                   </div>
-                  <div class="card-fade"></div>
-                  <div class="toggle-btn" tooltip="Раскрыть" onclick="openBigCard(event)"></div>
                 </div>
               </div>
+              <div class="card-description hidden-xxs #isHiddenDesc#">
+                <div class="description-title">Описание:</div>
+                <div class="card-text">#desc#</div>
+              </div>
+              <div class="card-fade"></div>
+              <div class="toggle-btn" tooltip="Раскрыть" onclick="openBigCard(event)"></div>
             </div>
           </div>
           <div id="gallery-notice" class="gallery red">
@@ -286,20 +288,15 @@
             <div id="full-card-#object_id#" class="full-card card" data-object-id="#object_id#">
               <div class="close-btn"></div>
               <div class="card-container row">
-                <div class="carousel" data-type="fullCard" data-pos="0" data-cur-img="0" onclick="moveCarousel(this)">
-                  <div class="search-btn" onclick="showFullImg(#object_id#)"></div>
+                <div class="carousel" data-type="fullCard" data-img="0">
+                  <div class="search-btn"></div>
                   <div class="carousel-gallery-wrap">
-                    <div class="left-btn btn #isHiddenBtn#"></div>
-                    <div class="right-btn btn #isHiddenBtn#"></div>
+                    <div class="left-btn btn"></div>
+                    <div class="right-btn btn"></div>
                     <div class="carousel-gallery">
-                      <div class="carousel-item row" style="left: #style#;" data-numb="#imgNumb#" onclick="showFullImg(#object_id#)">
-                        <img src="#image#">
+                      <div class="carousel-item row" data-numb="#imgNumb#">
+                        <img src="#image#" data-src="#full-image#">
                       </div>
-                    </div>
-                  </div>
-                  <div class="carousel-nav row #isHiddenCarouselNav#">
-                    <div class="carousel-item item-nav #isActive# row" data-numb="#imgNumb#">
-                      <img src="#image#">
                     </div>
                   </div>
                 </div>
@@ -326,7 +323,7 @@
                   <div class="card-options">
                     <div class="card-option row">
                       <div class="option-title grey">#optitle#</div>
-                      <div class="option-info">#opinfo#</div>
+                      <div class="option-info">#option#</div>
                     </div>
                   </div>
                   <div class="card-manuf-info hidden-xxs #isHiddenManuf#">
@@ -377,13 +374,13 @@
               <path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path>
             </svg>
             <div class="full-imgbox-content row">
-              <div class="carousel" data-type="fullImg" data-pos="0" data-cur-img="0" onclick="moveCarousel(this)">
-                <div class="left-btn btn #isHiddenBtn#"></div>
-                <div class="right-btn btn #isHiddenBtn#"></div>
+              <div class="carousel" data-type="fullImg" data-img="0">
+                <div class="left-btn btn"></div>
+                <div class="right-btn btn"></div>
                 <div class="carousel-gallery-wrap">
                   <div class="carousel-gallery">
-                    <div class="carousel-item row" style="left: #style#;" data-numb="#imgNumb#">
-                      <img id="full-img" src="#image#">
+                    <div class="carousel-item" data-numb="#imgNumb#">
+                      <img src="#image#">
                     </div>
                   </div>
                 </div>

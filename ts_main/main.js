@@ -1,10 +1,8 @@
 'use strict';
 
-var carousel = document.getElementById('carousel');
+var mainCarousel = {
+  isAvtoScroll: true
+};
 
-// Кастомные настройки карусели:
-window.mainCarousel = new Carousel();
-window.mainCarousel.isMove = true;
-
-checkSettings(carousel);
-startCarouselMove(carousel);
+var slider = document.querySelector('.carousel');
+startCarouselInit(slider);

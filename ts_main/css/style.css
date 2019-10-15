@@ -182,27 +182,37 @@ body > div:not(.header):not(.carousel):not(.footer) {
 ===================================================================================================== */
 
 .carousel {
-  position: relative;
+  visibility: hidden; /* обязательный стиль */
+  position: relative; /* обязательный стиль */
+  width: 100%; /* можно установить в % для адаптивности или в px */
   cursor: pointer;
 }
 
 .carousel-gallery-wrap {
-  position: relative;
+  position: relative;  /* обязательный стиль */
   width: 100%;
   margin-bottom: 1.5em;
-  overflow: hidden;
+  overflow: hidden; /* обязательный стиль */
 }
 
-.carousel-gallery {
+.carousel-gallery { /* все стили обязательные кроме padding */
   position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
   width: 100%;
 }
 
-.carousel-gallery .carousel-item {
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
+.carousel-gallery .carousel-item { /* все стили обязательные */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 100%; /* можно установить в % для адаптивности или в px */
   height: 95vh;
   height: calc(100vh - 100px);
   height: -moz-calc(100vh - 100px);
@@ -212,11 +222,7 @@ body > div:not(.header):not(.carousel):not(.footer) {
   background-position: top center;
 }
 
-.carousel-gallery :first-child {
-  position: relative;
-}
-
-.carousel-item img {
+.carousel-item img { /* все стили обязательные */
   display: none;
   height: auto;
   max-width: 100%;
