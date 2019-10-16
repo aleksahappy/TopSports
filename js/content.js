@@ -1,7 +1,5 @@
 'use strict';
 
-setPaddingToBody();
-
 //=====================================================================================================
 // Первоначальные данные для работы:
 //=====================================================================================================
@@ -58,7 +56,7 @@ function removeReplays(template, subTemplate) {
 
 // Динамически изменяемые переменные:
 
-var pageUrl =  pageId,
+var pageUrl = pageId,
     view = content.classList.item(0),
     cardTemplate,
     curItems,
@@ -66,15 +64,14 @@ var pageUrl =  pageId,
     itemsForSearch,
     selecledCardList = '',
     searchedCardList = [],
-    countItems = 0,
-    countItemsTo = 0,
-    itemsToLoad,
     curItemsArray,
     pageInfo,
     filtersInfo,
-    cartInfo,
-    isExsist,
-    scrollTop,
+    cartInfo;
+
+// Переменные для циклов:
+
+var isExsist,
     item,
     key,
     k,
@@ -116,6 +113,7 @@ items.sort(dynamicSort(('catid')));
 
 // Первоначальное заполнение контента на странице:
 
+document.addEventListener('DOMContentLoaded', () => loader.style.display = 'none');
 setCardTemplate();
 initPage();
 renderCart();
@@ -142,17 +140,6 @@ var fullImgCarousel = {
   durationBtns: 500,
   durationNav: 200,
 };
-
-// Установка отступов документа:
-
-window.addEventListener('resize', setPaddingToBody);
-
-function setPaddingToBody() {
-  var headerHeight = document.querySelector('.header').clientHeight;
-  var footerHeight = document.querySelector('.footer').clientHeight;
-  document.body.style.paddingTop = `${headerHeight}px`;
-  document.body.style.paddingBottom = `${footerHeight + 20}px`;
-}
 
 // Установка ширины галереи:
 
@@ -264,192 +251,6 @@ function setFiltersHeight() {
 
   filters.style.top = `${headerHeight + headerMainHeight}px`;
   filters.style.height = `${filtersHeight}px`;
-}
-
-// Добавление всплывающих подсказок:
-
-function addTooltips(key) {
-  var elements = document.querySelectorAll(`[data-key=${key}]`);
-  elements.forEach(el => {
-    var tooltipText = el.textContent.trim();
-    el.setAttribute('tooltip', tooltipText);
-  });
-}
-
-// Функция преобразования цены к формату с пробелами:
-
-function convertPrice(price) {
-  return (price + '').replace(/(\d{1,3})(?=((\d{3})*)$)/g, " $1");
-}
-
-// Функция преобразования строки с годами к укороченному формату:
-
-var years,
-    curYear,
-    nextYear,
-    prevYear,
-    resultYears;
-
-function convertYears(stringYears) {
-  years = stringYears.split(',');
-  resultYears = [];
-
-  for (i = 0; i < years.length; i++) {
-    curYear = parseInt(years[i].trim(), 10);
-    nextYear = parseInt(years[i + 1], 10);
-    prevYear = parseInt(years[i - 1], 10);
-
-    if (curYear + 1 != nextYear) {
-      if (i == years.length -  1) {
-        resultYears.push(curYear);
-      } else {
-        resultYears.push(curYear + ', ');
-      }
-    } else if (curYear - 1 != prevYear) {
-      resultYears.push(curYear);
-    } else if (curYear + 1 == nextYear && resultYears[resultYears.length - 1] != ' &ndash; ') {
-      resultYears.push(' &ndash; ');
-    }
-  }
-  return resultYears = resultYears.join('');
-}
-
-// Получение текущей прокрутки документа:
-
-function getDocumentScroll() {
-  scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-}
-
-// Установка прокрутки документа:
-
-function setDocumentScroll() {
-  document.documentElement.scrollTop = scrollTop;
-  document.body.scrollTop = scrollTop;
-}
-
-//=====================================================================================================
-// Сохранение и извлечение данных на компьютере пользователя:
-//=====================================================================================================
-
-// Проверка доступности storage:
-
-function storageAvailable(type) {
-	try {
-		var storage = window[type],
-        x = '__storage_test__';
-		storage.setItem(x, x);
-		storage.removeItem(x);
-		return true;
-	}
-	catch(error) {
-		return false;
-	}
-}
-
-// Сохранение данныx в storage или cookie:
-
-function saveInLocal(key, data) {
-  var stringData = JSON.stringify(data);
-  if (storageAvailable('localStorage')) {
-    localStorage[key] = stringData;
-  }
-  else {
-    if (getCookie(key)) {
-      deleteCookie(key);
-    }
-    setCookie(key, stringData, {expires: getDateExpires(30)});
-  }
-}
-
-// Получение данных из storage или cookie:
-
-function getFromLocal(key) {
-  if (storageAvailable('localStorage')) {
-    if (localStorage[key]) {
-      return JSON.parse(localStorage[key]);
-    } else {
-      return undefined;
-    }
-  }
-  else {
-    if (getCookie(key)) {
-      return JSON.parse(getCookie(key));
-    } else {
-      return undefined;
-    }
-  }
-}
-
-// Сохранение данных в cookie:
-
-function setCookie(key, value, options) {
-  options = options || {};
-  var expires = options.expires;
-
-  if (typeof expires == "number" && expires) {
-    var date = new Date();
-    date.setTime(date.getTime() + expires * 1000);
-    expires = options.expires = date;
-  }
-  if (expires && expires.toUTCString) {
-    options.expires = expires.toUTCString();
-  }
-
-  value = encodeURIComponent(value);
-  var updatedCookie = key + '=' + value;
-
-  for (key in options) {
-    updatedCookie += "; " + key;
-    var propValue = options[key];
-    if (propValue !== true) {
-      updatedCookie += "=" + propValue;
-    }
-  }
-  document.cookie = updatedCookie;
-}
-
-// Функция для установки срока хранения cookie:
-
-function getDateExpires(days) {
-  var date = new Date;
-  date.setDate(date.getDate() + days);
-  return date;
-}
-
-// Получение данных из cookie:
-
-function getCookie(key) {
-  var matches = document.cookie.match(new RegExp(
-    '(?:^|; )' + key.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'
-  ));
-  return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-
-// Удаление данных из cookie:
-
-function deleteCookie(key) {
-  setCookie(key, '', {expires: -1});
-}
-
-// Получение данных о странице по ключу:
-
-function getInfo(key) {
-  pageInfo = getFromLocal(pageId) ? getFromLocal(pageId) : {};
-  if (!pageInfo[key]) {
-    pageInfo[key] = {};
-  }
-  return pageInfo[key];
-}
-
-// Сохранение данных о странице по ключу:
-
-function saveInfo(key, data) {
-  pageInfo = getFromLocal(pageId) ? getFromLocal(pageId) : {};
-  if (!pageInfo[key]) {
-    pageInfo[key] = {};
-  }
-  pageInfo[key] = data;
-  saveInLocal(pageId, pageInfo);
 }
 
 //=====================================================================================================
@@ -1033,7 +834,10 @@ function changeFilterClass(key, value) {
 
 // Создание карточек товаров из массива:
 
-var incr;
+var countItems = 0,
+    countItemsTo = 0,
+    itemsToLoad,
+    incr;
 
 function loadCards(cards) {
 	if (cards){
@@ -1132,10 +936,10 @@ function createCard(card) {
 
     if (manufData && Object.keys(manufData.man).length > 1) {
       var listManufInfo = '',
-          manufRowTemplate = cardTemplate.querySelector('.manuf-info').outerHTML,
-          manufcellTemplate = cardTemplate.querySelector('.manuf-info').innerHTML,
+          manufRowTemplate = cardTemplate.querySelector('.manuf-row').outerHTML,
+          manufcellTemplate = cardTemplate.querySelector('.manuf-row').innerHTML,
           propsManufInfo = extractProps(manufRowTemplate),
-          manufListTitle = Array.from(manufTitle.querySelectorAll('th')).map(element => element.dataset.title);
+          manufListTitle = Array.from(manufTitle.querySelectorAll('div')).map(element => element.dataset.title);
 
       for (item in manufData.man) {
         var newRow = manufRowTemplate;
@@ -1165,7 +969,9 @@ function createCard(card) {
             }
           }
 
-          newCell = newCell.replace('#info#', cell);
+          newCell = newCell
+            .replace('#cat#', k)
+            .replace('#info#', cell);
           listCells += newCell;
         }
         newRow = newRow.replace(manufcellTemplate, listCells);
@@ -1386,6 +1192,7 @@ function showFullImg(objectId) {
     return;
   }
   getDocumentScroll();
+  loader.style.backgroundColor = 'rgba(43, 46, 56, 0.9)';
   loader.style.display = 'block';
   var listCarousel = '',
       imgs = curItems.find(item => item.object_id == objectId).images,
@@ -1430,6 +1237,143 @@ function closeFullImg() {
   curCarousel.style.visibility = 'hidden';
   document.body.classList.remove('no-scroll');
   setDocumentScroll();
+}
+
+//=====================================================================================================
+//  Функции добавления товаров в корзину:
+//=====================================================================================================
+
+// Удаление значения из инпута при его фокусе:
+
+function onFocusInput(input) {
+  if (input.value != '') {
+    input.value = '';
+  }
+}
+
+// Установка дефолтного значения в инпут:
+
+function onBlurInput(input) {
+  if (input.value == '') {
+    input.value = 0;
+    changeValue(event);
+  }
+}
+
+// Запрет на ввод в инпут любого значения кроме цифр:
+
+function checkValue(event) {
+  if (event.ctrlKey || event.altKey || event.metaKey) return;
+  var chr = getChar(event);
+  if (chr == null) return;
+  if (chr < '0' || chr > '9') {
+    return false;
+  }
+}
+
+// Кросс-браузерная функция для получения символа из события keypress:
+
+function getChar(event) {
+  if (event.which == null) { // IE
+    if (event.keyCode < 32) return null; // спец. символ
+    return String.fromCharCode(event.keyCode)
+  }
+  if (event.which != 0 && event.charCode != 0) { // все кроме IE
+    if (event.which < 32) return null; // спец. символ
+    return String.fromCharCode(event.which); // остальные
+  }
+  return null; // спец. символ
+}
+
+
+// Изменение информации о выбранном количестве товара и его стоимости:
+
+function changeValue(objectId) {
+
+  var card = event.currentTarget.closest('.card'),
+      size = event.currentTarget.closest('.card-size'),
+      articul = size.querySelector('.size-articul').textContent.replace('Артикул: ', ''),
+      input = size.querySelector('.choice-qty'),
+      inputValue = parseInt(input.value),
+      qty = size.querySelector('.card-qty'),
+      qtyValue = parseInt(qty.textContent);
+
+  if (event.currentTarget.value === undefined) {
+    var sign = event.currentTarget.textContent;
+    if (sign == '-') {
+      if (inputValue > 0 ) {
+        inputValue--;
+      }
+    }
+    if (sign == '+') {
+      if (inputValue < qtyValue) {
+        inputValue++;
+      }
+    }
+  } else {
+    if (isNaN(inputValue)) {
+      inputValue = 0;
+    }
+    if (inputValue > qtyValue) {
+      inputValue = qtyValue;
+    }
+  }
+  input.value = inputValue;
+  input.dataset.value = inputValue;
+
+  changeColors(size, inputValue);
+  changeCard(card);
+  saveCartInfo(articul, inputValue, objectId);
+  renderCart();
+}
+
+// Изменение цвета элементов карточки при измении количества выбранных товаров:
+
+function changeColors(size, inputValue) {
+  if (inputValue == 0) {
+    size.classList.remove('in-cart');
+  } else {
+    size.classList.add('in-cart');
+  }
+}
+
+// Изменение информации о выбранном количестве товара и его стоимости в карточке товара:
+
+function changeCard(card) {
+  var selectInfo = card.querySelector('.card-select-info'),
+      sizes = card.querySelectorAll('.choice-qty'),
+      curPrice = sizes[0].dataset.price,
+      amount = card.querySelector('.select-count'),
+      price = card.querySelector('.select-price');
+
+  var totalAmount = 0;
+  sizes.forEach(size => totalAmount += parseInt(size.value));
+  var totalPrice = totalAmount * curPrice;
+
+  amount.textContent = totalAmount;
+  price.textContent = convertPrice(totalPrice);
+
+  if (amount.textContent != 0) {
+    selectInfo.style.visibility = 'visible';
+  } else {
+    selectInfo.style.visibility = 'hidden';
+  }
+}
+
+// Сохранение данных о состоянии корзины:
+
+function saveCartInfo(articul, value, objectId) {
+  cartInfo = getInfo('cart');
+  if (value == 0) {
+    delete cartInfo[articul];
+  } else {
+    if (!cartInfo[articul]) {
+      cartInfo[articul] = {};
+    }
+    cartInfo[articul].qty = value;
+    cartInfo[articul].objectId = objectId;
+  }
+  saveInfo(`cart`, cartInfo);
 }
 
 //=====================================================================================================

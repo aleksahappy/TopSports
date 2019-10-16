@@ -1,0 +1,47 @@
+/* =====================================================================================================
+ Стили для хлебных крошек:
+===================================================================================================== */
+
+.main {
+  background-color: rgb(247,249,249);
+}
+
+.main-header {
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 1em 0;
+}
+
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-right: 1em;
+}
+
+.main-nav a,
+.main-nav span {
+  color: rgb(91,91,93);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.main-nav .nav-item {
+  position: relative;
+  margin-left: 23px;
+}
+
+.main-nav .nav-item::before {
+  position: absolute;
+  content: url(../img/content/ico_nav.png);
+  left: -16px;
+  width: 9px;
+  height: 9px;
+}
+
+.main-nav .nav-item.cur-page {
+  color: rgb(241,90,41);
+  text-decoration: none;
+  cursor: default;
+}
+

@@ -9,6 +9,7 @@
     <meta name="keywords" content="ТОП СПОРТС">
     <meta name="description" content="ТОП СПОРТС">
     <link rel="stylesheet" type="text/css" href="../css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
     <link rel="stylesheet" type="text/css" href="../css/content.css">
     <link rel="stylesheet" type="text/css" href="../css/header_footer_b2b.css">
     <link rel="stylesheet" type="text/css" href="../css/media_content.css">
@@ -16,7 +17,7 @@
   </head>
 
   <body id="r_zip" class="zip">
-    <div class="header noselect">
+    <div class="header">
       <div class="header-main">
         <div class="container row">
           <a class="logo" href="#main"><img src="../img/header_footer/top_sports_logo.png" alt="Логотип"/></a>
@@ -229,18 +230,18 @@
                           <div class="option-info">#option#</div>
                         </div>
                       </div>
-                      <div class="card-manuf-info hidden-xxs #isHiddenManuf#">
-                        <table class="manuf-table">
-                          <tr id="manuf-title" class="grey">
-                            <th data-title="man">Производитель</th>
-                            <th data-title="oem">ОЕМ</th>
-                            <th data-title="model">Модель</th>
-                            <th data-title="years">Год модели</th>
-                          </tr>
-                          <tr class="manuf-info">
-                            <td>#info#</td>
-                          </tr>
-                        </table>
+                      <div class="card-manuf hidden-xxs #isHiddenManuf#">
+                        <div class="manuf-table">
+                          <div id="manuf-title" class="manuf-title grey row">
+                            <div class="row-man" data-title="man">Производитель</div>
+                            <div class="row-oem" data-title="oem">ОЕМ</div>
+                            <div class="row-model" data-title="model">Модель</div>
+                            <div class="row-years" data-title="years">Год модели</div>
+                          </div>
+                          <div class="manuf-row row">
+                            <div class="row-#cat#">#info#</div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -326,18 +327,18 @@
                       <div class="option-info">#option#</div>
                     </div>
                   </div>
-                  <div class="card-manuf-info hidden-xxs #isHiddenManuf#">
-                    <table class="manuf-table">
-                      <tr id="manuf-title" class="grey">
-                        <th data-title="man">Производитель</th>
-                        <th data-title="oem">ОЕМ</th>
-                        <th data-title="model">Модель</th>
-                        <th data-title="years">Год модели</th>
-                      </tr>
-                      <tr class="manuf-info">
-                        <td>#info#</td>
-                      </tr>
-                    </table>
+                  <div class="card-manuf hidden-xxs #isHiddenManuf#">
+                    <div class="manuf-table">
+                      <div id="manuf-title" class="manuf-title grey row">
+                        <div class="row-man" data-title="man">Производитель</div>
+                        <div class="row-oem" data-title="oem">ОЕМ</div>
+                        <div class="row-model" data-title="model">Модель</div>
+                        <div class="row-years" data-title="years">Год модели</div>
+                      </div>
+                      <div class="manuf-row row">
+                        <div class="row-#cat#">#info#</div>
+                      </div>
+                    </div>
                   </div>
                   <div class="card-sizes row">
                     <div class="card-size #inCart#">
@@ -420,10 +421,10 @@
 
     <!-- <script src ="../../../stand/qzip.php"></script> -->
     <script src ="qzip.js"></script>
-    <script src="data_zip.js"></script>
+    <script src="filters_zip.js"></script>
     <script src="../js/carousel.js"></script>
+    <script src="../js/common_func.js"></script>
     <script src="../js/content.js"></script>
-    <script src="../js/cart.js"></script>
 
   </body>
 </html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../img/top_sports_logo_black_short_transparency.png">
+    <title>ТОП СПОРТС - Корзина</title>
+    <meta name="keywords" content="ТОП СПОРТС">
+    <meta name="description" content="ТОП СПОРТС">
+    <link rel="stylesheet" type="text/css" href="../css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="../css/common.css">
+    <link rel="stylesheet" type="text/css" href="../css/cart.css">
+    <link rel="stylesheet" type="text/css" href="../css/header_footer_b2b.css">
+    <link rel="stylesheet" type="text/css" href="../css/media_content.css">
+    <link rel="stylesheet" type="text/css" href="../css/media_header_footer_b2b.css">
+  </head>
+
+  <body id="cart">
+    <div class="header">
+      <div class="header-main">
+        <div class="container row">
+          <a class="logo" href="#main"><img src="../img/header_footer/top_sports_logo.png" alt="Логотип"/></a>
+          <div class="profile-info row">
+            <a class="cart" href="#" target="_blank">
+              <div class="cart-title">Корзина</div>
+              <div class="cart-amount"><span>0</span>&nbsp;шт. /</div>
+              <div class="cart-price"><span>0</span>&nbsp;руб.</div>
+            </a>
+            <div class="account">
+              <div class="account-title">Вы зашли как</div>
+              <div class="account-username">Гость</div>
+              <div class="account-menu">
+                <a href="#">Рабочий стол</a>
+                <a href="#">Профиль</a>
+                <a href="#">Клиенты</a>
+                <a href="#">Заказы</a>
+                <a href="#" target="_blank">Рекламации</a>
+                <a href="#">Выйти</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-menu">
+        <div class="main-menu">
+          <div class="container row">
+            <div class="topmenu">
+              <a class="topmenu-item activ" data-level="1" data-href="snegohod" onclick="openPage()">Снегоходы</a>
+              <a class="topmenu-item" data-level="1" data-href="lodkimotor" onclick="openPage()">Лодки и моторы</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="container">
+        <div class="main-header row">
+          <div id="main-nav" class="main-nav">
+            <a href="#main">Главная</a>
+            <span class="nav-item cur-page">Корзина</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="nav"><a href="/">Главная</a><span></span>Корзина</div>
+        </div>
+        <div class="col-xs-12">
+          <div class="wrapper">
+            <div class="content_block">
+              <div class="">
+                <div class="cart_sort">Фильтровать по:<span data-cat="Экипировка">Экипировка</span></div>
+                <div class="cart_container" id="cart_container" data-cart_name="cart">
+                  <div id="cart_legenda">
+                    <div class="container-fluids">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <div class="cart-header">Выбрано</div>
+                          <div class="title">Количество<br /><span class="value count"></span></div>
+                          <div class="title price_opt"><span>Сумма РРЦ</span><br /><span class="value summa"><span
+                                class="price"></span></span> руб.</div>
+                          <div class="title"><span id="cart_price_name">Сумма заказа</span><br /><span
+                              class="value summa"><span class="price_opt"></span><span
+                                class="price_retail hide"></span></span> руб.</div>
+                          <div id="cart_discount" class="title price_opt hide">Ориентировочная скидка<br /><span
+                              class="value discount"><span class="price_preorder">0</span></span> руб.&nbsp;<span
+                              id="cart_price_proc" class="value price_preorder" style="color:#ff6632;"></span></div>
+                          <div class="make-order-cont">
+                            <div class="cart-button delete-item na">Удалить выбранное</div>
+                            <div class="alert bg-danger">Оформление заказа невозможно:<br />Необходимо выбрать <a
+                                href="/clients/">клиента</a>.</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <form id="cartForm" method="post" enctype="multipart/form-data"><input type="hidden" name="cart_name"
+                      value="cart" />
+                    <div class="order_container" id="order_container">
+                      <div class="">
+                        <div class=""><span class="title">Способ оплаты</span><select name="cart[payment_type]"
+                            id="payment_type">
+                            <option value="1">Безналичный расчет</option>
+                            <option value="2">Наличный расчет</option>
+                            <option value="3">Прочее</option>
+                          </select></div>
+                      </div>
+                      <div class="">
+                        <div class=""><span class="title">Название контрагента</span><select name="cart[contr_id]"
+                            id="contr_id" required>
+                            <option selected="" value="">Выберите контрагента</option>
+                          </select></div>
+                      </div>
+                      <div class="delivery_type"><span class="title">Тип доставки</span><select name="cart[delivery_type]"
+                          id="delivery_type" required="">
+                          <option selected="" value="">Выберите тип доставки</option>
+                          <option value="1">Самовывоз</option>
+                          <option value="2">Курьер</option>
+                          <option value="3">Транспортная компания</option>
+                        </select>
+                        <div class="delivery_address_notice hide">Деловые Линии</div>
+                      </div>
+                      <div class="delivery_address"><span class="title">Адрес доставки</span><select
+                          name="cart[shop_address]" id="shop_address">
+                          <option selected value=''>Выберите адрес доставки</option>
+                        </select></div>
+                      <div class=""></div>
+                      <div class="comment">
+                        <div class=""><span class="title">Комментарий к заказу</span><textarea name="cart[comment]"
+                            id="comment" style=""></textarea>
+                          <div class="counter">Знаков осталось: <span>300</span></div>
+                        </div>
+                      </div>
+                      <div class="info">Обратите внимание!<br />Будет создано несколько заказов: (<span></span>)</div>
+                      <div class="createOrder" onclick="check_cart_form()">Заказать</div>
+                    </div>
+                    <div class="container-fluids">
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <div class="cart_list_container">
+                            <div class="tableHeaders">
+                              <div class="cartNum"><input type="checkbox" id="selectAll"></div>
+                              <div class="cartName">Наименование <span onclick="copyCart();">Копировать корзину</span>
+                              </div>
+                              <div class="cartArticul">Артикул</div>
+                              <div class="cartAction">Тип заказа</div>
+                              <div class="cartQty">Кол-во штук</div>
+                              <div class="cartPrice">Цена</div>
+                              <div class="cartTotal">Итого</div>
+                            </div>
+                            <div class="catalog_line_item cart_item rel tableData" id="cart_item_25915"
+                              data-cat="Экипировка" data-type_discount="0" data-discount_percent="" data-discount_from="0"
+                              data-art_cnt_perc="" data-price="9900.00" data-price_user="13200.00">
+                              <div class="cartNum"><label for="cart_check_25915"><input type="checkbox" class="checkbox"
+                                    name="cart[Экипировка][Со склада][25915]" value="1" data-tid="25915" checked
+                                    id="cart_check_25915" /></label></div>
+                              <div class="cartName"><a href="/odezhda/product25915.html" target="_blank"><img
+                                    src="http://b2b.topsports.ru/c/producticon/12915.jpg" alt="">Комбинезон Jethwear
+                                  Odin&Olivia с утеплителем, дети, унисекс (Teaberry, 134)</a></div>
+                              <div class="cartArticul">J1836-004-134</div>
+                              <div class="cartAction">Экипировка</div>
+                              <div class="cartQty">
+                                <div class="buttons">
+                                  <div class="line_item_buttons">
+                                    <div data-cart_name="cart" class="cart_tovar_up_down" data-tid="25915"
+                                      data-max_qty="1" data-cart_step=""><span class="cart_tovar_down"
+                                        onclick="cart.tovar_down(25915, 1, this);" title="Уменьшить"
+                                        data-tooltip="">-</span><input class="cart_tovar_count cart-input-25915"
+                                        type="text" name="count" onchange="cart.tovar_set(25915, this.value);"
+                                        data-int="1" value="1" autocomplete="off" /><span class="unit">шт.</span><span
+                                        class="cart_tovar_up" onclick="cart.tovar_up(25915, 1, this);" title="Добавить"
+                                        data-tooltip="">+</span></div>
+                                    <div class="stock_val" title="В наличии" data-tooltip="">
+                                      <div></div><span>1</span> шт.
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="cartPrice"><span class="price_opt">9 900</span><span
+                                  class="price_retail hide">13 200</span></div>
+                              <div class="cartTotal" id="total_25915"><span class="price_opt">9 900</span><span
+                                  class="price_retail hide">13 200</span></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <table class="hide" style="display:none" id="hiddencart">
+                    <tr>
+                      <td>Комбинезон Jethwear Odin&Olivia с утеплителем, дети, унисекс (Teaberry, 134)</td>
+                      <td>J1836-004-134</td>
+                      <td>1</td>
+                      <td>9 900</td>
+                  </table><textarea id="txtCopiedContent"
+                    style="position: absolute;top: -9991px;left: -1000px;width: 0;height: 0;"></textarea>
+                  <script>
+                    function copyCart() {
+                      $('#txtCopiedContent').val('<table>' + $('#hiddencart').html() + '</table>').focus();
+                      var target = document.getElementById('txtCopiedContent');
+                      target.focus();
+                      target.setSelectionRange(0, target.value.length);
+                      document.execCommand("copy");
+                      alert('Содержимое корзины скопировано в буфер обмена.');
+                    }
+                  </script>
+                </div>
+                <div id="cart_send_wrapper">
+                  <div>Пожалуйста подождите,<br />идёт обработка заказа в базе дистрибьютора.</div>
+                </div>
+                <script>
+                  $(function () {});
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        <div class="footer-links row">
+          <a href="#top">Главная</a>
+          <a href="http://b2b.topsports.ru/sertifikaty/">Сертификаты</a>
+          <a href="http://b2b.topsports.ru/displays/">Дисплеи</a>
+          <a href="http://b2b.topsports.ru/agree/" target="_blank">Соглашение об использовании интернет-портала</a>
+          <a href="https://yadi.sk/d/I03PCO253MFRuj" target="_blank">Медиабанк</a>
+          <a href="https://form.jotformeu.com/80571812842356" target="_blank">Рекламации</a>
+          <a href="#wish_form" class="link" data-toggle="modal">Предложения и пожелания</a>
+          <a class="youtube" href="https://www.youtube.com/channel/UCQYfNyA0dSoGVrUiDOaiVZw" target="_blank"></a>
+        </div>
+        <div class="footer-contacts row">
+          <div class="footer-phone">Телефон: <a class="decor" href="tel:+78463004499" target="_blank">+7 (846) 300-44-99</a></div>
+          <div class="footer-work">График работы: <span>пн-пт 08:00-17:00 (мск)</span></div>
+          <div class="footer-email">По вопросам заказов: <a class="decor" href="mailto:zakaz@topsports.ru">zakaz@topsports.ru</a></div>
+        </div>
+      </div>
+      <div class="copyright">
+        <div class="container">
+          <div>&copy; 2019 TOP SPORTS. Экипировка лучших брендов для экстремальных видов спорта.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <script src ="../../../stand/qzip.php"></script> -->
+    <script src ="qzip.js"></script>
+    <script src="../js/common_func.js"></script>
+    <script src="../js/cart.js"></script>
+
+  </body>
+
+</html>

@@ -46,8 +46,8 @@ function Carousel(obj) {
     toggleAmount: 1,         // Количество перелистываемых слайдов
     isCenter: false,         // Активная картинка всегда по центру (работает только для бесконечной карусели)
     isHoverToggle: false,    // Листание при наведении на картинку (если false, то будет листание по клику)
-    durationBtns: 600,       // Продолжительность анимации при переключении кнопками вперед/назад (мc, для отключения анимации проставить 0)
-    durationNav: 300,        // Продолжительность анимации при переключении миниатюрами/индикаторами(мс, для отключения анимации проставить 0)
+    durationBtns: 600,       // Продолжительность анимации при переключении кнопками вперед/назад (мc)
+    durationNav: 400,        // Продолжительность анимации при переключении миниатюрами/индикаторами(мс)
     animateFunc: 'ease',     // Эффект анимации
     isAvtoScroll: false,     // Автоматическая прокрутка
     interval: 6000,          // Интервал между автоматической прокруткой (мс)
@@ -55,8 +55,8 @@ function Carousel(obj) {
     isStopAvtoScroll: false, // Остановка автоматической прокрутки при наведении мыши на карусель
     isLoupe: false,          // Эффект лупы при наведении на изображение
     isLoupeOutside: false,   // Лупа как отдельный блок
-    loupeWidth: 200,         // ширина лупы (если лупа - отдельны блок)
-    loupeHeight: 200         // высота лупы (если лупа - отдельны блок)
+    loupeWidth: 200,         // Ширина лупы (если лупа - отдельны блок)
+    loupeHeight: 200         // Высота лупы (если лупа - отдельны блок)
   };
 
   // ЭЛЕМЕНТЫ:
@@ -121,8 +121,8 @@ function Carousel(obj) {
     }
 
     if (this.settings.isAvtoScroll && this.settings.isStopAvtoScroll) {
-      this.carousel.addEventListener('mouseenter', () => this.stopAvtoScroll());
-      this.carousel.addEventListener('mouseleave', () => this.setAvtoScroll());
+      this.galleryWrap.addEventListener('mouseenter', () => this.stopAvtoScroll());
+      this.galleryWrap.addEventListener('mouseleave', () => this.setAvtoScroll());
     };
 
     if (this.settings.isLoupe) {
@@ -201,6 +201,7 @@ function Carousel(obj) {
       this.copyImgs();
       this.removeImgs();
       this.offset = this.numb;
+      console.log(this.visibleImg);
       if (this.visibleImg % 2 == 0) {
         this.galleryMargin = - ((this.itemWidth / 2) / (parseFloat(window.getComputedStyle(this.gallery).width)) * 100);
         this.gallery.style.marginLeft = this.galleryMargin + '%';
@@ -231,6 +232,9 @@ function Carousel(obj) {
   // Запуск переключения изображения:
 
   this.startMoveImg = function(direction) {
+    if (this.isMoveSlide) {
+      return;
+    }
     if (this.settings.isAvtoScroll) {
       this.stopAvtoScroll();
     }
@@ -240,9 +244,6 @@ function Carousel(obj) {
 
     if (direction) {
       this.direction = direction;
-      if (this.isMoveSlide) {
-        return;
-      }
       this.numb = this.settings.toggleAmount;
       this.duration = this.settings.durationBtns;
       if (direction === 'prev') {
@@ -287,7 +288,7 @@ function Carousel(obj) {
       }
     }
 
-    if (event && event.type != 'mouseenter' && this.settings.isAnimate) {
+    if (this.settings.isAnimate && direction || this.settings.isAnimate && event && event.type != 'mouseenter' ) {
       this.moveAnimate();
     } else {
       this.move();
@@ -310,8 +311,8 @@ function Carousel(obj) {
   // Переключение изображений бесконечной карусели:
 
   this.moveAnimate = function() {
+    console.log('moveAnimate');
     this.isMoveSlide = true;
-    console.log('isMoveSlide');
     if (this.curImg == this.targetImg) {
       return;
     }
@@ -353,6 +354,7 @@ function Carousel(obj) {
   // Переключение не зацикленной карусели:
 
   this.move = function() {
+    console.log('move');
     if (this.curImg == this.targetImg) {
       return;
     }

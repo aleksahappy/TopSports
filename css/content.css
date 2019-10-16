@@ -1,339 +1,4 @@
 /* =====================================================================================================
- Сброс стилей браузера по умолчанию:
-===================================================================================================== */
-
-*, *::before, *::after {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-html {
-  font-size: 10px;
-  -moz-text-size-adjust: none;
-  -webkit-text-size-adjust: none;
-  -ms-text-size-adjust: none;
-  text-size-adjust: none;
-}
-
-a {
-  display: inline-block;
-  color: inherit;
-  text-decoration: none;
-  outline: none;
-}
-
-img {
-  display: block;
-}
-
-input {
-  font-family: 'Roboto', sans-serif;
-  background: none;
-  border: none;
-  outline: none;
-}
-
-ul {
-  list-style-position: outside;
-  margin-left: 15px;
-}
-
-/* =====================================================================================================
- Основные стили:
-===================================================================================================== */
-
-body {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  font-size: 1.4rem;
-  line-height: 1.5;
-  color: rgb(0,0,0);
-  background-color: rgb(247,249,249);
-}
-
-body.no-scroll {
-  width: 100%;
-  position: fixed;
-  overflow: hidden;
-}
-
-.container {
-  margin: 0 5rem;
-}
-
-/* =====================================================================================================
- Общие стили:
-===================================================================================================== */
-
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.col {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.burger-btn,
-.search-icon {
-  position: relative;
-  font-family: 'FontAwesome';
-  font-size: 2em;
-  cursor: pointer;
-}
-
-.burger-btn::before {
-  content: '\f0c9';
-}
-
-.search-icon::before {
-  content: '\f002';
-}
-
-.search-btn {
-  background: url(../img/content/search.png) no-repeat center;
-}
-
-.clear-search-btn {
-  background: url(../img/content/search_clear.png) no-repeat center;
-}
-
-.search-btn,
-.clear-search-btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 30px;
-  height: 100%;
-  background-size: 1.2em;
-  cursor: pointer;
-  z-index: 2;
-}
-
-.close-btn {
-  position: absolute;
-  cursor: pointer;
-  z-index: 5;
-}
-
-.close-btn::before {
-  content: '\f00d';
-  font-family: 'FontAwesome';
-  cursor: pointer;
-}
-
-.left-btn {
-  left: 0;
-  background: url(../img//slider/slider_nav_left_grey.png) no-repeat center;
-}
-
-.right-btn {
-  right: 0;
-  background: url(../img/slider/slider_nav_righ_grey.png) no-repeat center;
-}
-
-.left-btn, .right-btn {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  z-index: 1;
-  cursor: pointer;
-  transition: opacity 0.3s linear;
-}
-
-.dealer-button {
-  margin-bottom: 1em;
-  padding: 0.45em 1.4em;
-  font-size: 1.15em;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
-  color: rgb(255, 255, 255);
-  background-color: rgb(241,89,42);
-  border-radius: 2px;
-  text-align: center;
-  text-decoration: none;
-}
-
-.map-btn {
-  background-color: rgb(0,0,0);
-  margin-right: 1em;
-}
-
-.visible-xs {
-  display: none;
-}
-
-.red {
-  color: rgb(255,0,0);
-}
-
-.grey {
-  color: rgb(142,135,135);
-}
-
-.fixed {
-  position: fixed;
-}
-
-.displayNone {
-  display: none !important;
-}
-
-.hidden {
-  visibility: hidden;
-}
-
-/* =====================================================================================================
- Общие стили для карусели:
-===================================================================================================== */
-
-.carousel {
-  visibility: hidden; /* обязательный стиль */
-  position: relative; /* обязательный стиль */
-  cursor: pointer;
-}
-
-.carousel-gallery-wrap {
-  position: relative;  /* обязательный стиль */
-  width: 100%;
-  overflow: hidden; /* обязательный стиль */
-}
-
-.carousel-gallery { /* все стили обязательные кроме padding */
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-}
-
-.carousel-gallery .carousel-item { /* все стили обязательные */
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 0 0 auto;
-  width: 100%; /* можно установить в % для адаптивности или в px */
-}
-
-.carousel-nav { /* навигация не является обязательной */
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.carousel-nav .carousel-item {
-  padding-right: 0.5em;
-  padding-bottom: 0.5em;
-  opacity: 0.6;
-}
-
-.carousel-nav .carousel-item.active {
-  opacity: 1;
-}
-
-.carousel-item img { /* все стили обязательные */
-  height: auto;
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-.loupe { /* если включаем лупу, то все стили обязательные */
-  position: absolute;
-  overflow: hidden;
-  background-color: rgba(85,85,85, 0.25);
-  cursor: zoom-in;
-}
-
-.big-img { /* если включаем лупу, то все стили обязательные */
-  position: absolute;
-}
-
-/* =====================================================================================================
- Стили для всплывающих подсказок:
-===================================================================================================== */
-
-[tooltip] {
-  position: relative;
-}
-
-[tooltip]::before,
-[tooltip]::after {
-  display: none;
-  position: absolute;
-  left: 50%;
-  font-size: 1.2rem;
-  line-height: 1;
-  user-select: none;
-  pointer-events: none;
-  text-transform: none;
-  transform: translate(-50%, -.5em);
-  opacity: 0;
-}
-
-[tooltip]::before {
-  content: '';
-  top: 0;
-  border: 5px solid transparent;
-  border-bottom-width: 0;
-  border-top-color: #333;
-  z-index: 1001;
-}
-
-[tooltip]::after {
-  content: attr(tooltip);
-  min-width: 3em;
-  max-width: 21em;
-  top: -23px;
-  padding: 0.5em 0.7em;
-  color: #fff;
-  background: #333;
-  border-radius: 4px;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  z-index: 1000;
-}
-
-@keyframes tooltips {
-  to {
-    opacity: .9;
-  }
-}
-
-[tooltip]:hover::before,
-[tooltip]:hover::after {
-  display: block;
-  animation: tooltips 300ms ease-out forwards;
-}
-
-/* =====================================================================================================
  Стили для основного содержимого:
 ===================================================================================================== */
 
@@ -341,7 +6,9 @@ body.no-scroll {
   min-height: 60vh;
 }
 
-/* Стили для навигации по контенту: */
+/* =====================================================================================================
+ Стили для хлебных крошек:
+===================================================================================================== */
 
 .main {
   background-color: rgb(247,249,249);
@@ -387,6 +54,10 @@ body.no-scroll {
   cursor: default;
 }
 
+/* =====================================================================================================
+ Стили для информации о поиске:
+===================================================================================================== */
+
 .main-info {
   width: 60%;
 }
@@ -404,6 +75,10 @@ body.no-scroll {
 #search-info .clear-search-btn {
   background-size: auto;
 }
+
+/* =====================================================================================================
+ Стили для переключателя вида каталога:
+===================================================================================================== */
 
 .sortbox {
   align-items: center;
@@ -464,7 +139,9 @@ body.no-scroll {
   appearance: none;
 }
 
-/* Стили для фильтров: */
+/* =====================================================================================================
+ Стили для фильтров:
+===================================================================================================== */
 
 .filters-container {
   display: none;
@@ -836,7 +513,9 @@ body.no-scroll {
   font-size: 1.15em;
 }
 
-/* Общие стили для карточек: */
+/* =====================================================================================================
+ Общие стили для карточек:
+===================================================================================================== */
 
 .ptype3 {
   text-decoration: line-through;
@@ -1035,28 +714,58 @@ body.no-scroll {
   padding-bottom: 0.5em;
 }
 
-.card-manuf-info {
+.card-manuf {
   width: 100%;
+  max-width: 50em;
 }
 
 .manuf-table {
   font-size: 0.85em;
-  border-collapse: collapse;
 }
 
-.manuf-table th {
-  min-width: 8em;
-  padding: 0.1em 0.3em;
-  font-weight: 400;
+.manuf-title,
+.manuf-row {
   border: 1px solid rgb(232,232,232);
 }
 
-.manuf-table td {
-  padding: 0.1em 0.3em;
-  border: 1px solid rgb(232,232,232);
+.manuf-title {
+  border-left: none;
 }
 
-/* Стили для малой карточки: */
+.manuf-row {
+  border-top: none;
+  border-left: none;
+}
+
+.manuf-title > div,
+.manuf-row > div {
+  padding: 0.1em 0.3em;
+  border-left: 1px solid rgb(232,232,232);
+}
+
+.manuf-title > div {
+  text-align: center;
+}
+
+.row-man {
+  width: 20%;
+}
+
+.row-oem {
+  width: 30%;
+}
+
+.row-model {
+  width: 30%;
+}
+
+.row-years {
+  width: 20%;
+}
+
+/* =====================================================================================================
+ Стили для малой карточки:
+===================================================================================================== */
 
 .min-card {
   width: 13em;
@@ -1105,7 +814,9 @@ body.no-scroll {
   width: 100%;
 }
 
-/* Стили для большой карточки: */
+/* =====================================================================================================
+ Стили для большой карточки:
+===================================================================================================== */
 
 .big-card {
   position: relative;
@@ -1291,7 +1002,9 @@ body.zip .big-card .card-container-right {
   background-image: url(../img/content/list_arrow_top.jpg);
 }
 
-/* Стили для полной карточки: */
+/* =====================================================================================================
+ Стили для полной карточки:
+===================================================================================================== */
 
 #full-card-container {
   display: none;
@@ -1411,7 +1124,9 @@ body.zip .big-card .card-container-right {
   padding-left: 1.5em;
 }
 
-/* / Стили для изображения на весь экран: */
+/* =====================================================================================================
+ Стили для изображения на весь экран:
+===================================================================================================== */
 
 #full-imgbox {
   position: fixed;
@@ -1452,17 +1167,11 @@ body.zip .big-card .card-container-right {
 }
 
 #full-imgbox .carousel {
-  max-width: 80vw;
-  max-height: 80vh;
-}
-
-#full-imgbox .carousel-gallery img {
-  max-width: 80vw;
-  max-height: 80vh;
+  max-width: 1000px;
+  max-height: 1000px;
 }
 
 #full-imgbox .carousel-gallery-wrap {
-  max-width: 1000px;
   border-radius: 5px;
 }
 
@@ -1478,14 +1187,17 @@ body.zip .big-card .card-container-right {
   opacity: 0.5;
 }
 
+#full-imgbox .carousel-gallery img {
+  max-width: 1000px;
+  max-height: 1000px;
+}
+
 #loader {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(43, 46, 56, 0.9);
   background-image: url(../img/content/page_loader.gif);
   background-repeat: no-repeat;
   background-position: center;
