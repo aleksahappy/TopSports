@@ -311,7 +311,6 @@ function Carousel(obj) {
   // Переключение изображений бесконечной карусели:
 
   this.moveAnimate = function() {
-    console.log('moveAnimate');
     this.isMoveSlide = true;
     if (this.curImg == this.targetImg) {
       return;
@@ -354,7 +353,6 @@ function Carousel(obj) {
   // Переключение не зацикленной карусели:
 
   this.move = function() {
-    console.log('move');
     if (this.curImg == this.targetImg) {
       return;
     }
@@ -464,7 +462,6 @@ function Carousel(obj) {
   // Инициализация изображения для лупы:
 
   this.initLoupe = function() {
-    console.log('mouseenter');
     if (this.img != event.currentTarget.querySelector('img')) {
       this.loupe.style.opacity = '0';
       this.img = event.currentTarget.querySelector('img');

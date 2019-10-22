@@ -50,6 +50,17 @@
     right: 0;
     box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
   }
+  .zip .subsubmenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
+  }
+  .submenu .burger-btn.sub {
+    display: block;
+  }
   .submenu.zip .burger-btn {
     display: block;
   }
@@ -104,10 +115,10 @@
   .profile-info {
     width: 40%;
   }
-  .cart div, .account div {
-    display: none;
+  #header-cart div, .account div {
+    display: none !important;
   }
-  .cart, .account {
+  #header-cart, .account {
     width: 2.5em;
     height: 2.5em;
     padding-left: 0;

@@ -63,7 +63,7 @@
   #search-info {
     align-self: flex-start;
   }
-  .view, #sort {
+  .view, #gallery-sort {
     margin-bottom: 0.6em;
   }
   .big-card {
@@ -117,12 +117,12 @@
   }
   .full-card .carousel .left-btn,
   .full-card .carousel .right-btn,
-  #full-imgbox .carousel .left-btn,
-  #full-imgbox .carousel .right-btn {
+  #full-img-container .carousel .left-btn,
+  #full-img-container .carousel .right-btn {
     opacity: 0.3 !important;
     background-color: transparent;
   }
-  #full-imgbox .carousel-gallery img {
+  #full-img-container .carousel-gallery img {
     max-width: 80vw;
     max-height: 80vh;
   }
@@ -164,7 +164,7 @@
     flex-direction: column;
     justify-content: flex-start;
   }
-  #content.list .filters-container {
+  #content.list #filters-container {
     max-width: 100%;
     width: 100%;
     margin-right: 0;
@@ -235,22 +235,22 @@
   .full-card .card-info {
     width: 100%;
   }
-  #full-imgbox .carousel {
+  #full-img-container .carousel {
     max-width: 90vw;
     max-height: 90vh;
     margin: 0 3em;
   }
-  #full-imgbox .carousel .left-btn {
+  #full-img-container .carousel .left-btn {
     background: url(../img//slider/slider_nav_left.png) no-repeat center;
     left: -1.5em;
     opacity: 1 !important;
   }
-  #full-imgbox .carousel .right-btn {
+  #full-img-container .carousel .right-btn {
     background: url(../img//slider/slider_nav_right.png) no-repeat center;
     right: -1.5em;
     opacity: 1 !important;
   }
-  #full-imgbox .carousel-gallery img {
+  #full-img-container .carousel-gallery img {
     max-width: 80vw;
     max-height: 80vh;
   }
@@ -272,7 +272,7 @@
   #content {
     flex-direction: column;
   }
-  .filters-container {
+  #filters-container {
     width: 100%;
     max-width: 100%;
     margin-right: 0;

@@ -4,24 +4,23 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="../img/top_sports_logo_black_short_transparency.png">
-    <title>ТОП СПОРТС - Экипировка</title>
+    <link rel="icon" href="../../img/top_sports_logo_black_short_transparency.png">
+    <title>ТОП СПОРТС</title>
     <meta name="keywords" content="ТОП СПОРТС">
     <meta name="description" content="ТОП СПОРТС">
-    <link rel="stylesheet" type="text/css" href="../css/fonts.css">
-    <link rel="stylesheet" type="text/css" href="../css/common.css">
-    <link rel="stylesheet" type="text/css" href="../css/content.css">
-    <link rel="stylesheet" type="text/css" href="../css/header_footer_ts.css">
-    <link rel="stylesheet" type="text/css" href="../css/media_content.css">
-    <link rel="stylesheet" type="text/css" href="../css/media_header_footer_ts.css">
-    <link rel="stylesheet" type="text/css" href="../css/map.css">
+    <link rel="stylesheet" type="text/css" href="../../css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="../../css/header_footer_ts.css">
+    <link rel="stylesheet" type="text/css" href="css/media.css">
+    <link rel="stylesheet" type="text/css" href="../../css/media_header_footer_ts.css">
+    <link rel="stylesheet" type="text/css" href="../../css/map.css">
   </head>
 
-  <body id="ts_ek" class="ekipirovka">
+  <body>
     <div class="header">
       <div class="header-main">
         <div class="container row">
-          <a class="logo" href="../ts_main/"><img src="../img/header_footer/top_sports_logo.png" alt="Логотип"/></a>
+          <a class="logo" href="#top"><img src="../../img/header_footer/top_sports_logo.png" alt="Логотип"/></a>
           <div class="header-contacts row">
             <a class="header-phone hidden-xs" href="tel:+78463004499" target="_blank" >+7 (846) 300-44-99</a>
             <span class="hidden-xs">(8:00–17:00 мск)</span>
@@ -48,294 +47,334 @@
         </div>
         <div class="main-menu">
           <div class="container row">
-            <div class="topmenu row">
-              <a class="topmenu-item activ" data-level="1" data-href="ts_ek" onclick="openPage()">Экипировка</a>
-            </div>
-            <div class="main-menu-btns row">
-              <div class="burger-btn visible-xs" onclick="toggleSubmenu()"></div>
-              <div class="search-icon visible-xs" onclick="toggleSearch()"></div>
-            </div>
-            <form action="#" class="search" onsubmit="findOnPage(event)">
-              <input id="search" type="text" autocomplete="off" placeholder="Поиск">
-              <div class="search-btn" onclick="findOnPage(event)"></div>
-              <div class="clear-search-btn" onclick="clearSearch()"></div>
-            </form>
-          </div>
-        </div>
-        <div class="submenu">
-          <div class="container">
-            <div class="submenu-items ekipirovka">
-              <a class="submenu-item" data-level="2" data-href="odegda" onclick="openPage()">Одежда</a>
-              <a class="submenu-item" data-level="2" data-href="obuv" onclick="openPage()">Обувь</a>
-              <a class="submenu-item" data-level="2" data-href="shlem" onclick="openPage()">Шлемы</a>
-              <a class="submenu-item" data-level="2" data-href="optic" onclick="openPage()">Оптика</a>
-              <a class="submenu-item" data-level="2" data-href="snarag" onclick="openPage()">Снаряжение</a>
-              <a class="submenu-item" data-level="2" data-href="zashita" onclick="openPage()">Защита</a>
-              <a class="submenu-item" data-level="2" data-href="sumruk" onclick="openPage()">Сумки и рюкзаки</a>
+            <div class="topmenu">
+              <a class="topmenu-item" href="../">Экипировка</a>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="main">
+    <div class="carousel" data-type="main" data-img="0">
+      <div class="carousel-gallery-wrap">
+        <div class="left-btn"></div>
+        <div class="right-btn"></div>
+        <div class="carousel-gallery">
+          <div class="carousel-item" data-numb="0" style="background-image: url(img/slider/509.jpg)">
+            <img src="img/slider/509.jpg">
+          </div>
+          <div class="carousel-item" data-numb="1" style="background-image: url(img/slider/fxr.jpg)">
+            <img src="img/slider/fxr.jpg">
+          </div>
+          <div class="carousel-item" data-numb="2" style=" background-image: url(img/slider/abom.jpg)">
+            <img src="img/slider/abom.jpg">
+          </div>
+          <div class="carousel-item" data-numb="3" style="background-image: url(img/slider/evs.jpg)">
+            <img src="img/slider/evs.jpg">
+          </div>
+          <div class="carousel-item" data-numb="4" style="background-image: url(img/slider/ogio.jpg)">
+            <img src="img/slider/ogio.jpg">
+          </div>
+          <div class="carousel-item" data-numb="5" style="background-image: url(img/slider/bca.jpg)">
+            <img src="img/slider/bca.jpg">
+          </div>
+          <div class="carousel-item" data-numb="6" style="background-image: url(img/slider/sixs.jpg)">
+            <img src="img/slider/sixs.jpg">
+          </div>
+          <div class="carousel-item" data-numb="7" style="background-image: url(img/slider/fxr-mx.jpg)">
+            <img src="img/slider/fxr-mx.jpg">
+          </div>
+          <div class="carousel-item" data-numb="8" style="background-image: url(img/slider/spy.jpg)">
+            <img src="img/slider/spy.jpg">
+          </div>
+          <div class="carousel-item" data-numb="9" style="background-image: url(img/slider/tobe.jpg)">
+            <img src="img/slider/tobe.jpg">
+          </div>
+        </div>
+        <div class="carousel-title">
+          <div class="container col">
+            <div class="title">Официальный дистрибьютор Лучших<br/>мировых брендов экипировки<br/>для экстремальных<br/>видов спорта</div>
+            <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about">
       <div class="container">
-        <div class="main-header row">
-          <div id="main-nav" class="main-nav">
-            <a href="../ts_main/">Главная</a>
-            <span class="nav-item #isCurPage#" data-href="#pageUrl#" onclick="openPage()">#pageTitle#</span>
-          </div>
-          <div class="main-info row">
-            <div id="search-info">
-              Результаты поиска (<span id="search-count">0</span>)
-              <div class="clear-search-btn" onclick="clearSearch()"></div>
-            </div>
-            <div class="sortbox row">
-              <div class="view row">
-                <div class="view-title">Вид каталога:</div>
-                <div class="tooltip" tooltip="Cписок">
-                  <div class="view-list activ" onclick="toggleView('list')"></div>
-                </div>
-                <div class="tooltip" tooltip="Плитка">
-                  <div class="view-blocks" onclick="toggleView('blocks')"></div>
-                </div>
-              </div>
-              <select id="sort" onchange="sortItems()">
-                <option selected disabled>Сортировать по</option>
-                <option value="title">По наименованию</option>
-                <option value="price1">Цена по возрастанию</option>
-                <option value="-price1">Цена по убыванию</option>
-                <option value="-is_new">Новые поступления</option>
-              </select>
+        <div class="title">Цифры, которые говорят сами за себя</div>
+        <div class="row">
+          <div class="about-item">
+            <div class="about-container">
+              <img src="img/about/bg_about_years.png">
+              <div class="about-count">8</div>
+              <div class="text">лет на рынке Powersports</div>
             </div>
           </div>
-        </div>
-        <div id="content" class="list row">
-          <div class="filters-container">
-            <div class="filters">
-              <div class="default-btn" onclick="clearFilters()">Очистить фильтры</div>
-              <div id="menu-filters">
-                <div id=filter-#key# class="filter #isShowFilter#" onclick="toggleFilter(event)">
-                  <div class="filter-title">#title#</div>
-                  <div class="filter-items">
-                    <div class="filter-item item" data-type="item" data-key="#key#" data-value="#value#" onclick="selectValue(event)">
-                      <div class="filter-title-container row">
-                        <div class="filter-item-title">#title#</div>
-                        <div class="open-btn #isHiddenOpenBtn#" onclick="toggleFilterItem(event)"></div>
-                        <div class="close-btn"></div>
-                      </div>
-                      <div class="filter-subitems">
-                        <div class="filter-item subitem" data-type="subitem" data-key="#key#" data-value="#value#" onclick="selectValue(event)">
-                          <div class="filter-item-title">#title#</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div class="about-item">
+            <div class="about-container">
+              <img src="img/about/bg_about_items.png">
+              <div class="about-count">24000</div>
+              <div class="text">товарных позиций в наличии на нашем складе</div>
             </div>
           </div>
-          <div id="gallery" class="row">
-            <div id="min-card-#object_id#" class="min-card card col" onclick="showFullCard(#object_id#)">
-              <div class="card-img-wrap">
-                <img class="card-img" src="#images#">
-              </div>
-              <div class="card-promo">
-                <div class="promo-title" style="background-color: #actioncolor#">#actiontitle#</div>
-              </div>
-              <div class="card-title">#title#</div>
-              <div class="card-price-container row">
-                <div class="card-price row">
-                  <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
-                  <div class="new-price red">#price_preorder#&#8288;.-</div>
-                </div>
-                <div class="tooltip" tooltip="#qtyTitle#">
-                  <div class="card-qty #isAvaliable#"></div>
-                </div>
-              </div>
-            </div>
-            <div id="big-card-#object_id#" class="big-card card" data-object-id="#object_id#" onclick="closeBigCard(event)">
-              <div class="card-container">
-                <div class="big-card-head row">
-                  <div class="card-head">
-                    <div class="card-title">#title#</div>
-                    <div class="card-articul grey">Код продукта: #articul#</div>
-                  </div>
-                  <div class="card-info-title row">
-                    <div class="card-promo #isHiddenPromo#">
-                      <div class="promo-title" style="background-color: #actioncolor#">#actiontitle#</div>
-                    </div>
-                    <div class="card-price opt row">
-                      <div class="card-price-title grey">Оптовая цена:</div>
-                      <div class="card-price-wrap row">
-                        <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
-                        <div class="new-price red">#price_preorder#&#8288;.-</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="big-card-body row">
-                  <div class="card-container-left row">
-                    <div class="carousel" data-type="bigCard" data-img="0">
-                      <div class="left-btn btn"></div>
-                      <div class="right-btn btn"></div>
-                      <div class="carousel-gallery-wrap">
-                        <div class="carousel-gallery">
-                          <div class="carousel-item" data-numb="#imgNumb#" onclick="showFullImg(#object_id#)">
-                            <img src="#image#">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-options-container">
-                      <div class="card-price retail row ">
-                        <div class="card-price-title grey">РРЦ:</div>
-                        <div class="price-user">#price_user#.-</div>
-                      </div>
-                      <div class="card-options">
-                        <div class="card-option row">
-                          <div class="option-title grey">#optitle#</div>
-                          <div class="option-info">#option#</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-container-right">
-                    <div class="card-sizes row">
-                      <div class="card-size">
-                        <div class="size-articul grey">Артикул: #articul#</div>
-                        <div class="size-choice row">
-                          <div class="size-name">#size#</div>
-                          <div class="size-qty row">
-                            <a class="btn-minus" href="http://b2b.topsports.ru/" target="_blank">-</a>
-                            <input class="choice-qty" type="text" autocomplete="off" placeholder="0" disabled>
-                            <a class="btn-plus" href="http://b2b.topsports.ru/" target="_blank">+</a>
-                          </div>
-                        </div>
-                        <div class="tooltip" tooltip="#qtyTitle#">
-                          <div class="card-qty #isAvaliable#">#free_qty#&nbsp;шт.</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
-                    <div class="card-notice red">#notice#</div>
-                    <div class="card-btns">
-                      <a class="dealer-button map-btn" onclick="showDealersList(event)">КАРТА ДИЛЕРОВ</a>
-                      <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-description hidden-xxs #isHiddenDesc#">
-                <div class="description-title">Описание:</div>
-                <div class="card-text">#desc#</div>
-              </div>
-              <div class="card-fade"></div>
-              <div class="toggle-btn" tooltip="Раскрыть" onclick="openBigCard(event)"></div>
+          <div class="about-item">
+            <div class="about-container">
+              <img src="img/about/bg_about_brands.png">
+              <div class="about-count">>20</div>
+              <div class="text">поставщиков экипировки, запчастей и аксесуаров от лидеров рынка</div>
             </div>
           </div>
-          <div id="gallery-notice" class="gallery red">
-            <div>По выбранным фильтрам товаров не найдено</div>
-          </div>
-          <div id="full-card-container" onclick="closeFullCard(event)">
-            <div id="full-card-#object_id#" class="full-card card" data-object-id="#object_id#">
-              <div class="close-btn"></div>
-              <div class="card-container row">
-                <div class="carousel" data-type="fullCard" data-img="0">
-                  <div class="search-btn"></div>
-                  <div class="carousel-gallery-wrap">
-                    <div class="left-btn btn"></div>
-                    <div class="right-btn btn"></div>
-                    <div class="carousel-gallery">
-                      <div class="carousel-item row" data-numb="#imgNumb#">
-                        <img src="#image#" data-src="#full-image#">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-info">
-                  <div class="card-head">
-                    <div class="card-title">#title#</div>
-                    <div class="card-articul grey">Код продукта: #articul#</div>
-                    <div class="card-promo #isHiddenPromo#">
-                        <div class="promo-title" style="background-color: #actioncolor#">#actiontitle#</div>
-                    </div>
-                    <div class="card-price opt row">
-                        <div class="card-price-title">Оптовая цена:</div>
-                        <div class="card-price-wrap row">
-                            <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
-                            <div class="new-price red">#price_preorder#&#8288;.-</div>
-                        </div>
-                    </div>
-                    <div class="card-price retail row">
-                      <div class="card-price-title grey">Розничная цена:</div>
-                      <div class="price-user">#price_user#.-</div>
-                    </div>
-                    <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
-                  </div>
-                  <div class="card-options">
-                    <div class="card-option row">
-                      <div class="option-title grey">#optitle#</div>
-                      <div class="option-info">#option#</div>
-                    </div>
-                  </div>
-                  <div class="card-sizes row">
-                    <div class="card-size">
-                      <div class="size-articul grey">Артикул: #articul#</div>
-                      <div class="size-choice row">
-                        <div class="size-name">#size#</div>
-                        <div class="size-qty row">
-                          <a class="btn-minus" href="http://b2b.topsports.ru/" target="_blank">-</a>
-                          <input class="choice-qty" type="text" autocomplete="off" placeholder="0" disabled>
-                          <a class="btn-plus" href="http://b2b.topsports.ru/" target="_blank">+</a>
-                        </div>
-                      </div>
-                      <div class="tooltip" tooltip="#qtyTitle#">
-                        <div class="card-qty #isAvaliable#">#free_qty#&nbsp;шт.</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-notice red">#notice#</div>
-                  <div class="card-btns">
-                    <a class="dealer-button map-btn" href="" onclick="showDealersList(event)">КАРТА ДИЛЕРОВ</a>
-                    <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
-                  </div>
-                </div>
-              </div>
-              <div class="card-description hidden-xxs #isHiddenDesc#">
-                <div class="description-title">Описание:</div>
-                <div class="card-text">#desc#</div>
-              </div>
+          <div class="about-item">
+            <div class="about-container">
+              <img src="img/about/bg_about_offices.png">
+              <div class="about-count">3</div>
+              <div class="text">представительства в России: Москва, Самара, Южно-Сахалинск</div>
             </div>
           </div>
-          <div id="full-imgbox" onclick="closeFullImg()">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path>
-            </svg>
-            <div class="full-imgbox-content row">
-              <div class="carousel" data-type="fullImg" data-img="0">
-                <div class="left-btn btn"></div>
-                <div class="right-btn btn"></div>
-                <div class="carousel-gallery-wrap">
-                  <div class="carousel-gallery">
-                    <div class="carousel-item" data-numb="#imgNumb#">
-                      <img src="#image#">
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div class="about-item">
+            <div class="about-container">
+              <img src="img/about/bg_about_sities.png">
+              <div class="about-count">32</div>
+              <div class="text">города присутствия; мы рады начать сотрудничество в новых регионах</div>
+            </div>
+          </div>
+          <div class="about-item">
+            <div class="about-container">
+              <img src="img/about/bg_about_shops.png">
+              <div class="about-count">>168</div>
+              <div class="text">точек продаж наших товаров в России и странах СНГ</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div id="loader"></div>
+    <div class="geography">
+      <div class="container">
+        <div class="title">Кто наши клиенты?</div>
+        <div class="row">
+          <div class="geography-descr">
+            <div class="subtitle">Поставляем экипировку и запчасти по всей России И СНГ</div>
+            <div class="text">
+              Наша дилерская сеть охватывает всю территорию России – от Мурманска до
+              Петропавловска-Камчатского. Так же мы поставляем продукцию в Казахстан и ищем дилеров в новых регионах.
+              Головные офисы расположены в Москве, Самаре и Южно-Сахалинске.<br><br>Мы будем рады сотрудничеству с
+              компаниями, заинтересованными в развитии отрасли и активном продвижении наших брендов. Мы всегда готовы
+              оказать поддержку новым клиентам: предоставление образцов, обучение персонала, мерчандайзинг, контент для
+              сайта, маркетинговый календарь, и любые профессиональные консультации являются частью нашей концепции
+              взаимодействия с клиентом.
+            </div>
+            <div class="geography-btns row">
+              <a class="dealer-button map-btn" onclick="showDealersList(event)">КАРТА ДИЛЕРОВ</a>
+              <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
+            </div>
+          </div>
+          <div class="circle">
+            <img src="img/geography/circle.png">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="brands">
+      <div class="container">
+        <div class="title">Наши поставщики</div>
+        <div class="row">
+          <div class="brands-select">
+            <div class="subtitle">Принципы выбора поставщиков:</div>
+            <div class="select-item">
+              <div class="select-count one">1</div>
+              <div class="text">Высокое качество поставляемой продукции</div>
+            </div>
+            <div class="select-item">
+              <div class="select-count two">2</div>
+              <div class="text">Наличие сертификатов качества и разрешительной документации</div>
+            </div>
+            <div class="select-item">
+              <div class="select-count three">3</div>
+              <div class="text">Уникальность дизайна и ежегодная смена коллекций</div>
+            </div>
+            <div class="select-item">
+              <div class="select-count four">4</div>
+              <div class="text">Высокая технологичность продукции и наличие запатентованных технологий</div>
+            </div>
+            <div class="select-item">
+              <div class="select-count five">5</div>
+              <div class="text">Прогнозируемый спрос на продукцию</div>
+            </div>
+          </div>
+          <div class="brands-names row hidden-xs">
+            <a class="brand" href="../ekipirovka/???">
+              <img src="img/brands/fxr.png" />
+            </a>
+            <a class="brand" href="../ekipirovka/???">
+              <img src="img/brands/bca.png" />
+            </a>
+            <a class="brand" href="../ekipirovka/???">
+              <img src="img/brands/tobe.png" />
+            </a>
+            <a class="brand" href="../ekipirovka/???">
+              <img src="img/brands/abom.png" />
+            </a>
+            <a class="brand" href="../ekipirovka/???">
+              <img src="img/brands/509.png" />
+            </a>
+            <a class="brand" href="../ekipirovka/???">
+              <img src="img/brands/hmk.png" />
+            </a>
+            <a class="brand" href="../ekipirovka/???">
+              <img src="img/brands/hord.png" />
+            </a>
+            <a class="brand" href="../ekipirovka/???5">
+              <img src="img/brands/sixs.png" />
+            </a>
+            <div class="brand">
+              <img src="img/brands/silky.png" />
+            </div>
+            <a class="brand" href="../ekipirovka/???5">
+              <img src="img/brands/fullt.png" />
+            </a>
+            <a class="brand" href="../ekipirovka/???">
+              <img src="img/brands/spy.png" />
+            </a>
+            <a class="brand" href="../ekipirovka/???">
+              <img src="img/brands/evs.png" />
+            </a>
+            <a class="brand" href="../ekipirovka/???">
+              <img src="img/brands/ogio.png" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="work">
+      <div class="container">
+        <div class="title">Как начать сотрудничество?</div>
+        <div class="row">
+          <div class="step">
+            <div class="step-container">
+              <div class="step-imgbox row">
+                <div class="step-count one">1</div>
+                <img src="img/work/work_one.png" />
+              </div>
+              <div class="step-title">Регистрация<br>и проверка контрагента</div>
+              <div class="step-text">
+                Для того, чтобы стать нашим дилером, необходимо
+                <a href="http://b2b.topsports.ru/" target="_blank">зарегистрироваться</a>
+                на дилерском портале.
+              </div>
+            </div>
+            <div class="arrow"></div>
+          </div>
+          <div class="step">
+            <div class="step-container">
+              <div class="step-imgbox row">
+                <div class="step-count two">2</div>
+                <img src="img/work/work_two.png" />
+              </div>
+              <div class="step-title">Доступ<br>на дилерский портал</div>
+              <div class="step-text">
+                Вы получите доступ к каталогу товаров и личному кабинету, а так же сможете загрузить свои
+                магазины на <a onclick="showDealersList(event)">карту дилеров</a>.
+              </div>
+            </div>
+            <div class="arrow"></div>
+          </div>
+          <div class="step">
+            <div class="step-container">
+              <div class="step-imgbox row">
+                <div class="step-count three">3</div>
+                <img src="img/work/work_three.png" />
+              </div>
+              <div class="step-title">Формирование<br>и подтверждение заказа</div>
+              <div class="step-text">Как только Вы сформируете заказ, его подтвердит наш менеджер, и Вы сможете скачать счет для оплаты.</div>
+            </div>
+            <div class="arrow"></div>
+          </div>
+          <div class="step">
+            <div class="step-container">
+              <div class="step-imgbox row">
+                <div class="step-count four">4</div>
+                <img src="img/work/work_four.png" />
+              </div>
+              <div class="step-title">Заключение договора<br>поставки и оплата</div>
+              <div class="step-text">Вместе с первым счетом Вы получите договор поставки и коммерческую политику. При оформлении заказа Вы можете выбрать удобный для Вас способ оплаты.</div>
+            </div>
+            <div class="arrow"></div>
+          </div>
+          <div class="step">
+            <div class="step-container">
+              <div class="step-imgbox row">
+                <div class="step-count five">5</div>
+                <img src="img/work/work_five.png" />
+              </div>
+              <div class="step-title">Сбор заказа<br>и отгрузка</div>
+              <div class="step-text">Вы можете выбрать отгрузку транспортной компанией, курьерскую доставку или самовывоз.</div>
+            </div>
+            <div class="arrow"></div>
+          </div>
+        </div>
+        <div class="subtitle">Вся необходимая для работы информация доступна дилеру в личном кабинете</div>
+      </div>
+    </div>
+
+    <div class="clients">
+      <div class="container">
+        <div class="title">Совершенствуйся вместе с нашими клиентами</div>
+        <div class="row">
+          <div class="step">
+            <div class="step-container">
+              <img src="img/clients/clients_one.png">
+              <div class="step-title">Спонсорство</div>
+              <div class="step-text">Соревнований и райдеров</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-container">
+              <img src="img/clients/clients_two.png">
+              <div class="step-title">Мерчандайзинг и торговое оборудование</div>
+              <div class="step-text">Мы предоставляем дилером торговое оборудование и помогаем правильно оформить торговую точку</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-container">
+              <img src="img/clients/clients_three.png">
+              <div class="step-title">Предзаказы</div>
+              <div class="step-text">Проводим показы новых коллекций в рамках дилерских конференций</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-container">
+              <img src="img/clients/clients_four.png">
+              <div class="step-title">Обучение персонала дилера</div>
+              <div class="step-text">Мы с удовольствием проведем обучение персонала дилера</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-container">
+              <img src="img/clients/clients_five.png">
+              <div class="step-title">Рекламная поддержка</div>
+              <div class="step-text">Оказываем рекламную и дизайнерскую поддержку дилерам</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-container">
+              <img src="img/clients/clients_six.png">
+              <div class="step-title">Акции и распродажи</div>
+              <div class="step-text">В соответствии с маркетинговым календарем проводим акции и распродажи</div>
+            </div>
+          </div>
+        </div>
+        <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
+      </div>
+    </div>
 
     <div class="footer">
       <div class="container">
         <div class="footer-links row">
-          <a href="../ts_main/">Главная</a>
+          <a href="#top">Главная</a>
           <a onclick="showDealersList(event)">Где купить</a>
           <a href="http://b2b.topsports.ru/" target="_blank">Стать дилером</a>
           <a href="https://goo.gl/forms/KlWpmVVR9FQR7MwW2" target="_blank">Стать райдером</a>
@@ -354,14 +393,11 @@
       </div>
     </div>
 
-    <script src="http://api.topsports.ru/spad/q2.php"></script>
-    <script src="filters_ekipirovka.js"></script>
-    <script src="../js/carousel.js"></script>
-    <script src="../js/common_func.js"></script>
-    <script src="../js/content.js"></script>
-    <script src="../js/jquery-1.9.1.min.js"></script>
+    <script src="../../js/carousel.js"></script>
+    <script src="main.js"></script>
+    <script src="../../js/jquery-1.9.1.min.js"></script>
     <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-    <script src="../js/create_map.js"></script>
+    <script src="../../js/create_map.js"></script>
     <script type="application/json" id="map-points">
       {
         "\u0410\u0440\u0445\u0430\u043d\u0433\u0435\u043b\u044c\u0441\u043a": [{
@@ -1225,7 +1261,7 @@
         }]
       }
     </script>
-    <script src="../js/map.js"></script>
+    <script src="../../js/map.js"></script>
 
   </body>
 </html>

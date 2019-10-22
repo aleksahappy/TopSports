@@ -1,12 +1,35 @@
 'use strict';
 
 //=====================================================================================================
+// Первоначальные данные для работы:
+//=====================================================================================================
+
+// Константы:
+
+var website =  document.body.dataset.website,
+    pageId = document.body.id,
+    isCart = document.getElementById('cart');
+
+// Динамически изменяемые переменные:
+
+var pageInfo;
+
+// Переменные для циклов:
+
+var isExsist,
+    item,
+    key,
+    k,
+    kk,
+    kkk,
+    i;
+
+//=====================================================================================================
 // Визуальное отображение контента на странице:
 //=====================================================================================================
 
 // Установка отступов документа:
 
-setPaddingToBody();
 window.addEventListener('resize', setPaddingToBody);
 
 function setPaddingToBody() {
@@ -186,7 +209,7 @@ function deleteCookie(key) {
 // Получение данных о странице по ключу:
 
 function getInfo(key) {
-  pageInfo = getFromLocal(pageId) ? getFromLocal(pageId) : {};
+  pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
   if (!pageInfo[key]) {
     pageInfo[key] = {};
   }
@@ -196,10 +219,10 @@ function getInfo(key) {
 // Сохранение данных о странице по ключу:
 
 function saveInfo(key, data) {
-  pageInfo = getFromLocal(pageId) ? getFromLocal(pageId) : {};
+  pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
   if (!pageInfo[key]) {
     pageInfo[key] = {};
   }
   pageInfo[key] = data;
-  saveInLocal(pageId, pageInfo);
+  saveInLocal(website, pageInfo);
 }

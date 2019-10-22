@@ -142,6 +142,15 @@ body.no-scroll {
   cursor: pointer;
 }
 
+.left-btn, .right-btn {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 1;
+  cursor: pointer;
+  transition: opacity 0.3s linear;
+}
+
 .left-btn {
   left: 0;
   background: url(../img//slider/slider_nav_left_grey.png) no-repeat center;
@@ -150,15 +159,6 @@ body.no-scroll {
 .right-btn {
   right: 0;
   background: url(../img/slider/slider_nav_righ_grey.png) no-repeat center;
-}
-
-.left-btn, .right-btn {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  z-index: 1;
-  cursor: pointer;
-  transition: opacity 0.3s linear;
 }
 
 .dealer-button {

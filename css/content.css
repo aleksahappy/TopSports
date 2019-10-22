@@ -121,9 +121,9 @@
   content: '\f00a';
 }
 
-#sort {
+#gallery-sort {
   position: relative;
-  padding: 0.15em 1.5em 0.2em 0.3em;
+  padding: 0.15em 1.5em 0.15em 0.3em;
   font-size: 1em;
   line-height: 1;
   font-family: 'Roboto', sans-serif;
@@ -143,7 +143,7 @@
  Стили для фильтров:
 ===================================================================================================== */
 
-.filters-container {
+#filters-container {
   display: none;
   width: 16em;
   margin-right: 1rem;
@@ -555,11 +555,10 @@
 }
 
 .card-size .tooltip {
-  justify-content: flex-start;
   max-width: 5em;
 }
 
-.card-qty {
+.avaliable-qty {
   display: inline-block;
   position: relative;
   height: 1em;
@@ -568,7 +567,7 @@
   color: rgb(0,176,104);
 }
 
-.card-qty::before {
+.avaliable-qty::before {
   position: absolute;
   top: 0;
   left: 2px;
@@ -651,7 +650,7 @@
   border-color: rgb(0,0,0);
 }
 
-.size-qty {
+.product-qty {
   align-items: center;
   font-size: 1.5em;
   font-weight: 700;
@@ -661,7 +660,7 @@
   border-radius: 0 2px 2px 0;
 }
 
-.in-cart .size-qty {
+.in-cart .product-qty {
   color: rgb(0,0,0);
 }
 
@@ -680,7 +679,7 @@
   cursor: pointer;
 }
 
-.choice-qty {
+.choiced-qty {
   width: 2em;
   font-size: 0.85em;
   font-weight: 700;
@@ -688,16 +687,16 @@
   text-align: center;
 }
 
-.choice-qty::-webkit-input-placeholder { color: rgb(185,183,190); }
-.choice-qty::-ms-input-placeholder { color: rgb(185,183,190); }
-.choice-qty::-ms-input-placeholder { color: rgb(185,183,190); }
-.choice-qty::placeholder { color: rgb(185,183,190); }
+.choiced-qty::-webkit-input-placeholder { color: rgb(185,183,190); }
+.choiced-qty::-ms-input-placeholder { color: rgb(185,183,190); }
+.choiced-qty::-ms-input-placeholder { color: rgb(185,183,190); }
+.choiced-qty::placeholder { color: rgb(185,183,190); }
 
-.choice-qty:disabled {
+.choiced-qty:disabled {
   opacity: 1
 }
 
-.in-cart .choice-qty {
+.in-cart .choiced-qty {
   color: rgb(0,0,0);
 }
 
@@ -723,12 +722,12 @@
   font-size: 0.85em;
 }
 
-.manuf-title,
+.manuf-headers,
 .manuf-row {
   border: 1px solid rgb(232,232,232);
 }
 
-.manuf-title {
+.manuf-headers {
   border-left: none;
 }
 
@@ -737,13 +736,13 @@
   border-left: none;
 }
 
-.manuf-title > div,
+.manuf-headers > div,
 .manuf-row > div {
   padding: 0.1em 0.3em;
   border-left: 1px solid rgb(232,232,232);
 }
 
-.manuf-title > div {
+.manuf-headers > div {
   text-align: center;
 }
 
@@ -1128,7 +1127,7 @@ body.zip .big-card .card-container-right {
  Стили для изображения на весь экран:
 ===================================================================================================== */
 
-#full-imgbox {
+#full-img-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -1141,7 +1140,7 @@ body.zip .big-card .card-container-right {
   opacity: 0;
 }
 
-#full-imgbox svg {
+#full-img-container svg {
   position: absolute;
   top: 0;
   right: 0;
@@ -1150,15 +1149,15 @@ body.zip .big-card .card-container-right {
   z-index: 1;
 }
 
-#full-imgbox svg path {
+#full-img-container svg path {
   fill: rgb(255, 255, 255);
 }
 
-#full-imgbox svg:hover path {
+#full-img-container svg:hover path {
   fill: rgb(241,90,41);
 }
 
-#full-imgbox .full-imgbox-content {
+#full-img-container .full-img {
   position: relative;
   justify-content: center;
   align-items: center;
@@ -1166,28 +1165,28 @@ body.zip .big-card .card-container-right {
   height: 100%;
 }
 
-#full-imgbox .carousel {
+#full-img-container .carousel {
   max-width: 1000px;
   max-height: 1000px;
 }
 
-#full-imgbox .carousel-gallery-wrap {
+#full-img-container .carousel-gallery-wrap {
   border-radius: 5px;
 }
 
-#full-imgbox .carousel .left-btn,
-#full-imgbox .carousel .right-btn {
+#full-img-container .carousel .left-btn,
+#full-img-container .carousel .right-btn {
   width: 3em;
   background-color: rgb(255, 255, 255, 0.5);
   opacity: 0;
 }
 
-#full-imgbox .carousel:hover .left-btn,
-#full-imgbox .carousel:hover .right-btn {
+#full-img-container .carousel:hover .left-btn,
+#full-img-container .carousel:hover .right-btn {
   opacity: 0.5;
 }
 
-#full-imgbox .carousel-gallery img {
+#full-img-container .carousel-gallery img {
   max-width: 1000px;
   max-height: 1000px;
 }
