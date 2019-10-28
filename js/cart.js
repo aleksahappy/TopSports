@@ -8,12 +8,14 @@
 
 var headerCartAmount = headerCart.querySelector('.cart-amount span'),
     headerCartPrice = headerCart.querySelector('.cart-price span'),
+    headerCartType = headerCart.querySelector('.cart-type'),
     cart = document.getElementById('cart');
 
 if (cart) {
   var cartFull = document.getElementById('cart-full'),
       cartEmpty = document.getElementById('cart-empty'),
-      cartSort = document.getElementById('sort-select'),
+      cartLinks = document.getElementById('cart-links'),
+      cartLinksList = document.getElementById('cart-links-list'),
       cartInfo = document.getElementById('cart-info'),
       cartAmount = cartInfo.querySelector('.amount'),
       cartRetailPrice = cartInfo.querySelector('.retail-price'),
@@ -40,7 +42,8 @@ if (cart) {
 
   // Получение шаблонов из HTML:
 
-  var cartRowTemplate = document.querySelector('.cart-row').outerHTML,
+  var cartLinkTemplate = document.getElementById('cart-links-list').innerHTML,
+      cartRowTemplate = document.querySelector('.cart-row').outerHTML,
       cartTableRowTemplate = document.querySelector('tr').outerHTML;
 }
 
@@ -56,6 +59,14 @@ var cartInfo,
     totalAmount,
     totalPrice,
     totalRetailPrice;
+
+//=====================================================================================================
+// Первичное отображение корзины в шапке сайта:
+//=====================================================================================================
+
+if (headerCart) {
+  changeHeaderCart();
+}
 
 //=====================================================================================================
 // Изменение данных о состоянии корзины:
@@ -100,11 +111,11 @@ function changeHeaderCart() {
   totalAmount = 0;
   totalPrice = 0;
   curSection = document.querySelector('.topmenu-item.active');
-  console.log(curSection);
   curType = '';
 
   if (curSection) {
     curType = curSection.textContent;
+    headerCartType.textContent = '(' + curType + ')';
   }
 
   for (key in cartInfo) {
@@ -113,18 +124,15 @@ function changeHeaderCart() {
         curQty = cartInfo[key].qty;
         curPrice = cartInfo[key].price;
         articulPrice = curQty * curPrice;
-        console.log(curQty);
-        console.log(curPrice);
-        console.log(articulPrice);
         totalAmount += curQty;
         totalPrice += articulPrice;
       }
     } else {
-      // curQty = cartInfo[key].qty,
-      // curPrice = cartInfo[key].price,
-      // articulPrice = qty * curPrice;
-      // totalAmount += qty;
-      // totalPrice += articulPrice;
+      curQty = cartInfo[key].qty,
+      curPrice = cartInfo[key].price,
+      articulPrice = curQty * curPrice;
+      totalAmount += curQty;
+      totalPrice += articulPrice;
     }
   }
   headerCartAmount.textContent = totalAmount;
@@ -154,10 +162,32 @@ function renderCart() {
     cartFull.style.display = 'none';
   } else {
     changeHeaderCart();
+    createCartLinks();
     createCartList();
     changeCartInfo();
   }
   cart.style.display = 'block';
+}
+
+// Создание ссылок на другие корзины:
+
+var linksList,
+    newLink;
+
+function createCartLinks() {
+  linksList = '';
+  document.querySelectorAll('.topmenu-item:not(.active)').forEach(item => {
+    newLink = cartLinkTemplate;
+    newLink = newLink
+      .replace('#href#', item.href + '?cart')
+      .replace('#type#', item.textContent);
+      console.log(newLink);
+    linksList += newLink;
+  });
+  if (linksList != '') {
+    cartLinksList.innerHTML = linksList;
+    cartLinks.style.display = 'flex';
+  }
 }
 
 // Создание списка товаров корзины:
@@ -171,28 +201,28 @@ function createCartList() {
   cartList = '';
   cartTableList = '';
   curType = document.querySelector('.topmenu-item.active').textContent;
-  for (key in cartInfo) {
-    if (cartInfo[key].type == curType) {
-      product = items.find(item => item.object_id == cartInfo[key].id);
+  for (k in cartInfo) {
+    if (cartInfo[k].type == curType) {
+      product = items.find(item => item.object_id == cartInfo[k].id);
       if (product) {
         if (product.sizes && product.sizes != 0) {
-          for (key in product.sizes) {
-            if (product.sizes[key].articul == product.articul) {
-              curArticul = product.sizes[key];
+          for (kk in product.sizes) {
+            if (product.sizes[kk].articul == product.articul) {
+              curArticul = product.sizes[kk];
             }
           }
         } else {
           curArticul = product;
         }
-        if (curArticul.articul == key) {
-          checkDataRelevance(key, cartInfo[key]);
-          cartRow = createCartRow(key, cartInfo[key]);
+        if (curArticul.articul == k) {
+          checkDataRelevance(k, cartInfo[k]);
+          cartRow = createCartRow(k, cartInfo[k]);
           cartList += cartRow;
-          cartTableRow = createCartTableRow(key, cartInfo[key]);
+          cartTableRow = createCartTableRow(k, cartInfo[k]);
           cartTableList += cartTableRow;
         } else {
           // если нужно удалить не найденный артикул:
-          // removeCartInfo(key);
+          // removeCartInfo(k);
         }
       }
     }

@@ -22,21 +22,31 @@
         <div class="container row">
           <a class="logo" href="#"><img src="../img/header_footer/top_sports_logo.png" alt="Логотип"/></a>
           <div class="profile-info row">
-            <a id="header-cart" href="ekipirovka/?cart">
-              <div class="cart-title">Корзина</div>
-              <div class="cart-amount"><span>0</span>&nbsp;шт. /</div>
-              <div class="cart-price"><span>0</span>&nbsp;руб.</div>
-            </a>
-            <div class="account">
-              <div class="account-title">Вы зашли как</div>
-              <div class="account-username">Гость</div>
-              <div class="account-menu">
-                <a href="#">Рабочий стол</a>
-                <a href="#">Профиль</a>
-                <a href="#">Клиенты</a>
-                <a href="#">Заказы</a>
-                <a href="#" target="_blank">Рекламации</a>
-                <a href="#">Выйти</a>
+            <div class="cart-wrap choice">
+              <div id="header-cart">
+                <div class="cart-title">Корзина</div>
+                <div class="cart-amount"><span>0</span>&nbsp;шт. /</div>
+                <div class="cart-price"><span>0</span>&nbsp;руб.</div>
+                <div class="cart-menu">
+                  <a href="ekipirovka/?cart">Экипировка</a>
+                  <a href="zip/?cart">ЗИП</a>
+                </div>
+              </div>
+            </div>
+            <div class="account-wrap">
+              <div class="account">
+                <div class="title-container">
+                  <div class="account-title">Вы зашли как</div>
+                  <div class="account-username">Гость</div>
+                </div>
+                <div class="account-menu">
+                  <a href="#">Рабочий стол</a>
+                  <a href="cabinet/">Профиль</a>
+                  <a href="clients/">Клиенты</a>
+                  <a href="orders/">Заказы</a>
+                  <a href="reclamation/" target="_blank">Рекламации</a>
+                  <a href="#">Выйти</a>
+                </div>
               </div>
             </div>
           </div>
@@ -59,7 +69,7 @@
         <div class="common-info row">
           <div class="clients-info">
             <div class="title">Клиенты</div>
-            <a class="link" href="/clients/">
+            <a class="link" href="clients/">
               <div class="icon"></div>
               <div class="text">Всего / Мои</div>
               <div class="status">
@@ -71,7 +81,7 @@
           <div class="orders-info">
             <div class="title">Информация о заказах</div>
             <div class="orders-info-wrap row">
-              <a class="link wait-confirmation" href="/orders/?wait-confirmation">
+              <a class="link wait-confirmation" href="orders/?wait-confirmation">
                 <div class="icon"></div>
                 <div class="text">Ожидает подтверждения</div>
                 <div class="status">
@@ -79,7 +89,7 @@
                   на <span>15 988 446</span> руб.
                 </div>
               </a>
-              <a class="link wait-payment" href="/orders/?wait-payment">
+              <a class="link wait-payment" href="orders/?wait-payment">
                 <div class="icon"></div>
                 <div class="text">Ожидается оплата</div>
                 <div class="status">
@@ -87,7 +97,7 @@
                   на <span>289 812 789</span> руб.
                 </div>
               </a>
-              <a class="link paid" href="/orders/paid?">
+              <a class="link paid" href="orders/paid?">
                 <div class="icon"></div>
                 <div class="text">Оплачен</div>
                 <div class="status">
@@ -95,7 +105,7 @@
                   на <span>22 421 296</span> руб.
                 </div>
               </a>
-              <a class="link completed" href="/orders/?completed">
+              <a class="link completed" href="orders/?completed">
                 <div class="icon"></div>
                 <div class="text">Завершен</div>
                 <div class="status">
@@ -103,7 +113,7 @@
                   на <span>415 950 135</span> руб.
                 </div>
               </a>
-              <a class="link total-amount" href="/orders/?total-amount">
+              <a class="link total-amount" href="orders/?total-amount">
                 <div class="icon"></div>
                 <div class="text">Общая сумма заказов</div>
                 <div class="status">
@@ -125,14 +135,16 @@
               <div id="clients-rows" class="list-rows">
                 <div class="list-row row">
                   <div class="name">
-                    <a href="/clients/?">#ВЕЗДЕХОД ООО#</a>
+                    <a href="clients/?">#ВЕЗДЕХОД ООО#</a>
                   </div>
                   <div class="cart">#Корзина пуста#</div>
-                  <div class="date" tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                  <div class="date">
+                    <div tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                  </div>
                 </div>
               </div>
             </div>
-            <a class="link" href="/clients/">Все клиенты</a>
+            <a class="link" href="clients/">Все клиенты</a>
           </div>
           <div class="last-orders">
             <div class="title">Последние заказы</div>
@@ -146,15 +158,17 @@
               <div id="orders-rows" class="list-rows">
                 <div class="list-row row">
                   <div class="name">
-                    <a href="/orders/?">#ТС-624#</a>
+                    <a href="orders/?">#ТС-624#</a>
                   </div>
-                  <div class="date" tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                  <div class="date">
+                    <div tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                  </div>
                   <div class="partner">#СИМА-ЛЕНД ООО ТД#</div>
                   <div class="status">#Ожидает подтверждения#</div>
                 </div>
               </div>
             </div>
-            <a class="link" href="/orders/">Все заказы</a>
+            <a class="link" href="orders/">Все заказы</a>
           </div>
         </div>
       </div>

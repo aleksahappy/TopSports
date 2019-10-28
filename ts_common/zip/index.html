@@ -25,23 +25,27 @@
         <div class="container row">
           <a class="logo" href="../"><img src="../../img/header_footer/top_sports_logo.png" alt="Логотип"/></a>
           <div class="profile-info row">
-            <a id="header-cart" href="../zip/?cart" data-level="1" data-href="cart" data-title="Корзина" onclick="openPage()">
-              <div class="cart-title">Корзина</div>
-              <div class="cart-amount"><span>0</span>&nbsp;шт. /</div>
-              <div class="cart-price"><span>0</span>&nbsp;руб.</div>
-            </a>
-            <div class="account">
-              <div class="account-title">Вы зашли как</div>
-              <div class="account-username">Гость</div>
-              <div class="account-menu">
-                <a href="#">Рабочий стол</a>
-                <a href="#">Профиль</a>
-                <a href="#">Клиенты</a>
-                <a href="#">Заказы</a>
-                <a href="#" target="_blank">Рекламации</a>
-                <a href="#">Выйти</a>
-              </div>
+            <div class="cart-wrap">
+              <a id="header-cart" href="../zip/?cart" data-level="2" data-href="cart" data-title="Корзина" onclick="openPage()">
+                <div class="cart-title">Корзина <span class="cart-type"></span></div>
+                <div class="cart-amount"><span>0</span>&nbsp;шт. /</div>
+                <div class="cart-price"><span>0</span>&nbsp;руб.</div>
+              </a>
             </div>
+            <div class="account-wrap">
+              <div class="account">
+                <div class="account-title">Вы зашли как</div>
+                <div class="account-username">Гость</div>
+                <div class="account-menu">
+                  <a href="#">Рабочий стол</a>
+                  <a href="#">Профиль</a>
+                  <a href="#">Клиенты</a>
+                  <a href="#">Заказы</a>
+                  <a href="#" target="_blank">Рекламации</a>
+                  <a href="#">Выйти</a>
+                </div>
+              </div>
+          </div>
           </div>
         </div>
       </div>
@@ -400,84 +404,101 @@
           </div>
           <div id="cart">
             <div id="cart-full">
-              <div class="cart-sort row">
-                <div class="title">Выбрать корзину:</div>
-                <select id="sort-select" onchange="">
-                  <option value="" selected>Показать все</option>
-                  <option value="z">ЗИП</option>
-                  <option value="ek">Экипировка</option>
-                </select>
+              <div id="cart-links" class="row">
+                <div class="title">Перейти в корзину:</div>
+                <div id="cart-links-list">
+                  <a href="#href#" class="cart-link">#type#</a>
+                </div>
               </div>
-              <div class="cart-info-container row">
-                <div id="cart-info" class="row">
-                  <div>
-                    <div class="title">Количество</div>
-                    <div class="text amount"><span>0</span></div>
+              <div class="cart-header">
+                <div class="cart-info-container row">
+                  <div id="cart-info" class="row">
+                    <div>
+                      <div class="title">Количество</div>
+                      <div class="text"><span class="amount">0</span></div>
+                    </div>
+                    <div>
+                      <div class="title">Сумма РРЦ</div>
+                      <div class="text"><span class="retail-price">0</span>&nbsp;руб.</div>
+                    </div>
+                    <div>
+                      <div class="title">Сумма заказа</div>
+                      <div class="text"><span class="order-price">0</span>&nbsp;руб.</div>
+                    </div>
+                    <div class="cart-discount">
+                      <div class="title">Ориентировочная скидка</div>
+                      <div class="discount row">
+                        <div class="text amount"><span class="discount-amount">0</span>&nbsp;руб.</div>
+                        <div class="text percent"><span class="discount-percent">0</span><span>&nbsp;%</span></div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <div class="title">Сумма РРЦ</div>
-                    <div class="text retail-price"><span>0</span>&nbsp;руб.</div>
+                  <div class="cart-make-order row">
+                    <div class="delete-btn" onclick="deleteSelected()">Удалить выбранное</div>
+                    <div class="order-btn" onclick="">Оформить заказ</div>
+                    <div class="warning">Оформление заказа невозможно:<br>Необходимо выбрать <a href="/clients/">клиента</a>.</div>
                   </div>
-                  <div>
-                    <div class="title">Сумма заказа</div>
-                    <div class="text order-price"><span>0</span>&nbsp;руб.</div>
+                </div>
+                <form id="order-form" class="row" method="post" enctype="multipart/form-data">
+                  <div class="payment">
+                    <div class="title">Способ оплаты</div>
+                    <select id="payment-select" class="select">
+                      <option value="1">Безналичный расчет</option>
+                      <option value="2">Наличный расчет</option>
+                      <option value="3">Прочее</option>
+                    </select>
                   </div>
-                  <div class="cart-discount">
-                    <div class="title">Ориентировочная скидка</div>
-                    <div class="discount row">
-                      <div class="text discount-amount"><span>0</span>&nbsp;руб.</div>
-                      <div class="text discount-percent"><span>0</span>&nbsp;%</div>
+                  <div class="partner">
+                    <div class="title">Название контрагента</div>
+                    <select id="partner-select" class="select" required>
+                      <option value="" selected>Выберите контрагента</option>
+                    </select>
+                  </div>
+                  <div class="delivery">
+                    <div class="title">Тип доставки</div>
+                    <select id="delivery-select" class="select" required>
+                      <option value="" selected="">Выберите тип доставки</option>
+                      <option value="1">Самовывоз</option>
+                      <option value="2">Курьер</option>
+                      <option value="3">Транспортная компания</option>
+                  </select>
+                  </div>
+                  <div class="address">
+                    <div class="title">Адрес доставки</div>
+                    <select id="address-select" class="select">
+                      <option value='' selected>Выберите адрес доставки</option>
+                    </select>
+                  </div>
+                  <div class="comment">
+                    <div class="title">Комментарий к заказу</div>
+                    <textarea id="comment"></textarea>
+                    <div class="counter title">Знаков осталось: <span id="comment-counter">300</span></div>
+                  </div>
+                  <div id="order-info" class="red">Обратите внимание!<br/>Будет создано несколько заказов: (<span id="order-names"></span>)</div>
+                  <div class="order-btn" onclick="">Заказать</div>
+                </form>
+                <div class="copy-container">
+                  <div class="copy-btn" onclick="copyCart()">Копировать корзину</div>
+                  <table id="cart-table">
+                    <tr>
+                      <td>#title#</td>
+                      <td>#articul#</td>
+                      <td>#qty#</td>
+                      <td>#total#</td>
+                    </tr>
+                  </table>
+                  <textarea id="cart-copy"></textarea>
+                  <div id="copy-result-container" class="row">
+                    <div class="copy-result">
+                      <div class="close-btn" onclick="closeCopyResult()"></div>
+                      <div id="copy-message">Содержимое корзины скопировано в буфер обмена.</div>
                     </div>
                   </div>
                 </div>
-                <div class="cart-make-order row">
-                  <div class="delete-btn">Удалить выбранное</div>
-                  <div class="order-btn" onclick="">Оформить заказ</div>
-                  <div class="warning">Оформление заказа невозможно:<br>Необходимо выбрать <a href="/clients/">клиента</a>.</div>
-                </div>
               </div>
-              <form id="order-form" class="row" method="post" enctype="multipart/form-data">
-                <div class="payment">
-                  <div class="title">Способ оплаты</div>
-                  <select id="payment-select" class="select">
-                    <option value="1">Безналичный расчет</option>
-                    <option value="2">Наличный расчет</option>
-                    <option value="3">Прочее</option>
-                  </select>
-                </div>
-                <div class="partner">
-                  <div class="title">Название контрагента</div>
-                  <select id="partner-select" class="select" required>
-                    <option value="" selected>Выберите контрагента</option>
-                  </select>
-                </div>
-                <div class="delivery">
-                  <div class="title">Тип доставки</div>
-                  <select id="delivery-select" class="select" required>
-                    <option value="" selected="">Выберите тип доставки</option>
-                    <option value="1">Самовывоз</option>
-                    <option value="2">Курьер</option>
-                    <option value="3">Транспортная компания</option>
-                </select>
-                </div>
-                <div class="address">
-                  <div class="title">Адрес доставки</div>
-                  <select id="address-select" class="select">
-                    <option value='' selected>Выберите адрес доставки</option>
-                  </select>
-                </div>
-                <div class="comment">
-                  <div class="title">Комментарий к заказу</div>
-                  <textarea id="comment"></textarea>
-                  <div class="counter title">Знаков осталось: <span id="comment-counter">300</span></div>
-                </div>
-                <div id="order-info">Обратите внимание!<br/>Будет создано несколько заказов: (<span id="order-names"></span>)</div>
-                <div class="order-btn" onclick="">Заказать</div>
-              </form>
-              <div class="copy-btn" onclick="copyCart()">Копировать корзину</div>
               <div class="cart-list">
                 <div class="cart-headers row">
-                  <div id="check-all" class="cart-check checked" onclick=""></div>
+                  <div id="check-all" class="cart-check" onclick="toggleAllCart(event)"></div>
                   <div class="cart-name">Наименование</div>
                   <div class="cart-articul">Артикул</div>
                   <div class="cart-type">Тип заказа</div>
@@ -486,40 +507,36 @@
                   <div class="cart-total">Итого</div>
                 </div>
                 <div id="cart-rows">
-                  <div class="cart-row row">
-                    <div class="cart-check checked" onclick=""></div>
+                  <div class="cart-row row checked #isAvailable#">
+                    <div class="cart-check" onclick="toggleInCart(event)"></div>
                     <div class="cart-name">
                       <a class="row" href="#" target="_blank" data-level="4" data-href="#href#" onclick="openPage()" >
-                        <img src="#image#">
+                        <div class="img-wrap row">
+                          <img src="#image#">
+                        </div>
                         <div class="title">#title# #options#</div>
                       </a>
                     </div>
                     <div class="cart-articul">#articul#</div>
                     <div class="cart-type">#cart-type#</div>
                     <div class="cart-qty in-cart">
-                      <div class="product-qty row">
-                        <div class="btn-minus" tooltip="Удалить" onclick="changeFromCart(#object_id#, this.textContent)">-</div>
-                        <input class="choiced-qty" type="text" value="#qty#" data-price="#curPrice#" autocomplete="off" onchange="changeFromCart(#object_id#)" onfocus="onFocusInput(this)" onblur="changeFromCart(#object_id#)" onkeypress="return checkValue(event)">
-                        <div class="btn-plus" tooltip="Добавить" onclick="changeFromCart(#object_id#, this.textContent)">+</div>
+                      <div class="qty">
+                        <div class="product-qty row">
+                          <div class="btn-minus" tooltip="Удалить" onclick="changeFromCart(#object_id#, this.textContent)">-</div>
+                          <input class="choiced-qty" type="text" value="#qty#" data-price="#curPrice#" data-retail-price="#retailPrice#" autocomplete="off" onchange="changeFromCart(#object_id#)" onfocus="onFocusInput(this)" onblur="changeFromCart(#object_id#)" onkeypress="return checkValue(event)">
+                          <div class="btn-plus" tooltip="Добавить" onclick="changeFromCart(#object_id#, this.textContent)">+</div>
+                        </div>
+                        <div class="tooltip" tooltip="#qtyTitle#">
+                          <div class="available-qty">#free_qty#&nbsp;шт.</div>
+                        </div>
                       </div>
-                      <div class="tooltip" tooltip="#qtyTitle#">
-                        <div class="available-qty #isAvaliable#">#free_qty#&nbsp;шт.</div>
-                      </div>
+                      <div class="message red">Продано</div>
                     </div>
                     <div class="cart-price">#price#</div>
                     <div class="cart-total">#total#</div>
                   </div>
                 </div>
               </div>
-              <table id="cart-table">
-                <tr>
-                  <td>#title#</td>
-                  <td>#articul#</td>
-                  <td>#qty#</td>
-                  <td>#total#</td>
-                </tr>
-              </table>
-              <textarea id="cart-copy"></textarea>
             </div>
             <div id="cart-empty">
               <div class="title">Ваша корзина пуста</div>

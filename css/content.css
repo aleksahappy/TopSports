@@ -569,6 +569,7 @@
   padding-left: 20px;
   font-size: 0.8em;
   color: rgb(0,176,104);
+  cursor: help;
 }
 
 .available-qty::before {

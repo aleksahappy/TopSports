@@ -98,9 +98,24 @@
     display: none;
   }
   #header-cart, .account {
-    width: 2.5em;
-    height: 2.5em;
+    width: 40px;
+    height: 44px;
     padding-left: 0;
+  }
+  .cart-menu,
+  .account-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: rgb(255, 255, 255);;
+    box-shadow: 0 0 8px rgba(222, 222, 222, 0.7);
+  }
+  .account-menu {
+    width: 10em;
+  }
+  #header-cart:hover,
+  .account:hover {
+    box-shadow: none;
   }
   .header-select > .row {
     flex-wrap: nowrap;

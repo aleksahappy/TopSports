@@ -19,10 +19,6 @@
   background-color: rgb(255,255,255);
 }
 
-.header-main .container {
-  align-items: center;
-}
-
 .logo {
   width: 50%;
   height: 44px;
@@ -39,19 +35,38 @@
   line-height: 1.5;
 }
 
-#header-cart, .account {
+.cart-wrap,
+.account-wrap {
   position: relative;
+  width: 50%;
+}
 
-  padding-left: 3em;
+#header-cart, .account {
+  position: absolute;
+  top: 0;
+  margin-top: -0.5rem;
+  padding: 0.5em 0.5em 0 4em;
+  background-color: rgb(255, 255, 255);
+  border-radius: 4px;
   z-index: 20;
   cursor: pointer;
+}
+
+#header-cart {
+  left: 0;
+  white-space: nowrap;
+}
+
+.account {
+  right: 0;
+  width: 15em;
 }
 
 #header-cart::before, .account::before {
   content: '';
   position: absolute;
-  left: 0;
-  top: 0.2em;
+  left: 0.7em;
+  top: 0.7em;
   width: 2.5em;
   height: 2.5em;
   background-repeat: no-repeat;
@@ -72,14 +87,12 @@
 
 .cart-amount, .cart-price {
   display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #header-cart .cart-title {
   color: rgb(241,89,42);
-}
-
-.account {
-  width: 13em;
 }
 
 .account::before {
@@ -102,41 +115,41 @@
 }
 
 .account-username {
-  height: 1.5em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+.cart-menu,
 .account-menu {
   display: none;
-  position: absolute;
-  top: 3em;
-  right: 0;
-  width: 13em;
-  background-color: rgb(255, 255, 255);
-  border-radius: 4px;
+  margin-left: -4em;
+  margin-right: -0.5em;
+}
+
+.cart-wrap.choice #header-cart:hover,
+.account:hover {
   box-shadow: 0 0 8px rgba(222, 222, 222, 0.7);
 }
 
+#header-cart:hover .cart-menu,
 .account:hover .account-menu {
   display: block;
 }
 
-.account-menu :first-child {
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-}
-
+.cart-menu :last-child,
 .account-menu :last-child {
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
 }
 
+.cart-menu a,
 .account-menu a {
+  display: block;
   width: 100%;
   padding: 0.7em 1.4em;
 }
 
+.cart-menu a:hover, .cart-menu a:active,
 .account-menu a:hover, .account-menu a:active {
   color: rgb(255, 255, 255);
   background-color: rgb(241,89,42);
