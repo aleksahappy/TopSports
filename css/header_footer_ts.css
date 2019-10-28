@@ -85,7 +85,7 @@ a.header-phone, a.header-cabinet {
 }
 
 .header-menu a:hover,
-.header-menu a.activ {
+.header-menu a.active {
   color: rgb(255,255,255);
 }
 
@@ -117,7 +117,7 @@ a.header-phone, a.header-cabinet {
   transition: 200ms;
 }
 
-.topmenu-item.activ,
+.topmenu-item.active,
 .topmenu-item:hover {
   background-color: rgb(241,89,42);
 }
@@ -154,7 +154,7 @@ a.header-phone, a.header-cabinet {
   background-color: rgb(243,243,246);
 }
 
-.ekipirovka .submenu.open {
+.submenu.open {
   display: block;
 }
 
@@ -168,7 +168,7 @@ a.header-phone, a.header-cabinet {
   transition: 200ms;
 }
 
-.submenu-item.activ,
+.submenu-item.active,
 .submenu-item:hover {
   background-color: rgb(172,177,186);
 }

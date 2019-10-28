@@ -1,0 +1,207 @@
+/* =====================================================================================================
+ Стили для главной страницы портала:
+===================================================================================================== */
+
+.main {
+  margin-top: 2em;
+}
+
+.common-info {
+  align-items: stretch;
+  font-size: 1.14em;
+}
+
+.clients-info,
+.orders-info {
+  padding-top: 1.5em;
+  background-color: rgb(255,255,255);
+  box-shadow: 0px 5px 20px rgba(51, 37, 124, 0.1);
+  border-radius: 4px;
+  text-align: center;
+}
+
+.clients-info {
+  width: 15%;
+  margin-right: 2em;
+}
+
+.orders-info {
+  width: 85%;
+}
+
+.common-info .title,
+.last-info .title {
+  /* font-family: 'TradeGothicProCyr'; */
+  font-family: 'FranklinGothic-DemiCond';
+  font-size: 2em;
+}
+
+.common-info .text {
+  padding-top: 1.5em;
+  text-decoration: underline;
+}
+
+.clients-info .text {
+  text-decoration: none;
+}
+
+.common-info .link {
+  width: 100%;
+  padding: 1.5em 0.7em;
+  border-right: 1px solid rgb(238,237,244);
+  cursor: pointer;
+}
+
+.common-info .link.total-amount {
+  color: rgb(255,255,255);
+  border-right: none;
+  background-color: rgb(241,90,41);
+}
+
+.common-info .icon {
+  width: 36px;
+  height: 36px;
+  margin: 0 auto;
+  background-image: url(../img/ico_cabinet.png);
+  background-repeat: no-repeat;
+  transition: 200ms;
+}
+
+.common-info .link:hover .icon {
+  transform: translateY(-5px);
+}
+
+.common-info span {
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.clients-info .icon {
+  background-position-x: -216px;
+}
+
+.orders-info .wait-payment .icon {
+  background-position-x: -72px;
+}
+
+.orders-info .paid .icon {
+  background-position-x: -108px;
+}
+
+.orders-info .completed .icon {
+  background-position-x: -144px;
+}
+
+.orders-info .total-amount .icon {
+  background-position-x: -180px;
+}
+
+.orders-info-wrap {
+  align-items: stretch;
+}
+
+.last-info {
+  margin-top: 2em;
+}
+
+.last-info .title {
+  text-align: center;
+}
+
+.last-clients, .last-orders {
+  width: 50%;
+}
+
+.last-clients {
+  margin-right: 1em;
+}
+
+.last-orders {
+  margin-left: 1em;
+}
+
+.last-info .list {
+  font-size: 0.85em;
+}
+
+.list-headers {
+  color: rgb(255,255,255);
+  background-color: rgb(0,0,0);
+  text-align: center;
+}
+
+.list-headers > div {
+  position: sticky;
+  top: 105px;
+  padding: 0.4em;
+  border-left: 1px solid rgb(228,228,235);
+  z-index: 2;
+}
+
+.list-headers :first-child {
+  border-left: none;
+}
+
+.list-row {
+  align-items: center;
+  color: rgb(33,31,31);
+  background-color: rgb(243,243,246);
+  border-radius: 4px;
+}
+
+.list-row > div {
+  padding: 0.4em;
+  border-left: 1px solid rgb(249,249,249);
+  border-bottom: 1px solid rgb(249,249,249);
+}
+
+.list-row :first-child {
+  border-left: none;
+}
+
+.list-row .name {
+  color: rgb(32,103,176);
+  text-decoration: underline;
+}
+
+.list-row .date {
+  font-weight: 700;
+}
+
+.last-clients .name {
+  width: 65%;
+}
+
+.last-clients .cart {
+  width: 20%;
+}
+
+.last-clients .date {
+  width: 15%;
+}
+
+.last-orders .name {
+  width: 15%;
+}
+
+.last-orders .date {
+  width: 15%;
+}
+
+.last-orders .partner {
+  width: 40%;
+}
+
+.last-orders .status {
+  width: 30%;
+}
+
+.last-info .link {
+  display: inline-block;
+  margin-top: 1em;
+  padding: 0.2em 1.1em;
+  font-size: 1.3em;
+  color: #000;
+  border: 1px solid;
+  border-radius: 4px;
+}

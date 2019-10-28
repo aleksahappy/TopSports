@@ -13,6 +13,8 @@ var search = document.querySelector('.search'),
     clearSearchBtn = document.querySelector('.search .clear-search-btn'),
     submenu = document.querySelector('.submenu'),
     subsubmenu = document.querySelector('.subsubmenu'),
+    zipUrl = document.getElementById('zip-url'),
+    accUrl = document.getElementById('acc-url'),
     headerSelect = document.querySelector('.header-select'),
     mainHeader = document.querySelector('.main-header'),
     mainNav = document.getElementById('main-nav'),
@@ -168,16 +170,6 @@ function toggleSubmenu() {
   }
 }
 
-// Открытие и закрытие подподменю на малых разрешениях:
-
-function toggleSubsubmenu() {
-  if (subsubmenu.classList.contains('open')) {
-    subsubmenu.classList.remove('open');
-  } else {
-    subsubmenu.classList.add('open');
-  }
-}
-
 // Открытие и закрытие поиска на малых разрешениях:
 
 function toggleSearch() {
@@ -186,19 +178,6 @@ function toggleSearch() {
   } else {
     search.classList.add('open');
     submenu.classList.remove('open');
-    if (headerSelect) {
-      headerSelect.classList.remove('open');
-    }
-  }
-}
-
-// Открытие и закрытие фильтрации ЗИП на малых разрешениях:
-
-function toggleSelectMenu() {
-  if (headerSelect.classList.contains('open')) {
-    headerSelect.classList.remove('open');
-  } else {
-    headerSelect.classList.add('open');
   }
 }
 
@@ -251,6 +230,9 @@ function setFiltersHeight() {
 // Функции для работы с URL и данными страницы:
 //=====================================================================================================
 
+var path,
+    oldPath;
+
 // Инициализация первой страницы при открытии сайта:
 
 function initPage() {
@@ -258,7 +240,7 @@ function initPage() {
     window.history.pushState({'path': ['snegohod']},'', '?snegohod');
   }
 
-  var path = location.search.split('?').map(element => {
+  path = location.search.split('?').map(element => {
     if (element == '') {
       return pageId;
     } else {
@@ -266,7 +248,7 @@ function initPage() {
     }
   });
 
-  renderContent(path);
+  renderContent();
   setGalleryWidth();
   setMinCardWidth();
 }
@@ -277,20 +259,26 @@ window.addEventListener('popstate', openPage);
 
 function openPage() {
   event.preventDefault();
-  var path;
 
-  if (event.state) {
-    path = event.state.path;
+  if (event.type == 'popstate') {
+    if (event.state) {
+      path = event.state.path;
+    } else {
+      return;
+    }
   } else {
-    // if (submenu) {
-    //   submenu.classList.remove('open');
-    // }
+    oldPath = path;
+
     var levelNewUrl = event.currentTarget.dataset.level,
         newUrl = event.currentTarget.dataset.href;
-    path = Array.from(document.querySelector('.header-menu').querySelectorAll('.activ'))
+    path = Array.from(document.querySelector('.header-menu').querySelectorAll('.active'))
       .filter(element => element.dataset.level < levelNewUrl)
       .map(element => element.dataset.href);
     path.push(newUrl);
+
+    if (path[path.length - 1] == oldPath[oldPath.length - 1]) {
+      return;
+    }
 
     var urlPath = path
       .map(element => {
@@ -304,34 +292,51 @@ function openPage() {
 
     window.history.pushState({'path': path},'', urlPath);
   }
+  renderContent();
+}
 
-  var curEl = document.querySelector(`[data-href="${path[path.length - 1]}"]`),
-      pageTitle = curEl.dataset.title ? curEl.dataset.title : curEl.textContent;
-  document.title = `ТОП СПОРТС - ${pageTitle}`;
-  renderContent(path);
+// Изменение контента страницы:
+
+function renderContent() {
+  if (path[path.length - 1] == 'snegohod' || path[path.length - 1] == 'lodkimotor') {
+    zipUrl.href = location.href + '?zip';
+    accUrl.href = location.href + '?acc';
+  }
+  if (location.search) {
+    changePageTitle(path);
+  }
+  toggleMenuItems(path);
+  createMainNav(path);
+  if (path[path.length - 1] == 'cart') {
+    renderCart();
+  } else {
+    renderGallery(path);
+  }
+  setPaddingToBody();
+}
+
+// Изменение заголовка страницы:
+
+function changePageTitle() {
+  var curEl = document.querySelector(`[data-href="${path[path.length - 1]}"]`);
+  document.title = `ТОП СПОРТС - ${curEl.dataset.title ? curEl.dataset.title : curEl.textContent}`;
 }
 
 // Изменение разделов меню:
 
-function toggleMenuItems(path) {
-  document.querySelectorAll('.header-menu .activ').forEach(item => item.classList.remove('activ'));
-  if (path[path.length - 1] == 'cart') {
-    return;
-  }
+function toggleMenuItems() {
+  document.querySelectorAll('.header-menu .active').forEach(item => item.classList.remove('active'));
   for (key of path) {
     var curMenuItem = document.querySelector(`[data-href="${key}"]`);
     if (curMenuItem) {
-      curMenuItem.classList.add('activ');
+      curMenuItem.classList.add('active');
     }
   }
 }
 
 // Изменение хлебных крошек:
 
-function createMainNav(path) {
-  if (path[path.length - 1] == 'cart') {
-    path = ['cart'];
-  }
+function createMainNav() {
   var curMenuItem,
       listNavItems = '';
 
@@ -352,26 +357,20 @@ function createMainNav(path) {
   }
 }
 
-// Изменение контента страницы:
-
-function renderContent(path) {
-  toggleMenuItems(path);
-  createMainNav(path);
-  if (path[path.length - 1] == 'cart') {
-    renderCart();
-  } else {
-    renderGallery(path);
-  }
-  setPaddingToBody();
-}
-
 // Создание контента галереи:
 
-function renderGallery(path) {
-  if (isCart) {
-    cart.style.display = 'none';
-    search.style.visibility = 'visible';
+function renderGallery() {
+  window.removeEventListener('scroll', scrollGallery);
+  window.removeEventListener('resize', scrollGallery);
+  window.addEventListener('scroll', scrollGallery);
+  window.addEventListener('resize', scrollGallery);
+
+  if (headerCart) {
     submenu.style.display = '';
+    search.style.visibility = 'visible';
+    mainInfo.style.display = '';
+    cart.style.display = 'none';
+    changeHeaderCart();
   }
   if (subsubmenu) {
     if (document.querySelector(`[data-href="${path[path.length - 1]}"]`).dataset.level >= 2) {
@@ -380,12 +379,11 @@ function renderGallery(path) {
       subsubmenu.style.display = 'none';
     }
   }
-
-  if (path[path.length - 1] == 'zip') {
-    headerSelect.classList.add('open');
-  } else {
-    if (headerSelect) {
-      headerSelect.classList.remove('open');
+  if (headerSelect) {
+    if (path[path.length - 1] == 'zip') {
+      headerSelect.style.display = 'block';
+    } else {
+      headerSelect.style.display = 'none';
     }
   }
   curItems = items;
@@ -552,7 +550,7 @@ function toggleFilterItem(event) {
 
 // Выбор значения фильтра:
 
-function selectValue(event) {
+function selectFilterValue(event) {
   event.stopPropagation();
   if (event.target.classList.contains('open-btn') || event.currentTarget.classList.contains('disabled')) {
     return;
@@ -981,23 +979,23 @@ function createCard(card) {
     newCard = newCard.replace(sizesTemplate, listSizes);
 
     function createSizeInfo(info) {
-      if (isCart) {
+      if (headerCart) {
         cartInfo = getInfo('cart');
       }
       var size = info.size ? info.size : 'В корзину',
-          savedValue = isCart && cartInfo[info.articul] ? cartInfo[info.articul].qty : 0,
+          savedValue = headerCart && cartInfo[info.articul] ? cartInfo[info.articul].qty : 0,
           freeQty = info.free_qty,
           value = (savedValue > freeQty) ? freeQty : savedValue,
           inCart = value == 0 ? '' : 'in-cart',
-          qtyClass = info.free_qty != 0 ? '' : 'grey-gty',
-          gtyTitle = info.free_qty != 0 ? 'В наличии' : 'Ожидается';
+          qtyClass = info.free_qty > 0 ? '' : 'not-available',
+          gtyTitle = info.free_qty > 0 ? 'В наличии' : 'Ожидается';
 
       var newSize = sizesTemplate
         .replace('#inCart#', inCart)
         .replace('#articul#', info.articul)
         .replace('#size#', size)
-        .replace(/#value#/gi, value)
-        .replace('#isAvalible#', qtyClass)
+        .replace('#value#', value)
+        .replace('#isAvailable#', qtyClass)
         .replace('#qtyTitle#', gtyTitle)
         .replace('#free_qty#', info.free_qty)
       listSizes += newSize;
@@ -1032,10 +1030,10 @@ function createCard(card) {
     } else if (key == 'curPrice') {
       var curPrice = card.price_preorder1 < 1 ? card.price1 : card.price_preorder1;
       propCard = curPrice;
-    } else if (key == 'isAvaliable') {
-      propCard = card.free_qty != 0 ? '' : 'grey-gty';
+    } else if (key == 'isAvailable') {
+      propCard = card.free_qty > 0 ? '' : 'not-available';
     } else if (key == "qtyTitle") {
-      propCard = card.free_qty != 0 ? 'В наличии' : 'Ожидается';
+      propCard = card.free_qty > 0 ? 'В наличии' : 'Ожидается';
     } else if (key == 'isHiddenInfo') {
       propCard = totalValue == 0 ? 'hidden' : '';
     } else if (key == 'totalAmount') {
@@ -1043,7 +1041,7 @@ function createCard(card) {
     } else if (key == 'totalPrice') {
       propCard = convertPrice(totalValue * (card.price_preorder1 == 0 ? card.price1 : card.price_preorder1));
     } else if (key == 'notice') {
-      propCard = card.free_qty != 0 ? 'Товар резервируется в момент подтверждения заказа!' : 'Товара нет в наличии!';
+      propCard = card.free_qty > 0 ? 'Товар резервируется в момент подтверждения заказа!' : 'Товара нет в наличии!';
     } else if (key == 'isHiddenManuf') {
       propCard = manufData && Object.keys(manufData.man).length > 1 ? '' : 'displayNone';
     } else if (key == 'isHiddenDesc') {
@@ -1084,10 +1082,8 @@ function showCards() {
 
 // Добавление новых карточек при скролле страницы:
 
-window.addEventListener('scroll', scrollGallery);
-window.addEventListener('resize', scrollGallery);
-
 function scrollGallery() {
+  console.log('scroll');
   var scrolled = window.pageYOffset || document.documentElement.scrollTop;
   if (scrolled * 2 + window.innerHeight >= document.body.clientHeight) {
     loadCards();
@@ -1098,8 +1094,8 @@ function scrollGallery() {
 
 function toggleView(newView) {
   if (view != newView) {
-    document.querySelector(`.view-${view}`).classList.remove('activ');
-    event.currentTarget.classList.add('activ');
+    document.querySelector(`.view-${view}`).classList.remove('active');
+    event.currentTarget.classList.add('active');
     content.classList.remove(`${view}`);
     content.classList.add(`${newView}`);
     view = newView;

@@ -20,7 +20,7 @@
   #search {
     font-size: 1.6rem;
   }
-  .burger-btn.visible-xs,
+  .burger-btn.visible-xs,s
   .search-icon.visible-xs {
     display: block;
   }
@@ -42,41 +42,19 @@
   .search .clear-search-btn {
     right: 4.5rem;
   }
-  .zip .submenu {
+  .submenu {
     display: none;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
-  }
-  .zip .subsubmenu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
-  }
-  .submenu .burger-btn.sub {
-    display: block;
-  }
-  .submenu.zip .burger-btn {
-    display: block;
   }
   .ekipirovka .submenu-item {
     padding: 1rem 1.9rem;
   }
   .header-select > .row {
     flex-wrap: wrap;
-  }
-  .header-select {
-    display: none !important;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
   }
   .select-filters {
     width: 100%;
@@ -115,8 +93,9 @@
   .profile-info {
     width: 40%;
   }
-  #header-cart div, .account div {
-    display: none !important;
+  #header-cart > div,
+  .account div {
+    display: none;
   }
   #header-cart, .account {
     width: 2.5em;

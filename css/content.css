@@ -6,10 +6,6 @@
   min-height: 60vh;
 }
 
-/* =====================================================================================================
- Стили для хлебных крошек:
-===================================================================================================== */
-
 .main {
   background-color: rgb(247,249,249);
 }
@@ -18,8 +14,12 @@
   display: none;
   align-items: flex-start;
   flex-wrap: wrap;
-  padding: 1em 0;
+  padding: 2em 0 1em;
 }
+
+/* =====================================================================================================
+ Стили для хлебных крошек:
+===================================================================================================== */
 
 .main-nav {
   display: flex;
@@ -102,23 +102,27 @@
 .view-list, .view-blocks {
   position: relative;
   width: 1em;
-  height:  1.5em;
+  height:  1em;
   font-family: 'FontAwesome';
   font-size: 1.3em;
   cursor: pointer;
 }
 
-.view-list.activ, .view-blocks.activ {
+.view-list.active, .view-blocks.active {
   color: rgb(255,102,50);
   cursor: default;
 }
 
 .view-list::before {
+  position: absolute;
   content: '\f0c9';
+  top: -4px;
 }
 
 .view-blocks::before {
+  position: absolute;
   content: '\f00a';
+  top: -3px;
 }
 
 #gallery-sort {
@@ -558,7 +562,7 @@
   max-width: 5em;
 }
 
-.avaliable-qty {
+.available-qty {
   display: inline-block;
   position: relative;
   height: 1em;
@@ -567,7 +571,7 @@
   color: rgb(0,176,104);
 }
 
-.avaliable-qty::before {
+.available-qty::before {
   position: absolute;
   top: 0;
   left: 2px;
@@ -578,7 +582,7 @@
   background-size: cover;
 }
 
-.grey-gty::before {
+.not-available::before {
   background-position-x: -15px;
 }
 

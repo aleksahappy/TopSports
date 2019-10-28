@@ -1,22 +1,4 @@
-/* .container {
-  max-width: 1340px !important;
-  margin: 0 auto;
-} */
-
-@media only screen and  (min-width: 1824px) {
-  body {
-    font-size: 1.6rem;
-  }
-  .container {
-    max-width: 1724px;
-    margin: 0 auto;
-  }
-}
-
 @media only screen and (max-width: 1439px) {
-  .container {
-    margin: 0 4rem;
-  }
   body.zip .big-card .big-card-body {
     flex-wrap: wrap;
   }
@@ -53,18 +35,22 @@
 }
 
 @media only screen and (max-width: 1080px) {
-  .container {
-    margin: 0 3rem;
+  .main-header {
+    flex-direction: column;
+  }
+  .main-nav {
+    margin: 0 0 1em;
   }
   .main-info {
     flex-direction: column-reverse;
-    align-items: flex-end;
+    align-items: flex-start;
+    width: 100%;
   }
   #search-info {
-    align-self: flex-start;
+    align-self: center;
   }
   .view, #gallery-sort {
-    margin-bottom: 0.6em;
+    margin-bottom: 1em;
   }
   .big-card {
     height: 17em;
@@ -129,37 +115,6 @@
 }
 
 @media only screen and (max-width: 767px) {
-  body {
-    font-size: 1.6rem;
-  }
-  .container {
-    margin: 0 2rem;
-  }
-  .hidden-xs {
-		display: none;
-  }
-  .dealer-button {
-    font-size: 1.5em;
-  }
-  [tooltip]:hover::before,
-  [tooltip]:hover::after {
-    display: none;
-  }
-  .main-header {
-    flex-direction: column;
-  }
-  .main-nav {
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 0.6em;
-  }
-  .main-info {
-    width: 100%;
-    align-items: flex-start;
-  }
-  #search-info {
-    align-self: center;
-  }
   #content.list {
     flex-direction: column;
     justify-content: flex-start;
@@ -257,15 +212,6 @@
 }
 
 @media only screen and (max-width: 480px) {
-  .hidden-xxs {
-		display: none;
-  }
-  .container {
-    margin: 0 1.5rem;
-  }
-  .dealer-button {
-    width: 100%;
-  }
   #search-info {
     font-size: 1.3em;
   }

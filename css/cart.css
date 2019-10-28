@@ -7,6 +7,10 @@
   width: 100%;
 }
 
+#cart-full {
+  display: none;
+}
+
 #cart a {
   color: rgb(32,103,176);
   text-decoration: underline;
@@ -59,8 +63,8 @@
   color: rgb(31,34,41);
 }
 
-#cart-info > div{
-  margin-right: 2em;
+#cart-info > div {
+  margin-right: 2.5em;
 }
 
 #cart-info .title {
@@ -80,11 +84,11 @@
   justify-content: flex-start;
 }
 
-#cart-info .discount-amount {
+#cart-info .discount .amount {
   padding-right: 1em;
 }
 
-#cart-info .discount-percent {
+#cart-info .discount .percent {
   color: rgb(255,102,50);
 }
 
@@ -105,6 +109,7 @@
   border: 1px solid rgb(228,228,235);
   border-radius: 4px;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .cart-make-order .order-btn {
@@ -119,6 +124,7 @@
   border: 1px solid rgb(228,228,235);
   border-radius: 4px;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .cart-make-order .warning {
@@ -201,7 +207,6 @@
   width: 100%;
   line-height: 1.2em;
   font-weight: 500;
-  color: rgb(255,0,0);
 }
 
 #order-form .order-btn {
@@ -214,6 +219,7 @@
   border: 1px solid rgb(228,228,235);
   border-radius: 4px;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .copy-btn {
@@ -226,6 +232,7 @@
   border: 1px solid rgb(228,228,235);
   border-radius: 4px;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .cart-list {
@@ -261,6 +268,7 @@
   height: 20px;
   border: none;
   padding: 0;
+  cursor: pointer;
 }
 
 .cart-list .cart-check::before {
@@ -269,7 +277,11 @@
   position: absolute;
 }
 
-.cart-list .cart-check.checked::before {
+#check-all.checked::before {
+  content: '\f046';
+}
+
+.cart-row.checked .cart-check::before {
   content: '\f046';
 }
 
@@ -305,9 +317,15 @@
   align-items: center;
 }
 
+.cart-row .cart-name .img-wrap {
+  align-items: center;
+  width: 10%;
+  height: 60px;
+}
+
 .cart-row .cart-name img {
-  width: 7%;
-  height: auto;
+  max-width: 100%;
+  max-height: 60px;
 }
 
 .cart-row .cart-name .title {
@@ -325,22 +343,39 @@
   text-align: right;
 }
 
-.cart-row .cart-qty .product-qty {
-  border-left: 1px solid rgb(179,186,196);
+.cart-row .message {
+  display: none;
 }
 
-.cart-row .cart-qty .btn-minus,
-.cart-row .cart-qty .btn-plus {
+.cart-row.not-available .qty-box {
+  display: none;
+}
+
+.cart-row.not-available .message {
+  display: block;
+}
+
+.cart-qty .product-qty {
+  border-left: 1px solid rgb(179,186,196);
+  font-size: 1.2em;
+}
+
+.cart-qty .btn-minus,
+.cart-qty .btn-plus {
   width: 25%;
 }
 
-.cart-row .cart-qty .choiced-qty {
+.cart-qty .choiced-qty {
   width: 50%;
 }
 
-.cart-row .cart-qty .tooltip {
+.cart-qty .tooltip {
   max-width: 5em;
   text-align: left;
+}
+
+.cart-qty .avaliable-qty {
+  font-size: 0.9em;
 }
 
 #cart-table {
@@ -348,7 +383,83 @@
 }
 
 #cart-copy {
-  visibility: hidden;
+  opacity: 0;
   width: 0;
   height: 0;
+}
+
+#copy-result-container {
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+}
+
+.copy-result {
+  position: relative;
+  width: 400px;
+  max-width: 90vw;
+  padding: 2em;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid rgb(188,188,188);
+  border-radius: 4px;
+  box-shadow: 1px -2px 3px 0 rgba(100,100,100,0.5);
+}
+
+.copy-result .close-btn {
+  top: 0;
+  right: 0.5em;
+}
+
+.copy-result .close-btn:hover {
+  color: rgb(241,90,41);
+}
+
+#copy-message {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+#cart-empty {
+  display: none;
+}
+
+#cart-empty {
+  width: 500px;
+  max-width: 90vw;
+  margin: 0 auto;
+  margin-top: 4.5em;
+  padding: 3em;
+  background-color: rgb(255,255,255);
+  background-image: url(../img/content/cart_empty.png);
+  background-repeat: no-repeat;
+  background-position: center 3em;
+  border-radius: 4px;
+  box-shadow: 0 2px 20px rgba(77,77,77,0.1);
+  text-align: center;
+}
+
+#cart-empty .title {
+  color: rgb(31,34,41);
+  font-size: 1.5em;
+  margin-top: 90px;
+  margin-bottom: 20px;
+}
+
+#cart #cart-empty .link {
+  display: inline-block;
+  padding: 0.625em 1.25em;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: rgb(255,255,255);
+  background-color: rgb(241,90,41);
+  border-radius: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
 }

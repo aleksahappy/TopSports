@@ -1,5 +1,7 @@
 'use strict';
 
+setPaddingToBody();
+
 //=====================================================================================================
 // Первоначальные данные для работы:
 //=====================================================================================================
@@ -8,7 +10,7 @@
 
 var website =  document.body.dataset.website,
     pageId = document.body.id,
-    isCart = document.getElementById('cart');
+    headerCart = document.getElementById('header-cart');
 
 // Динамически изменяемые переменные:
 

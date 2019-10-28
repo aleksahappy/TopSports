@@ -196,7 +196,8 @@ body.no-scroll {
 }
 
 .displayNone {
-  display: none !important;
+  display: none;
+  /* display: none !important; */
 }
 
 .hidden {
