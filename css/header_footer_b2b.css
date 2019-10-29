@@ -14,15 +14,22 @@
 }
 
 .header-main {
-  padding: 1rem 0;
   font-weight: 500;
   background-color: rgb(255,255,255);
 }
 
-.logo {
+.header-main .container {
+  align-items: center;
+}
+
+.logo-wrap {
   width: 50%;
-  height: 44px;
   margin-right: 1em;
+  padding: 1rem 0;
+}
+
+.logo {
+  height: 44px;
 }
 
 .logo img {
@@ -39,6 +46,7 @@
 .account-wrap {
   position: relative;
   width: 50%;
+  height: 44px;
 }
 
 #header-cart, .account {

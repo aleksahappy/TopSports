@@ -23,7 +23,9 @@
     <div class="header">
       <div class="header-main">
         <div class="container row">
-          <a class="logo" href="../"><img src="../../img/header_footer/top_sports_logo.png" alt="Логотип"/></a>
+          <div class="logo-wrap">
+            <a class="logo" href="../"><img src="../../img/header_footer/top_sports_logo.png" alt="Логотип"/></a>
+          </div>
           <div class="profile-info row">
             <div class="cart-wrap">
               <a id="header-cart" href="../zip/?cart" data-level="2" data-href="cart" data-title="Корзина" onclick="openPage()">
@@ -480,10 +482,10 @@
                 <div class="copy-container">
                   <div class="copy-btn" onclick="copyCart()">Копировать корзину</div>
                   <table id="cart-table">
-                    <tr>
+                    <tr class="#articul#">
                       <td>#title#</td>
                       <td>#articul#</td>
-                      <td>#qty#</td>
+                      <td class="qty">#qty#</td>
                       <td>#total#</td>
                     </tr>
                   </table>
@@ -540,7 +542,7 @@
             </div>
             <div id="cart-empty">
               <div class="title">Ваша корзина пуста</div>
-              <a class="link" data-level="1" data-href="o_zip" onclick="openPage()">Перейти в каталог товаров</a>
+              <a id="catalog-link" data-level="1" onclick="openPage()">Перейти в каталог товаров</a>
             </div>
           </div>
         </div>

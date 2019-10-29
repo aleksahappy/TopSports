@@ -270,13 +270,13 @@ function openPage() {
     oldPath = path;
 
     var levelNewUrl = event.currentTarget.dataset.level,
-        newUrl = event.currentTarget.dataset.href;
+        newUrl = event.currentTarget.dataset.href.split('?');
     path = Array.from(document.querySelector('.header-menu').querySelectorAll('.active'))
       .filter(element => element.dataset.level < levelNewUrl)
       .map(element => element.dataset.href);
-    path.push(newUrl);
+      path = path.concat(newUrl);
 
-    if (path[path.length - 1] == oldPath[oldPath.length - 1]) {
+    if (path.length === oldPath.length && path.forEach((value, index) => value === oldPath[index])) {
       return;
     }
 

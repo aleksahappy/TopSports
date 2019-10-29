@@ -39,9 +39,10 @@
     flex-direction: column;
   }
   .main-nav {
-    margin: 0 0 1em;
+    margin-right: 0;
   }
   .main-info {
+    margin-top: 1em;
     flex-direction: column-reverse;
     align-items: flex-start;
     width: 100%;

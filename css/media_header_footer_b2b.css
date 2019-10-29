@@ -14,13 +14,16 @@
   .header {
     font-size: 1.2rem;
   }
-  .logo {
+  .logo-wrap {
     width: 22%;
+  }
+  .profile-info {
+    width: 60%;
   }
   #search {
     font-size: 1.6rem;
   }
-  .burger-btn.visible-xs,s
+  .burger-btn.visible-xs,
   .search-icon.visible-xs {
     display: block;
   }
@@ -87,7 +90,7 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .logo {
+  .logo-wrap {
     width: 60%;
   }
   .profile-info {
@@ -143,7 +146,7 @@
 }
 
 @media only screen and (max-width: 480px) {
-  .logo {
+  .logo-wrap {
     width: 70%;
   }
   .profile-info {

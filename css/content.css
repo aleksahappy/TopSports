@@ -729,16 +729,13 @@
 
 .manuf-headers,
 .manuf-row {
+  align-items: stretch;
   border: 1px solid rgb(232,232,232);
-}
-
-.manuf-headers {
   border-left: none;
 }
 
 .manuf-row {
   border-top: none;
-  border-left: none;
 }
 
 .manuf-headers > div,
@@ -751,19 +748,19 @@
   text-align: center;
 }
 
-.row-man {
+.manuf-table .man {
   width: 20%;
 }
 
-.row-oem {
+.manuf-table .oem {
   width: 30%;
 }
 
-.row-model {
+.manuf-table .model {
   width: 30%;
 }
 
-.row-years {
+.manuf-table .years {
   width: 20%;
 }
 

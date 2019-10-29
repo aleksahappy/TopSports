@@ -1,0 +1,44 @@
+@media only screen and (max-width: 1280px) {
+  #cart-info > div {
+    margin-bottom: 1em;
+  }
+}
+
+@media only screen and (max-width: 1080px) {
+  .cart-info-container {
+    font-size: 0.875em;
+  }
+  .cart-header {
+    position: static;
+  }
+  .cart-list .cart-name {
+    width: 20%
+  }
+  .cart-list .cart-articul,
+  .cart-list .cart-type,
+  .cart-list .cart-qty,
+  .cart-list .cart-price,
+  .cart-list .cart-total {
+    width: 15%;
+  }
+  .cart-list .cart-name a {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  #cart-info,
+  .cart-make-order {
+    width: 100%;
+  }
+  .cart-make-order {
+    justify-content: center;
+  }
+  .cart-make-order > div {
+    margin-top: 1em;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+
+}
