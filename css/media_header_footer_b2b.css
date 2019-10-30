@@ -96,6 +96,8 @@
   .profile-info {
     width: 40%;
   }
+  #header-cart .cart-amount,
+  #header-cart .cart-price,
   #header-cart > div,
   .account div {
     display: none;

@@ -42,8 +42,7 @@
   line-height: 1.5;
 }
 
-.cart-wrap,
-.account-wrap {
+.profile-wrap {
   position: relative;
   width: 50%;
   height: 44px;
@@ -93,7 +92,8 @@
   font-weight: 700;
 }
 
-.cart-amount, .cart-price {
+#header-cart .cart-amount,
+#header-cart .cart-price {
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -134,7 +134,7 @@
   margin-right: -0.5em;
 }
 
-.cart-wrap.choice #header-cart:hover,
+.profile-wrap.choice #header-cart:hover,
 .account:hover {
   box-shadow: 0 0 8px rgba(222, 222, 222, 0.7);
 }

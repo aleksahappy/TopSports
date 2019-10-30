@@ -27,14 +27,14 @@
             <a class="logo" href="../"><img src="../../img/header_footer/top_sports_logo.png" alt="Логотип"/></a>
           </div>
           <div class="profile-info row">
-            <div class="cart-wrap">
+            <div class="profile-wrap">
               <a id="header-cart" href="../zip/?cart" data-level="2" data-href="cart" data-title="Корзина" onclick="openPage()">
                 <div class="cart-title">Корзина <span class="cart-type"></span></div>
                 <div class="cart-amount"><span>0</span>&nbsp;шт. /</div>
                 <div class="cart-price"><span>0</span>&nbsp;руб.</div>
               </a>
             </div>
-            <div class="account-wrap">
+            <div class="profile-wrap">
               <div class="account">
                 <div class="account-title">Вы зашли как</div>
                 <div class="account-username">Гость</div>
@@ -491,45 +491,64 @@
                 </div>
                 <div class="cart-list">
                   <div class="cart-headers row">
-                    <div id="check-all" class="cart-check" onclick="toggleAllCart(event)"></div>
-                    <div class="cart-name">Наименование</div>
-                    <div class="cart-articul">Артикул</div>
-                    <div class="cart-type">Тип заказа</div>
-                    <div class="cart-qty">Кол-во штук</div>
-                    <div class="cart-price">Цена</div>
-                    <div class="cart-total">Итого</div>
+                    <div id="check-all" class="check" onclick="toggleAllCart(event)"></div>
+                    <div class="name">Наименование</div>
+                    <div class="list-wrap">
+                      <div class="prop articul hidden-xs">Артикул</div>
+                      <div class="prop type hidden-xs">Тип заказа</div>
+                      <div class="prop amount hidden-xs">Кол-во штук</div>
+                      <div class="prop price hidden-xs">Цена</div>
+                      <div class="prop total hidden-xs">Итого</div>
+                      <div class="title">Раздел</div>
+                      <div class="value">Значение</div>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="cart-list">
                 <div id="cart-rows">
                   <div class="cart-row row checked #isAvailable#">
-                    <div class="cart-check" onclick="toggleInCart(event)"></div>
-                    <div class="cart-name">
+                    <div class="check" onclick="toggleInCart(event)"></div>
+                    <div class="name">
                       <a class="row" href="#" target="_blank" data-level="4" data-href="#href#" onclick="openPage()" >
                         <div class="img-wrap row">
                           <img src="#image#">
                         </div>
-                        <div class="title">#title# #options#</div>
+                        <div>#title# #options#</div>
                       </a>
                     </div>
-                    <div class="cart-articul">#articul#</div>
-                    <div class="cart-type">#cart-type#</div>
-                    <div class="cart-qty in-cart">
-                      <div class="qty">
-                        <div class="product-qty row">
-                          <div class="btn-minus" tooltip="Удалить" onclick="changeFromCart(#object_id#, this.textContent)">-</div>
-                          <input class="choiced-qty" type="text" value="#qty#" data-price="#curPrice#" data-retail-price="#retailPrice#" autocomplete="off" onchange="changeFromCart(#object_id#)" onfocus="onFocusInput(this)" onblur="changeFromCart(#object_id#)" onkeypress="return checkValue(event)">
-                          <div class="btn-plus" tooltip="Добавить" onclick="changeFromCart(#object_id#, this.textContent)">+</div>
-                        </div>
-                        <div class="tooltip" tooltip="#qtyTitle#">
-                          <div class="available-qty">#free_qty#&nbsp;шт.</div>
-                        </div>
+                    <div class="list-wrap">
+                      <div class="prop articul">
+                        <div class="title">Артикул</div>
+                        <div class="value">#articul#</div>
                       </div>
-                      <div class="message red">Продано</div>
+                      <div class="prop type">
+                        <div class="title">Тип заказа</div>
+                        <div class="value">#cart-type#</div>
+                      </div>
+                      <div class="prop amount in-cart">
+                        <div class="title">Кол-во штук</div>
+                        <div class="value qty">
+                          <div class="product-qty row">
+                            <div class="btn-minus" tooltip="Удалить" onclick="changeFromCart(#object_id#, this.textContent)">-</div>
+                            <input class="choiced-qty" type="text" value="#qty#" data-price="#curPrice#" data-retail-price="#retailPrice#" autocomplete="off" onchange="changeFromCart(#object_id#)" onfocus="onFocusInput(this)" onblur="changeFromCart(#object_id#)" onkeypress="return checkValue(event)">
+                            <div class="btn-plus" tooltip="Добавить" onclick="changeFromCart(#object_id#, this.textContent)">+</div>
+                          </div>
+                          <div class="tooltip" tooltip="#qtyTitle#">
+                            <div class="available-qty">#free_qty#&nbsp;шт.</div>
+                          </div>
+                        </div>
+                        <div class="value message red">Продано</div>
+                      </div>
+                      <div class="prop price">
+                        <div class="title">Цена</div>
+                        <div class="value">#price#</div>
+                      </div>
+                      <div class="prop total">
+                        <div class="title">Итого</div>
+                        <div class="value">#total#</div>
+                      </div>
                     </div>
-                    <div class="cart-price">#price#</div>
-                    <div class="cart-total">#total#</div>
                   </div>
                 </div>
               </div>
