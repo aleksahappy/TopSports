@@ -9,7 +9,7 @@
     width: 100%;
   }
   body.zip .big-card .card-select-info {
-    text-align: left;
+    justify-content: flex-start;
   }
 }
 
@@ -30,7 +30,7 @@
     padding-right: 0;
   }
   body.ekipirovka .big-card .card-select-info {
-    text-align: left;
+    justify-content: flex-start;
   }
 }
 

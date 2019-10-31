@@ -254,18 +254,15 @@
                     </div>
                   </div>
                   <div class="card-container-right">
-                    <div class="card-select-info #isHiddenInfo#">
-                      <div>
-                        Выбрано товаров:
-                        <span class="select-count red">#totalAmount#</span>&nbsp;шт. на сумму
-                        <span class="select-price red">#totalPrice#</span>&#8288;.–
-                      </div>
+                    <div class="card-select-info row #isHiddenInfo#">
+                      <div>Выбрано товаров:&nbsp;</div>
+                      <div><span class="select-count red">#totalAmount#</span> шт. на сумму <span class="select-price red">#totalPrice#.–</span></div>
                     </div>
                     <div class="card-sizes row">
                       <div class="card-size #inCart#">
                         <div class="size-articul grey">Артикул: #articul#</div>
                         <div class="size-choice row">
-                          <div class="size-name">#size#</div>
+                          <div class="size-name row">#size#</div>
                           <div class="product-qty row">
                             <div class="btn-minus" tooltip="Удалить" onclick="changeFromCard(#object_id#, this.textContent)">-</div>
                             <input class="choiced-qty" type="text" value="#value#" data-price="#curPrice#" autocomplete="off" onchange="changeFromCard(#object_id#)" onfocus="onFocusInput(this)" onblur="changeFromCard(#object_id#)" onkeypress="return checkValue(event)">
@@ -352,7 +349,7 @@
                     <div class="card-size #inCart#">
                       <div class="size-articul grey">Артикул: #articul#</div>
                       <div class="size-choice row">
-                        <div class="size-name">#size#</div>
+                        <div class="size-name row">#size#</div>
                         <div class="product-qty row">
                           <div class="btn-minus" tooltip="Удалить" onclick="changeFromCard(#object_id#, this.textContent)">-</div>
                           <input class="choiced-qty" type="text" value="#value#" data-price="#curPrice#" autocomplete="off" onchange="changeFromCard(#object_id#)" onfocus="onFocusInput(this)" onblur="changeFromCard(#object_id#)" onkeypress="return checkValue(event)">
@@ -365,10 +362,9 @@
                     </div>
                   </div>
                   <div class="card-notice red">#notice#</div>
-                  <div class="card-select-info #isHiddenInfo#">
-                    Товаров выбрано:
-                    <span class="select-count">#totalAmount#</span>&nbsp;шт. на сумму
-                    <span class="select-price">#totalPrice#</span>&#8288;.–
+                  <div class="card-select-info row #isHiddenInfo#">
+                    <div>Товаров выбрано:&nbsp;</div>
+                    <div><span class="select-count">#totalAmount#</span> шт. на сумму <span class="select-price">#totalPrice#.–</span></div>
                   </div>
                 </div>
               </div>
@@ -493,7 +489,7 @@
                   <div class="cart-headers row">
                     <div id="check-all" class="check" onclick="toggleAllCart(event)"></div>
                     <div class="name">Наименование</div>
-                    <div class="list-wrap">
+                    <div class="list-wrap row">
                       <div class="prop articul hidden-xs">Артикул</div>
                       <div class="prop type hidden-xs">Тип заказа</div>
                       <div class="prop amount hidden-xs">Кол-во штук</div>
@@ -517,7 +513,7 @@
                         <div>#title# #options#</div>
                       </a>
                     </div>
-                    <div class="list-wrap">
+                    <div class="list-wrap row">
                       <div class="prop articul">
                         <div class="title">Артикул</div>
                         <div class="value">#articul#</div>

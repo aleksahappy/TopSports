@@ -537,11 +537,10 @@ function Carousel(obj) {
     if (this.settings.toggleAmount > this.visibleImg) {
       this.settings.toggleAmount = this.visibleImg;
     }
+    this.initBtns();
     if (this.imgCount < 2) {
       this.settings.isNav = false;
     }
-
-    this.initBtns();
     if (this.settings.isInfinitie && this.settings.isCenter) {
       this.setImgToCenter();
     }

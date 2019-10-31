@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../css/header_footer_b2b.css">
     <link rel="stylesheet" type="text/css" href="../css/media_header_footer_b2b.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/media_main.css">
   </head>
 
   <body data-website="ts_com">
@@ -70,7 +71,7 @@
       <div class="container">
         <div class="common-info row">
           <div class="clients-info">
-            <div class="title">Клиенты</div>
+            <div class="head">Клиенты</div>
             <a class="link" href="clients/">
               <div class="icon"></div>
               <div class="text">Всего / Мои</div>
@@ -81,7 +82,7 @@
             </a>
           </div>
           <div class="orders-info">
-            <div class="title">Информация о заказах</div>
+            <div class="head">Информация о заказах</div>
             <div class="orders-info-wrap row">
               <a class="link wait-confirmation" href="orders/?wait-confirmation">
                 <div class="icon"></div>
@@ -127,47 +128,240 @@
         </div>
         <div class="last-info row">
           <div class="last-clients">
-            <div class="title">Последние активные клиенты</div>
+            <div class="head">Последние активные клиенты</div>
             <div class="list">
               <div class="list-headers row">
                 <div class="name">Название клиента</div>
-                <div class="cart">Корзина</div>
-                <div class="date">Активность</div>
+                <div class="list-wrap row">
+                  <div class="prop cart hidden-xs">Корзина</div>
+                  <div class="prop date hidden-xs">Активность</div>
+                  <div class="title">Раздел</div>
+                  <div class="value ">Значение</div>
+                </div>
               </div>
               <div id="clients-rows" class="list-rows">
                 <div class="list-row row">
                   <div class="name">
                     <a href="clients/?">#ВЕЗДЕХОД ООО#</a>
                   </div>
-                  <div class="cart">#Корзина пуста#</div>
-                  <div class="date">
-                    <div tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                  <div class="list-wrap row">
+                    <div class="prop cart">
+                      <div class="title">Корзина</div>
+                      <div class="value">#Корзина пуста#</div>
+                    </div>
+                    <div class="prop date">
+                      <div class="title">Активность</div>
+                      <div class="value" tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                    </div>
                   </div>
                 </div>
+                <div class="list-row row">
+                    <div class="name">
+                      <a href="clients/?">#ВЕЗДЕХОД ООО#</a>
+                    </div>
+                    <div class="list-wrap row">
+                      <div class="prop cart">
+                        <div class="title">Корзина</div>
+                        <div class="value">#Корзина пуста#</div>
+                      </div>
+                      <div class="prop date">
+                        <div class="title">Активность</div>
+                        <div class="value" tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-row row">
+                      <div class="name">
+                        <a href="clients/?">#ВЕЗДЕХОД ООО#</a>
+                      </div>
+                      <div class="list-wrap row">
+                        <div class="prop cart">
+                          <div class="title">Корзина</div>
+                          <div class="value">#Корзина пуста#</div>
+                        </div>
+                        <div class="prop date">
+                          <div class="title">Активность</div>
+                          <div class="value" tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-row row">
+                        <div class="name">
+                          <a href="clients/?">#ВЕЗДЕХОД ООО#</a>
+                        </div>
+                        <div class="list-wrap row">
+                          <div class="prop cart">
+                            <div class="title">Корзина</div>
+                            <div class="value">#Корзина пуста#</div>
+                          </div>
+                          <div class="prop date">
+                            <div class="title">Активность</div>
+                            <div class="value" tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="list-row row">
+                          <div class="name">
+                            <a href="clients/?">#ВЕЗДЕХОД ООО#</a>
+                          </div>
+                          <div class="list-wrap row">
+                            <div class="prop cart">
+                              <div class="title">Корзина</div>
+                              <div class="value">#Корзина пуста#</div>
+                            </div>
+                            <div class="prop date">
+                              <div class="title">Активность</div>
+                              <div class="value" tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="list-row row">
+                            <div class="name">
+                              <a href="clients/?">#ВЕЗДЕХОД ООО#</a>
+                            </div>
+                            <div class="list-wrap row">
+                              <div class="prop cart">
+                                <div class="title">Корзина</div>
+                                <div class="value">#Корзина пуста#</div>
+                              </div>
+                              <div class="prop date">
+                                <div class="title">Активность</div>
+                                <div class="value" tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                              </div>
+                            </div>
+                          </div>
               </div>
             </div>
-            <a class="link" href="clients/">Все клиенты</a>
+          <a class="link" href="clients/">Все клиенты</a>
           </div>
           <div class="last-orders">
-            <div class="title">Последние заказы</div>
+            <div class="head">Последние заказы</div>
             <div class="list">
               <div class="list-headers row">
                 <div class="name">Номер заказа</div>
-                <div class="date">Дата</div>
-                <div class="partner">Контрагент</div>
-                <div class="status">Статус</div>
+                <div class="list-wrap row">
+                  <div class="prop date hidden-xs">Дата</div>
+                  <div class="prop partner hidden-xs">Контрагент</div>
+                  <div class="prop status hidden-xs">Статус</div>
+                  <div class="title">Раздел</div>
+                  <div class="value">Значение</div>
+                </div>
               </div>
               <div id="orders-rows" class="list-rows">
                 <div class="list-row row">
                   <div class="name">
                     <a href="orders/?">#ТС-624#</a>
                   </div>
-                  <div class="date">
-                    <div tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                  <div class="list-wrap row">
+                    <div class="prop date">
+                      <div class="title">Дата</div>
+                      <div class="value" tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                    </div>
+                    <div class="prop partner">
+                      <div class="title">Контрагент</div>
+                      <div class="value">#СИМА-ЛЕНД ООО ТД#</div>
+                    </div>
+                    <div class="prop status">
+                      <div class="title">Статус</div>
+                      <div class="value">#Ожидает подтверждения#</div>
+                    </div>
                   </div>
-                  <div class="partner">#СИМА-ЛЕНД ООО ТД#</div>
-                  <div class="status">#Ожидает подтверждения#</div>
                 </div>
+                <div class="list-row row">
+                    <div class="name">
+                      <a href="orders/?">#ТС-624#</a>
+                    </div>
+                    <div class="list-wrap row">
+                      <div class="prop date">
+                        <div class="title">Дата</div>
+                        <div class="value" tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                      </div>
+                      <div class="prop partner">
+                        <div class="title">Контрагент</div>
+                        <div class="value">#СИМА-ЛЕНД ООО ТД#</div>
+                      </div>
+                      <div class="prop status">
+                        <div class="title">Статус</div>
+                        <div class="value">#Ожидает подтверждения#</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-row row">
+                      <div class="name">
+                        <a href="orders/?">#ТС-624#</a>
+                      </div>
+                      <div class="list-wrap row">
+                        <div class="prop date">
+                          <div class="title">Дата</div>
+                          <div class="value" tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                        </div>
+                        <div class="prop partner">
+                          <div class="title">Контрагент</div>
+                          <div class="value">#СИМА-ЛЕНД ООО ТД#</div>
+                        </div>
+                        <div class="prop status">
+                          <div class="title">Статус</div>
+                          <div class="value">#Ожидает подтверждения#</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-row row">
+                        <div class="name">
+                          <a href="orders/?">#ТС-624#</a>
+                        </div>
+                        <div class="list-wrap row">
+                          <div class="prop date">
+                            <div class="title">Дата</div>
+                            <div class="value" tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                          </div>
+                          <div class="prop partner">
+                            <div class="title">Контрагент</div>
+                            <div class="value">#СИМА-ЛЕНД ООО ТД#</div>
+                          </div>
+                          <div class="prop status">
+                            <div class="title">Статус</div>
+                            <div class="value">#Ожидает подтверждения#</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="list-row row">
+                          <div class="name">
+                            <a href="orders/?">#ТС-624#</a>
+                          </div>
+                          <div class="list-wrap row">
+                            <div class="prop date">
+                              <div class="title">Дата</div>
+                              <div class="value" tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                            </div>
+                            <div class="prop partner">
+                              <div class="title">Контрагент</div>
+                              <div class="value">#СИМА-ЛЕНД ООО ТД#</div>
+                            </div>
+                            <div class="prop status">
+                              <div class="title">Статус</div>
+                              <div class="value">#Ожидает подтверждения#</div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="list-row row">
+                            <div class="name">
+                              <a href="orders/?">#ТС-624#</a>
+                            </div>
+                            <div class="list-wrap row">
+                              <div class="prop date">
+                                <div class="title">Дата</div>
+                                <div class="value" tooltip="#09:52:14#" flow="right">#25.10.2019#</div>
+                              </div>
+                              <div class="prop partner">
+                                <div class="title">Контрагент</div>
+                                <div class="value">#СИМА-ЛЕНД ООО ТД#</div>
+                              </div>
+                              <div class="prop status">
+                                <div class="title">Статус</div>
+                                <div class="value">#Ожидает подтверждения#</div>
+                              </div>
+                            </div>
+                          </div>
               </div>
             </div>
             <a class="link" href="orders/">Все заказы</a>

@@ -538,6 +538,7 @@
   padding: 0.35em 0.6em;
   font-size: 0.8em;
   color: rgb(255,255,255);
+  text-transform: uppercase;
 }
 
 .card-price {
@@ -641,8 +642,9 @@
 }
 
 .size-name {
+  justify-content: center;
+  align-items: center;
   width: 6.5em;
-  padding: 0.37em 0.5em;
   background-color: rgb(249,249,249);
   border: 1px solid rgb(161,151,147);
   border-radius: 2px 0 0px 2px;
@@ -657,7 +659,7 @@
 
 .product-qty {
   align-items: center;
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-weight: 700;
   color: rgb(185,183,190);
   border: 1px solid rgb(179,186,196);
@@ -670,7 +672,7 @@
 }
 
 .btn-minus, .btn-plus {
-  width: 1.2em;
+  width: 1.5em;
   text-align: center;
 }
 
@@ -685,7 +687,7 @@
 }
 
 .choiced-qty {
-  width: 2em;
+  width: 2.5em;
   font-size: 0.85em;
   font-weight: 700;
   color: rgb(185,183,190);
@@ -703,6 +705,12 @@
 
 .in-cart .choiced-qty {
   color: rgb(0,0,0);
+}
+
+.card-select-info {
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-bottom: 1em;
 }
 
 .card-select-info span {
@@ -956,7 +964,7 @@ body.zip .big-card .card-container-right {
 }
 
 .big-card .card-select-info {
-  text-align: right;
+  justify-content: flex-end;
 }
 
 .big-card .card-select-info span {
@@ -1025,7 +1033,7 @@ body.zip .big-card .card-container-right {
   max-width: 1000px;
   max-height: 70vh;
   margin: 0 0 -1px -1px;
-  padding: 2em 1.5em 1.5em 1.5em;
+  padding: 2em;
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(188,188,188);
   border-radius: 4px;
@@ -1037,8 +1045,8 @@ body.zip .big-card .card-container-right {
 .full-card .close-btn {
   top: 0;
   right: 0;
-  width: 1.5em;
-  font-size: 1.5em;
+  width: 1.75em;
+  font-size: 1.75em;
   text-align: center;
 }
 
@@ -1077,7 +1085,7 @@ body.zip .big-card .card-container-right {
 .full-card .carousel-nav .carousel-item {
   width: 25%;
   max-width: 100px;
-  min-width: 80px;
+  min-width: 70px;
 }
 
 .full-card .card-info {
@@ -1104,6 +1112,10 @@ body.zip .big-card .card-container-right {
   font-size: 1.5em;
 }
 
+.full-card .card-select-info {
+  justify-content: flex-start;
+}
+
 .full-card .card-options {
   padding-bottom: 1.5em;
 }
@@ -1119,10 +1131,6 @@ body.zip .big-card .card-container-right {
 .full-card .card-selectInfo {
   font-size: 1.28em;
   padding-bottom: 0.5em;
-}
-
-.full-card .card-description {
-  padding-left: 1.5em;
 }
 
 /* =====================================================================================================

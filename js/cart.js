@@ -379,14 +379,14 @@ var curCartRow,
 
 function changeFromCart(id, sign) {
   curCartRow = event.currentTarget.closest('.cart-row');
-  curQtyBox = curCartRow.querySelector('.cart-qty');
-  curArticul = curCartRow.querySelector('.cart-articul').textContent;
+  curQtyBox = curCartRow.querySelector('.amount');
+  curArticul = curCartRow.querySelector('.articul .value').textContent;
   curInput = curQtyBox.querySelector('.choiced-qty');
   curQty = parseInt(curInput.value);
-  availableQty = parseInt(curCartRow.querySelector('.available-qty').textContent);
+  availableQty = parseInt(curQtyBox.querySelector('.available-qty').textContent);
   curPrice = parseInt(curInput.dataset.price);
-  curType = curCartRow.querySelector('.cart-type').textContent;
-  totalPrice = curCartRow.querySelector('.cart-total');
+  curType = curCartRow.querySelector('.type .value').textContent;
+  totalPrice = curCartRow.querySelector('.total .value');
 
   curQty = changeValue(sign, curQty, availableQty);
   curInput.value = curQty;
@@ -641,7 +641,7 @@ function toggleInCart(event) {
 function deleteSelected() {
   cartRows.querySelectorAll('.cart-row.checked').forEach(row => {
     cartRows.removeChild(row);
-    removeCartInfo(row.querySelector('.cart-articul').textContent);
+    removeCartInfo(row.querySelector('.articul .value').textContent);
   });
   checkAllBtn.classList.remove('checked');
   changeCartInfo();
