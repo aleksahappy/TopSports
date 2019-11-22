@@ -23,10 +23,6 @@
   #search {
     font-size: 1.6rem;
   }
-  .burger-btn.visible-xs,
-  .search-icon.visible-xs {
-    display: block;
-  }
   .search {
     display: none;
     position: absolute;
@@ -96,11 +92,18 @@
   .profile-info {
     width: 40%;
   }
-  #header-cart .cart-amount,
-  #header-cart .cart-price,
-  #header-cart > div,
-  .account div {
+  #header-cart:hover::before {
+    background-image: url(../img/header_footer/ico_cart.png);
+  }
+  #header-cart .title,
+  #header-cart .amount,
+  #header-cart .price,
+  .account .title,
+  .account .username {
     display: none;
+  }
+  #header-cart .short-amount {
+    display: block;
   }
   #header-cart, .account {
     width: 40px;
@@ -118,6 +121,7 @@
   .account-menu {
     width: 10em;
   }
+  .profile-wrap.choice #header-cart:hover,
   #header-cart:hover,
   .account:hover {
     box-shadow: none;

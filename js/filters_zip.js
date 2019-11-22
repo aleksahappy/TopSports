@@ -19,28 +19,6 @@ var colors = {
   'graphite': 'Графитовый' // нет в массиве
 };
 
-// Сортировка данных фильтров по алфавиту:
-
-function sortObjByKey(obj) {
-  var sortedObj = {};
-  Object.keys(obj).sort().forEach(key => sortedObj[key] = obj[key]);
-  return sortedObj;
-}
-
-function sortObjByValue(obj) {
-  var sortedObj = {};
-  Object.keys(obj).sort((a,b) => {
-    if (obj[a] < obj[b]) {
-      return -1;
-    }
-    if (obj[a] > obj[b]) {
-      return 1;
-    }
-    return 0;
-  }).forEach(key => sortedObj[key] = obj[key]);
-  return sortedObj;
-}
-
 // Подготовка к сортировке и сортировка подкатегорий по алфавиту:
 
 for (var k in catsubs) {
@@ -55,17 +33,17 @@ for (var k in catsubs) {
 
 var dataForFilters = [{
   title: 'Спецпредложение',
-  isShow: true,
+  isOpen: 'true',
   key: 'specialOffer',
   items: specialOffer
 }, {
   title: 'Категория',
-  isShow: true,
+  isOpen: 'true',
   key: 'cat',
   items: sortObjByKey(catsubs)
 }, {
   title: 'Бренд',
-  isShow: true,
+  isOpen: 'true',
   key: 'brand',
   items: sortObjByKey(brands)
 }];

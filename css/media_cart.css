@@ -23,14 +23,16 @@
   .cart-list .list-wrap {
     width: 70%;
   }
-  .cart-list .articul,
-  .cart-list .type,
-  .cart-list .amount {
+  .cart-list .articul {
     width: 25%;
+  }
+  .cart-list .action,
+  .cart-list .amount {
+    width: 20%;
   }
   .cart-list .price,
   .cart-list .total {
-    width: 12.5%;
+    width: 17.5%;
   }
 }
 
@@ -45,14 +47,23 @@
   .cart-make-order div {
     margin-top: 1rem;
   }
+  .copy-container {
+    padding: 0;
+  }
+  .copy-btn {
+    display: none;
+  }
   .cart-list .check {
     width: 5%;
   }
   .cart-list .name {
-    width: 35%;
+    width: 45%;
   }
   .cart-list .list-wrap {
-    width: 60%;
+    width: 50%;
+  }
+  .cart-row > div:not(.list-wrap), .cart-row .prop > div {
+    padding: 0.5em;
   }
   .cart-row .name {
     justify-content: center;
@@ -77,7 +88,7 @@
     border-bottom: none;
   }
   .cart-list .list-wrap .title,
-  .cart-list .list-wrap .value:not(.message) {
+  .cart-list .list-wrap > div:not(.amount) .value {
     display: flex;
   }
   .list-wrap .title {
@@ -85,6 +96,10 @@
   }
   .list-wrap .value {
     width: 60%;
+    justify-content: center;
+  }
+  .list-wrap .amount .qty {
+    align-items: center;
   }
   .list-wrap .title,
   .list-wrap .value {
@@ -101,10 +116,26 @@
 }
 
 @media only screen and (max-width: 480px) {
+  .cart-row > div:not(.list-wrap), .cart-row .prop > div {
+    padding: 0.3em;
+  }
   .cart-list .check {
     width: 10%;
   }
+  .cart-list .name {
+    width: 35%;
+  }
   .cart-list .list-wrap {
     width: 55%;
+  }
+  .list-wrap .title {
+    width: 40%;
+  }
+  .list-wrap .value {
+    width: 60%;
+  }
+  #cart-empty {
+    font-size: 0.85em;
+    margin-top: 2em;
   }
 }

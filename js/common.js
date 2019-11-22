@@ -1,3 +1,80 @@
+var discounts = [{
+  did: '1',
+  dtitle: '+ Подарок',
+  ddesc: '10шт. + подарок',
+  ddatestart: '01.11.2019',
+  ddateend: '30.11.2019',
+  dtype: 'numplusart',
+  dnv: 10,
+  dnvex: 1,
+  diart: [3524],
+  diartex: '3852',
+  dartprice: 0,
+  dartexprice: 0,
+  dcondition: 0,
+  dconditionex: 0
+}, {
+  did: '2',
+  dtitle: '1 бесплатно',
+  ddesc: '6 покупаешь 1 бесплатно',
+  ddatestart: '01.11.2019',
+  ddateend: '30.11.2019',
+  dtype: 'numplusnum',
+  dnv: 6,
+  dnvex: 1,
+  diart: [29760],
+  diartex: '',
+  dartprice: 0,
+  dartexprice: 0,
+  dcondition: 0,
+  dconditionex: 0
+}, {
+  did: '3',
+  dtitle: 'Скидка от РРЦ',
+  ddesc: 'кратно 20шт. - скидка от РРЦ',
+  ddatestart: '01.11.2019',
+  ddateend: '30.11.2019',
+  dtype: 'numminusproc',
+  dnv: 20,
+  dnvex: 55,
+  diart: [3818],
+  diartex: '',
+  dartprice: 0,
+  dartexprice: 0,
+  dcondition: 0,
+  dconditionex: 0
+}, {
+  did: '3',
+  dtitle: 'Скидка от РРЦ',
+  ddesc: 'кратно 25шт. - скидка от РРЦ',
+  ddatestart: '01.11.2019',
+  ddateend: '30.11.2019',
+  dtype: 'numminusproc',
+  dnv: 25,
+  dnvex: 55,
+  diart: [3813],
+  diartex: '',
+  dartprice: 0,
+  dartexprice: 0,
+  dcondition: 0,
+  dconditionex: 0
+}, {
+  did: '4',
+  dtitle: 0,
+  ddesc: 0,
+  ddatestart: '01.11.2019',
+  ddateend: '30.11.2019',
+  dtype: 'sumlessproc',
+  dnv: [0, 200000, 500000],
+  dnvex: [25, 27, 30],
+  diart: 0,
+  diartex: 0,
+  dartprice: 0,
+  dartexprice: 0,
+  dcondition: {razdel: 'lodki'},
+  dconditionex: 0
+}];
+
 'use strict';
 
 setPaddingToBody();
@@ -14,17 +91,79 @@ var website =  document.body.dataset.website,
 
 // Динамически изменяемые переменные:
 
-var pageInfo;
+var pageUrl,
+    sectionId,
+    pageInfo,
+    list,
+    subList,
+    template,
+    subTemplate,
+    newItem,
+    newSubItem,
+    curEl,
+    value,
+    subkey,
+    qty;
 
 // Переменные для циклов:
 
-var isExsist,
+var isFound,
+    isExsist,
     item,
     key,
     k,
     kk,
     kkk,
-    i;
+    i,
+    ii,
+    iii;
+
+//=====================================================================================================
+// Полифиллы:
+//=====================================================================================================
+
+(function() {
+  // проверяем поддержку
+  if (!Element.prototype.closest) {
+    // реализуем
+    Element.prototype.closest = function(css) {
+      var node = this;
+      while (node) {
+        if (node.matches(css)) return node;
+        else node = node.parentElement;
+      }
+      return null;
+    };
+  }
+})();
+
+//=====================================================================================================
+// Сортировка объекта по алфавиту:
+//=====================================================================================================
+
+// Сортировка по ключу:
+
+function sortObjByKey(obj) {
+  var sortedObj = {};
+  Object.keys(obj).sort().forEach(key => sortedObj[key] = obj[key]);
+  return sortedObj;
+}
+
+// Сортировка по значению:
+
+function sortObjByValue(obj) {
+  var sortedObj = {};
+  Object.keys(obj).sort((a,b) => {
+    if (obj[a] < obj[b]) {
+      return -1;
+    }
+    if (obj[a] > obj[b]) {
+      return 1;
+    }
+    return 0;
+  }).forEach(key => sortedObj[key] = obj[key]);
+  return sortedObj;
+}
 
 //=====================================================================================================
 // Визуальное отображение контента на странице:
@@ -75,14 +214,14 @@ function convertYears(stringYears) {
     prevYear = parseInt(years[i - 1], 10);
 
     if (curYear + 1 != nextYear) {
-      if (i == years.length -  1) {
+      if (i === years.length -  1) {
         resultYears.push(curYear);
       } else {
         resultYears.push(curYear + ', ');
       }
-    } else if (curYear - 1 != prevYear) {
+    } else if (curYear - 1 !== prevYear) {
       resultYears.push(curYear);
-    } else if (curYear + 1 == nextYear && resultYears[resultYears.length - 1] != ' &ndash; ') {
+    } else if (curYear + 1 === nextYear && resultYears[resultYears.length - 1] !== ' &ndash; ') {
       resultYears.push(' &ndash; ');
     }
   }
@@ -99,9 +238,9 @@ function getDocumentScroll() {
 
 // Установка прокрутки документа:
 
-function setDocumentScroll() {
-  document.documentElement.scrollTop = scrollTop;
-  document.body.scrollTop = scrollTop;
+function setDocumentScroll(top) {
+  document.documentElement.scrollTop = top;
+  document.body.scrollTop = top;
 }
 
 //=====================================================================================================
@@ -221,6 +360,17 @@ function getInfo(key) {
 // Сохранение данных о странице по ключу:
 
 function saveInfo(key, data) {
+  pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
+  if (!pageInfo[key]) {
+    pageInfo[key] = {};
+  }
+  pageInfo[key] = data;
+  saveInLocal(website, pageInfo);
+}
+
+// Удаление всех данных о странице по ключу:
+
+function removeInfo(key, data) {
   pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
   if (!pageInfo[key]) {
     pageInfo[key] = {};

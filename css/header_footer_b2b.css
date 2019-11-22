@@ -55,18 +55,19 @@
   padding: 0.5em 0.5em 0 4em;
   background-color: rgb(255, 255, 255);
   border-radius: 4px;
-  z-index: 20;
   cursor: pointer;
 }
 
 #header-cart {
   left: 0;
   white-space: nowrap;
+  z-index: 30;
 }
 
 .account {
   right: 0;
   width: 15em;
+  z-index: 20;
 }
 
 #header-cart::before, .account::before {
@@ -84,54 +85,77 @@
   background-image: url(../img/header_footer/ico_cart.png);
 }
 
-#header-cart:hover::before, #header-cart:active::before{
+#header-cart:hover::before {
   background-image: url(../img/header_footer/ico_cart_orange.png);
+}
+
+#header-cart .title {
+  color: rgb(241,89,42);
+}
+
+#header-cart .amount,
+#header-cart .price {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #header-cart span {
   font-weight: 700;
 }
 
-#header-cart .cart-amount,
-#header-cart .cart-price {
-  display: inline-block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-#header-cart .cart-title {
-  color: rgb(241,89,42);
+#header-cart .short-amount {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: -10px;
+  width: 22px;
+  height: 22px;
+  padding: 0 2px;
+  font-size: 10px;
+  line-height: 23px;
+  color: rgb(255,255,255);
+  background-color: rgb(241,89,42);
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0 4px 5px 0 rgba(100,100,100,0.5);
+  visibility: hidden;
 }
 
 .account::before {
   background-image: url(../img/header_footer/ico_profile.png);
 }
 
-.account-title {
+.account .title {
   font-weight: 700;
   color: rgb(241,89,42);
 }
 
-.account-title::after {
+.account .title::after {
   content: '\f107';
   font-family: 'FontAwesome';
   padding-left: 0.7em;
 }
 
-.account:hover .account-title::after {
+.account:hover .title::after {
   content: '\f106';
 }
 
-.account-username {
+.account .username {
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .cart-menu,
 .account-menu {
-  display: none;
+  max-height: 0px;
   margin-left: -4em;
   margin-right: -0.5em;
+  padding-top: 0.8em;
+  overflow: hidden;
+  -webkit-transition: max-height 0.2s linear;
+  -moz-transition: max-height 0.2s linear;
+  transition: max-height 0.2s linear;
 }
 
 .profile-wrap.choice #header-cart:hover,
@@ -141,7 +165,8 @@
 
 #header-cart:hover .cart-menu,
 .account:hover .account-menu {
-  display: block;
+  /* display: block; */
+  max-height: 300px;
 }
 
 .cart-menu :last-child,
@@ -194,6 +219,8 @@
   font-size: 1.8em;
   line-height: 0.8;
   text-transform: uppercase;
+  -webkit-transition: 200ms;
+  -moz-transition: 200ms;
   transition: 200ms;
 }
 
@@ -245,6 +272,8 @@
 .submenu-item {
   padding: 1rem 2rem;
   font-size: 1.15em;
+  -webkit-transition: 200ms;
+  -moz-transition: 200ms;
   transition: 200ms;
 }
 
@@ -425,6 +454,8 @@
 }
 
 .footer-links a:hover {
+  -webkit-transition: 300ms;
+  -moz-transition: 300ms;
   transition: 300ms;
   color: rgb(241,89,42);
 }
@@ -436,6 +467,8 @@
 }
 
 .youtube:hover {
+  -webkit-transition: 300ms;
+  -moz-transition: 300ms;
   transition: 300ms;
   transform: scale(1.1);
 }

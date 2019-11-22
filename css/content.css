@@ -58,7 +58,7 @@
  Стили для информации о поиске:
 ===================================================================================================== */
 
-.main-info {
+#main-info {
   width: 60%;
 }
 
@@ -127,9 +127,9 @@
 
 #gallery-sort {
   position: relative;
-  padding: 0.15em 1.5em 0.15em 0.3em;
+  padding: 0 1.5em 0 0.3em;
   font-size: 1em;
-  line-height: 1;
+  line-height: 1.5;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
   border: 1px solid rgb(204,204,204);
@@ -149,17 +149,31 @@
 
 #filters-container {
   display: none;
-  width: 16em;
+  width: 17em;
   margin-right: 1rem;
 }
 
-.filters {
+#filters {
   position: static;
-  width: 16em;
-  padding-right: 1.5em;
+  width: 17em;
+  padding-right: 10px;
   padding-bottom: 1em;
   overflow-y: scroll;
   text-overflow: ellipsis;
+}
+
+#filters::-webkit-scrollbar {
+  width: 7px;
+}
+
+#filters::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+#filters::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgb(204, 204, 204);
+  -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
 }
 
 .default-btn {
@@ -173,10 +187,17 @@
   border: 1px solid rgb(51,51,51);
   border-radius: 2px;
   cursor: pointer;
+
+  width: 98%;
+  position: relative;
+  box-shadow: 3px 3px 3px rgb(153,153,153);
+  transition: top 0.2s linear;
+  border-radius: 4px;
 }
 
 .default-btn:active {
-  background-color: rgb(241,89,42);
+  box-shadow: none;
+  top: 4px;
 }
 
 .filter-title {
@@ -200,22 +221,30 @@
   top: 45%;
   right: 0;
   background: url(../img/content/filter_opener.png);
-  background-position-x: -9px;
+  background-position-x: 0;
   background-repeat: no-repeat;
 }
 
-.filter.open .filter-title::after {
-  background-position-x: 0;
+.filter.close .filter-title::after {
+  background-position-x: -9px;
 }
 
 .filter-items {
-  display: none;
+  max-height: 1000px;
   font-size: 0.85em;
   color: rgb(88, 88, 88);
+  overflow: hidden;
+  -webkit-transition: max-height 0.3s linear;
+  -moz-transition: max-height 0.3s linear;
+  transition: max-height 0.3s linear;
 }
 
-.filter.open .filter-items {
-  display: block;
+.filter-items .filter-items {
+  font-size: 1em;
+}
+
+.filter.close .filter-items {
+  max-height: 0px !important;
 }
 
 .filter-item {
@@ -267,12 +296,8 @@
   display: none;
 }
 
-.filter-subitems {
-  display: none;
-}
-
-.filter-item.open .filter-subitems {
-  display: block;
+.filter-item.close .filter-items {
+  max-height: 0px !important;
 }
 
 .filter-item.subitem {
@@ -313,7 +338,7 @@
   padding: 0 1.5em;
 }
 
-#filter-color.open .filter-items {
+#filter-color .filter-items {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -480,11 +505,16 @@
   position: absolute;
   top: 0;
   left: 0.5em;
+  transform: rotate(90deg);
+  -webkit-transition: 100ms;
+  -moz-transition: 100ms;
   transition: 100ms;
 }
 
-#filter-cat .filter-item.open .open-btn::before {
-  transform: rotate(90deg);
+#filter-cat .filter-item.close .open-btn::before {
+  transform: rotate(0deg);
+  -webkit-transition: 300ms;
+  -moz-transition: 300ms;
   transition: 300ms;
 }
 
@@ -529,16 +559,27 @@
   font-weight: 500;
 }
 
+.card-articul {
+  font-size: 0.9em;
+}
+
 .card-img {
   width: 100%;
 }
 
+.card-promo {
+  font-size: 0.85em;
+}
+
 .promo-title {
   display: inline-block;
-  padding: 0.35em 0.6em;
-  font-size: 0.8em;
+  padding: 0.2em 0.6em;
   color: rgb(255,255,255);
   text-transform: uppercase;
+}
+
+.promo-date {
+  display: none;
 }
 
 .card-price {
@@ -552,7 +593,7 @@
 
 .opt {
   flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
 }
 
 .new-price {
@@ -582,6 +623,10 @@
   height: 15px;
   background-image: url(../img/content/ico_stock_arrive_new.png);
   background-size: cover;
+}
+
+.available-qty span {
+  font-weight: 600;
 }
 
 .not-available::before {
@@ -651,6 +696,10 @@
   text-align: center;
 }
 
+.size-name.click {
+  cursor: pointer;
+}
+
 .in-cart .size-name {
   color: rgb(255,255,255);
   background-color: rgb(31,34,41);
@@ -707,21 +756,37 @@
   color: rgb(0,0,0);
 }
 
-.card-select-info {
-  flex-wrap: wrap;
-  align-items: baseline;
-  margin-bottom: 1em;
+.select-info {
+  visibility: hidden;
+  margin-bottom: 0.5em;
 }
 
-.card-select-info span {
-  font-weight: 500;
+.select-info .row {
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+
+.select-info span {
+  font-weight: 600;
+}
+
+.select-info .bonus {
+  display: none;
+  align-items: center;
+}
+
+.bonus-img {
+  width: 50px;
+  height: 50px;
+  margin: 0 0.5em;
 }
 
 .card-description {
   font-size: 0.85em;
 }
 
-.description-title {
+.card-subtitle {
   font-weight: 500;
   padding-bottom: 0.5em;
 }
@@ -735,7 +800,7 @@
   font-size: 0.85em;
 }
 
-.manuf-headers,
+#manuf-headers,
 .manuf-row {
   align-items: stretch;
   border: 1px solid rgb(232,232,232);
@@ -746,13 +811,13 @@
   border-top: none;
 }
 
-.manuf-headers > div,
+#manuf-headers > div,
 .manuf-row > div {
   padding: 0.1em 0.3em;
   border-left: 1px solid rgb(232,232,232);
 }
 
-.manuf-headers > div {
+#manuf-headers > div {
   text-align: center;
 }
 
@@ -830,9 +895,9 @@
 .big-card {
   position: relative;
   width: 100%;
-  height: 14em;
+  height: 15em;
   margin: 0 0 -1px 0;
-  padding: 0.7em;
+  padding: 1em;
   padding-bottom: 0;
   background-color: rgb(255, 255, 255);
   border: 1px solid rgb(204,204,204);
@@ -844,9 +909,13 @@
   padding-bottom: 1.5em;
 }
 
-.big-card .card-head {
+body.ekipirovka .big-card .card-head {
+  width: 100%;
   max-width: 45em;
-  min-width: 37em;
+}
+
+body.zip .big-card .card-head {
+  width: 65%;
 }
 
 .big-card .card-title {
@@ -855,16 +924,21 @@
 }
 
 .big-card .card-info-title {
-  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
+}
+
+body.ekipirovka .big-card .card-info-title {
+  width: 100%;
+}
+
+body.zip .big-card .card-info-title {
+  width: 35%;
+  flex-wrap: wrap;
 }
 
 .big-card .card-promo {
   margin-right: 2em;
-}
-
-.big-card .promo-title {
-  margin: 0.5em 0;
 }
 
 .big-card .opt .card-price-title {
@@ -963,11 +1037,7 @@ body.zip .big-card .card-container-right {
   width: 35%;
 }
 
-.big-card .card-select-info {
-  justify-content: flex-end;
-}
-
-.big-card .card-select-info span {
+.big-card .select-info span {
   font-size: 1.15em;
 }
 
@@ -1102,18 +1172,9 @@ body.zip .big-card .card-container-right {
   line-height: 1.2;
 }
 
-.full-card .card-articul {
-  padding: 0.5em 0;
-  font-size: 0.85em;
-}
-
 .full-card .old-price,
 .full-card .new-price {
   font-size: 1.5em;
-}
-
-.full-card .card-select-info {
-  justify-content: flex-start;
 }
 
 .full-card .card-options {
@@ -1128,9 +1189,8 @@ body.zip .big-card .card-container-right {
   min-width: 25em;
 }
 
-.full-card .card-selectInfo {
+.full-card .select-info {
   font-size: 1.28em;
-  padding-bottom: 0.5em;
 }
 
 /* =====================================================================================================
@@ -1138,6 +1198,7 @@ body.zip .big-card .card-container-right {
 ===================================================================================================== */
 
 #full-img-container {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -1146,8 +1207,6 @@ body.zip .big-card .card-container-right {
   padding: 3em 0;
   background-color: rgba(43, 46, 56, 0.9);
   z-index: 40;
-  visibility: hidden;
-  opacity: 0;
 }
 
 #full-img-container svg {
@@ -1167,17 +1226,20 @@ body.zip .big-card .card-container-right {
   fill: rgb(241,90,41);
 }
 
-#full-img-container .full-img {
+#full-img {
   position: relative;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
+  visibility: hidden;
 }
 
 #full-img-container .carousel {
-  max-width: 1000px;
-  max-height: 1000px;
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  max-height: 600px;
 }
 
 #full-img-container .carousel-gallery-wrap {
@@ -1197,11 +1259,24 @@ body.zip .big-card .card-container-right {
 }
 
 #full-img-container .carousel-gallery img {
-  max-width: 1000px;
-  max-height: 1000px;
+  max-width: 600px;
+  max-height: 600px;
 }
 
-#loader {
+#img-loader {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url(../img/content/page_loader.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80px;
+  visibility: hidden;
+}
+
+#page-loader {
   position: fixed;
   top: 0;
   left: 0;

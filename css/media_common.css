@@ -26,6 +26,9 @@
   .container {
     margin: 0 3rem;
   }
+  .visible-xs {
+    display: block;
+  }
 }
 
 @media only screen and (max-width: 767px) {
