@@ -189,7 +189,7 @@
               <div class="card-price-container row">
                 <div class="card-price row">
                   <div class="old-price ptype#ptype#">#price#.-</div>
-                  <div class="new-price red">#price_preorder#.-</div>
+                  <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
                 </div>
                 <div class="tooltip" tooltip="#qtyTitle#">
                   <div class="available-qty #isAvailable#"></div>
@@ -212,7 +212,7 @@
                       <div class="card-price-title grey">Оптовая цена:</div>
                       <div class="card-price-wrap row">
                           <div class="old-price ptype#ptype#">#price#.-</div>
-                          <div class="new-price red">#price_preorder#.-</div>
+                          <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
                       </div>
                     </div>
                   </div>
@@ -332,7 +332,7 @@
                         <div class="card-price-title">Оптовая цена:</div>
                         <div class="card-price-wrap row">
                             <div class="old-price ptype#ptype#">#price#.-</div>
-                            <div class="new-price red">#price_preorder#.-</div>
+                            <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
                         </div>
                     </div>
                     <div class="card-price retail row">
@@ -594,6 +594,7 @@
     </div>
 
     <div id="page-loader"></div>
+    <div id="btn-go-top" onclick="goToTop()"></div>
 
     <div class="footer">
       <div class="container">

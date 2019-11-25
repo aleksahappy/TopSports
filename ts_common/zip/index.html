@@ -197,7 +197,7 @@
               <div class="card-price-container row">
                 <div class="card-price row">
                   <div class="old-price ptype#ptype#">#price#.-</div>
-                  <div class="new-price red">#price_preorder#.-</div>
+                  <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
                 </div>
                 <div class="tooltip" tooltip="#qtyTitle#">
                   <div class="available-qty #isAvailable#"></div>
@@ -220,7 +220,7 @@
                       <div class="card-price-title grey">Оптовая цена:</div>
                       <div class="card-price-wrap row">
                           <div class="old-price ptype#ptype#">#price#.-</div>
-                          <div class="new-price red">#price_preorder#.-</div>
+                          <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
                       </div>
                     </div>
                   </div>
@@ -340,7 +340,7 @@
                         <div class="card-price-title">Оптовая цена:</div>
                         <div class="card-price-wrap row">
                             <div class="old-price ptype#ptype#">#price#.-</div>
-                            <div class="new-price red">#price_preorder#.-</div>
+                            <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
                         </div>
                     </div>
                     <div class="card-price retail row">
@@ -399,7 +399,7 @@
                 </div>
               </div>
               <div class="card-description hidden-xxs #isHiddenDesc#">
-                <div class="description-title">Описание:</div>
+                <div class="card-subtitle">Описание:</div>
                 <div class="card-text">#desc#</div>
               </div>
             </div>
@@ -421,19 +421,21 @@
                 </div>
               </div>
             </div>
+            <div id="img-loader"></div>
           </div>
           <div id="cart">
             <div id="cart-full">
               <div id="cart-links" class="row">
                 <div class="title">Перейти в корзину:</div>
                 <div id="cart-links-list">
-                  <a class="cart-link" href="#href#">#title#</a>
+                  <a class="cart-link" href="#href#" data-href=#dataHref# data-level="1" onclick="openPage()">#title#</a>
                 </div>
               </div>
               <div id="cart-filter" class="row">
                 <div class="title">Фильтровать по:</div>
-                <select id="filter-select" onchange="sortItems()">
-                  <option value="all" selected>Выбрать все</option>
+                <select id="filter-select" onchange="filterCart()">
+                  <option id="filter-all" value="all" selected>Выбрать все</option>
+                  <option value="no-action">Без акций</option>
                   <option class="filter-value" value="#actionId#">#actionTitle#</option>
                 </select>
               </div>
@@ -600,7 +602,7 @@
     </div>
 
     <div id="page-loader"></div>
-    <div id="img-loader"></div>
+    <div id="btn-go-top" onclick="goToTop()"></div>
 
     <div class="footer">
       <div class="container">

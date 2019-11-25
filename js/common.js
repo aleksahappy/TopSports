@@ -87,7 +87,8 @@ setPaddingToBody();
 
 var website =  document.body.dataset.website,
     pageId = document.body.id,
-    headerCart = document.getElementById('header-cart');
+    headerCart = document.getElementById('header-cart'),
+    btnGoTop = document.getElementById('btn-go-top');
 
 // Динамически изменяемые переменные:
 
@@ -103,7 +104,8 @@ var pageUrl,
     curEl,
     value,
     subkey,
-    qty;
+    qty,
+    scrolled;
 
 // Переменные для циклов:
 
@@ -141,10 +143,12 @@ var isFound,
 // Сортировка объекта по алфавиту:
 //=====================================================================================================
 
+var sortedObj;
+
 // Сортировка по ключу:
 
 function sortObjByKey(obj) {
-  var sortedObj = {};
+  sortedObj = {};
   Object.keys(obj).sort().forEach(key => sortedObj[key] = obj[key]);
   return sortedObj;
 }
@@ -152,7 +156,7 @@ function sortObjByKey(obj) {
 // Сортировка по значению:
 
 function sortObjByValue(obj) {
-  var sortedObj = {};
+  sortedObj = {};
   Object.keys(obj).sort((a,b) => {
     if (obj[a] < obj[b]) {
       return -1;
@@ -169,24 +173,75 @@ function sortObjByValue(obj) {
 // Визуальное отображение контента на странице:
 //=====================================================================================================
 
+// Отображение/скрытие кнопки возвращения наверх страницы:
+
+window.addEventListener('scroll', toggleBtnGoTop);
+
+var coords;
+
+function toggleBtnGoTop() {
+  scrolled = window.pageYOffset;
+  coords = window.innerHeight / 2;
+
+  if (scrolled > coords) {
+    btnGoTop.classList.add('show');
+  }
+  if (scrolled < coords) {
+    btnGoTop.classList.remove('show');
+  }
+}
+
+// Вернуться наверх страницы:
+
+btnGoTop.addEventListener('click', goToTop);
+
+function goToTop() {
+  scrolled = window.pageYOffset;
+  if (scrolled > 0 && scrolled < 50000) {
+    window.scrollBy(0, -(scrolled/5));
+    setTimeout(goToTop, 0);
+  } else if (scrolled >= 50000) {
+    window.scrollTo(0,0);
+  }
+}
+
+// Получение текущей прокрутки документа:
+
+var scrollTop;
+
+function getDocumentScroll() {
+  scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+}
+
+// Установка прокрутки документа:
+
+function setDocumentScroll(top) {
+  document.documentElement.scrollTop = top;
+  document.body.scrollTop = top;
+}
+
 // Установка отступов документа:
 
 window.addEventListener('resize', setPaddingToBody);
 
+var headerHeight,
+    footerHeight;
+
 function setPaddingToBody() {
-  var headerHeight = document.querySelector('.header').clientHeight;
-  var footerHeight = document.querySelector('.footer').clientHeight;
+  headerHeight = document.querySelector('.header').clientHeight;
+  footerHeight = document.querySelector('.footer').clientHeight;
   document.body.style.paddingTop = `${headerHeight}px`;
   document.body.style.paddingBottom = `${footerHeight + 20}px`;
 }
 
 // Добавление всплывающих подсказок:
 
+var elements;
+
 function addTooltips(key) {
-  var elements = document.querySelectorAll(`[data-key=${key}]`);
+  elements = document.querySelectorAll(`[data-key=${key}]`);
   elements.forEach(el => {
-    var tooltipText = el.textContent.trim();
-    el.setAttribute('tooltip', tooltipText);
+    el.setAttribute('tooltip', el.textContent.trim());
   });
 }
 
@@ -228,33 +283,21 @@ function convertYears(stringYears) {
   return resultYears = resultYears.join('');
 }
 
-// Получение текущей прокрутки документа:
-
-var scrollTop;
-
-function getDocumentScroll() {
-  scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-}
-
-// Установка прокрутки документа:
-
-function setDocumentScroll(top) {
-  document.documentElement.scrollTop = top;
-  document.body.scrollTop = top;
-}
-
 //=====================================================================================================
 // Сохранение и извлечение данных на компьютере пользователя:
 //=====================================================================================================
 
 // Проверка доступности storage:
 
+var storage,
+    test;
+
 function storageAvailable(type) {
 	try {
-		var storage = window[type],
-        x = '__storage_test__';
-		storage.setItem(x, x);
-		storage.removeItem(x);
+		storage = window[type];
+    test = '__storage_test__';
+		storage.setItem(test, test);
+		storage.removeItem(test);
 		return true;
 	}
 	catch(error) {

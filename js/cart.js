@@ -527,6 +527,7 @@ function changeCardInfo(card) {
     } else {
       if (curName) {
         curName.textContent = 'В корзину';
+        bonus.style.display = 'none';
       }
     }
   });

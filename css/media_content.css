@@ -1,3 +1,25 @@
+@media all and (orientation:portrait) {
+  #full-img-container .carousel {
+    max-width: 80vw;
+    max-height: 80vw;
+  }
+  #full-img-container .carousel-gallery img {
+    max-width: 80vw;
+    max-height: 80vw;
+  }
+}
+
+@media all and (orientation:landscape) {
+  #full-img-container .carousel {
+    max-width: 80vh;
+    max-height: 80vh;
+  }
+  #full-img-container .carousel-gallery img {
+    max-width: 80vh;
+    max-height: 80vh;
+  }
+}
+
 @media only screen and  (min-width: 1824px) {
   #full-img-container .carousel {
     max-width: 1000px;
@@ -19,7 +41,7 @@
   body.zip .big-card .card-container-right {
     width: 100%;
   }
-  body.zip .big-card .card-select-info {
+  body.zip .big-card .select-info .row {
     justify-content: flex-start;
   }
 }
@@ -30,8 +52,7 @@
     min-width: 0;
   }
   .big-card .card-info-title {
-    justify-content: flex-end;
-    min-width: 33em;
+    min-width: 20em;
   }
   body.ekipirovka .big-card .big-card-body {
     flex-wrap: wrap;
@@ -40,7 +61,7 @@
     max-width: 100%;
     padding-right: 0;
   }
-  body.ekipirovka .big-card .card-select-info {
+  body.ekipirovka .big-card .select-info .row {
     justify-content: flex-start;
   }
 }
@@ -121,30 +142,30 @@
     min-width: 24em;
   }
   .full-card .carousel .left-btn,
-  .full-card .carousel .right-btn,
-  #full-img-container .carousel .left-btn,
-  #full-img-container .carousel .right-btn {
+  .full-card .carousel .right-btn {
     opacity: 0.3 !important;
     background-color: transparent;
   }
-  #full-img-container .carousel {
+  /* #full-img-container .carousel {
     max-width: 80vw;
     max-height: 80vh;
-  }
+  } */
   #full-img-container .carousel .left-btn {
     background: url(../img//slider/slider_nav_left.png) no-repeat center;
-    left: -1.5em;
+    left: -3em;
+    background-color: transparent;
     opacity: 1 !important;
   }
   #full-img-container .carousel .right-btn {
     background: url(../img//slider/slider_nav_right.png) no-repeat center;
-    right: -1.5em;
+    right: -3em;
+    background-color: transparent;
     opacity: 1 !important;
   }
-  #full-img-container .carousel-gallery img {
+  /* #full-img-container .carousel-gallery img {
     max-width: 80vw;
     max-height: 80vh;
-  }
+  } */
 }
 
 @media only screen and (max-width: 767px) {

@@ -60,8 +60,6 @@ body {
 }
 
 body.no-scroll {
-  /* width: 100%;
-  position: fixed; */
   overflow: hidden;
 }
 

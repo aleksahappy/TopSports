@@ -669,6 +669,10 @@
   padding-bottom: 1em;
 }
 
+body#r_ek .card-notice {
+  padding-bottom: 2em;
+}
+
 .card-sizes {
   flex-wrap: wrap;
   justify-content: start;
@@ -758,13 +762,12 @@
 
 .select-info {
   visibility: hidden;
-  margin-bottom: 0.5em;
 }
 
 .select-info .row {
   flex-wrap: wrap;
   align-items: baseline;
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
 
 .select-info span {
@@ -924,7 +927,7 @@ body.zip .big-card .card-head {
 }
 
 .big-card .card-info-title {
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -1112,6 +1115,20 @@ body.zip .big-card .card-container-right {
   overflow-y: scroll;
 }
 
+/* .full-card::-webkit-scrollbar {
+  width: 2em;
+}
+
+.full-card ::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.full-card ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgb(204, 204, 204);
+  -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
+} */
+
 .full-card .close-btn {
   top: 0;
   right: 0;
@@ -1126,6 +1143,7 @@ body.zip .big-card .card-container-right {
 
 .full-card .carousel {
   width: 40%;
+  min-width: 300px;
   min-height: 300px;
   margin-right: 1em;
   margin-bottom: 1em;
@@ -1193,6 +1211,10 @@ body.zip .big-card .card-container-right {
   font-size: 1.28em;
 }
 
+.full-card .select-info .row {
+  justify-content: flex-start;
+}
+
 /* =====================================================================================================
  Стили для изображения на весь экран:
 ===================================================================================================== */
@@ -1238,8 +1260,8 @@ body.zip .big-card .card-container-right {
 #full-img-container .carousel {
   display: flex;
   align-items: center;
-  max-width: 600px;
-  max-height: 600px;
+  width: 1000px;
+  height: auto;
 }
 
 #full-img-container .carousel-gallery-wrap {
@@ -1259,8 +1281,8 @@ body.zip .big-card .card-container-right {
 }
 
 #full-img-container .carousel-gallery img {
-  max-width: 600px;
-  max-height: 600px;
+  width: 1000px;
+  height: auto;
 }
 
 #img-loader {
@@ -1287,4 +1309,27 @@ body.zip .big-card .card-container-right {
   background-position: center;
   background-size: 80px;
   z-index: 40;
+}
+
+#btn-go-top {
+  display: none;
+  position: fixed;
+  right: 2em;
+  bottom: 2em;
+  width: 50px;
+  height: 50px;
+  background-image: url(../img/content/icon_top.png);
+  background-size: 50px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  z-index: 35;
+}
+
+#btn-go-top.show {
+  display: block;
+}
+
+#btn-go-top.show:hover{
+  opacity: 0.7;
 }

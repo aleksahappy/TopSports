@@ -151,7 +151,7 @@
   max-height: 0px;
   margin-left: -4em;
   margin-right: -0.5em;
-  padding-top: 0.8em;
+  margin-top: 0.8em;
   overflow: hidden;
   -webkit-transition: max-height 0.2s linear;
   -moz-transition: max-height 0.2s linear;
@@ -413,7 +413,7 @@
   padding: 0.35em 0.75em;
 }
 
-.oem:hover{
+.header-select .oem:hover{
   background-color: rgb(0,136,204);
 }
 

@@ -436,6 +436,7 @@ function Carousel(obj, start) {
   // Создание лупы:
 
   this.createLoupe = function() {
+    console.log('createLoupe');
     if (this.settings.isLoupeOutside && document.body.querySelector('.loupe')) {
       document.body.removeChild(document.body.querySelector('.loupe'));
     }
@@ -460,6 +461,13 @@ function Carousel(obj, start) {
   // Инициализация изображения для лупы:
 
   this.initLoupe = function() {
+    // if (this.img != event.currentTarget.querySelector('img')) {
+    //   this.loupe.style.opacity = '0';
+    //   this.img = event.currentTarget.querySelector('img');
+    //   this.bigImg.src = this.img.dataset.src ? this.img.dataset.src : this.img.src ;
+    //   this.bigImg.addEventListener('load', () => this.loupe.style.opacity = '1');
+    // }
+
     this.loupe.style.opacity = '0';
     this.img = event.currentTarget.querySelector('img');
     this.bigImg.src = this.img.dataset.src ? this.img.dataset.src : this.img.src ;
@@ -491,14 +499,13 @@ function Carousel(obj, start) {
     }
     this.imgDimentions = this.img.getBoundingClientRect();
     this.galleryDimentions = this.galleryWrap.getBoundingClientRect();
-    this.offsetX = ((event.clientX - this.imgDimentions.left) / this.imgWidth);
-    this.offsetY = ((event.clientY - this.imgDimentions.top) / this.imgHeight);
+    this.offsetX = ((event.pageX - this.imgDimentions.left) / this.imgWidth);
+    this.offsetY = ((event.pageY - this.imgDimentions.top) / this.imgHeight);
 
-    if (event.clientX > this.imgDimentions.left + this.imgWidth ||
-        event.clientX < this.imgDimentions.left ||
-        event.clientY > this.imgDimentions.top + this.imgHeight ||
-        event.clientY < this.imgDimentions.top) {
-
+    if (event.pageX > this.imgDimentions.left + this.imgWidth ||
+        event.pageX < this.imgDimentions.left ||
+        event.pageY > this.imgDimentions.top + this.imgHeight ||
+        event.pageY < this.imgDimentions.top) {
       this.loupe.style.display = 'none';
       return;
     }

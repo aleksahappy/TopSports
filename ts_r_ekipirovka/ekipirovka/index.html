@@ -151,7 +151,7 @@
               <div class="card-price-container row">
                 <div class="card-price row">
                   <div class="old-price ptype#ptype#">#price#.-</div>
-                  <div class="new-price red">#price_preorder#.-</div>
+                  <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
                 </div>
                 <div class="tooltip" tooltip="#qtyTitle#">
                   <div class="available-qty #isAvaliable#"></div>
@@ -174,7 +174,7 @@
                       <div class="card-price-title grey">Оптовая цена:</div>
                       <div class="card-price-wrap row">
                         <div class="old-price ptype#ptype#">#price#.-</div>
-                        <div class="new-price red">#price_preorder#.-</div>
+                        <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
                       </div>
                     </div>
                   </div>
@@ -270,7 +270,7 @@
                         <div class="card-price-title">Оптовая цена:</div>
                         <div class="card-price-wrap row">
                             <div class="old-price ptype#ptype#">#price#.-</div>
-                            <div class="new-price red">#price_preorder#.-</div>
+                            <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
                         </div>
                     </div>
                     <div class="card-price retail row">
@@ -319,25 +319,26 @@
               <path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path>
             </svg>
             <div id="full-img" class="row">
-              <div class="carousel" data-type="fullImg" data-img="0">
+              <div class="carousel" data-type="fullImg">
                 <div class="left-btn btn"></div>
                 <div class="right-btn btn"></div>
                 <div class="carousel-gallery-wrap">
                   <div class="carousel-gallery">
-                    <div class="carousel-item" data-numb="#imgNumb#">
+                    <div class="carousel-item">
                       <img src="#image#">
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <div id="img-loader"></div>
           </div>
         </div>
       </div>
     </div>
 
     <div id="page-loader"></div>
-    <div id="img-loader"></div>
+    <div id="btn-go-top" onclick="goToTop()"></div>
 
     <div class="footer">
       <div class="container">
