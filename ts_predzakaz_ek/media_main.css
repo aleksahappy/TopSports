@@ -1,0 +1,16 @@
+@media only screen and (max-width: 1080px) {
+  .action-info {
+    flex-direction: column;
+  }
+  .action-bnr {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .action-info .title {
+    width: 100%;
+  }
+  .content-block > .btns-wrapper {
+    display: block;
+  }
+}

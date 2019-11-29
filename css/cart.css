@@ -149,8 +149,7 @@
   margin-right: 1rem;
   padding: 1em 1.25em;
   font-size: 1.125em;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
   border: 1px solid rgb(228,228,235);
   border-radius: 4px;
   text-transform: uppercase;
@@ -162,8 +161,7 @@
   margin-right: 1rem;
   padding: 0.4em 1em;
   font-size: 1.72em;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
   color: rgb(255,255,255);
   background-color: rgb(241,90,41);
   border: 1px solid rgb(228,228,235);
@@ -257,8 +255,7 @@
 #order-form .order-btn {
   padding: 0.2em 1.4em;
   font-size: 1.7em;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
   color: rgb(255,255,255);
   background-color: rgb(241,90,41);
   border: 1px solid rgb(228,228,235);
@@ -276,8 +273,7 @@
   display: inline-block;
   padding: 0.3em 0.5em;
   font-size: 1em;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
   border: 1px solid rgb(228,228,235);
   border-radius: 4px;
   text-transform: uppercase;

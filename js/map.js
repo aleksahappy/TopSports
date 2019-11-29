@@ -24,10 +24,15 @@ function mapResize() {
 
 // Отображение карты дилеров на странице:
 
+var fullCard;
+
 function showDealersList(event) {
   event.preventDefault();
   dealersList.style.display = 'block';
-  document.getElementById('full-card-container').style.zIndex = 0;
+  fullCard = document.getElementById('full-card-container');
+  if (fullCard) {
+    fullCard.style.zIndex = 0;
+  }
   mapResize();
 }
 
@@ -35,5 +40,8 @@ function showDealersList(event) {
 
 function hideDealersList() {
   dealersList.style.display = 'none';
-  document.getElementById('full-card-container').style.zIndex = 30;
+  fullCard = document.getElementById('full-card-container');
+  if (fullCard) {
+    fullCard.style.zIndex = 30;
+  }
 }

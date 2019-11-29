@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../../img/top_sports_logo_black_short_transparency.png">
-    <title>ТОП СПОРТС - Экипировка</title>
+    <title>ТОП СПОРТС - Предзаказ MX</title>
     <meta name="keywords" content="ТОП СПОРТС">
     <meta name="description" content="ТОП СПОРТС">
     <link rel="stylesheet" type="text/css" href="../../css/fonts.css">
     <link rel="stylesheet" type="text/css" href="../../css/common.css">
-    <link rel="stylesheet" type="text/css" href="../../css/header_footer_ts.css">
-    <link rel="stylesheet" type="text/css" href="../../css/content.css">
-    <link rel="stylesheet" type="text/css" href="../../css/map.css">
     <link rel="stylesheet" type="text/css" href="../../css/media_common.css">
+    <link rel="stylesheet" type="text/css" href="../../css/header_footer_ts.css">
     <link rel="stylesheet" type="text/css" href="../../css/media_header_footer_ts.css">
+    <link rel="stylesheet" type="text/css" href="../../css/content.css">
     <link rel="stylesheet" type="text/css" href="../../css/media_content.css">
+    <link rel="stylesheet" type="text/css" href="../../css/map.css">
   </head>
 
-  <body id="r_ek" data-website="ts_r_ek" class="ekipirovka">
+  <body id="r_ek" data-website="ts_pred_ek" class="ekipirovka">
     <div class="header">
       <div class="header-main">
         <div class="container row">
@@ -52,7 +52,7 @@
         <div class="main-menu">
           <div class="container row">
             <div class="topmenu row">
-              <a class="topmenu-item" href="../ekipirovka/"  data-href="r_ek" data-level="1"onclick="openPage()">Экипировка</a>
+              <a class="topmenu-item" href="../predzakaz/"  data-href="r_ek" data-level="1"onclick="openPage()">Предзаказ MX</a>
             </div>
             <div class="main-menu-btns row">
               <div class="burger-btn visible-xs" onclick="toggleSubmenu()"></div>
@@ -68,13 +68,13 @@
         <div class="submenu">
           <div class="container">
             <div class="submenu-items ekipirovka">
-              <a class="submenu-item" href="../ekipirovka/?odegda" data-level="2" data-href="odegda" onclick="openPage()">Одежда</a>
-              <a class="submenu-item" href="../ekipirovka/?obuv" data-level="2" data-href="obuv" onclick="openPage()">Обувь</a>
-              <a class="submenu-item" href="../ekipirovka/?shlem" data-level="2" data-href="shlem" onclick="openPage()">Шлемы</a>
-              <a class="submenu-item" href="../ekipirovka/?optic" data-level="2" data-href="optic" onclick="openPage()">Оптика</a>
-              <a class="submenu-item" href="../ekipirovka/?snarag" data-level="2" data-href="snarag" onclick="openPage()">Снаряжение</a>
-              <a class="submenu-item" href="../ekipirovka/?zashita" data-level="2" data-href="zashita" onclick="openPage()">Защита</a>
-              <a class="submenu-item" href="../ekipirovka/?sumruk" data-level="2" data-href="sumruk" onclick="openPage()">Сумки и рюкзаки</a>
+              <a class="submenu-item" href="../predzakaz/?odegda" data-level="2" data-href="odegda" onclick="openPage()">Одежда</a>
+              <a class="submenu-item" href="../predzakaz/?obuv" data-level="2" data-href="obuv" onclick="openPage()">Обувь</a>
+              <a class="submenu-item" href="../predzakaz/?shlem" data-level="2" data-href="shlem" onclick="openPage()">Шлемы</a>
+              <a class="submenu-item" href="../predzakaz/?optic" data-level="2" data-href="optic" onclick="openPage()">Оптика</a>
+              <a class="submenu-item" href="../predzakaz/?snarag" data-level="2" data-href="snarag" onclick="openPage()">Снаряжение</a>
+              <a class="submenu-item" href="../predzakaz/?zashita" data-level="2" data-href="zashita" onclick="openPage()">Защита</a>
+              <a class="submenu-item" href="../predzakaz/?sumruk" data-level="2" data-href="sumruk" onclick="openPage()">Сумки и рюкзаки</a>
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@
       <div class="container">
         <div class="main-header row">
           <div id="main-nav" class="main-nav">
-            <a href="../">Главная</a>
+            <a href="../">Главная (Условия Акции)</a>
             <span class="nav-item #isCurPage#" data-href="#pageUrl#" onclick="openPage()">#pageTitle#</span>
           </div>
           <div id="main-info" class="row">
@@ -150,8 +150,8 @@
               <div class="card-title">#title#</div>
               <div class="card-price-container row">
                 <div class="card-price row">
-                  <div class="old-price ptype#ptype#">#price#.-</div>
-                  <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
+                  <div class="old-price ptype#ptype#">#price_user#</div>
+                  <div class="new-price red #isHiddenPrice#">#price_preorder#</div>
                 </div>
                 <div class="tooltip" tooltip="#qtyTitle#">
                   <div class="available-qty #isAvaliable#"></div>
@@ -171,10 +171,10 @@
                       <div class="promo-date #isHiddenDate#">до: <span class="red">#actiondate#</span></div>
                     </div>
                     <div class="card-price opt row">
-                      <div class="card-price-title grey">Оптовая цена:</div>
+                      <div class="card-price-title grey">Цена:</div>
                       <div class="card-price-wrap row">
-                        <div class="old-price ptype#ptype#">#price#.-</div>
-                        <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
+                        <div class="old-price ptype#ptype#">#price_user#</div>
+                        <div class="new-price red #isHiddenPrice#">#price_preorder#</div>
                       </div>
                     </div>
                   </div>
@@ -195,7 +195,7 @@
                     <div class="card-options-container">
                       <div class="card-price retail row ">
                         <div class="card-price-title grey">РРЦ:</div>
-                        <div class="price-user">#price_user#.-</div>
+                        <div class="price-user">#price_user#</div>
                       </div>
                       <div class="card-options">
                         <div class="card-option row">
@@ -206,6 +206,13 @@
                     </div>
                   </div>
                   <div class="card-container-right">
+                    <!-- <div class="card-price-row row">
+                      <div>
+                        <div class="card-price-info">Подтверждение цены происходит в момент оформления заказа.</div>
+                        <div class="card-notice red">Товар резервируется в момент подтверждения заказа!</div>
+                      </div>
+                      <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
+                    </div> -->
                     <div class="card-sizes row">
                       <div class="card-size">
                         <div class="size-articul grey">Артикул: #articul#</div>
@@ -222,10 +229,22 @@
                         </div>
                       </div>
                     </div>
-                    <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
+                    <!-- <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
                     <div class="card-notice red">#notice#</div>
                     <div class="card-btns">
                       <a class="dealer-button map-btn" onclick="showDealersList(event)">КАРТА ДИЛЕРОВ</a>
+                      <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
+                    </div> -->
+                    <!-- <div class="card-price-row row">
+                      <div class="card-price-info">Подтверждение цены происходит в момент <br> оформления заказа.</div>
+                      <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
+                    </div>
+                    <div class="card-notice red">#notice#</div> -->
+                    <div class="card-price-row row">
+                      <div>
+                        <div class="card-price-info">Подтверждение цены происходит в момент оформления заказа.</div>
+                        <div class="card-notice red">Товар резервируется в момент подтверждения заказа!</div>
+                      </div>
                       <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
                     </div>
                   </div>
@@ -267,15 +286,15 @@
                       <div class="promo-date #isHiddenDate#">до: <span class="red">#actiondate#</span></div>
                     </div>
                     <div class="card-price opt row">
-                        <div class="card-price-title">Оптовая цена:</div>
+                        <div class="card-price-title">Цена:</div>
                         <div class="card-price-wrap row">
-                            <div class="old-price ptype#ptype#">#price#.-</div>
-                            <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
+                            <div class="old-price ptype#ptype#">#price_user#</div>
+                            <div class="new-price red #isHiddenPrice#">#price_preorder#</div>
                         </div>
                     </div>
                     <div class="card-price retail row">
                       <div class="card-price-title grey">Розничная цена:</div>
-                      <div class="price-user">#price_user#.-</div>
+                      <div class="price-user">#price_user#</div>
                     </div>
                     <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
                   </div>
@@ -346,7 +365,6 @@
           <a href="../">Главная</a>
           <a onclick="showDealersList(event)">Где купить</a>
           <a href="http://b2b.topsports.ru/" target="_blank">Стать дилером</a>
-          <a href="https://goo.gl/forms/KlWpmVVR9FQR7MwW2" target="_blank">Стать райдером</a>
           <a href="http://b2b.topsports.ru/" target="_blank">Личный кабинет</a>
           <a class="youtube" href="https://www.youtube.com/channel/UCQYfNyA0dSoGVrUiDOaiVZw" target="_blank"></a>
         </div>
@@ -362,11 +380,12 @@
       </div>
     </div>
 
-    <script src="http://api.topsports.ru/spad/q2.php"></script>
+    <!-- <script src="http://api.topsports.ru/spad/qmx.php"></script> -->
+    <script src="qmx.js"></script>
     <script src="../../js/carousel.js"></script>
     <script src="../../js/common.js"></script>
-    <script src="../../js/filters_ekipirovka.js"></script>
-    <script src="../../js/content.js"></script>
+    <script src="filters_ekipirovka.js"></script>
+    <script src="content.js"></script>
     <script src="../../js/jquery-1.9.1.min.js"></script>
     <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script src="../../js/create_map.js"></script>

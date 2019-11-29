@@ -112,8 +112,7 @@ a.header-phone, a.header-cabinet {
 
 .topmenu-item {
   padding: 1rem 2rem;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
   font-size: 1.8em;
   line-height: 0.8;
   text-transform: uppercase;

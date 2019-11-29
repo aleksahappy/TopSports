@@ -530,8 +530,8 @@ function Carousel(obj, start) {
       start = null;
     }
     this.carousel.dataset.img = 0;
-    for (i = 0; i < this.imgCount; i++) {
-      this.itemsGallery[i].dataset.numb = i;
+    for (this.i = 0; this.i < this.imgCount; this.i++) {
+      this.itemsGallery[this.i].dataset.numb = this.i;
     }
     if (this.carouselType) {
       var newSettings = window[this.carouselType + 'Carousel'];

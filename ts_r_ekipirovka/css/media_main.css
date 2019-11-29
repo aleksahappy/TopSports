@@ -1,7 +1,6 @@
 @media only screen and  (min-width: 1824px) {
-  .container {
-    max-width: 1724px;
-    margin: 0 auto;
+  body {
+    font-size: 1.4rem;
   }
   .work .step {
     width: 20%;
@@ -9,9 +8,6 @@
 }
 
 @media only screen and (max-width: 1439px) {
-  .container {
-    margin: 0 4rem;
-  }
   .left-btn, .right-btn {
     width: 4rem;
   }
@@ -42,9 +38,6 @@
 @media only screen and (max-width: 1080px) {
   body {
     font-size: 1.4rem;
-  }
-  .container {
-    margin: 0 3rem;
   }
   .subtitle {
     text-align: center;
@@ -103,14 +96,8 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .hidden-xs {
-		display: none;
-  }
   .title {
     font-size: 3em;
-  }
-  .dealer-button {
-    font-size: 1.5em;
   }
   .carousel-gallery .carousel-item {
     height: auto;
@@ -150,9 +137,6 @@
 }
 
 @media only screen and (max-width: 480px) {
-  .container {
-    margin: 0 2rem;
-  }
   .title {
     font-size: 2em;
   }
@@ -186,8 +170,4 @@
   .brands-select {
     width: 90%;
   }
-}
-
-body .footer {
-  position: static;
 }

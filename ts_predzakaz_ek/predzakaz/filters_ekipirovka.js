@@ -78,24 +78,24 @@ var colors = {
 // Данные, которые будут переданы для создания фильтров:
 
 var dataForFilters = [{
-  title: 'Спецпредложение',
-  isOpen: 'true',
-  key: 'specialOffer',
-  items: specialOffer
-}, {
-  title: 'Категория',
-  isOpen: 'true',
-  key: 'cat',
-  items: sortObjByKey(cats)
-}, {
+//   title: 'Спецпредложение',
+//   isOpen: 'true',
+//   key: 'specialOffer',
+//   items: specialOffer
+// }, {
   title: 'Бренд',
+  isOpen: 'true',
   key: 'brand',
   items: sortObjByKey(brands)
 }, {
-  title: 'Применяемость',
-  key: 'use',
-  items: sortObjByValue(use)
+  title: 'Категория',
+  key: 'cat',
+  items: sortObjByKey(cats)
 }, {
+//   title: 'Применяемость',
+//   key: 'use',
+//   items: sortObjByValue(use)
+// }, {
   title: 'Возраст',
   key: 'age',
   items: ages

@@ -1,44 +1,13 @@
-/* =====================================================================================================
- Сброс стилей браузера по умолчанию:
-===================================================================================================== */
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-html {
-  font-size: 10px;
-  -moz-text-size-adjust: none;
-  -webkit-text-size-adjust: none;
-  -ms-text-size-adjust: none;
-  text-size-adjust: none;
-}
-
-a {
-  display: inline-block;
-  color: inherit;
-  text-decoration: none;
-  outline: none;
-}
-
-img {
-  display: block;
-}
 
 /* =====================================================================================================
  Основные стили:
 ===================================================================================================== */
 
 body {
-  width: 100%;
   padding-top: 100px;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
   font-size: 1.6rem;
   line-height: 1.2;
-  color: rgb(0,0,0);
   background-color: rgb(255,255,255);
 }
 
@@ -50,38 +19,13 @@ body {
  Общие стили:
 ===================================================================================================== */
 
-.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.col {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.visible-xs {
-  display: none;
-}
-
 body > div:not(.header):not(.carousel):not(.footer) {
   padding-bottom: 5em;
 }
 
 .left-btn, .right-btn {
-  position: absolute;
-  top: 0;
-  height: 100%;
   width: 7rem;
   opacity: 0.5;
-  z-index: 1;
-  cursor: pointer;
 }
 
 .left-btn:hover, .right-btn:hover {
@@ -89,25 +33,15 @@ body > div:not(.header):not(.carousel):not(.footer) {
 }
 
 .left-btn {
-  left: 0;
   background: url(../img/slider/slider_nav_left_white.png) no-repeat center;
 }
 
 .right-btn {
-  right: 0;
   background: url(../img/slider/slider_nav_right_white.png) no-repeat center;
 }
 
 .dealer-button {
-  padding: 0.45em 1.4em;
   font-size: 1.75em;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
-  color: rgb(255, 255, 255);
-  background-color: rgb(241,89,42);
-  border-radius: 2px;
-  text-align: center;
-  text-decoration: none;
 }
 
 .map-btn {
@@ -119,8 +53,7 @@ body > div:not(.header):not(.carousel):not(.footer) {
   margin-bottom: 0.625em;
   font-size: 4em;
   line-height: 1;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
   text-align: center;
   text-transform: uppercase;
 }
@@ -129,8 +62,7 @@ body > div:not(.header):not(.carousel):not(.footer) {
   margin-bottom: 1.25em;
   font-size: 2.5em;
   line-height: 1;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
 }
 
 .text {
@@ -142,8 +74,7 @@ body > div:not(.header):not(.carousel):not(.footer) {
   margin-bottom: 0.4em;
   font-size: 1.5625em;
   line-height: 1;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
   text-transform: uppercase;
 }
 
@@ -182,37 +113,19 @@ body > div:not(.header):not(.carousel):not(.footer) {
 ===================================================================================================== */
 
 .carousel {
-  visibility: hidden; /* обязательный стиль */
-  position: relative; /* обязательный стиль */
-  width: 100%; /* можно установить в % для адаптивности или в px */
-  cursor: pointer;
+  width: 100%;
 }
 
 .carousel-gallery-wrap {
-  position: relative;  /* обязательный стиль */
-  width: 100%;
   margin-bottom: 1.5em;
-  overflow: hidden; /* обязательный стиль */
 }
 
-.carousel-gallery { /* все стили обязательные кроме padding */
+.carousel-gallery {
   position: relative;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
 }
 
-.carousel-gallery .carousel-item { /* все стили обязательные */
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 0 0 auto;
-  width: 100%; /* можно установить в % для адаптивности или в px */
+.carousel-gallery .carousel-item {
+  /* justify-content: flex-start; */
   height: 95vh;
   height: calc(100vh - 100px);
   height: -moz-calc(100vh - 100px);
@@ -222,11 +135,8 @@ body > div:not(.header):not(.carousel):not(.footer) {
   background-position: top center;
 }
 
-.carousel-item img { /* все стили обязательные */
+.carousel-item img {
   display: none;
-  height: auto;
-  max-width: 100%;
-  margin: 0 auto;
 }
 
 .carousel-title {
@@ -279,8 +189,7 @@ body > div:not(.header):not(.carousel):not(.footer) {
   top: 25%;
   left: 0;
   right: 0;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
   color: rgb(241,89,42);
   text-shadow: -2px 2px 0px rgb(246,162,51);
   font-size: 6.25em;
@@ -361,8 +270,7 @@ body > div:not(.header):not(.carousel):not(.footer) {
   line-height: 1;
   top: auto;
   left: -0.3em;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
   z-index: 1;
 }
 
@@ -417,8 +325,7 @@ body > div:not(.header):not(.carousel):not(.footer) {
 .step-count {
   font-size: 7.5em;
   line-height: 1;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
   z-index: 1;
 }
 
@@ -472,4 +379,12 @@ body > div:not(.header):not(.carousel):not(.footer) {
 
 .clients .dealer-button {
   margin-top: 2em;
+}
+
+/* =====================================================================================================
+ Стили для футера:
+===================================================================================================== */
+
+body .footer {
+  position: static;
 }

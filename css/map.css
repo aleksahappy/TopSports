@@ -61,8 +61,7 @@
 	position: relative;
 	margin: 0;
 	padding: 10px 15px 10px 0;
-	/* font-family: 'TradeGothicProCyr'; */
-	font-family: 'FranklinGothic-DemiCond';
+	font-family: 'TradeGothicProCyr';
 	font-weight: 500;
 	border-bottom: 1px solid rgba(80, 80, 80, 0.2);
 	cursor: pointer;

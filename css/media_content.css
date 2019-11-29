@@ -20,7 +20,16 @@
   }
 }
 
+@media (pointer:coarse){
+  #filters {
+    overflow-y: scroll;
+  }
+}
+
 @media only screen and  (min-width: 1824px) {
+  .big-card {
+    height: 14em;
+  }
   #full-img-container .carousel {
     max-width: 1000px;
     max-height: 1000px;
@@ -89,7 +98,7 @@
     font-size: 1.6rem !important;
   }
   .big-card {
-    height: 17em;
+    height: 18em;
   }
   .big-card .big-card-head {
     flex-direction: column;
@@ -184,6 +193,12 @@
     height: 100% !important;
     padding-right: 0;
   }
+  #content.list .default-btn {
+    width: 100%;
+  }
+  #content.list #menu-filters {
+    width: 100%;
+  }
   #content.list #gallery {
     width: 100% !important;
   }
@@ -208,6 +223,7 @@
     margin: 0 auto;
     margin-left: 3em;
     margin-right: 3em;
+    margin-bottom: 2em;
   }
   body.ekipirovka .big-card .carousel .left-btn,
   body.ekipirovka .big-card .carousel .right-btn {
@@ -219,6 +235,9 @@
   }
   body.ekipirovka .big-card .carousel .right-btn {
     right: -3em;
+  }
+  .big-card .card-price-row {
+    flex-direction: column;
   }
   .big-card .toggle-btn {
     width: 100%;
@@ -247,6 +266,9 @@
 }
 
 @media only screen and (max-width: 480px) {
+  .dealer-button {
+    width: 100%;
+  }
   #search-info {
     font-size: 1.3em;
   }
@@ -263,6 +285,12 @@
     width: 100%;
     height: 100% !important;
     padding-right: 0;
+  }
+  .default-btn {
+    width: 100%;
+  }
+  #menu-filters {
+    width: 100%;
   }
   #gallery {
     width: 100% !important;

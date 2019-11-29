@@ -77,6 +77,9 @@ var view = content.classList.item(0),
 // - данных о картинках в карточке товара из строки в массив;
 // - данных о годах в укороченный формат
 // - добавление пробелов
+// - !!! добавление новой цены в price_preorder (минус 45% от РРЦ)
+
+var newPrice;
 
 items.forEach(item => {
   item.images = item.images.toString().split(';');
@@ -91,6 +94,10 @@ items.forEach(item => {
       }
     }
   }
+  newPrice = item.price_user1 - (item.price_user1 * 45 / 100);
+  item.price_preorder = convertPrice(newPrice.toFixed(0));
+  item.price_preorder1 = newPrice;
+  item.ptype = "3";
 });
 
 // Сортировка товаров по категориям (чтобы не отражались на сайте вразноброс):
@@ -449,7 +456,6 @@ function createDataCats(id) {
 var data;
 
 function initFilters() {
-  console.log('initFilters');
   data = JSON.parse(JSON.stringify(dataForPageFilters));
   curItemsArray = curItems;
   isExsist = false;
@@ -1191,7 +1197,6 @@ function showCards() {
 // Добавление новых карточек при скролле страницы:
 
 function scrollGallery() {
-  console.log('scroll');
   scrolled = window.pageYOffset || document.documentElement.scrollTop;
   if (scrolled * 2 + window.innerHeight >= document.body.clientHeight) {
     loadCards();

@@ -65,8 +65,7 @@
 #search-info {
   position: relative;
   padding-right: 30px;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
   font-size: 1.5em;
   text-transform: uppercase;
   visibility: hidden;
@@ -156,14 +155,17 @@
 #filters {
   position: static;
   width: 17em;
-  padding-right: 10px;
   padding-bottom: 1em;
-  overflow-y: scroll;
+  overflow-y: hidden;
   text-overflow: ellipsis;
 }
 
+#filters:hover {
+  overflow-y: scroll;
+}
+
 #filters::-webkit-scrollbar {
-  width: 7px;
+  width: 5px;
 }
 
 #filters::-webkit-scrollbar-track {
@@ -172,23 +174,23 @@
 
 #filters::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: rgb(204, 204, 204);
+  background-color: rgb(224,224,224);
   -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
 }
 
 .default-btn {
   margin-bottom: 2rem;
   padding: 0.3em;
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
   font-size: 1.15em;
   font-weight: 500;
+  letter-spacing: 0.075em;
   text-transform: uppercase;
   text-align: center;
   border: 1px solid rgb(51,51,51);
   border-radius: 2px;
   cursor: pointer;
-
-  width: 98%;
+  width: 13em;
   position: relative;
   box-shadow: 3px 3px 3px rgb(153,153,153);
   transition: top 0.2s linear;
@@ -200,12 +202,17 @@
   top: 4px;
 }
 
+#menu-filters {
+  width: 15.5em;
+}
+
 .filter-title {
   position: relative;
   padding: 0.5em 2em 0.3em 0;
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
   font-size: 1.15em;
   font-weight: 500;
+  letter-spacing: 0.075em;
   text-transform: uppercase;
   border-bottom: 1px solid rgb(139,140,140);
   overflow: hidden;
@@ -219,7 +226,7 @@
   width: 9px;
   height: 9px;
   top: 45%;
-  right: 0;
+  right: 8px;
   background: url(../img/content/filter_opener.png);
   background-position-x: 0;
   background-repeat: no-repeat;
@@ -230,10 +237,10 @@
 }
 
 .filter-items {
-  max-height: 1000px;
+  /* max-height: 1000px; */
   font-size: 0.85em;
   color: rgb(88, 88, 88);
-  overflow: hidden;
+  /* overflow: hidden; */
   -webkit-transition: max-height 0.3s linear;
   -moz-transition: max-height 0.3s linear;
   transition: max-height 0.3s linear;
@@ -244,7 +251,8 @@
 }
 
 .filter.close .filter-items {
-  max-height: 0px !important;
+  /* max-height: 0px !important; */
+  display: none;
 }
 
 .filter-item {
@@ -297,7 +305,8 @@
 }
 
 .filter-item.close .filter-items {
-  max-height: 0px !important;
+  /* max-height: 0px !important; */
+  display: none;
 }
 
 .filter-item.subitem {
@@ -343,6 +352,11 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   margin: 0 auto;
+  padding: 0 1.5em;
+}
+
+#filter-color.close .filter-items {
+  display: none;
 }
 
 #filter-color .filter-item-title {
@@ -555,6 +569,10 @@
   text-decoration: line-through;
 }
 
+.dealer-button {
+  margin-bottom: 1em;
+}
+
 .card-title {
   font-weight: 500;
 }
@@ -569,6 +587,11 @@
 
 .card-promo {
   font-size: 0.85em;
+}
+
+.card-promo.hidden {
+  font-size: 0;
+  margin-right: 0;
 }
 
 .promo-title {
@@ -688,6 +711,7 @@ body#r_ek .card-notice {
 
 .size-choice {
   align-items: stretch;
+  justify-content: flex-start;
 }
 
 .size-name {
@@ -978,6 +1002,7 @@ body.zip .big-card .card-container-left {
   min-width: 140px;
   margin-left: 1.5em;
   margin-right: 2.5em;
+  margin-bottom: 2em;
 }
 
 .big-card .carousel .left-btn,
@@ -1046,6 +1071,29 @@ body.zip .big-card .card-container-right {
 
 .big-card .size-choice {
   font-size: 0.85em;
+}
+
+.big-card .card-price-row {
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.big-card .card-price-row > div{
+  padding-bottom: 1em;
+}
+
+.big-card .card-price-row .card-price-info {
+  margin-right: 2em;
+  margin-bottom: 0;
+}
+
+body#r_ek .big-card .card-price-row .card-notice {
+  padding-bottom: 0;
+}
+
+.big-card .card-price-row .dealer-button {
+  margin-bottom: 1em;
 }
 
 .big-card .card-price-info {
@@ -1316,10 +1364,10 @@ body.zip .big-card .card-container-right {
   position: fixed;
   right: 2em;
   bottom: 2em;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-image: url(../img/content/icon_top.png);
-  background-size: 50px;
+  background-size: 40px;
   cursor: pointer;
   opacity: 0.5;
   transition: opacity 0.3s ease;

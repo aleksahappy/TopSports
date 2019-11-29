@@ -21,6 +21,7 @@ a {
   color: inherit;
   text-decoration: none;
   outline: none;
+  cursor: pointer;
 }
 
 img {
@@ -148,11 +149,11 @@ body.no-scroll {
   position: absolute;
   top: 0;
   height: 100%;
-  z-index: 1;
-  cursor: pointer;
   -webkit-transition: opacity 0.3s linear;
   -moz-transition: opacity 0.3s linear;
   transition: opacity 0.3s linear;
+  cursor: pointer;
+  z-index: 1;
 }
 
 .left-btn {
@@ -166,16 +167,15 @@ body.no-scroll {
 }
 
 .dealer-button {
-  margin-bottom: 1em;
   padding: 0.45em 1.4em;
   font-size: 1.15em;
-  /* font-family: 'TradeGothicProCyr'; */
-  font-family: 'FranklinGothic-DemiCond';
+  font-family: 'TradeGothicProCyr';
   color: rgb(255, 255, 255);
   background-color: rgb(241,89,42);
   border-radius: 2px;
   text-align: center;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .map-btn {
@@ -212,18 +212,18 @@ body.no-scroll {
 ===================================================================================================== */
 
 .carousel {
-  visibility: hidden; /* обязательный стиль */
-  position: relative; /* обязательный стиль */
+  visibility: hidden;
+  position: relative;
   cursor: pointer;
 }
 
 .carousel-gallery-wrap {
-  position: relative;  /* обязательный стиль */
+  position: relative;
   width: 100%;
-  overflow: hidden; /* обязательный стиль */
+  overflow: hidden;
 }
 
-.carousel-gallery { /* все стили обязательные кроме padding */
+.carousel-gallery {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -232,17 +232,17 @@ body.no-scroll {
   width: 100%;
 }
 
-.carousel-gallery .carousel-item { /* все стили обязательные */
+.carousel-gallery .carousel-item {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   flex: 0 0 auto;
-  width: 100%; /* можно установить в % для адаптивности или в px */
+  width: 100%;
 }
 
-.carousel-nav { /* навигация не является обязательной */
+.carousel-nav {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -261,20 +261,20 @@ body.no-scroll {
   opacity: 1;
 }
 
-.carousel-item img { /* все стили обязательные */
+.carousel-item img {
   height: auto;
   max-width: 100%;
   margin: 0 auto;
 }
 
-.loupe { /* если включаем лупу, то все стили обязательные */
+.loupe {
   position: absolute;
   overflow: hidden;
   background-color: rgba(85,85,85, 0.25);
   cursor: zoom-in;
 }
 
-.big-img { /* если включаем лупу, то все стили обязательные */
+.big-img {
   position: absolute;
 }
 

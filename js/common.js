@@ -173,6 +173,20 @@ function sortObjByValue(obj) {
 // Визуальное отображение контента на странице:
 //=====================================================================================================
 
+// Установка отступов документа:
+
+window.addEventListener('resize', setPaddingToBody);
+
+var headerHeight,
+    footerHeight;
+
+function setPaddingToBody() {
+  headerHeight = document.querySelector('.header').clientHeight;
+  footerHeight = document.querySelector('.footer').clientHeight;
+  document.body.style.paddingTop = `${headerHeight}px`;
+  document.body.style.paddingBottom = `${footerHeight + 20}px`;
+}
+
 // Отображение/скрытие кнопки возвращения наверх страницы:
 
 window.addEventListener('scroll', toggleBtnGoTop);
@@ -218,20 +232,6 @@ function getDocumentScroll() {
 function setDocumentScroll(top) {
   document.documentElement.scrollTop = top;
   document.body.scrollTop = top;
-}
-
-// Установка отступов документа:
-
-window.addEventListener('resize', setPaddingToBody);
-
-var headerHeight,
-    footerHeight;
-
-function setPaddingToBody() {
-  headerHeight = document.querySelector('.header').clientHeight;
-  footerHeight = document.querySelector('.footer').clientHeight;
-  document.body.style.paddingTop = `${headerHeight}px`;
-  document.body.style.paddingBottom = `${footerHeight + 20}px`;
 }
 
 // Добавление всплывающих подсказок:
