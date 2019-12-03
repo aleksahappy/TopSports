@@ -28,7 +28,7 @@
           </div>
           <div class="profile-info row">
             <div class="profile-wrap">
-              <a id="header-cart" href="../zip/?cart" data-level="2" data-href="cart" data-title="Корзина" onclick="openPage()">
+              <a id="header-cart" class="dinamic-url" href="#" data-href="cart" data-level="2" data-title="Корзина" onclick="openPage(event)">
                 <div class="title">Корзина <span class="name"></span></div>
                 <div class="amount"><span>0</span>&nbsp;шт. /</div>
                 <div class="price"><span>0</span>&nbsp;руб.</div>
@@ -56,8 +56,8 @@
         <div class="main-menu">
           <div class="container row">
             <div class="topmenu">
-              <a class="topmenu-item active" href="../zip/?snegohod" data-href="snegohod" data-id="sneg" data-level="1" onclick="openPage()">Снегоходы</a>
-              <a class="topmenu-item" href="../zip/?lodkimotor" data-href="lodkimotor" data-id="lodki" data-level="1" onclick="openPage()">Лодки и моторы</a>
+              <a class="topmenu-item active" href="../zip/?snegohod" data-href="snegohod" data-id="sneg" data-level="1" onclick="openPage(event)">Снегоходы</a>
+              <a class="topmenu-item" href="../zip/?lodkimotor" data-href="lodkimotor" data-id="lodki" data-level="1" onclick="openPage(event)">Лодки и моторы</a>
             </div>
             <div class="main-menu-btns row">
               <div class="burger-btn visible-xs" onclick="toggleSubmenu()"></div>
@@ -73,8 +73,8 @@
         <div class="submenu">
           <div class="container row">
             <div class="submenu-items zip">
-              <a id="zip-url" class="submenu-item" href="#" data-level="2" data-href="zip" onclick="openPage()">Запчасти</a>
-              <a id="acc-url" class="submenu-item" href="#" data-level="2" data-href="acc" onclick="openPage()">Аксессуары</a>
+              <a class="submenu-item dinamic-url" href="#" data-href="zip" data-level="2" onclick="openPage(event)">Запчасти</a>
+              <a class="submenu-item dinamic-url" href="#" data-href="acc" data-level="2" onclick="openPage(event)">Аксессуары</a>
             </div>
           </div>
           <div class="header-select">
@@ -124,7 +124,7 @@
         <div class="main-header row">
           <div id="main-nav" class="main-nav">
             <a href="../">Главная</a>
-            <span class="nav-item #isCurPage#" data-href="#pageUrl#" onclick="openPage()">#pageTitle#</span>
+            <a class="nav-item #isCur#" href="#href#" data-href="#dataHref#" data-level="#level#" onclick="openPage(event)">#title#</a>
           </div>
           <div id="main-info" class="row">
             <div id="search-info">
@@ -135,10 +135,10 @@
               <div class="view row">
                 <div class="view-title">Вид каталога:</div>
                 <div class="tooltip" tooltip="Cписок">
-                  <div class="view-list active" onclick="toggleView('list')"></div>
+                  <div class="view-list active" onclick="toggleView(event, 'list')"></div>
                 </div>
                 <div class="tooltip" tooltip="Плитка">
-                  <div class="view-blocks" onclick="toggleView('blocks')"></div>
+                  <div class="view-blocks" onclick="toggleView(event, 'blocks')"></div>
                 </div>
               </div>
               <select id="gallery-sort" onchange="sortItems()">
@@ -224,7 +224,7 @@
                       <div class="right-btn btn"></div>
                       <div class="carousel-gallery-wrap">
                         <div class="carousel-gallery">
-                          <div class="carousel-item" onclick="showFullImg(#object_id#)">
+                          <div class="carousel-item" onclick="showFullImg(event, #object_id#)">
                             <img src="#image#">
                           </div>
                         </div>
@@ -272,11 +272,11 @@
                       <div class="card-size">
                         <div class="size-articul grey">Артикул: #articul#</div>
                         <div class="size-choice row">
-                          <div class="size-name row #isClick#" onclick="changeCart(#id#, this.textContent)">#size#</div>
+                          <div class="size-name row #isClick#" onclick="changeCart(event, #id#, this.textContent)">#size#</div>
                           <div class="product-qty row">
-                            <div class="btn-minus" tooltip="Удалить" onclick="changeCart(#id#, this.textContent)">-</div>
-                            <input class="choiced-qty" type="text" value="0" data-id="#id#" autocomplete="off" onchange="changeCart(#id#)" onblur="changeCart(#id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
-                            <div class="btn-plus" tooltip="Добавить" onclick="changeCart(#id#, this.textContent)">+</div>
+                            <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event, #id#, this.textContent)">-</div>
+                            <input class="choiced-qty" type="text" value="0" data-id="#id#" autocomplete="off" onchange="changeCart(event, #id#)" onblur="changeCart(event, #id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                            <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event, #id#, this.textContent)">+</div>
                           </div>
                         </div>
                         <div class="tooltip" tooltip="#qtyTitle#">
@@ -364,11 +364,11 @@
                     <div class="card-size">
                       <div class="size-articul grey">Артикул: #articul#</div>
                       <div class="size-choice row">
-                        <div class="size-name row #isClick#" onclick="changeCart(#id#, this.textContent)">#size#</div>
+                        <div class="size-name row #isClick#" onclick="changeCart(event, #id#, this.textContent)">#size#</div>
                         <div class="product-qty row">
-                          <div class="btn-minus" tooltip="Удалить" onclick="changeCart(#id#, this.textContent)">-</div>
-                          <input class="choiced-qty" type="text" value="0" data-id="#id#" autocomplete="off" onchange="changeCart(#id#)" onblur="changeCart(#id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
-                          <div class="btn-plus" tooltip="Добавить" onclick="changeCart(#id#, this.textContent)">+</div>
+                          <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event, #id#, this.textContent)">-</div>
+                          <input class="choiced-qty" type="text" value="0" data-id="#id#" autocomplete="off" onchange="changeCart(event, #id#)" onblur="changeCart(event, #id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                          <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event, #id#, this.textContent)">+</div>
                         </div>
                       </div>
                       <div class="tooltip" tooltip="#qtyTitle#">
@@ -396,7 +396,7 @@
               </div>
             </div>
           </div>
-          <div id="full-img-container" onclick="closeFullImg()">
+          <div id="full-img-container" onclick="closeFullImg(event)">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path>
             </svg>
@@ -414,13 +414,16 @@
               </div>
             </div>
             <div id="img-loader"></div>
+            <div id="img-error" class="row">
+              <div>Изображение не может быть загружено.<br>Повторите попытку позже.</div>
+            </div>
           </div>
           <div id="cart">
             <div id="cart-full">
               <div id="cart-links" class="row">
                 <div class="title">Перейти в корзину:</div>
                 <div id="cart-links-list">
-                  <a class="cart-link" href="#href#" data-href=#dataHref# data-level="1" onclick="openPage()">#title#</a>
+                  <a class="cart-link" href="#href#" data-href=#dataHref# data-level="1" onclick="openPage(event)">#title#</a>
                 </div>
               </div>
               <div id="cart-filter" class="row">
@@ -560,9 +563,9 @@
                         <div class="title">Кол-во штук</div>
                         <div class="value qty">
                           <div class="product-qty row">
-                            <div class="btn-minus" tooltip="Удалить" onclick="changeCart(#id#, this.textContent)">-</div>
-                            <input class="choiced-qty" type="text" value="#qty#" data-id="#id#" autocomplete="off" onchange="changeCart(#id#)" onblur="changeCart(#id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
-                            <div class="btn-plus" tooltip="Добавить" onclick="changeCart(#id#, this.textContent)">+</div>
+                            <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event, #id#, this.textContent)">-</div>
+                            <input class="choiced-qty" type="text" value="#qty#" data-id="#id#" autocomplete="off" onchange="changeCart(event, #id#)" onblur="changeCart(event, #id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                            <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event, #id#, this.textContent)">+</div>
                           </div>
                           <div class="tooltip" tooltip="В наличии">
                             <div class="available-qty"><span>#free_qty#</span>&nbsp;шт.</div>
@@ -586,7 +589,7 @@
             </div>
             <div id="cart-empty">
               <div class="title">Ваша корзина пуста</div>
-              <a id="catalog-link" data-level="1" onclick="openPage()">Перейти в каталог товаров</a>
+              <a id="catalog-link" data-level="1" onclick="openPage(event)">Перейти в каталог товаров</a>
             </div>
           </div>
         </div>

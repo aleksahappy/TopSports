@@ -90,7 +90,7 @@ var dataForFilters = [{
 }, {
   title: 'Категория',
   key: 'cat',
-  items: sortObjByKey(cats)
+  items: cats
 }, {
 //   title: 'Применяемость',
 //   key: 'use',

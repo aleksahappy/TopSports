@@ -147,6 +147,9 @@
     max-width: 90vw;
     max-height: 80vh;
   }
+  .full-card .carousel {
+    min-width: 150px;
+  }
   .full-card .card-option {
     min-width: 24em;
   }
@@ -155,10 +158,6 @@
     opacity: 0.3 !important;
     background-color: transparent;
   }
-  /* #full-img-container .carousel {
-    max-width: 80vw;
-    max-height: 80vh;
-  } */
   #full-img-container .carousel .left-btn {
     background: url(../img//slider/slider_nav_left.png) no-repeat center;
     left: -3em;
@@ -171,10 +170,6 @@
     background-color: transparent;
     opacity: 1 !important;
   }
-  /* #full-img-container .carousel-gallery img {
-    max-width: 80vw;
-    max-height: 80vh;
-  } */
 }
 
 @media only screen and (max-width: 767px) {
@@ -194,7 +189,7 @@
     padding-right: 0;
   }
   #content.list .default-btn {
-    width: 100%;
+    width: 98%;
   }
   #content.list #menu-filters {
     width: 100%;
@@ -287,7 +282,7 @@
     padding-right: 0;
   }
   .default-btn {
-    width: 100%;
+    width: 98%;
   }
   #menu-filters {
     width: 100%;

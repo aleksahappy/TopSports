@@ -52,7 +52,7 @@
         <div class="main-menu">
           <div class="container row">
             <div class="topmenu row">
-              <a class="topmenu-item" href="../ekipirovka/"  data-href="r_ek" data-level="1"onclick="openPage()">Экипировка</a>
+              <a class="topmenu-item" href="../ekipirovka/"  data-href="r_ek" data-level="1"onclick="openPage(event)">Экипировка</a>
             </div>
             <div class="main-menu-btns row">
               <div class="burger-btn visible-xs" onclick="toggleSubmenu()"></div>
@@ -68,13 +68,13 @@
         <div class="submenu">
           <div class="container">
             <div class="submenu-items ekipirovka">
-              <a class="submenu-item" href="../ekipirovka/?odegda" data-level="2" data-href="odegda" onclick="openPage()">Одежда</a>
-              <a class="submenu-item" href="../ekipirovka/?obuv" data-level="2" data-href="obuv" onclick="openPage()">Обувь</a>
-              <a class="submenu-item" href="../ekipirovka/?shlem" data-level="2" data-href="shlem" onclick="openPage()">Шлемы</a>
-              <a class="submenu-item" href="../ekipirovka/?optic" data-level="2" data-href="optic" onclick="openPage()">Оптика</a>
-              <a class="submenu-item" href="../ekipirovka/?snarag" data-level="2" data-href="snarag" onclick="openPage()">Снаряжение</a>
-              <a class="submenu-item" href="../ekipirovka/?zashita" data-level="2" data-href="zashita" onclick="openPage()">Защита</a>
-              <a class="submenu-item" href="../ekipirovka/?sumruk" data-level="2" data-href="sumruk" onclick="openPage()">Сумки и рюкзаки</a>
+              <a class="submenu-item" href="../ekipirovka/?odegda" data-href="odegda" data-level="2" onclick="openPage(event)">Одежда</a>
+              <a class="submenu-item" href="../ekipirovka/?obuv" data-href="obuv" data-level="2" onclick="openPage(event)">Обувь</a>
+              <a class="submenu-item" href="../ekipirovka/?shlem" data-href="shlem" data-level="2"onclick="openPage(event)">Шлемы</a>
+              <a class="submenu-item" href="../ekipirovka/?optic" data-href="optic" data-level="2" onclick="openPage(event)">Оптика</a>
+              <a class="submenu-item" href="../ekipirovka/?snarag" data-href="snarag" data-level="2" onclick="openPage(event)">Снаряжение</a>
+              <a class="submenu-item" href="../ekipirovka/?zashita" data-href="zashita" data-level="2" onclick="openPage(event)">Защита</a>
+              <a class="submenu-item" href="../ekipirovka/?sumruk" data-href="sumruk" data-level="2" onclick="openPage(event)">Сумки и рюкзаки</a>
             </div>
           </div>
         </div>
@@ -86,7 +86,7 @@
         <div class="main-header row">
           <div id="main-nav" class="main-nav">
             <a href="../">Главная</a>
-            <span class="nav-item #isCurPage#" data-href="#pageUrl#" onclick="openPage()">#pageTitle#</span>
+            <a class="nav-item #isCur#" href="#href#" data-href="#dataHref#" data-level="#level#" onclick="openPage(event)">#title#</a>
           </div>
           <div id="main-info" class="row">
             <div id="search-info">
@@ -97,10 +97,10 @@
               <div class="view row">
                 <div class="view-title">Вид каталога:</div>
                 <div class="tooltip" tooltip="Cписок">
-                  <div class="view-list active" onclick="toggleView('list')"></div>
+                  <div class="view-list active" onclick="toggleView(event, 'list')"></div>
                 </div>
                 <div class="tooltip" tooltip="Плитка">
-                  <div class="view-blocks" onclick="toggleView('blocks')"></div>
+                  <div class="view-blocks" onclick="toggleView(event, 'blocks')"></div>
                 </div>
               </div>
               <select id="gallery-sort" onchange="sortItems()">
@@ -154,7 +154,7 @@
                   <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
                 </div>
                 <div class="tooltip" tooltip="#qtyTitle#">
-                  <div class="available-qty #isAvaliable#"></div>
+                  <div class="available-qty #isAvailable#"></div>
                 </div>
               </div>
             </div>
@@ -186,7 +186,7 @@
                       <div class="right-btn btn"></div>
                       <div class="carousel-gallery-wrap">
                         <div class="carousel-gallery">
-                          <div class="carousel-item" data-numb="#imgNumb#" onclick="showFullImg(#object_id#)">
+                          <div class="carousel-item" data-numb="#imgNumb#" onclick="showFullImg(event, #object_id#)">
                             <img src="#image#">
                           </div>
                         </div>
@@ -218,7 +218,7 @@
                           </div>
                         </div>
                         <div class="tooltip" tooltip="#qtyTitle#">
-                          <div class="available-qty #isAvaliable#"><span>#free_qty#</span>&nbsp;шт.</div>
+                          <div class="available-qty #isAvailable#"><span>#free_qty#</span>&nbsp;шт.</div>
                         </div>
                       </div>
                     </div>
@@ -297,7 +297,7 @@
                         </div>
                       </div>
                       <div class="tooltip" tooltip="#qtyTitle#">
-                        <div class="available-qty #isAvaliable#"><span>#free_qty#</span>&nbsp;шт.</div>
+                        <div class="available-qty #isAvailable#"><span>#free_qty#</span>&nbsp;шт.</div>
                       </div>
                     </div>
                   </div>
@@ -314,7 +314,7 @@
               </div>
             </div>
           </div>
-          <div id="full-img-container" onclick="closeFullImg()">
+          <div id="full-img-container" onclick="closeFullImg(event)">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path>
             </svg>
@@ -332,6 +332,9 @@
               </div>
             </div>
             <div id="img-loader"></div>
+            <div id="img-error" class="row">
+              <div>Изображение не может быть загружено.<br>Повторите попытку позже.</div>
+            </div>
           </div>
         </div>
       </div>

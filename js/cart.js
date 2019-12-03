@@ -411,7 +411,7 @@ function checkCart(card) {
 
 var curInput;
 
-function changeCart(id, sign) {
+function changeCart(event, id, sign) {
   curEl = event.currentTarget.closest('.card');
   if (curEl) {
     curQtyBox = event.currentTarget.closest('.card-size');
@@ -558,57 +558,54 @@ function changeCartRow(row) {
   tableRow = cartTable.querySelector(`:not(.bonus)[data-id="${curId}"]`);
 
   row.dataset.retailPrice = curQty * curRetailPrice;
+  tableRow.querySelector('.qty').textContent = curQty;
   totalPrice = 0;
 
-  if (curQty > 0) {
-    tableRow.querySelector('.qty').textContent = curQty;
-    discount = checkDiscount(curId, curQty);
+  discount = checkDiscount(curId, curQty);
 
-    if (!discount) {
-      totalPrice = curQty * curPrice;
-      filterSelect.querySelector(`[value="no-action"]`).style.display = 'block';
+  if (!discount) {
+    totalPrice = curQty * curPrice;
+    filterSelect.querySelector(`[value="no-action"]`).style.display = 'block';
+  } else {
+    row.dataset.action = discount.id;
+    row.classList.add('discount');
+    filterSelect.querySelector(`.filter-value[value="${discount.id}"]`).style.display = 'block';
+    row.querySelector('.action .value').textContent = discount.title;
+    if (discount.price) {
+      totalPrice = discount.price;
     } else {
-      row.dataset.action = discount.id;
-      row.classList.add('discount');
-      filterSelect.querySelector(`.filter-value[value="${discount.id}"]`).style.display = 'block';
-      row.querySelector('.action .value').textContent = discount.title;
-      if (discount.price) {
-        totalPrice = discount.price;
-      } else {
-        totalPrice = curQty * curPrice;
-      }
-      if (discount.bonus >= 0) {
-        bonusRow = document.querySelector(`.cart-row.bonus[data-id="${discount.articul}"]`);
-        if (discount.bonus > 0) {
-          if (bonusRow) {
-            bonusRow.querySelector('.amount .bonus span').textContent = discount.bonus;
-            cartTable.querySelector(`[data-id="${discount.articul}"] .qty`).textContent = discount.bonus;
-          } else {
-            findCurData(discount.articul);
-            cartRow = createCartRow(discount.bonus, true);
-            row.insertAdjacentHTML('afterend', cartRow);
-            bonusRow = row.nextElementSibling;
-            bonusRow.dataset.parentId = curId;
-            bonusRow.dataset.action = discount.id;
-            bonusRow.querySelector('.action .value').textContent = discount.title;
-            if (!row.classList.contains('checked')) {
-              bonusRow.classList.remove('checked');
-            }
-            cartTableRow = createCartTableRow(discount.bonus);
-            tableRow.insertAdjacentHTML('afterend', cartTableRow);
-            tableRow.nextElementSibling.classList.add('bonus');
-          }
+      totalPrice = curQty * curPrice;
+    }
+    if (discount.bonus >= 0) {
+      bonusRow = document.querySelector(`.cart-row.bonus[data-id="${discount.articul}"]`);
+      if (discount.bonus > 0) {
+        if (bonusRow) {
+          bonusRow.querySelector('.amount .bonus span').textContent = discount.bonus;
+          cartTable.querySelector(`[data-id="${discount.articul}"] .qty`).textContent = discount.bonus;
         } else {
-          if (bonusRow) {
-            cartRows.removeChild(bonusRow);
-            cartTable.firstChild.removeChild(cartTable.querySelector(`.bonus[data-id="${bonusRow.dataset.id}"]`));
+          findCurData(discount.articul);
+          cartRow = createCartRow(discount.bonus, true);
+          row.insertAdjacentHTML('afterend', cartRow);
+          bonusRow = row.nextElementSibling;
+          bonusRow.dataset.parentId = curId;
+          bonusRow.dataset.action = discount.id;
+          bonusRow.querySelector('.action .value').textContent = discount.title;
+          if (!row.classList.contains('checked')) {
+            bonusRow.classList.remove('checked');
           }
+          cartTableRow = createCartTableRow(discount.bonus);
+          tableRow.insertAdjacentHTML('afterend', cartTableRow);
+          tableRow.nextElementSibling.classList.add('bonus');
+        }
+      } else {
+        if (bonusRow) {
+          cartRows.removeChild(bonusRow);
+          cartTable.firstChild.removeChild(cartTable.querySelector(`.bonus[data-id="${bonusRow.dataset.id}"]`));
         }
       }
     }
-  } else {
-    totalPrice = 0;
   }
+
   row.querySelector('.total .value').textContent = totalPrice.toLocaleString();
   row.dataset.price = totalPrice;
   tableRow.querySelector('.total').textContent = totalPrice;

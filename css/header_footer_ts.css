@@ -265,3 +265,39 @@ a.header-phone, a.header-cabinet {
   text-align: center;
   border-top: 1px solid rgb(139,140,140);
 }
+
+/* =====================================================================================================
+ Для предзаказа:
+===================================================================================================== */
+
+body.pred .main-menu {
+  display: none;
+}
+
+body.pred .submenu > .row {
+  flex-wrap: wrap;
+}
+
+body.pred .submenu-items.open {
+  display: block;
+}
+
+body.pred .search {
+  max-width: 500px;
+}
+
+body.pred .main-menu-btns {
+  background-color: rgb(243,243,246);
+  justify-content: flex-end;
+  padding: 0.5rem 0;
+}
+
+body.pred .main-menu-btns > .row{
+  justify-content: flex-end;
+}
+
+body.pred .burger-btn,
+body.pred .search-icon {
+  margin-left: 1em;
+}
+

@@ -1,5 +1,5 @@
 body {
-  padding-top: 100px;
+  padding-top: 70px;
   padding-bottom: 220px;
 }
 
@@ -15,7 +15,7 @@ body {
 .action-info {
   margin: 0 0 40px 0;
   padding: 10px;
-  background-color: #fff;
+  /* background-color: #fff; */
   font-size: 14px;
 }
 
@@ -25,16 +25,17 @@ body {
 }
 
 .action-bnr {
-  width: 20%;
+  width: 100%;
   text-align: center;
 }
 
 .action-bnr .baner {
-  max-width: 400px;
+  max-width: 600px;
   margin-bottom: 5px;
 }
 
 .action-bnr img {
+  width: 564px;
   max-width: 100%;
 }
 
@@ -85,7 +86,7 @@ body {
 	display: inline-block;
 }
 
-.content-block > .btns-wrapper {
-  display: none;
+.btns-wrapper {
+  margin: 20px;
   text-align: center;
 }

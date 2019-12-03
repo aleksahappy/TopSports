@@ -13,6 +13,7 @@ var search = document.querySelector('.search'),
     clearSearchBtn = search.querySelector('.clear-search-btn'),
     mainMenuBtns = document.querySelector('.main-menu-btns'),
     submenu = document.querySelector('.submenu'),
+    submenuItems = submenu.querySelector('.submenu-items'),
     subsubmenu = document.querySelector('.subsubmenu'),
     zipUrl = document.getElementById('zip-url'),
     accUrl = document.getElementById('acc-url'),
@@ -32,7 +33,8 @@ var search = document.querySelector('.search'),
     fullImgContainer = document.getElementById('full-img-container'),
     fullImg = document.getElementById('full-img'),
     pageLoader = document.getElementById('page-loader'),
-    imgLoader = document.getElementById('img-loader');
+    imgLoader = document.getElementById('img-loader'),
+    imgError = document.getElementById('img-error');
 
 // Получение шаблонов из HTML:
 
@@ -169,10 +171,18 @@ function setMinCardWidth() {
 
 function toggleSubmenu() {
   if (submenu.classList.contains('open')) {
-    submenu.classList.remove('open');
+    if (document.body.classList.contains('pred') && !submenuItems.classList.contains('open')) {
+      submenuItems.classList.add('open');
+      search.classList.remove('open');
+    } else {
+      submenu.classList.remove('open');
+    }
   } else {
     submenu.classList.add('open');
     search.classList.remove('open');
+    if (document.body.classList.contains('pred')) {
+      submenuItems.classList.add('open');
+    }
   }
 }
 
@@ -181,9 +191,17 @@ function toggleSubmenu() {
 function toggleSearch() {
   if (search.classList.contains('open')) {
     search.classList.remove('open');
+    if (document.body.classList.contains('pred')) {
+      submenu.classList.remove('open');
+    }
   } else {
     search.classList.add('open');
-    submenu.classList.remove('open');
+    if (document.body.classList.contains('pred')) {
+      submenu.classList.add('open');
+      submenuItems.classList.remove('open');
+    } else {
+      submenu.classList.remove('open');
+    }
   }
 }
 
@@ -243,11 +261,11 @@ function initPage() {
     window.history.pushState({'path': ['snegohod']},'', '?snegohod');
   }
 
-  path = location.search.split('?').map(element => {
-    if (element == '') {
+  path = location.search.split('?').map(el => {
+    if (el == '') {
       return pageId;
     } else {
-      return element;
+      return el;
     }
   });
 
@@ -258,13 +276,13 @@ function initPage() {
 
 // Изменение URL без перезагрузки страницы:
 
-window.addEventListener('popstate', openPage);
+window.addEventListener('popstate', (event) => openPage(event));
 
 var oldPath,
     newUrl,
     urlPath;
 
-function openPage() {
+function openPage(event) {
   event.preventDefault();
 
   if (event.type == 'popstate') {
@@ -302,15 +320,18 @@ function openPage() {
 
 // Изменение контента страницы:
 
+var pageFilter = null;
+
 function renderContent() {
-  if (path[path.length - 1] == 'snegohod' || path[path.length - 1] == 'lodkimotor') {
-    zipUrl.href = location.href + '?zip';
-    accUrl.href = location.href + '?acc';
-  }
-  if (location.search && !(location.search.indexOf('=') >= 0)) {
+  pageFilter = null;
+  if (path[path.length - 1].indexOf('=') >= 0) {
+    pageFilter = path[path.length - 1];
+    path.pop();
+  } else {
     changePageTitle(path);
   }
   toggleMenuItems(path);
+  addMenuLinks();
   createMainNav(path);
   sectionId = document.querySelector('.topmenu-item.active').dataset.id;
   if (path[path.length - 1] == 'cart') {
@@ -324,14 +345,12 @@ function renderContent() {
 
 // Изменение заголовка страницы:
 
-var curEl;
-
 function changePageTitle() {
   curEl = document.querySelector(`[data-href="${path[path.length - 1]}"]`);
   document.title = `ТОП СПОРТС - ${curEl.dataset.title ? curEl.dataset.title : curEl.textContent}`;
 }
 
-// Изменение разделов меню:
+// Изменение активных разделов меню:
 
 var curMenuItem;
 
@@ -345,17 +364,32 @@ function toggleMenuItems() {
   }
 }
 
+// Добавление ссылок в разделы меню:
+
+var parentMenuItem;
+
+function addMenuLinks() {
+  document.querySelectorAll('.dinamic-url').forEach(item => {
+    parentMenuItem = document.querySelector(`.header-menu .active[data-level="${item.dataset.level - 1}"]`);
+    if (parentMenuItem) {
+      item.href = parentMenuItem.href + '?' + item.dataset.href;
+    }
+  });
+}
+
 // Изменение хлебных крошек:
 
 function createMainNav() {
   list = '';
-  path.forEach((curUrl, i) => {
-    curMenuItem = document.querySelector(`[data-href="${curUrl}"]`);
+  path.forEach((item, i) => {
+    curMenuItem = document.querySelector(`[data-href="${item}"]`);
     if (curMenuItem) {
       newItem = navItemTemplate
-      .replace('#isCurPage#', i == path.length - 1 ? 'cur-page' : '')
-      .replace('#pageUrl#', curUrl)
-      .replace('#pageTitle#', curMenuItem.dataset.title ? curMenuItem.dataset.title : curMenuItem.textContent);
+      .replace('#isCur#', i == path.length - 1 ? 'cur-page' : '')
+      .replace('#href#', curMenuItem.href)
+      .replace('#dataHref#', item)
+      .replace('#level#', curMenuItem.dataset.level)
+      .replace('#title#', curMenuItem.dataset.title ? curMenuItem.dataset.title : curMenuItem.textContent);
       list += newItem;
     }
   });
@@ -364,6 +398,8 @@ function createMainNav() {
 }
 
 // Создание контента галереи:
+
+var dataCats;
 
 function renderGallery() {
   window.removeEventListener('scroll', scrollGallery);
@@ -397,28 +433,42 @@ function renderGallery() {
   curItems = items;
   for (key of path) {
     if (key != pageId) {
-      if (key.includes('=')) {
-        removeAllFiltersInfo();
-        saveFiltersInfo(key.split('=')[0], key.split('=')[1]);
-      } else {
-        curItems = curItems.filter(item => item[key] == 1);
-      }
+      curItems = curItems.filter(item => item[key] == 1);
     }
   }
+  pageUrl = path.join('?');
   prepeareForSearch(curItems);
   if (searchInfo.style.visibility == 'visible') {
     clearSearch();
   }
-  pageUrl = location.search && !location.search.includes('=') ? pageId + location.search : pageId;
 
   dataForPageFilters = JSON.parse(JSON.stringify(dataForFilters));
   if (typeof catId != 'undefined' && Object.keys(catId).indexOf(path[path.length - 1]) >= 0) {
-    var dataCats = createDataCats(catId[path[path.length - 1]]);
+    dataCats = createDataCats(catId[path[path.length - 1]]);
     dataForPageFilters.splice(1, 1, dataCats);
   }
   selecledCardList = '';
   initFilters();
+  if (pageFilter) {
+    setFilterOnPage(pageFilter);
+  }
   checkFilters();
+}
+
+// Добавление фильтра при загрузке страницы:
+
+var filterData;
+
+function setFilterOnPage(pageFilter) {
+  removeAllFiltersInfo();
+  menuFilters.querySelectorAll('.filter-item').forEach(el => {
+    key = el.dataset.key;
+    value = el.dataset.value;
+    filterData = pageFilter.toLowerCase().split('=');
+    if (key.toLowerCase() === filterData[0] && value.toLowerCase() === filterData[1]) {
+      saveFiltersInfo(key, value);
+    }
+  });;
 }
 
 //=====================================================================================================
@@ -440,7 +490,8 @@ function createDataCats(id) {
     title: 'Категория',
     isOpen: true,
     key: 'cat',
-    items: sortObjByKey(cat)
+    items: cat
+    // items: sortObjByKey(cat)
   }
 }
 
@@ -449,7 +500,6 @@ function createDataCats(id) {
 var data;
 
 function initFilters() {
-  console.log('initFilters');
   data = JSON.parse(JSON.stringify(dataForPageFilters));
   curItemsArray = curItems;
   isExsist = false;
@@ -552,10 +602,11 @@ function createFilter(data) {
       .replace(filterSubitemTemplate, subList)
       .replace('#key#', data.key)
       .replace('#value#', k)
-      .replace('#title#', curTitle)
+      .replace('#title#', curTitle == 'SpyOptic' ? 'Spy Optic' : curTitle)
       .replace('#isHiddenOpenBtn#', isHiddenOpenBtn);
     list += newSubItem;
   }
+
   newItem = newItem
     .replace(filterItemTemplate, list)
     .replace('#key#', data.key)
@@ -831,13 +882,13 @@ function checkFilters() {
 function checkFilterExist() {
   for (k in filtersInfo) {
     for (kk in filtersInfo[k]) {
-      var el = document.querySelector(`[data-key="${k}"][data-value="${kk}"]`);
-      if (!el) {
+      curEl = document.querySelector(`[data-key="${k}"][data-value="${kk}"]`);
+      if (!curEl) {
         delete filtersInfo[k][kk];
       }
       for (kkk in filtersInfo[k][kk]) {
-        var el = document.querySelector(`[data-subkey="${kk}"][data-value="${kkk}"]`);
-        if (!el) {
+        curEl = document.querySelector(`[data-subkey="${kk}"][data-value="${kkk}"]`);
+        if (!curEl) {
           delete filtersInfo[k][kk][kkk];
         }
         if (Object.keys(filtersInfo[k][kk]).length == 0) {
@@ -1147,15 +1198,29 @@ function createCarousel(template, card) {
 var curImgs;
 
 function renderCarousel(carousel, curImg = 0, isFull) {
-  curImgs = carousel.querySelectorAll('img')
-  curImgs.forEach(img => {
-    img.addEventListener('error', () => {
-      img.parentElement.remove();
-    });
+  curImgs = carousel.querySelectorAll('img');
+  curImgs.forEach((img, index) => {
+    if (index === curImgs.length - 1) {
+      img.addEventListener('load', () => render(carousel));
+      img.addEventListener('error', () => {
+        img.parentElement.remove();
+        render(carousel);
+      });
+    } else {
+      img.addEventListener('error', () => {
+        img.parentElement.remove();
+      });
+    }
   });
-  curImgs[curImgs.length - 1].addEventListener('load', render);
-  curImgs[curImgs.length - 1].addEventListener('error', () => render);
-  function render() {
+
+  function render(carousel) {
+    if (carousel.querySelectorAll('img').length === 0) {
+      if (isFull) {
+        imgLoader.style.visibility = 'hidden';
+        imgError.style.visibility = 'visible';
+      }
+      return;
+    }
     startCarouselInit(carousel, curImg);
     if (isFull) {
       fullImg.style.opacity = 1;
@@ -1191,7 +1256,6 @@ function showCards() {
 // Добавление новых карточек при скролле страницы:
 
 function scrollGallery() {
-  console.log('scroll');
   scrolled = window.pageYOffset || document.documentElement.scrollTop;
   if (scrolled * 2 + window.innerHeight >= document.body.clientHeight) {
     loadCards();
@@ -1200,7 +1264,7 @@ function scrollGallery() {
 
 // Переключение вида отображения карточек на странице:
 
-function toggleView(newView) {
+function toggleView(event, newView) {
   if (view != newView) {
     document.querySelector(`.view-${view}`).classList.remove('active');
     event.currentTarget.classList.add('active');
@@ -1264,8 +1328,8 @@ function showFullCard(id) {
   curCarousel = fullCardContainer.querySelector('.carousel');
   renderCarousel(curCarousel);
 
-  curCarousel.querySelector('.carousel-gallery-wrap').addEventListener('click', () => showFullImg(id));
-  curCarousel.querySelector('.search-btn').addEventListener('click', () => showFullImg(id));
+  curCarousel.querySelector('.carousel-gallery-wrap').addEventListener('click', (event) => showFullImg(event, id));
+  curCarousel.querySelector('.search-btn').addEventListener('click', (event) => showFullImg(event, id));
 
   document.body.classList.add('no-scroll');
   setCardTemplate();
@@ -1286,14 +1350,16 @@ function closeFullCard(event) {
 var imgs,
     curImg;
 
-function showFullImg(id) {
+function showFullImg(event, id) {
   if (event.target.classList.contains('btn')) {
     return;
   }
-  // event.preventDefault();
-  getDocumentScroll();
+  if (!fullCardContainer.style.display || fullCardContainer.style.display === 'none') {
+    getDocumentScroll();
+  }
   fullImgContainer.style.display = 'block';
   imgLoader.style.visibility = 'visible';
+  imgError.style.visibility = 'hidden';
   fullImg.style.opacity = 0;
   list = '';
   imgs = curItems.find(item => item.object_id == id).images;
@@ -1319,12 +1385,14 @@ function showFullImg(id) {
 
 // Скрытие картинки полного размера:
 
-function closeFullImg() {
+function closeFullImg(event) {
   if (event.target.classList.contains('btn')) {
     return;
   }
   fullImgContainer.style.display = 'none';
-  document.body.classList.remove('no-scroll');
+  if (!fullCardContainer.style.display || fullCardContainer.style.display === 'none') {
+    document.body.classList.remove('no-scroll');
+  }
   setDocumentScroll(scrollTop);
 }
 

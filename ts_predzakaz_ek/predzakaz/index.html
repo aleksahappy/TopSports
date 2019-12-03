@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="../../css/map.css">
   </head>
 
-  <body id="r_ek" data-website="ts_pred_ek" class="ekipirovka">
+  <body id="r_ek" data-website="ts_pred_ek" class="ekipirovka pred">
     <div class="header">
       <div class="header-main">
         <div class="container row">
@@ -26,10 +26,10 @@
             <a class="logo" href="../"><img src="../../img/header_footer/top_sports_logo.png" alt="Логотип"/></a>
           </div>
           <div class="header-contacts row">
-            <a class="header-phone hidden-xs" href="tel:+78463004499" target="_blank" >+7 (846) 300-44-99</a>
+            <a class="header-phone hidden-xs" href="tel:+78463004499">+7 (846) 300-44-99</a>
             <span class="hidden-xs">(8:00–17:00 мск)</span>
             <a class="hidden-xs" onclick="showDealersList(event)">Карта дилеров</a>
-            <a class="hidden-xs" href="http://b2b.topsports.ru/" target="_blank" >Стать дилером</a>
+            <a class="hidden-xs" href="http://b2b.topsports.ru/register/" target="_blank" >Стать дилером</a>
             <a class="header-cabinet" href="http://b2b.topsports.ru/" target="_blank" class="cabinet_link">Личный кабинет</a>
           </div>
         </div>
@@ -52,30 +52,32 @@
         <div class="main-menu">
           <div class="container row">
             <div class="topmenu row">
-              <a class="topmenu-item" href="../predzakaz/"  data-href="r_ek" data-level="1"onclick="openPage()">Предзаказ MX</a>
+              <a class="topmenu-item active" href="../predzakaz/"  data-href="r_ek" data-level="1" data-title="Каталог предзаказа" onclick="openPage(event)">Предзаказ MX</a>
             </div>
-            <div class="main-menu-btns row">
-              <div class="burger-btn visible-xs" onclick="toggleSubmenu()"></div>
-              <div class="search-icon visible-xs" onclick="toggleSearch()"></div>
+          </div>
+        </div>
+        <div class="main-menu-btns visible-xs">
+          <div class="container row">
+            <div class="burger-btn visible-xs" onclick="toggleSubmenu()"></div>
+            <div class="search-icon visible-xs" onclick="toggleSearch()"></div>
+          </div>
+        </div>
+        <div class="submenu">
+          <div class="container row">
+            <div class="submenu-items ekipirovka">
+              <a class="submenu-item" href="../predzakaz/?odegda" data-level="2" data-href="odegda" onclick="openPage(event)">Одежда</a>
+              <a class="submenu-item" href="../predzakaz/?obuv" data-level="2" data-href="obuv" onclick="openPage(event)">Обувь</a>
+              <a class="submenu-item" href="../predzakaz/?shlem" data-level="2" data-href="shlem" onclick="openPage(event)">Шлемы</a>
+              <a class="submenu-item" href="../predzakaz/?optic" data-level="2" data-href="optic" onclick="openPage(event)">Оптика</a>
+              <a class="submenu-item" href="../predzakaz/?snarag" data-level="2" data-href="snarag" onclick="openPage(event)">Снаряжение</a>
+              <a class="submenu-item" href="../predzakaz/?zashita" data-level="2" data-href="zashita" onclick="openPage(event)">Защита</a>
+              <a class="submenu-item" href="../predzakaz/?sumruk" data-level="2" data-href="sumruk" onclick="openPage(event)">Сумки и рюкзаки</a>
             </div>
             <form action="#" class="search" onsubmit="findOnPage(event)">
               <input id="search" type="text" autocomplete="off" placeholder="Поиск">
               <div class="search-btn" onclick="findOnPage(event)"></div>
               <div class="clear-search-btn" onclick="clearSearch()"></div>
             </form>
-          </div>
-        </div>
-        <div class="submenu">
-          <div class="container">
-            <div class="submenu-items ekipirovka">
-              <a class="submenu-item" href="../predzakaz/?odegda" data-level="2" data-href="odegda" onclick="openPage()">Одежда</a>
-              <a class="submenu-item" href="../predzakaz/?obuv" data-level="2" data-href="obuv" onclick="openPage()">Обувь</a>
-              <a class="submenu-item" href="../predzakaz/?shlem" data-level="2" data-href="shlem" onclick="openPage()">Шлемы</a>
-              <a class="submenu-item" href="../predzakaz/?optic" data-level="2" data-href="optic" onclick="openPage()">Оптика</a>
-              <a class="submenu-item" href="../predzakaz/?snarag" data-level="2" data-href="snarag" onclick="openPage()">Снаряжение</a>
-              <a class="submenu-item" href="../predzakaz/?zashita" data-level="2" data-href="zashita" onclick="openPage()">Защита</a>
-              <a class="submenu-item" href="../predzakaz/?sumruk" data-level="2" data-href="sumruk" onclick="openPage()">Сумки и рюкзаки</a>
-            </div>
           </div>
         </div>
       </div>
@@ -85,8 +87,8 @@
       <div class="container">
         <div class="main-header row">
           <div id="main-nav" class="main-nav">
-            <a href="../">Главная (Условия Акции)</a>
-            <span class="nav-item #isCurPage#" data-href="#pageUrl#" onclick="openPage()">#pageTitle#</span>
+            <a href="../">Предзаказ МХ</a>
+            <a class="nav-item #isCur#" href="#href#" data-href="#dataHref#" data-level="#level#" onclick="openPage(event)">#title#</a>
           </div>
           <div id="main-info" class="row">
             <div id="search-info">
@@ -97,10 +99,10 @@
               <div class="view row">
                 <div class="view-title">Вид каталога:</div>
                 <div class="tooltip" tooltip="Cписок">
-                  <div class="view-list active" onclick="toggleView('list')"></div>
+                  <div class="view-list active" onclick="toggleView(event, 'list')"></div>
                 </div>
                 <div class="tooltip" tooltip="Плитка">
-                  <div class="view-blocks" onclick="toggleView('blocks')"></div>
+                  <div class="view-blocks" onclick="toggleView(event, 'blocks')"></div>
                 </div>
               </div>
               <select id="gallery-sort" onchange="sortItems()">
@@ -153,9 +155,9 @@
                   <div class="old-price ptype#ptype#">#price_user#</div>
                   <div class="new-price red #isHiddenPrice#">#price_preorder#</div>
                 </div>
-                <div class="tooltip" tooltip="#qtyTitle#">
-                  <div class="available-qty #isAvaliable#"></div>
-                </div>
+                <!-- <div class="tooltip" tooltip="#qtyTitle#">
+                  <div class="available-qty #isAvailable#"></div>
+                </div> -->
               </div>
             </div>
             <div id="big-card-#object_id#" class="big-card card" data-id="#object_id#" onclick="closeBigCard(event)">
@@ -186,7 +188,7 @@
                       <div class="right-btn btn"></div>
                       <div class="carousel-gallery-wrap">
                         <div class="carousel-gallery">
-                          <div class="carousel-item" data-numb="#imgNumb#" onclick="showFullImg(#object_id#)">
+                          <div class="carousel-item" data-numb="#imgNumb#" onclick="showFullImg(event, #object_id#)">
                             <img src="#image#">
                           </div>
                         </div>
@@ -206,46 +208,28 @@
                     </div>
                   </div>
                   <div class="card-container-right">
-                    <!-- <div class="card-price-row row">
-                      <div>
-                        <div class="card-price-info">Подтверждение цены происходит в момент оформления заказа.</div>
-                        <div class="card-notice red">Товар резервируется в момент подтверждения заказа!</div>
-                      </div>
-                      <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
-                    </div> -->
                     <div class="card-sizes row">
                       <div class="card-size">
                         <div class="size-articul grey">Артикул: #articul#</div>
                         <div class="size-choice row">
                           <div class="size-name row">#size#</div>
                           <div class="product-qty row">
-                            <a class="btn-minus" href="http://b2b.topsports.ru/" target="_blank">-</a>
+                            <a class="btn-minus" href="http://b2b.topsports.ru/register/" target="_blank">-</a>
                             <input class="choiced-qty" type="text" autocomplete="off" placeholder="0" disabled>
-                            <a class="btn-plus" href="http://b2b.topsports.ru/" target="_blank">+</a>
+                            <a class="btn-plus" href="http://b2b.topsports.ru/register/" target="_blank">+</a>
                           </div>
                         </div>
-                        <div class="tooltip" tooltip="#qtyTitle#">
-                          <div class="available-qty #isAvaliable#"><span>#free_qty#</span>&nbsp;шт.</div>
-                        </div>
+                        <!-- <div class="tooltip" tooltip="#qtyTitle#">
+                          <div class="available-qty #isAvailable#"><span>#free_qty#</span>&nbsp;шт.</div>
+                        </div> -->
                       </div>
                     </div>
-                    <!-- <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
-                    <div class="card-notice red">#notice#</div>
-                    <div class="card-btns">
-                      <a class="dealer-button map-btn" onclick="showDealersList(event)">КАРТА ДИЛЕРОВ</a>
-                      <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
-                    </div> -->
-                    <!-- <div class="card-price-row row">
-                      <div class="card-price-info">Подтверждение цены происходит в момент <br> оформления заказа.</div>
-                      <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
-                    </div>
-                    <div class="card-notice red">#notice#</div> -->
                     <div class="card-price-row row">
                       <div>
                         <div class="card-price-info">Подтверждение цены происходит в момент оформления заказа.</div>
-                        <div class="card-notice red">Товар резервируется в момент подтверждения заказа!</div>
+                        <!-- <div class="card-notice red">Товар резервируется в момент подтверждения заказа!</div> -->
                       </div>
-                      <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
+                      <a class="dealer-button" href="http://b2b.topsports.ru/register/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
                     </div>
                   </div>
                 </div>
@@ -310,20 +294,20 @@
                       <div class="size-choice row">
                         <div class="size-name row">#size#</div>
                         <div class="product-qty row">
-                          <a class="btn-minus" href="http://b2b.topsports.ru/" target="_blank">-</a>
+                          <a class="btn-minus" href="http://b2b.topsports.ru/register/" target="_blank">-</a>
                           <input class="choiced-qty" type="text" autocomplete="off" placeholder="0" disabled>
-                          <a class="btn-plus" href="http://b2b.topsports.ru/" target="_blank">+</a>
+                          <a class="btn-plus" href="http://b2b.topsports.ru/register/" target="_blank">+</a>
                         </div>
                       </div>
-                      <div class="tooltip" tooltip="#qtyTitle#">
-                        <div class="available-qty #isAvaliable#"><span>#free_qty#</span>&nbsp;шт.</div>
-                      </div>
+                      <!-- <div class="tooltip" tooltip="#qtyTitle#">
+                        <div class="available-qty #isAvailable#"><span>#free_qty#</span>&nbsp;шт.</div>
+                      </div> -->
                     </div>
                   </div>
-                  <div class="card-notice red">#notice#</div>
+                  <!-- <div class="card-notice red">#notice#</div> -->
                   <div class="card-btns">
                     <a class="dealer-button map-btn" href="" onclick="showDealersList(event)">КАРТА ДИЛЕРОВ</a>
-                    <a class="dealer-button" href="http://b2b.topsports.ru/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
+                    <a class="dealer-button" href="http://b2b.topsports.ru/register/" target="_blank">СТАТЬ ДИЛЕРОМ</a>
                   </div>
                 </div>
               </div>
@@ -333,7 +317,7 @@
               </div>
             </div>
           </div>
-          <div id="full-img-container" onclick="closeFullImg()">
+          <div id="full-img-container" onclick="closeFullImg(event)">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path>
             </svg>
@@ -351,6 +335,9 @@
               </div>
             </div>
             <div id="img-loader"></div>
+            <div id="img-error" class="row">
+              <div>Изображение не может быть загружено.<br>Повторите попытку позже.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -364,12 +351,12 @@
         <div class="footer-links row">
           <a href="../">Главная</a>
           <a onclick="showDealersList(event)">Где купить</a>
-          <a href="http://b2b.topsports.ru/" target="_blank">Стать дилером</a>
+          <a href="http://b2b.topsports.ru/register/" target="_blank">Стать дилером</a>
           <a href="http://b2b.topsports.ru/" target="_blank">Личный кабинет</a>
           <a class="youtube" href="https://www.youtube.com/channel/UCQYfNyA0dSoGVrUiDOaiVZw" target="_blank"></a>
         </div>
         <div class="footer-contacts row">
-          <div class="footer-phone">Телефон: <a class="decor" href="tel:+78463004499" target="_blank">+7 (846) 300-44-99</a></div>
+          <div class="footer-phone">Телефон: <a class="decor" href="tel:+78463004499">+7 (846) 300-44-99</a></div>
           <div class="footer-work">График работы: <span>пн-пт 08:00-17:00 (мск)</span></div>
         </div>
       </div>
@@ -380,8 +367,8 @@
       </div>
     </div>
 
-    <!-- <script src="http://api.topsports.ru/spad/qmx.php"></script> -->
-    <script src="qmx.js"></script>
+    <script src="http://api.topsports.ru/spad/qmx.php"></script>
+    <!-- <script src="qmx.js"></script> -->
     <script src="../../js/carousel.js"></script>
     <script src="../../js/common.js"></script>
     <script src="filters_ekipirovka.js"></script>

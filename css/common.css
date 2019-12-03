@@ -270,7 +270,6 @@ body.no-scroll {
 .loupe {
   position: absolute;
   overflow: hidden;
-  background-color: rgba(85,85,85, 0.25);
   cursor: zoom-in;
 }
 

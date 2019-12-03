@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../../img/top_sports_logo_black_short_transparency.png">
-    <title>ТОП СПОРТС - Экипировка</title>
+    <title>ТОП СПОРТС - ЗИП</title>
     <meta name="keywords" content="ТОП СПОРТС">
     <meta name="description" content="ТОП СПОРТС">
     <link rel="stylesheet" type="text/css" href="../../css/fonts.css">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../../css/media_cart.css">
   </head>
 
-  <body id="o_ek" data-website="ts_com" class="ekipirovka">
+  <body id="o_zip" data-cart="ЗИП" data-website="ts_com" class="zip">
     <div class="header">
       <div class="header-main">
         <div class="container row">
@@ -28,7 +28,7 @@
           </div>
           <div class="profile-info row">
             <div class="profile-wrap">
-              <a id="header-cart" href="../ekipirovka/?cart" data-level="2" data-href="cart" data-title="Корзина" onclick="openPage()">
+              <a id="header-cart" href="../zip/?cart" data-href="cart" data-level="2" data-title="Корзина" onclick="openPage(event)">
                 <div class="title">Корзина <span class="name"></span></div>
                 <div class="amount"><span>0</span>&nbsp;шт. /</div>
                 <div class="price"><span>0</span>&nbsp;руб.</div>
@@ -56,8 +56,8 @@
         <div class="main-menu">
           <div class="container row">
             <div class="topmenu">
-              <a class="topmenu-item active" href="../ekipirovka/" data-href="o_ek" data-id="ekip" data-level="1" onclick="openPage()">Экипировка</a>
-              <a class="topmenu-item" href="../zip/">ЗИП</a>
+              <a class="topmenu-item" href="../ekipirovka/">Экипировка</a>
+              <a class="topmenu-item active" href="../zip/" data-href="o_zip" data-id="ekip" data-level="1" onclick="openPage(event)">ЗИП</a>
             </div>
             <div class="main-menu-btns row">
               <div class="burger-btn visible-xs" onclick="toggleSubmenu()"></div>
@@ -72,14 +72,55 @@
         </div>
         <div class="submenu">
           <div class="container row">
-            <div class="submenu-items ekipirovka">
-              <a class="submenu-item" href="../ekipirovka/?odegda" data-level="2" data-href="odegda" onclick="openPage()">Одежда</a>
-              <a class="submenu-item" href="../ekipirovka/?obuv" data-level="2" data-href="obuv" onclick="openPage()">Обувь</a>
-              <a class="submenu-item" href="../ekipirovka/?shlem" data-level="2" data-href="shlem" onclick="openPage()">Шлемы</a>
-              <a class="submenu-item" href="../ekipirovka/?optic" data-level="2" data-href="optic" onclick="openPage()">Оптика</a>
-              <a class="submenu-item" href="../ekipirovka/?snarag" data-level="2" data-href="snarag" onclick="openPage()">Снаряжение</a>
-              <a class="submenu-item" href="../ekipirovka/?zashita" data-level="2" data-href="zashita" onclick="openPage()">Защита</a>
-              <a class="submenu-item" href="../ekipirovka/?sumruk" data-level="2" data-href="sumruk" onclick="openPage()">Сумки и рюкзаки</a>
+            <div class="submenu-items zip">
+              <a class="submenu-item" href="../zip/?snegohod" data-href="snegohod" data-level="2" onclick="openPage(event)">Снегоходы</a>
+              <a class="submenu-item" href="../zip/?lodkimotor" data-href="lodkimotor" data-level="2" onclick="openPage(event)">Лодки и моторы</a>
+            </div>
+          </div>
+          <div class="subsubmenu">
+            <div class="container row">
+              <div class="submenu-items zip">
+                <a id="zip-url" class="submenu-item" href="#" data-level="3" data-href="zip" onclick="openPage(event)">Запчасти</a>
+                <a id="acc-url" class="submenu-item" href="#" data-level="3" data-href="acc" onclick="openPage(event)">Аксессуары</a>
+              </div>
+            </div>
+            <div class="header-select">
+              <div class="container row">
+                <div class="select-filters row">
+                  <div class="select-item item-brands">
+                    <select id="select-brands" onchange="unlockYear()">
+                      <option default selected hidden>Производитель:</option>
+                      <option class="select-option">#manuf#</option>
+                    </select>
+                  </div>
+                  <div class="select-item item-year">
+                    <select id="select-year" disabled onchange="unlockModel()">
+                      <option default selected hidden>Год:</option>
+                      <option class="select-option">#year#</option>
+                    </select>
+                  </div>
+                  <div class="select-item item-model">
+                    <select id="select-model" disabled>
+                      <option default selected hidden>Модель:</option>
+                      <option class="select-option">#model#</option>
+                    </select>
+                  </div>
+                  <div class="tooltip" tooltip="Сброс фильтра">
+                    <div class="close-btn" onclick=""></div>
+                  </div>
+                </div>
+                <form action="#" class="select-oem">
+                  <div class="search-btn" onclick=""></div>
+                  <div class="clear-search-btn" onclick=""></div>
+                  <input id="oem" type="text" autocomplete="off" placeholder="Поиск по OEM">
+                  <div class="oem-dropdown">
+                    <div class="oem-not-found">Совпадений не найдено</div>
+                    <div id="oem-list">
+                      <div id="oem-#number#" class="oem">#number#</div>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -91,7 +132,7 @@
         <div class="main-header row">
           <div id="main-nav" class="main-nav">
             <a href="../">Главная</a>
-            <span class="nav-item #isCurPage#" data-href="#pageUrl#" onclick="openPage()">#pageTitle#</span>
+            <a class="nav-item #isCur#" href="#href#" data-href="#dataHref#" data-level="#level#" onclick="openPage(event)">#title#</a>
           </div>
           <div id="main-info" class="row">
             <div id="search-info">
@@ -102,10 +143,10 @@
               <div class="view row">
                 <div class="view-title">Вид каталога:</div>
                 <div class="tooltip" tooltip="Cписок">
-                  <div class="view-list active" onclick="toggleView('list')"></div>
+                  <div class="view-list active" onclick="toggleView(event, 'list')"></div>
                 </div>
                 <div class="tooltip" tooltip="Плитка">
-                  <div class="view-blocks" onclick="toggleView('blocks')"></div>
+                  <div class="view-blocks" onclick="toggleView(event, 'blocks')"></div>
                 </div>
               </div>
               <select id="gallery-sort" onchange="sortItems()">
@@ -126,14 +167,14 @@
                 <div id=filter-#key# class="filter #isOpen#" onclick="toggleFilter(event)">
                   <div class="filter-title">#title#</div>
                   <div class="filter-items">
-                    <div class="filter-item item" data-type="item" data-key="#key#" data-value="#value#" onclick="selectFilterValue(event)">
+                    <div class="filter-item item close" data-key="#key#" data-value="#value#" onclick="selectFilterValue(event)">
                       <div class="filter-title-container row">
                         <div class="filter-item-title">#title#</div>
                         <div class="open-btn #isHiddenOpenBtn#" onclick="toggleFilterItem(event)"></div>
                         <div class="close-btn"></div>
                       </div>
-                      <div class="filter-subitems">
-                        <div class="filter-item subitem" data-type="subitem" data-key="#key#" data-value="#value#" onclick="selectFilterValue(event)">
+                      <div class="filter-items">
+                        <div class="filter-item subitem" data-key="#key#" data-subkey="#subkey#" data-value="#value#" onclick="selectFilterValue(event)">
                           <div class="filter-item-title">#title#</div>
                         </div>
                       </div>
@@ -144,25 +185,26 @@
             </div>
           </div>
           <div id="gallery" class="row">
-            <div id="min-card-#object_id#" class="min-card card col" onclick="showFullCard(#object_id#)">
+          <div id="min-card-#object_id#" class="min-card card col" onclick="showFullCard(#object_id#)">
               <div class="card-img-wrap">
                 <img class="card-img" src="#images#">
               </div>
               <div class="card-promo">
                 <div class="promo-title" style="background-color: #actioncolor#">#actiontitle#</div>
+                <div class="promo-date">до: <span class="red">#actiondate#</span></div>
               </div>
               <div class="card-title">#title#</div>
               <div class="card-price-container row">
                 <div class="card-price row">
-                  <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
-                  <div class="new-price red #isHiddenPrice#">#price_preorder#&#8288;.-</div>
+                  <div class="old-price ptype#ptype#">#price#.-</div>
+                  <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
                 </div>
                 <div class="tooltip" tooltip="#qtyTitle#">
-                  <div class="available-qty #isAvaliable#"></div>
+                  <div class="available-qty #isAvailable#"></div>
                 </div>
               </div>
             </div>
-            <div id="big-card-#object_id#" class="big-card card" data-object-id="#object_id#" onclick="closeBigCard(event)">
+            <div id="big-card-#object_id#" class="big-card card" onclick="closeBigCard(event)">
               <div class="card-container">
                 <div class="big-card-head row">
                   <div class="card-head">
@@ -172,24 +214,25 @@
                   <div class="card-info-title row">
                     <div class="card-promo #isHiddenPromo#">
                       <div class="promo-title" style="background-color: #actioncolor#">#actiontitle#</div>
+                      <div class="promo-date #isHiddenDate#">до: <span class="red">#actiondate#</span></div>
                     </div>
                     <div class="card-price opt row">
                       <div class="card-price-title grey">Оптовая цена:</div>
                       <div class="card-price-wrap row">
-                        <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
-                        <div class="new-price red #isHiddenPrice#">#price_preorder#&#8288;.-</div>
+                          <div class="old-price ptype#ptype#">#price#.-</div>
+                          <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="big-card-body row">
                   <div class="card-container-left row">
-                    <div class="carousel" data-type="bigCard" data-img="0">
+                    <div class="carousel" data-type="bigCard">
                       <div class="left-btn btn"></div>
                       <div class="right-btn btn"></div>
                       <div class="carousel-gallery-wrap">
                         <div class="carousel-gallery">
-                          <div class="carousel-item" data-numb="#imgNumb#" onclick="showFullImg(#object_id#)">
+                          <div class="carousel-item" onclick="showFullImg(event, #object_id#)">
                             <img src="#image#">
                           </div>
                         </div>
@@ -204,6 +247,19 @@
                         <div class="card-option row">
                           <div class="option-title grey">#optitle#</div>
                           <div class="option-info">#option#</div>
+                        </div>
+                      </div>
+                      <div class="card-manuf hidden-xxs #isHiddenManuf#">
+                        <div class="manuf-table">
+                          <div id="manuf-headers" class="grey row">
+                            <div class="man" data-title="man">Производитель</div>
+                            <div class="oem" data-title="oem">ОЕМ</div>
+                            <div class="model" data-title="model">Модель</div>
+                            <div class="years" data-title="years">Год модели</div>
+                          </div>
+                          <div class="manuf-row row">
+                            <div class="#cat#">#info#</div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -224,11 +280,11 @@
                       <div class="card-size">
                         <div class="size-articul grey">Артикул: #articul#</div>
                         <div class="size-choice row">
-                          <div class="size-name row #isClick#" onclick="changeCart(#id#, this.textContent)">#size#</div>
+                          <div class="size-name row #isClick#" onclick="changeCart(event, #id#, this.textContent)">#size#</div>
                           <div class="product-qty row">
-                            <div class="btn-minus" tooltip="Удалить" onclick="changeCart(#id#, this.textContent)">-</div>
-                            <input class="choiced-qty" type="text" value="0" data-id="#id#" autocomplete="off" onchange="changeCart(#id#)" onblur="changeCart(#id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
-                            <div class="btn-plus" tooltip="Добавить" onclick="changeCart(#id#, this.textContent)">+</div>
+                            <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event, #id#, this.textContent)">-</div>
+                            <input class="choiced-qty" type="text" value="0" data-id="#id#" autocomplete="off" onchange="changeCart(event, #id#)" onblur="changeCart(event, #id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                            <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event, #id#, this.textContent)">+</div>
                           </div>
                         </div>
                         <div class="tooltip" tooltip="#qtyTitle#">
@@ -257,16 +313,16 @@
             <div>По выбранным фильтрам товаров не найдено</div>
           </div>
           <div id="full-card-container" onclick="closeFullCard(event)">
-            <div id="full-card-#object_id#" class="full-card card" data-object-id="#object_id#">
+            <div id="full-card-#object_id#" class="full-card card">
               <div class="close-btn"></div>
               <div class="card-container row">
-                <div class="carousel" data-type="fullCard" data-img="0">
+                <div class="carousel" data-type="fullCard">
                   <div class="search-btn"></div>
                   <div class="carousel-gallery-wrap">
                     <div class="left-btn btn"></div>
                     <div class="right-btn btn"></div>
                     <div class="carousel-gallery">
-                      <div class="carousel-item row" data-numb="#imgNumb#">
+                      <div class="carousel-item row">
                         <img src="#image#" data-src="#full-image#">
                       </div>
                     </div>
@@ -277,13 +333,14 @@
                     <div class="card-title">#title#</div>
                     <div class="card-articul grey">Код продукта: #articul#</div>
                     <div class="card-promo #isHiddenPromo#">
-                        <div class="promo-title" style="background-color: #actioncolor#">#actiontitle#</div>
+                      <div class="promo-title" style="background-color: #actioncolor#">#actiontitle#</div>
+                      <div class="promo-date #isHiddenDate#">до: <span class="red">#actiondate#</span></div>
                     </div>
                     <div class="card-price opt row">
                         <div class="card-price-title">Оптовая цена:</div>
                         <div class="card-price-wrap row">
-                            <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
-                            <div class="new-price red #isHiddenPrice#">#price_preorder#&#8288;.-</div>
+                            <div class="old-price ptype#ptype#">#price#.-</div>
+                            <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
                         </div>
                     </div>
                     <div class="card-price retail row">
@@ -298,15 +355,28 @@
                       <div class="option-info">#option#</div>
                     </div>
                   </div>
+                  <div class="card-manuf hidden-xxs #isHiddenManuf#">
+                    <div class="manuf-table">
+                      <div id="manuf-headers" class="grey row">
+                        <div class="man" data-title="man">Производитель</div>
+                        <div class="oem" data-title="oem">ОЕМ</div>
+                        <div class="model" data-title="model">Модель</div>
+                        <div class="years" data-title="years">Год модели</div>
+                      </div>
+                      <div class="manuf-row row">
+                        <div class="#cat#">#info#</div>
+                      </div>
+                    </div>
+                  </div>
                   <div class="card-sizes row">
                     <div class="card-size">
                       <div class="size-articul grey">Артикул: #articul#</div>
                       <div class="size-choice row">
-                        <div class="size-name row #isClick#" onclick="changeCart(#id#, this.textContent)">#size#</div>
+                        <div class="size-name row #isClick#" onclick="changeCart(event, #id#, this.textContent)">#size#</div>
                         <div class="product-qty row">
-                          <div class="btn-minus" tooltip="Удалить" onclick="changeCart(#id#, this.textContent)">-</div>
-                          <input class="choiced-qty" type="text" value="0" data-id="#id#" autocomplete="off" onchange="changeCart(#id#)" onblur="changeCart(#id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
-                          <div class="btn-plus" tooltip="Добавить" onclick="changeCart(#id#, this.textContent)">+</div>
+                          <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event, #id#, this.textContent)">-</div>
+                          <input class="choiced-qty" type="text" value="0" data-id="#id#" autocomplete="off" onchange="changeCart(event, #id#)" onblur="changeCart(event, #id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                          <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event, #id#, this.textContent)">+</div>
                         </div>
                       </div>
                       <div class="tooltip" tooltip="#qtyTitle#">
@@ -329,12 +399,12 @@
                 </div>
               </div>
               <div class="card-description hidden-xxs #isHiddenDesc#">
-                <div class="description-title">Описание:</div>
+                <div class="card-subtitle">Описание:</div>
                 <div class="card-text">#desc#</div>
               </div>
             </div>
           </div>
-          <div id="full-img-container" onclick="closeFullImg()">
+          <div id="full-img-container" onclick="closeFullImg(event)">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path>
             </svg>
@@ -358,7 +428,7 @@
               <div id="cart-links" class="row">
                 <div class="title">Перейти в корзину:</div>
                 <div id="cart-links-list">
-                  <a class="cart-link" href="#href#" data-href=#dataHref# data-level="1" onclick="openPage()">#title#</a>
+                  <a class="cart-link" href="#href#" data-href=#dataHref# data-level="1" onclick="openPage(event)">#title#</a>
                 </div>
               </div>
               <div id="cart-filter" class="row">
@@ -498,9 +568,9 @@
                         <div class="title">Кол-во штук</div>
                         <div class="value qty">
                           <div class="product-qty row">
-                            <div class="btn-minus" tooltip="Удалить" onclick="changeCart(#id#, this.textContent)">-</div>
-                            <input class="choiced-qty" type="text" value="#qty#" data-id="#id#" autocomplete="off" onchange="changeCart(#id#)" onblur="changeCart(#id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
-                            <div class="btn-plus" tooltip="Добавить" onclick="changeCart(#id#, this.textContent)">+</div>
+                            <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event, #id#, this.textContent)">-</div>
+                            <input class="choiced-qty" type="text" value="#qty#" data-id="#id#" autocomplete="off" onchange="changeCart(event, #id#)" onblur="changeCart(event, #id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                            <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event, #id#, this.textContent)">+</div>
                           </div>
                           <div class="tooltip" tooltip="В наличии">
                             <div class="available-qty"><span>#free_qty#</span>&nbsp;шт.</div>
@@ -524,7 +594,7 @@
             </div>
             <div id="cart-empty">
               <div class="title">Ваша корзина пуста</div>
-              <a id="catalog-link" data-level="1" onclick="openPage()">Перейти в каталог товаров</a>
+              <a id="catalog-link" data-level="1" onclick="openPage(event)">Перейти в каталог товаров</a>
             </div>
           </div>
         </div>
@@ -537,29 +607,33 @@
     <div class="footer">
       <div class="container">
         <div class="footer-links row">
-          <a href="../ts_main/">Главная</a>
-          <a onclick="showDealersList(event)">Где купить</a>
-          <a href="http://b2b.topsports.ru/" target="_blank">Стать дилером</a>
-          <a href="https://goo.gl/forms/KlWpmVVR9FQR7MwW2" target="_blank">Стать райдером</a>
-          <a href="http://b2b.topsports.ru/" target="_blank">Личный кабинет</a>
+          <a href="#top">Главная</a>
+          <a href="http://b2b.topsports.ru/sertifikaty/">Сертификаты</a>
+          <a href="http://b2b.topsports.ru/displays/">Дисплеи</a>
+          <a href="http://b2b.topsports.ru/agree/" target="_blank">Соглашение об использовании интернет-портала</a>
+          <a href="https://yadi.sk/d/I03PCO253MFRuj" target="_blank">Медиабанк</a>
+          <a href="https://form.jotformeu.com/80571812842356" target="_blank">Рекламации</a>
+          <a href="#wish_form" class="link" data-toggle="modal">Предложения и пожелания</a>
           <a class="youtube" href="https://www.youtube.com/channel/UCQYfNyA0dSoGVrUiDOaiVZw" target="_blank"></a>
         </div>
         <div class="footer-contacts row">
           <div class="footer-phone">Телефон: <a class="decor" href="tel:+78463004499" target="_blank">+7 (846) 300-44-99</a></div>
           <div class="footer-work">График работы: <span>пн-пт 08:00-17:00 (мск)</span></div>
+          <div class="footer-email">По вопросам заказов: <a class="decor" href="mailto:zakaz@topsports.ru">zakaz@topsports.ru</a></div>
         </div>
       </div>
       <div class="copyright">
         <div class="container">
-          <div>&copy; 2019 TOP SPORTS Все права защищены.</div>
+          <div>&copy; 2019 TOP SPORTS. Экипировка лучших брендов для экстремальных видов спорта.</div>
         </div>
       </div>
     </div>
 
-    <script src="http://api.topsports.ru/spad/q2.php"></script>
+    <!-- <script src ="../../../stand/qzip.php"></script> -->
+    <script src ="../../js/qzip.js"></script>
     <script src="../../js/carousel.js"></script>
     <script src="../../js/common.js"></script>
-    <script src="../../js/filters_ekipirovka.js"></script>
+    <script src="../../js/filters_zip.js"></script>
     <script src="../../js/cart.js"></script>
     <script src="../../js/content.js"></script>
 
