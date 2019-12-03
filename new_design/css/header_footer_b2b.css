@@ -1,0 +1,168 @@
+/* =====================================================================================================
+ Стили для шапки и её содержимого:
+===================================================================================================== */
+
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  font-size: 1.4em;
+  z-index: 10;
+}
+
+.header-main {
+  font-weight: 500;
+  background-color: #FFFFFF;
+}
+
+.header-main .container {
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.header-main .logo {
+  height: 32px;
+}
+
+.header-main .logo img {
+  max-height: 32px;
+  max-width: 100%;
+}
+
+.header-main .workspace {
+  justify-content: space-between;
+  align-items: center;
+  width: 50.5%;
+}
+
+.header-main .menu-wrap {
+  justify-content: space-between;
+  width: 56%;
+}
+
+.header-main .section {
+  cursor: pointer;
+}
+
+.header-main .section > .row {
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.header-main .section-title {
+  padding: 2.4rem 1em 2.4rem 0;
+  font-size: 1.072em;
+  line-height: 1.067em;
+  letter-spacing: 0.04em;
+  color: #34495E;
+  text-transform: uppercase;
+}
+
+.header-main .menu {
+  position: absolute;
+  top: 100%;
+  max-height: 0px;
+  background-color: #FFFFFF;
+  overflow: hidden;
+  border: 1px solid #CCCCCC;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.09);
+  -webkit-transition: max-height 0.4s linear;
+  -moz-transition: max-height 0.4s linear;
+  transition: max-height 0.4s linear;
+  opacity: 0;
+}
+
+.header-main .section:hover .menu {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.header-main .purchase a {
+  display: block;
+}
+
+.header-main .account {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-main .account a {
+  display: block;
+}
+
+.header-main .profile {
+  align-items: center;
+  height: 100%;
+}
+
+.header-main .profile > .row {
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 3em;
+}
+
+.header-main .profile .icon {
+  margin-right: 5px;
+  width: 28px;
+  height: 28px;
+  background-image: url(../img/header_footer/profile.png);
+  background-size: 28px;
+}
+
+.header-main .profile .login {
+  font-weight: 600;
+}
+
+.header-main .profile .username {
+  color: #C4C4C4;
+}
+
+.header-main .alerts {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  background-image: url(../img/header_footer/alerts.png);
+  background-size: 28px;
+}
+
+.header-main .alerts .count {
+  position: absolute;
+  align-items: baseline;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  top: 0;
+  right: -4px;
+  font-size: 8px;
+  color: #FFFFFF;
+  background-color: #C33039;;
+  border: 1px solid #FFFFFF;
+  border-radius: 50%;
+  text-align: center;
+}
+
+
+
+
+/* =====================================================================================================
+ Стили для футера и его содержимого:
+===================================================================================================== */
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  font-size: 1.4em;
+  color: #FFFFFF;
+  background-color: #454D56;
+  z-index: 10;
+}
+
+.footer .wrap {
+  padding: 1.6rem 0;
+  line-height: 1.36;
+}

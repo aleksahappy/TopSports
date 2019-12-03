@@ -1,0 +1,201 @@
+@media only screen and  (min-width: 1824px) {
+  .search {
+    width: 40%;
+  }
+  .select-filters {
+    width: 55%;
+  }
+  .select-oem {
+    width: 20%;
+  }
+}
+
+@media only screen and (max-width: 1080px) {
+  .header {
+    font-size: 1.2rem;
+  }
+  .logo-wrap {
+    width: 22%;
+  }
+  .profile-info {
+    width: 60%;
+  }
+  #search {
+    font-size: 1.6rem;
+  }
+  .search {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.35em 2rem;
+    background-color: rgb(31,34,41);
+    box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
+  }
+  .search .search-btn {
+    right: 2rem;
+  }
+  .search .clear-search-btn {
+    right: 4.5rem;
+  }
+  .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
+  }
+  .ekipirovka .submenu-item {
+    padding: 1rem 1.9rem;
+  }
+  .header-select > .row {
+    flex-wrap: wrap;
+  }
+  .select-filters {
+    width: 100%;
+  }
+  .select-item,
+  .select-filters .close-btn {
+    padding-bottom: 0;
+  }
+  .select-item select, #oem {
+    font-size: 1.6rem;
+  }
+  .item-brands {
+    width: 30%;
+  }
+  .item-year {
+    width: 20%;
+  }
+  .item-model {
+    width: 35%;
+  }
+  .select-oem {
+    width: 30%;
+  }
+  .select-oem .close-btn {
+    top: 30%;
+  }
+  .footer  {
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .logo-wrap {
+    width: 60%;
+  }
+  .profile-info {
+    width: 40%;
+  }
+  #header-cart:hover::before {
+    background-image: url(../img/header_footer/ico_cart.png);
+  }
+  #header-cart .title,
+  #header-cart .amount,
+  #header-cart .price,
+  .account .title,
+  .account .username {
+    display: none;
+  }
+  #header-cart .short-amount {
+    display: block;
+  }
+  #header-cart, .account {
+    width: 40px;
+    height: 44px;
+    padding-left: 0;
+  }
+  .cart-menu,
+  .account-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: rgb(255, 255, 255);;
+    box-shadow: 0 0 8px rgba(222, 222, 222, 0.7);
+  }
+  .account-menu {
+    width: 10em;
+  }
+  .profile-wrap.choice #header-cart:hover,
+  #header-cart:hover,
+  .account:hover {
+    box-shadow: none;
+  }
+  .header-select > .row {
+    flex-wrap: nowrap;
+  }
+  .select-filters {
+    flex-direction: column;
+    width: 50%;
+    margin-right: 3.125em;
+  }
+  .select-item {
+    width: 100%;
+    margin-right: 0;
+  }
+  .item-model {
+    padding-bottom: 0.35em;
+  }
+  .select-filters .tooltip {
+    position: absolute;
+    bottom: 10%;
+    right: -1.5em;
+  }
+  .select-oem {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .logo-wrap {
+    width: 70%;
+  }
+  .profile-info {
+    width: 30%;
+  }
+  .search {
+    padding: 0.35em 1.5rem;
+  }
+  .search .search-btn {
+    right: 1.5rem;
+  }
+  .search .clear-search-btn {
+    right: 4rem;
+  }
+  .submenu-items.ekipirovka {
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 14em;
+  }
+  .ekipirovka .submenu-item {
+    width: 10em;
+    padding: 1rem 1rem;
+  }
+  .header-select > .row {
+    flex-wrap: wrap;
+  }
+  .select-filters {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-right: 0;
+  }
+  .select-filters .select-item {
+    width: 90%;
+  }
+  .select-filters .tooltip {
+    position: static;
+  }
+  .select-oem {
+    width: 90%;
+    padding-top: 0;
+  }
+  .footer-links a {
+    margin-right: 2em;
+  }
+}
