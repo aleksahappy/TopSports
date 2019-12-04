@@ -1,0 +1,717 @@
+/* =====================================================================================================
+Сброс стилей браузера по умолчанию:
+===================================================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 10px;
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+a {
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+}
+
+input {
+  font-family: 'Roboto', sans-serif;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+ul {
+  list-style-position: outside;
+  margin-left: 15px;
+}
+
+select {
+  background-color: rgb(248, 248, 248);
+}
+
+/* =====================================================================================================
+Основные стили:
+===================================================================================================== */
+
+body {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 65px;
+  padding-bottom: 70px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  line-height: auto;
+  color: #666666;
+  background-color: #F2F2F2;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+.container {
+  margin: 0 4rem;
+}
+
+/* =====================================================================================================
+Общие стили:
+===================================================================================================== */
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.visible-xs {
+  display: none;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.displayNone {
+  display: none;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+/* =====================================================================================================
+Общие стили для карусели:
+===================================================================================================== */
+
+.carousel {
+  visibility: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+.carousel-gallery-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-gallery {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.carousel-gallery .carousel-item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.carousel-nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.carousel-nav .carousel-item {
+  padding-right: 0.5em;
+  padding-bottom: 0.5em;
+  opacity: 0.6;
+}
+
+.carousel-nav .carousel-item.active {
+  opacity: 1;
+}
+
+.carousel-item img {
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.loupe {
+  position: absolute;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.big-img {
+  position: absolute;
+}
+
+/* =====================================================================================================
+Стили для всплывающих подсказок:
+===================================================================================================== */
+
+[tooltip] {
+  position: relative;
+}
+
+[tooltip]::before,
+[tooltip]::after {
+  display: none;
+  position: absolute;
+  font-size: 1.2rem;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  text-transform: none;
+  opacity: 0;
+}
+
+[tooltip]::before {
+  content: '';
+  border: 5px solid transparent;
+  z-index: 1001;
+}
+
+[tooltip]::after {
+  content: attr(tooltip);
+  min-width: 3em;
+  max-width: 21em;
+  padding: 0.5em 0.7em;
+  color: rgb(255,255,255);
+  background: rgb(31,34,41);
+  border-radius: 4px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  z-index: 1000;
+}
+
+[tooltip]:hover::before,
+[tooltip]:hover::after {
+  display: block;
+}
+
+[tooltip='']::before,
+[tooltip='']::after {
+  display: none !important;
+}
+
+/* FLOW: UP */
+
+[tooltip]:not([flow])::before,
+[tooltip][flow^="up"]::before {
+  bottom: 100%;
+  left: 50%;
+  border-bottom-width: 0;
+  border-top-color: rgb(31,34,41);
+  transform: translate(-50%, -0.1em);
+}
+
+[tooltip]:not([flow])::after,
+[tooltip][flow^="up"]::after {
+  left: 50%;
+  bottom: calc(100% + 5px);
+  transform: translate(-50%, -0em);
+}
+
+/* FLOW: DOWN */
+
+[tooltip][flow^="down"]::before {
+  top: 100%;
+  left: 50%;
+  border-top-width: 0;
+  border-bottom-color: rgb(31,34,41);
+  transform: translate(-50%, 0.1em);
+}
+
+[tooltip][flow^="down"]::after {
+  left: 50%;
+  top: calc(100% + 5px);
+  transform: translate(-50%, 0em);
+}
+
+/* FLOW: LEFT */
+
+[tooltip][flow^="left"]::before {
+  top: 50%;
+  border-right-width: 0;
+  border-left-color: rgb(31,34,41);
+  left: calc(0em - 5px);
+  transform: translate(-0.1em, -50%);
+}
+
+[tooltip][flow^="left"]::after {
+  top: 50%;
+  right: calc(100% + 5px);
+  transform: translate(-0em, -50%);
+}
+
+/* FLOW: RIGHT */
+
+[tooltip][flow^="right"]::before {
+  top: 50%;
+  border-left-width: 0;
+  border-right-color: rgb(31,34,41);
+  right: calc(0em - 5px);
+  transform: translate(0.1em, -50%);
+}
+
+[tooltip][flow^="right"]::after {
+  top: 50%;
+  left: calc(100% + 5px);
+  transform: translate(0em, -50%);
+}
+
+@keyframes tooltips-vert {
+  to {
+    opacity: 1;
+    /* transform: translate(-50%, 0); */
+  }
+}
+
+@keyframes tooltips-horz {
+  to {
+    opacity: 1;
+    /* transform: translate(0, -50%); */
+  }
+}
+
+[tooltip]:not([flow]):hover::before,
+[tooltip]:not([flow]):hover::after,
+[tooltip][flow^="up"]:hover::before,
+[tooltip][flow^="up"]:hover::after,
+[tooltip][flow^="down"]:hover::before,
+[tooltip][flow^="down"]:hover::after {
+  animation: tooltips-vert 300ms ease-out forwards;
+}
+
+[tooltip][flow^="left"]:hover::before,
+[tooltip][flow^="left"]:hover::after,
+[tooltip][flow^="right"]:hover::before,
+[tooltip][flow^="right"]:hover::after {
+  animation: tooltips-horz 300ms ease-out forwards;
+}
+
+/* =====================================================================================================
+Компоненты:
+===================================================================================================== */
+
+#up-btn {
+  display: none;
+  position: fixed;
+  right: 4rem;
+  bottom: 2em;
+  width: 37px;
+  height: 30px;
+  background-color: #454D56;
+  background-image: url(../img/up_btn.png);
+  background-size: cover;
+  cursor: pointer;
+  z-index: 100;
+}
+
+#up-btn.show {
+  display: block;
+}
+
+.triangle-btn {
+  width: 8px;
+  height: 5px;
+  background-image: url(../img/triangle.png);
+  background-size: cover;
+  cursor: pointer;
+}
+
+.alerts-btn {
+  width: 28px;
+  height: 28px;
+  background-image: url(../img/alerts.png);
+  background-size: 28px;
+  cursor: pointer;
+}
+
+.question-btn {
+  width: 23px;
+  height: 23px;
+  background-image: url(../img/question.png);
+  background-size: 23px;
+  cursor: pointer;
+}
+
+.settings-btn {
+  width: 23px;
+  height: 23px;
+  background-image: url(../img/settings.png);
+  background-size: 23px;
+  cursor: pointer;
+}
+
+.close-btn {
+  width: 20px;
+  height: 20px;
+  background-image: url(../img/close.png);
+  background-size: 20px;
+  cursor: pointer;
+}
+
+/* =====================================================================================================
+Стили для шапки и её содержимого:
+===================================================================================================== */
+
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  font-size: 1.4em;
+  z-index: 10;
+}
+
+.header-top {
+  height: 64px;
+  background-color: #FFFFFF;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.09);
+}
+
+.header-top a {
+  display: block;
+}
+
+.header-top .container {
+  height: 100%;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.header-top .logo {
+  height: 32px;
+}
+
+.header-top .logo img {
+  max-height: 32px;
+  max-width: 100%;
+}
+
+.header-top .left-side {
+  justify-content: space-between;
+  align-items: center;
+  width: 55%;
+}
+
+.header-top .left-side > .row {
+  justify-content: space-between;
+  width: 60%;
+}
+
+.header-top .section-wrap {
+  position: relative;
+  height: 64px;
+  min-width: 210px;
+}
+
+.header-top .section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-left: 1.5rem;
+  background-color: #FFFFFF;
+}
+
+.header-top .section .head {
+  height: 63px;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.header-top .head .title {
+  padding-right: 0.5em;
+  font-size: 1.072em;
+  letter-spacing: 0.04em;
+  color: #34495E;
+  text-transform: uppercase;
+}
+
+.header-top .head .desktop {
+  width: 100%;
+  height: 63px;
+  line-height: 63px;
+}
+
+.header-top .menu {
+  min-width: 100%;
+  max-height: 0px;
+  margin-left: -1.5rem;
+  font-size: 0.86em;
+  color: #34548A;
+  background-color: #FFFFFF;
+  overflow: hidden;
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.09);
+  -webkit-transition: max-height 0.3s linear;
+  -moz-transition: max-height 0.3s linear;
+  transition: max-height 0.3s linear;
+  opacity: 0;
+}
+
+.header-top .section:hover .menu {
+  max-height: 350px;
+  opacity: 1;
+}
+
+.header-top .menu .menu-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-top .menu a {
+  padding: 1em 1.5rem;
+}
+
+.header-top .menu a:hover {
+  color: #34495E;
+  background-color: #e4e3e7;
+}
+
+.header-top .menu .cart {
+  width: 3em;
+  color: #666666;
+  text-align: center;
+  background-color: #ECF0F1;
+  border-radius: 50px;
+}
+
+.header-top .menu a:hover .cart:not(.full) {
+  background-color: #FFFFFF;
+}
+
+.header-top .menu .cart.full {
+  color: #FFFFFF;
+  background-color: #E74C3C;
+}
+
+.header-top .right-side {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-top .account a {
+  display: block;
+}
+
+.header-top .right-side .icon {
+  margin-right: 5px;
+  width: 28px;
+  height: 28px;
+  background-image: url(../img/profile.png);
+  background-size: 28px;
+}
+
+.header-top .right-side .login {
+  font-weight: 600;
+  color: #34495E;
+}
+
+.header-top .right-side .head .username {
+  font-size: 0.79em;
+  color: #8596A6;
+}
+
+.header-top .right-side .menu .title {
+  color: #000000;
+}
+
+.header-top .right-side .menu .username {
+  font-size: 0.91em;
+  color: #8596A6;
+}
+
+.header-top .right-side .links {
+  border: 1px solid #F8F4F4;
+}
+
+.header-top #exit {
+  position: relative;
+  padding-left: 4rem;
+}
+
+.header-top #exit::before {
+  content: url(../img/exit.png);
+  position: absolute;
+  top: 25%;
+  left: 1.5rem;
+  width: 15px;
+  height: 15px;
+}
+
+.header-top .alerts-btn {
+  position: relative;
+}
+
+.header-top .alerts-btn .count {
+  position: absolute;
+  align-items: baseline;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  top: 0;
+  right: -4px;
+  font-size: 8px;
+  color: #FFFFFF;
+  background-color: #C33039;;
+  border: 1px solid #FFFFFF;
+  border-radius: 50%;
+  text-align: center;
+}
+
+/* =====================================================================================================
+Стили для футера и его содержимого:
+===================================================================================================== */
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  font-size: 1.4em;
+  color: #FFFFFF;
+  background-color: #454D56;
+  z-index: 10;
+}
+
+.footer .wrap {
+  padding: 1.6rem 0;
+}
+
+/* =====================================================================================================
+Стили хедера в основном контенте:
+===================================================================================================== */
+
+.main-header {
+  align-items: flex-start;
+  flex-wrap: wrap;
+  font-size: 1.4rem;
+  padding: 1.5em 0 1em 0;
+}
+
+.main-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-right: 1em;
+}
+
+.main-nav a {
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: #2C3E50;
+  cursor: pointer;
+}
+
+.main-nav a.active {
+  cursor: default;
+}
+
+.main-nav .item {
+  position: relative;
+  margin-left: 3em;
+}
+
+.main-nav .item::before {
+  position: absolute;
+  content: url(../img/arrow.png);
+  left: -50%;
+  width: 4px;
+  height: 8px;
+}
+
+.main-title {
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 24px;
+}
+
+.main-title .title {
+  margin-right: 0.5em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* =====================================================================================================
+Модальное окно уведомлений:
+===================================================================================================== */
+
+#alerts-container {
+  /* display: none; */
+  position: fixed;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(73, 85, 100, 0.6);
+  z-index: 30;
+}
+
+#alerts {
+  position: relative;
+  top: 10%;
+  width: 70%;
+  height: 50%;
+  background-color: #FFFFFF;
+  overflow-y: scroll;
+}
+
+#alerts .alerts-title {
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8em 1rem 0.8em 2.5rem;
+  background-color: #E9E9E9;
+}
+
+#alerts .alerts-btn {
+  cursor: default;
+}
+
+#alerts .alerts-body {
+  padding-left: 2.5rem;
+}
+
+
+
+
+
