@@ -3,7 +3,7 @@ var discounts = [{
   dtitle: '+ Подарок',
   ddesc: '10шт. + подарок',
   ddatestart: '01.11.2019',
-  ddateend: '30.12.2019',
+  ddateend: '30.11.2019',
   dtype: 'numplusart',
   dnv: 10,
   dnvex: 1,
@@ -18,7 +18,7 @@ var discounts = [{
   dtitle: '1 бесплатно',
   ddesc: '6 покупаешь 1 бесплатно',
   ddatestart: '01.11.2019',
-  ddateend: '30.12.2019',
+  ddateend: '30.11.2019',
   dtype: 'numplusnum',
   dnv: 6,
   dnvex: 1,
@@ -33,7 +33,7 @@ var discounts = [{
   dtitle: 'Скидка от РРЦ',
   ddesc: 'кратно 20шт. - скидка от РРЦ',
   ddatestart: '01.11.2019',
-  ddateend: '30.12.2019',
+  ddateend: '30.11.2019',
   dtype: 'numminusproc',
   dnv: 20,
   dnvex: 55,
@@ -48,7 +48,7 @@ var discounts = [{
   dtitle: 'Скидка от РРЦ',
   ddesc: 'кратно 25шт. - скидка от РРЦ',
   ddatestart: '01.11.2019',
-  ddateend: '30.12.2019',
+  ddateend: '30.11.2019',
   dtype: 'numminusproc',
   dnv: 25,
   dnvex: 55,
@@ -63,7 +63,7 @@ var discounts = [{
   dtitle: 0,
   ddesc: 0,
   ddatestart: '01.11.2019',
-  ddateend: '30.12.2019',
+  ddateend: '30.11.2019',
   dtype: 'sumlessproc',
   dnv: [0, 200000, 500000],
   dnvex: [25, 27, 30],
@@ -88,7 +88,7 @@ setPaddingToBody();
 var website =  document.body.dataset.website,
     pageId = document.body.id,
     headerCart = document.getElementById('header-cart'),
-    btnGoTop = document.getElementById('btn-go-top');
+    upBtn = document.getElementById('btn-go-top');
 
 // Динамически изменяемые переменные:
 
@@ -189,33 +189,37 @@ function setPaddingToBody() {
 
 // Отображение/скрытие кнопки возвращения наверх страницы:
 
-window.addEventListener('scroll', toggleBtnGoTop);
+if (upBtn) {
+  window.addEventListener('scroll', toggleBtnGoTop);
 
-var coords;
+  var coords;
 
-function toggleBtnGoTop() {
-  scrolled = window.pageYOffset;
-  coords = window.innerHeight / 2;
+  function toggleBtnGoTop() {
+    scrolled = window.pageYOffset;
+    coords = window.innerHeight / 2;
 
-  if (scrolled > coords) {
-    btnGoTop.classList.add('show');
+    if (scrolled > coords) {
+      upBtn.classList.add('show');
+    }
+    if (scrolled < coords) {
+      upBtn.classList.remove('show');
+    }
   }
-  if (scrolled < coords) {
-    btnGoTop.classList.remove('show');
+
+  // Вернуться наверх страницы:
+
+  if (upBtn) {
+    upBtn.addEventListener('click', goToTop);
   }
-}
 
-// Вернуться наверх страницы:
-
-btnGoTop.addEventListener('click', goToTop);
-
-function goToTop() {
-  scrolled = window.pageYOffset;
-  if (scrolled > 0 && scrolled < 50000) {
-    window.scrollBy(0, -(scrolled/5));
-    setTimeout(goToTop, 0);
-  } else if (scrolled >= 50000) {
-    window.scrollTo(0,0);
+  function goToTop() {
+    scrolled = window.pageYOffset;
+    if (scrolled > 0 && scrolled <= 5000) {
+      window.scrollBy(0, -80);
+      setTimeout(goToTop, 0);
+    } else if (scrolled > 5000) {
+      window.scrollTo(0, 5000);
+    }
   }
 }
 

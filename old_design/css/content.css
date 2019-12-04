@@ -28,8 +28,7 @@
   margin-right: 1em;
 }
 
-.main-nav a,
-.main-nav span {
+.main-nav a {
   color: rgb(91,91,93);
   text-decoration: underline;
   cursor: pointer;
