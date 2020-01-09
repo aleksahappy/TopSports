@@ -423,3 +423,43 @@ body.no-scroll {
 [tooltip][flow^="right"]:hover::after {
   animation: tooltips-horz 300ms ease-out forwards;
 }
+
+/* =====================================================================================================
+Лоадер и кнопка "наверх":
+===================================================================================================== */
+
+#page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(../img/content/page_loader.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80px;
+  z-index: 40;
+}
+
+#up-btn {
+  display: none;
+  position: fixed;
+  right: 2em;
+  bottom: 2em;
+  width: 40px;
+  height: 40px;
+  background-image: url(../img/content/icon_top.png);
+  background-size: 40px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+  z-index: 35;
+}
+
+#up-btn.show {
+  display: block;
+}
+
+#up-btn.show:hover{
+  opacity: 0.7;
+}

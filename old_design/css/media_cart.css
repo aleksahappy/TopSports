@@ -88,7 +88,7 @@
     border-bottom: none;
   }
   .cart-list .list-wrap .title,
-  .cart-list .list-wrap > div:not(.amount) .value {
+  .cart-list .list-wrap > .value:not(.amount) {
     display: flex;
   }
   .list-wrap .title {

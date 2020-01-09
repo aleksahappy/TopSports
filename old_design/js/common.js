@@ -1,83 +1,4 @@
-var discounts = [{
-  did: '1',
-  dtitle: '+ Подарок',
-  ddesc: '10шт. + подарок',
-  ddatestart: '01.11.2019',
-  ddateend: '30.11.2019',
-  dtype: 'numplusart',
-  dnv: 10,
-  dnvex: 1,
-  diart: [3524],
-  diartex: '3852',
-  dartprice: 0,
-  dartexprice: 0,
-  dcondition: 0,
-  dconditionex: 0
-}, {
-  did: '2',
-  dtitle: '1 бесплатно',
-  ddesc: '6 покупаешь 1 бесплатно',
-  ddatestart: '01.11.2019',
-  ddateend: '30.11.2019',
-  dtype: 'numplusnum',
-  dnv: 6,
-  dnvex: 1,
-  diart: [29760],
-  diartex: '',
-  dartprice: 0,
-  dartexprice: 0,
-  dcondition: 0,
-  dconditionex: 0
-}, {
-  did: '3',
-  dtitle: 'Скидка от РРЦ',
-  ddesc: 'кратно 20шт. - скидка от РРЦ',
-  ddatestart: '01.11.2019',
-  ddateend: '30.11.2019',
-  dtype: 'numminusproc',
-  dnv: 20,
-  dnvex: 55,
-  diart: [3818],
-  diartex: '',
-  dartprice: 0,
-  dartexprice: 0,
-  dcondition: 0,
-  dconditionex: 0
-}, {
-  did: '3',
-  dtitle: 'Скидка от РРЦ',
-  ddesc: 'кратно 25шт. - скидка от РРЦ',
-  ddatestart: '01.11.2019',
-  ddateend: '30.11.2019',
-  dtype: 'numminusproc',
-  dnv: 25,
-  dnvex: 55,
-  diart: [3813],
-  diartex: '',
-  dartprice: 0,
-  dartexprice: 0,
-  dcondition: 0,
-  dconditionex: 0
-}, {
-  did: '4',
-  dtitle: 0,
-  ddesc: 0,
-  ddatestart: '01.11.2019',
-  ddateend: '30.11.2019',
-  dtype: 'sumlessproc',
-  dnv: [0, 200000, 500000],
-  dnvex: [25, 27, 30],
-  diart: 0,
-  diartex: 0,
-  dartprice: 0,
-  dartexprice: 0,
-  dcondition: {razdel: 'lodki'},
-  dconditionex: 0
-}];
-
 'use strict';
-
-setPaddingToBody();
 
 //=====================================================================================================
 // Первоначальные данные для работы:
@@ -85,31 +6,24 @@ setPaddingToBody();
 
 // Константы:
 
-var website =  document.body.dataset.website,
+var url = 'http://80.234.34.212:2000/-aleksa-/TopSports/test/',
+    website = document.body.dataset.website,
     pageId = document.body.id,
     headerCart = document.getElementById('header-cart'),
-    btnGoTop = document.getElementById('btn-go-top');
+    pageLoader = document.getElementById('page-loader'),
+    upBtn = document.getElementById('up-btn');
 
 // Динамически изменяемые переменные:
 
-var pageUrl,
-    sectionId,
-    pageInfo,
-    list,
-    subList,
-    template,
-    subTemplate,
-    newItem,
-    newSubItem,
-    curEl,
-    value,
-    subkey,
-    qty,
-    scrolled;
+if (headerCart) {
+  var cart = {},
+      cartId;
+}
 
 // Переменные для циклов:
 
-var isFound,
+var isSearch,
+    isFound,
     isExsist,
     item,
     key,
@@ -119,6 +33,12 @@ var isFound,
     i,
     ii,
     iii;
+
+//=====================================================================================================
+// При запуске страницы:
+//=====================================================================================================
+
+  setPaddingToBody();
 
 //=====================================================================================================
 // Полифиллы:
@@ -140,23 +60,121 @@ var isFound,
 })();
 
 //=====================================================================================================
-// Сортировка объекта по алфавиту:
+// Создание данных для фильтров каталога:
 //=====================================================================================================
 
-var sortedObj;
+// Создание фильтра каталога из данных options или discounts:
+
+function createFilterData(curArray, optNumb) {
+  var filter = {},
+      name;
+  curArray.forEach(item => {
+    if (item.options && item.options != 0) {
+      name = item.options[optNumb];
+    }
+    if (item.dtitle) {
+      name = item.dtitle;
+    }
+    if (name != undefined && filter[name] == undefined) {
+      filter[name] = 1;
+    }
+  });
+  if (curArray === discounts) {
+    filter.is_new = 'Новинка';
+    filter.sale = 'Распродажа';
+  }
+  return filter;
+}
+
+//=====================================================================================================
+// Запросы на сервер:
+//=====================================================================================================
+
+// Отправка запросов на сервер:
+
+// type : 'multipart/form-data', 'application/json; charset=utf-8'
+function sendRequest(url, data, type = 'application/json; charset=utf-8') {
+  return new Promise((resolve, reject) => {
+    var request = new XMLHttpRequest();
+    request.addEventListener('error', () => reject(new Error("Network Error")));
+    request.addEventListener('load', () => {
+      if (request.status !== 200) {
+        var error = new Error(this.statusText);
+        error.code = this.status;
+        reject(error);
+      }
+      resolve(request.responseText);
+    });
+    if (data) {
+      request.open('POST', url);
+      request.setRequestHeader('Content-type', type);
+    } else {
+      request.open('GET', url);
+    }
+    request.send();
+  });
+}
+
+//=====================================================================================================
+// Получение данных с сервера:
+//=====================================================================================================
+
+// Получение данных корзины:
+
+function getCartInfo() {
+  return new Promise((resolve, reject) => {
+    sendRequest(url + 'cart.txt')
+    .then(
+      result => {
+        if (JSON.stringify(cart) === result) {
+          console.log(cart);
+          reject();
+        } else {
+          cart = JSON.parse(result);
+          console.log(cart);
+          resolve();
+        }
+      }
+    )
+    .catch(error => {
+      console.log(error);
+      reject();
+    })
+  });
+}
+
+//=====================================================================================================
+// Сортировка объектов по алфавиту:
+//=====================================================================================================
 
 // Сортировка по ключу:
 
 function sortObjByKey(obj) {
-  sortedObj = {};
+  var sortedObj = {};
   Object.keys(obj).sort().forEach(key => sortedObj[key] = obj[key]);
+  return sortedObj;
+}
+
+// Сортировка только по численной части ключа:
+
+function sortObjByNumericKey(obj) {
+  var sortedObj = {};
+  Object.keys(obj).sort((a,b) => {
+    if (parseInt(a, 10) < parseInt(b, 10)) {
+      return -1;
+    }
+    if (parseInt(a, 10) > parseInt(b, 10)) {
+      return 1;
+    }
+    return 0;
+  }).forEach(key => sortedObj[key] = obj[key]);
   return sortedObj;
 }
 
 // Сортировка по значению:
 
 function sortObjByValue(obj) {
-  sortedObj = {};
+  var sortedObj = {};
   Object.keys(obj).sort((a,b) => {
     if (obj[a] < obj[b]) {
       return -1;
@@ -177,45 +195,41 @@ function sortObjByValue(obj) {
 
 window.addEventListener('resize', setPaddingToBody);
 
-var headerHeight,
-    footerHeight;
-
 function setPaddingToBody() {
-  headerHeight = document.querySelector('.header').clientHeight;
-  footerHeight = document.querySelector('.footer').clientHeight;
+  var headerHeight = document.querySelector('.header').clientHeight;
+  var footerHeight = document.querySelector('.footer').clientHeight;
   document.body.style.paddingTop = `${headerHeight}px`;
   document.body.style.paddingBottom = `${footerHeight + 20}px`;
 }
 
 // Отображение/скрытие кнопки возвращения наверх страницы:
 
-window.addEventListener('scroll', toggleBtnGoTop);
-
-var coords;
+if (upBtn) {
+  window.addEventListener('scroll', toggleBtnGoTop);
+}
 
 function toggleBtnGoTop() {
-  scrolled = window.pageYOffset;
-  coords = window.innerHeight / 2;
+  var scrolled = window.pageYOffset;
+  var coords = window.innerHeight / 2;
 
   if (scrolled > coords) {
-    btnGoTop.classList.add('show');
+    upBtn.classList.add('show');
   }
   if (scrolled < coords) {
-    btnGoTop.classList.remove('show');
+    upBtn.classList.remove('show');
   }
 }
 
 // Вернуться наверх страницы:
 
-btnGoTop.addEventListener('click', goToTop);
-
 function goToTop() {
-  scrolled = window.pageYOffset;
+  var scrolled = window.pageYOffset;
   if (scrolled > 0 && scrolled <= 5000) {
     window.scrollBy(0, -80);
     setTimeout(goToTop, 0);
   } else if (scrolled > 5000) {
     window.scrollTo(0, 5000);
+    goToTop();
   }
 }
 
@@ -229,20 +243,20 @@ function getDocumentScroll() {
 
 // Установка прокрутки документа:
 
-function setDocumentScroll(top) {
+function setDocumentScroll(top = scrollTop) {
   document.documentElement.scrollTop = top;
   document.body.scrollTop = top;
 }
 
 // Добавление всплывающих подсказок:
 
-var elements;
-
 function addTooltips(key) {
-  elements = document.querySelectorAll(`[data-key=${key}]`);
-  elements.forEach(el => {
-    el.setAttribute('tooltip', el.textContent.trim());
-  });
+  var elements = document.querySelectorAll(`[data-key=${key}]`);
+  if (elements) {
+    elements.forEach(el => {
+      el.setAttribute('tooltip', el.textContent.trim());
+    });
+  }
 }
 
 // Функция преобразования цены к формату с пробелами:
@@ -253,15 +267,14 @@ function convertPrice(price) {
 
 // Функция преобразования строки с годами к укороченному формату:
 
-var years,
-    curYear,
-    nextYear,
-    prevYear,
-    resultYears;
-
 function convertYears(stringYears) {
-  years = stringYears.split(',');
-  resultYears = [];
+  var years = stringYears.split(',');
+  var resultYears = [];
+  var curYear, nextYear, prevYear;
+
+  if (years.length <= 2) {
+    return stringYears.replace(/\,/gi, ', ');
+  }
 
   for (i = 0; i < years.length; i++) {
     curYear = parseInt(years[i].trim(), 10);
@@ -283,16 +296,29 @@ function convertYears(stringYears) {
   return resultYears = resultYears.join('');
 }
 
+// Проверка актуальности даты в периоде:
+
+function checkDate(start, end) {
+  var curDate = new Date(),
+      dateStart = start.split('.'),
+      dateEnd = end.split('.');
+  dateStart = new Date(dateStart[2], dateStart[1] - 1, dateStart[0], 0, 0, 0, 0);
+  dateEnd = new Date(dateEnd[2], dateEnd[1] - 1, dateEnd[0], 23, 59, 59, 999);
+  if (curDate > dateStart && curDate < dateEnd) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 //=====================================================================================================
 // Сохранение и извлечение данных на компьютере пользователя:
 //=====================================================================================================
 
 // Проверка доступности storage:
 
-var storage,
-    test;
-
 function storageAvailable(type) {
+  var storage, test;
 	try {
 		storage = window[type];
     test = '__storage_test__';
@@ -393,7 +419,7 @@ function deleteCookie(key) {
 // Получение данных о странице по ключу:
 
 function getInfo(key) {
-  pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
+  var pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
   if (!pageInfo[key]) {
     pageInfo[key] = {};
   }
@@ -403,7 +429,7 @@ function getInfo(key) {
 // Сохранение данных о странице по ключу:
 
 function saveInfo(key, data) {
-  pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
+  var pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
   if (!pageInfo[key]) {
     pageInfo[key] = {};
   }
@@ -414,7 +440,7 @@ function saveInfo(key, data) {
 // Удаление всех данных о странице по ключу:
 
 function removeInfo(key, data) {
-  pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
+  var pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
   if (!pageInfo[key]) {
     pageInfo[key] = {};
   }

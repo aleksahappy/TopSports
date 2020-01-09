@@ -106,17 +106,17 @@ function Carousel(obj, start) {
   // Установка обработчиков событий:
 
   this.setEventListeners = function() {
-    this.leftBtn.addEventListener('click', (event) => this.startMoveImg('prev', event));
-    this.rightBtn.addEventListener('click', (event) => this.startMoveImg('next', event));
+    this.leftBtn.addEventListener('click', event => this.startMoveImg('prev', event));
+    this.rightBtn.addEventListener('click', event => this.startMoveImg('next', event));
 
-    this.galleryWrap.addEventListener('touchstart', (event) => this.touchStart(event));
-    this.galleryWrap.addEventListener('touchend', (event) => this.touchEnd(event));
+    this.galleryWrap.addEventListener('touchstart', event => this.touchStart(event));
+    this.galleryWrap.addEventListener('touchend', event => this.touchEnd(event));
 
     if (this.settings.isNav) {
       if (this.settings.isHoverToggle) {
-        this.itemsNav.forEach(el => el.addEventListener('mouseenter', (event) => this.startMoveImg(event.currentTarget.dataset.numb, event)));
+        this.itemsNav.forEach(el => el.addEventListener('mouseenter', event => this.startMoveImg(event.currentTarget.dataset.numb, event)));
       } else {
-        this.itemsNav.forEach(el => el.addEventListener('click', (event) => this.startMoveImg(event.currentTarget.dataset.numb, event)));
+        this.itemsNav.forEach(el => el.addEventListener('click', event => this.startMoveImg(event.currentTarget.dataset.numb, event)));
       }
     }
 
@@ -126,9 +126,9 @@ function Carousel(obj, start) {
     };
 
     if (this.settings.isLoupe) {
-      this.itemsGallery.forEach(item => item.addEventListener('mouseenter', (event) => this.initLoupe(event)));
-      this.itemsGallery.forEach(item => item.addEventListener('mousemove', (event) => this.moveLoupe(event)));
-      // this.itemsGallery.forEach(item => item.addEventListener('mouseleave', (event) => this.closeLoupe(event)));
+      this.itemsGallery.forEach(item => item.addEventListener('mouseenter', event => this.initLoupe(event)));
+      this.itemsGallery.forEach(item => item.addEventListener('mousemove', event => this.moveLoupe(event)));
+      // this.itemsGallery.forEach(item => item.addEventListener('mouseleave', event => this.closeLoupe(event)));
     }
   };
 
@@ -389,9 +389,9 @@ function Carousel(obj, start) {
         this.gallery.appendChild(this.newEl);
       }
       if (this.settings.isLoupe) {
-        this.newEl.addEventListener('mouseenter', (event) => this.initLoupe(event));
-        this.newEl.addEventListener('mousemove', (event) => this.moveLoupe(event));
-        // this.newEl.addEventListener('mouseleave', (event) => this.closeLoupe(event));
+        this.newEl.addEventListener('mouseenter', event => this.initLoupe(event));
+        this.newEl.addEventListener('mousemove', event => this.moveLoupe(event));
+        // this.newEl.addEventListener('mouseleave', event => this.closeLoupe(event));
       }
     }
   };
@@ -444,7 +444,7 @@ function Carousel(obj, start) {
     this.bigImg = document.createElement('img');
     this.bigImg.classList.add('big-img');
     this.loupe.appendChild(this.bigImg);
-    this.loupe.addEventListener('mousemove', (event) => this.moveLoupe(event));
+    this.loupe.addEventListener('mousemove', event => this.moveLoupe(event));
     this.loupe.addEventListener('mouseleave',  () => this.closeLoupe());
     this.loupe.style.display = 'none';
     this.loupe.style.opacity = '0';
@@ -492,6 +492,7 @@ function Carousel(obj, start) {
   // Работа лупы:
 
   this.moveLoupe = function(event) {
+    var this$ = this;
     if ('ontouchstart' in window) {
       return;
     }
@@ -514,7 +515,7 @@ function Carousel(obj, start) {
     if (this.bigImg.clientHeight < 0) {
       this.loupe.style.opacity = '0';
     } else {
-      this.loupe.style.opacity = '1';
+      setTimeout(() => this$.loupe.style.opacity = '1', 500);
     }
 
     if (this.settings.isLoupeOutside) {

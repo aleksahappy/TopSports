@@ -1,5 +1,9 @@
 'use strict';
 
+//=====================================================================================================
+//  Подготовка фильтров каталога товаров:
+//=====================================================================================================
+
 // Содержимое фильтров:
 
 var specialOffer = {
@@ -21,17 +25,17 @@ var colors = {
 
 // Подготовка к сортировке и сортировка подкатегорий по алфавиту:
 
-for (var k in catsubs) {
-  for(var kk in catsubs[k]) {
-    catsubs[k]['key' + kk] = catsubs[k][kk];
-    delete catsubs[k][kk];
-    catsubs[k] = sortObjByValue(catsubs[k]);
-  }
-}
+// for (var k in catsubs) {
+//   for(var kk in catsubs[k]) {
+//     catsubs[k]['key' + kk] = catsubs[k][kk];
+//     delete catsubs[k][kk];
+//     catsubs[k] = sortObjByValue(catsubs[k]);
+//   }
+// }
 
 // Данные, которые будут переданы для создания фильтров:
 
-var dataForFilters = [{
+var dataFilters = [{
   title: 'Спецпредложение',
   isOpen: 'true',
   key: 'specialOffer',
@@ -40,10 +44,12 @@ var dataForFilters = [{
   title: 'Категория',
   isOpen: 'true',
   key: 'cat',
-  items: sortObjByKey(catsubs)
+  items: catsubs
+  // items: sortObjByKey(catsubs)
 }, {
   title: 'Бренд',
   isOpen: 'true',
   key: 'brand',
-  items: sortObjByKey(brands)
+  items: brands
+  // items: sortObjByKey(brands)
 }];

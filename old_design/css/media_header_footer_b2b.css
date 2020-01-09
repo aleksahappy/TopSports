@@ -1,11 +1,11 @@
 @media only screen and  (min-width: 1824px) {
-  .search {
+  #page-search {
     width: 40%;
   }
-  .select-filters {
+  #zip-filters {
     width: 55%;
   }
-  .select-oem {
+  #oem-search {
     width: 20%;
   }
 }
@@ -20,10 +20,10 @@
   .profile-info {
     width: 60%;
   }
-  #search {
+  #page-search-input {
     font-size: 1.6rem;
   }
-  .search {
+  #page-search {
     display: none;
     position: absolute;
     top: 100%;
@@ -35,10 +35,10 @@
     background-color: rgb(31,34,41);
     box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
   }
-  .search .search-btn {
+  #page-search .search-btn {
     right: 2rem;
   }
-  .search .clear-search-btn {
+  #page-search .clear-search-btn {
     right: 4.5rem;
   }
   .submenu {
@@ -52,32 +52,32 @@
   .ekipirovka .submenu-item {
     padding: 1rem 1.9rem;
   }
-  .header-select > .row {
+  .zip-select > .row {
     flex-wrap: wrap;
   }
-  .select-filters {
+  #zip-filters {
     width: 100%;
   }
   .select-item,
-  .select-filters .close-btn {
+  #zip-filters .close-btn {
     padding-bottom: 0;
   }
-  .select-item select, #oem {
+  .select-item select, #oem-search-input {
     font-size: 1.6rem;
   }
-  .item-brands {
+  .item-man {
     width: 30%;
   }
-  .item-year {
+  .item-years {
     width: 20%;
   }
   .item-model {
     width: 35%;
   }
-  .select-oem {
+  #oem-search {
     width: 30%;
   }
-  .select-oem .close-btn {
+  #oem-search .clear-search-btn {
     top: 30%;
   }
   .footer  {
@@ -126,10 +126,10 @@
   .account:hover {
     box-shadow: none;
   }
-  .header-select > .row {
+  .zip-select > .row {
     flex-wrap: nowrap;
   }
-  .select-filters {
+  #zip-filters {
     flex-direction: column;
     width: 50%;
     margin-right: 3.125em;
@@ -141,12 +141,12 @@
   .item-model {
     padding-bottom: 0.35em;
   }
-  .select-filters .tooltip {
+  #zip-filters .tooltip {
     position: absolute;
     bottom: 10%;
     right: -1.5em;
   }
-  .select-oem {
+  #oem-search {
     width: 50%;
   }
 }
@@ -158,13 +158,13 @@
   .profile-info {
     width: 30%;
   }
-  .search {
+  #page-search {
     padding: 0.35em 1.5rem;
   }
-  .search .search-btn {
+  #page-search .search-btn {
     right: 1.5rem;
   }
-  .search .clear-search-btn {
+  #page-search .clear-search-btn {
     right: 4rem;
   }
   .submenu-items.ekipirovka {
@@ -176,22 +176,22 @@
     width: 10em;
     padding: 1rem 1rem;
   }
-  .header-select > .row {
+  .zip-select > .row {
     flex-wrap: wrap;
   }
-  .select-filters {
+  #zip-filters {
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
     margin-right: 0;
   }
-  .select-filters .select-item {
+  #zip-filters .select-item {
     width: 90%;
   }
-  .select-filters .tooltip {
+  #zip-filters .tooltip {
     position: static;
   }
-  .select-oem {
+  #oem-search {
     width: 90%;
     padding-top: 0;
   }

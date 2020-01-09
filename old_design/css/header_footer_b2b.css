@@ -228,21 +228,20 @@
   background-color: rgb(241,89,42);
 }
 
-.search {
+#page-search {
   position: relative;
   padding: 0.35em 0;
   width: 50%;
   max-width: 700px;
 }
 
-.search .clear-search-btn {
+#page-search .clear-search-btn {
   display: none;
   top: 1px;
   right: 2.5rem;
-  background-size: 1em;
 }
 
-#search {
+#page-search-input {
   width: 100%;
   height: 2.8rem;
   padding: 0 4em 0 0.7em;
@@ -252,7 +251,7 @@
   background-color: rgb(255,255,255);
 }
 
-.search.open {
+#page-search.open {
   display: block;
 }
 
@@ -290,12 +289,12 @@
   background-color: rgb(246,246,248);
 }
 
-.header-select {
+.zip-select {
   display: none;
   background-color: rgb(241,90,41);
 }
 
-.select-filters {
+#zip-filters {
   position: relative;
   justify-content: flex-start;
   align-items: center;
@@ -311,15 +310,15 @@
   padding: 0.5rem 0;
 }
 
-.select-filters .item-model {
+#zip-filters .item-model {
   margin-right: 0;
 }
 
-.item-brands {
+.item-man {
   width: 25%;
 }
 
-.item-year {
+.item-years {
   width: 25%;
 }
 
@@ -327,22 +326,22 @@
   width: 50%;
 }
 
-.select-filters .tooltip {
+#zip-filters .tooltip {
   margin-left: 0.8em;
 }
 
-.select-filters .close-btn {
+#zip-filters .close-btn {
   position: relative;
   font-size: 1.3em;
   color: rgb(248,172,148);
 }
 
-.select-filters .close-btn.active {
+#zip-filters .close-btn.active {
   color: rgb(255,255,255);
   opacity: 0.85;
 }
 
-.select-filters .close-btn.active:hover {
+#zip-filters .close-btn.active:hover {
   opacity: 1;
 }
 
@@ -364,18 +363,22 @@
   opacity: 0.5;
 }
 
-.select-oem {
+#oem-search {
   position: relative;
   width: 25%;
   margin-right: 0;
   padding: 0.5rem 0;
 }
 
-.select-oem .search-btn {
+#oem-search .search-btn {
   left: 0;
 }
 
-#oem {
+#oem-search .clear-search-btn {
+  display: none;
+}
+
+#oem-search-input {
   width: 100%;
   height: 2.8rem;
   padding: 0 2em;
@@ -386,7 +389,7 @@
   border-radius: 2px;
 }
 
-.oem-dropdown {
+#oem-dropdown {
   display: none;
   position: absolute;
   top: 80%;
@@ -396,7 +399,7 @@
   border-radius: 2px;
 }
 
-.oem-not-found {
+#oem-not-found {
   display: none;
   padding: 0.35em 0.75em;
   background-color: rgb(240,240,240);
@@ -408,11 +411,12 @@
   overflow-y: scroll;
 }
 
-.oem {
+#oem-list .oem {
   padding: 0.35em 0.75em;
+  cursor: pointer;
 }
 
-.header-select .oem:hover{
+.zip-select .oem:hover{
   background-color: rgb(0,136,204);
 }
 

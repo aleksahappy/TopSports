@@ -77,11 +77,12 @@ var colors = {
 
 // Данные, которые будут переданы для создания фильтров:
 
-var dataForFilters = [{
+var dataFilters = [{
   title: 'Спецпредложение',
   isOpen: 'true',
   key: 'specialOffer',
-  items: specialOffer
+  // items: specialOffer
+  items: createFilterData(discounts)
 }, {
   title: 'Категория',
   isOpen: 'true',
@@ -91,11 +92,13 @@ var dataForFilters = [{
 }, {
   title: 'Бренд',
   key: 'brand',
-  items: sortObjByKey(brands)
+  items: brands
+  // items: sortObjByKey(brands)
 }, {
   title: 'Применяемость',
   key: 'use',
-  items: sortObjByValue(use)
+  items: use
+  // items: sortObjByValue(use)
 }, {
   title: 'Возраст',
   key: 'age',
@@ -112,4 +115,10 @@ var dataForFilters = [{
   title: 'Цвет',
   key: 'color',
   items: colors
+}, {
+  title: 'Емкость',
+  key: 'Емкость',
+  items: sortObjByNumericKey(createFilterData(items, '1262'))
 }];
+
+

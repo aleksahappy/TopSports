@@ -12,7 +12,9 @@
 }
 
 #cart-links,
-#cart-filter {
+#cart-filters, /* !!! Фильтр селектом */
+#filter-action,/* !!! Фильтр чекбоксом */
+#cart-filter { /* !!! Фильтр динамический */
   display: none;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -32,7 +34,9 @@
 
 #cart-links .title,
 .cart-link,
-#cart-filter .title {
+#cart-filters .title,/* !!! Фильтр селектом */
+#filter-action .title,/* !!! Фильтр чекбоксом */
+.cart-filter .title { /* !!! Фильтр динамический */
   margin-right: 1em;
 }
 
@@ -43,7 +47,9 @@
   cursor: pointer;
 }
 
-#cart-filter {
+/* ****** ФИЛЬТР CЕЛЕКТОМ ****** */
+
+#cart-filters {
   align-items: baseline;
   margin-bottom: 1em;
 }
@@ -69,6 +75,163 @@
 #filter-select .filter-value:not(#filter-all) {
   display: none;
 }
+
+/* ****** ФИЛЬТР ЧЕКБОКСОМ ****** */
+
+#filter-action {
+  align-items: center;
+  margin-bottom: 1em;
+  cursor: pointer;
+}
+
+#filter-action .menu {
+  position: relative;
+  margin-right: 0.5em;
+}
+
+#filter-action .menu-title {
+  width: 12.5em;
+  padding: 0.2em 2em 0.2em 0.3em;
+  border: 1px solid rgb(204,204,204);
+  border-radius: 4px;
+  background-image: url(../img/content/ico_drop_down.png);
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+#filter-action .menu-select {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  max-height: 0px;
+  font-size: 0.875em;
+  background-color:rgb(247,249,249);
+  border: 1px solid rgb(204,204,204);
+  border-top: none;
+  border-radius: 0 0 2px 2px;
+  -webkit-transition: max-height 0.3s linear;
+  -moz-transition: max-height 0.3s linear;
+  transition: max-height 0.3s linear;
+  overflow: hidden;
+  opacity: 0;
+  z-index: 100;
+}
+
+#filter-action .menu:hover .menu-select {
+  max-height: 300px;
+  opacity: 1;
+}
+
+#filter-action .menu-select > div {
+  padding: 0.2em 0.3em 0.2em 1.4em;
+}
+
+#filter-action .menu-select > div::before {
+  content: '\f096';
+  font-family: 'FontAwesome';
+  position: absolute;
+  top: auto;
+  left: 0.3em;
+}
+
+#filter-action .menu-select > div.checked::before {
+  content: '\f046';
+}
+
+#filter-action .menu-select > div:hover {
+  background-color: rgb(239,238,241);
+}
+
+#filter-action .close-btn {
+  width: 1em;
+  height: 1em;
+  background: url(../img/content/search_clear.png) no-repeat center;
+}
+
+#filter-action .item {
+  display: none;
+}
+
+/* ****************************** */
+
+/* ****** ФИЛЬТР ДИНАМИЧЕСКИЙ ****** */
+
+.cart-filter {
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 1em;
+  cursor: pointer;
+}
+
+.cart-filter .menu {
+  position: relative;
+  margin-right: 0.5em;
+}
+
+.cart-filter .menu-title {
+  width: 12.5em;
+  padding: 0.2em 2em 0.2em 0.3em;
+  border: 1px solid rgb(204,204,204);
+  border-radius: 4px;
+  background-image: url(../img/content/ico_drop_down.png);
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.cart-filter .menu-select {
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  max-height: 0px;
+  font-size: 0.875em;
+  background-color:rgb(247,249,249);
+  border: 1px solid rgb(204,204,204);
+  border-top: none;
+  border-radius: 0 0 2px 2px;
+  -webkit-transition: max-height 0.3s linear;
+  -moz-transition: max-height 0.3s linear;
+  transition: max-height 0.3s linear;
+  overflow: hidden;
+  opacity: 0;
+  z-index: 100;
+}
+
+.cart-filter .menu:hover .menu-select {
+  max-height: 300px;
+  opacity: 1;
+}
+
+.cart-filter .menu-select > div {
+  padding: 0.2em 0.3em 0.2em 1.4em;
+}
+
+.cart-filter .menu-select > div::before {
+  content: '\f096';
+  font-family: 'FontAwesome';
+  position: absolute;
+  top: auto;
+  left: 0.3em;
+}
+
+.cart-filter .menu-select > div.checked::before {
+  content: '\f046';
+}
+
+.cart-filter .menu-select > div:hover {
+  background-color: rgb(239,238,241);
+}
+
+.cart-filter .close-btn {
+  width: 1em;
+  height: 1em;
+  background: url(../img/content/search_clear.png) no-repeat center;
+}
+
+/* ****************************** */
 
 .cart-header a,
 .cart-list a {
@@ -363,6 +526,7 @@
 }
 
 .cart-list .list-wrap {
+  justify-content: center;
   align-items: stretch;
   width: 50%;
   padding: 0;
@@ -488,13 +652,13 @@
   display: flex;
 }
 
-.cart-row .amount .qty {
+.cart-row .amount > .qty {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
 }
 
-.cart-row .amount .product-qty {
+.cart-row .amount .qty-box {
   border-left: 1px solid rgb(179,186,196);
   font-size: 1.2em;
 }

@@ -1,83 +1,4 @@
-var discounts = [{
-  did: '1',
-  dtitle: '+ Подарок',
-  ddesc: '10шт. + подарок',
-  ddatestart: '01.11.2019',
-  ddateend: '30.11.2019',
-  dtype: 'numplusart',
-  dnv: 10,
-  dnvex: 1,
-  diart: [3524],
-  diartex: '3852',
-  dartprice: 0,
-  dartexprice: 0,
-  dcondition: 0,
-  dconditionex: 0
-}, {
-  did: '2',
-  dtitle: '1 бесплатно',
-  ddesc: '6 покупаешь 1 бесплатно',
-  ddatestart: '01.11.2019',
-  ddateend: '30.11.2019',
-  dtype: 'numplusnum',
-  dnv: 6,
-  dnvex: 1,
-  diart: [29760],
-  diartex: '',
-  dartprice: 0,
-  dartexprice: 0,
-  dcondition: 0,
-  dconditionex: 0
-}, {
-  did: '3',
-  dtitle: 'Скидка от РРЦ',
-  ddesc: 'кратно 20шт. - скидка от РРЦ',
-  ddatestart: '01.11.2019',
-  ddateend: '30.11.2019',
-  dtype: 'numminusproc',
-  dnv: 20,
-  dnvex: 55,
-  diart: [3818],
-  diartex: '',
-  dartprice: 0,
-  dartexprice: 0,
-  dcondition: 0,
-  dconditionex: 0
-}, {
-  did: '3',
-  dtitle: 'Скидка от РРЦ',
-  ddesc: 'кратно 25шт. - скидка от РРЦ',
-  ddatestart: '01.11.2019',
-  ddateend: '30.11.2019',
-  dtype: 'numminusproc',
-  dnv: 25,
-  dnvex: 55,
-  diart: [3813],
-  diartex: '',
-  dartprice: 0,
-  dartexprice: 0,
-  dcondition: 0,
-  dconditionex: 0
-}, {
-  did: '4',
-  dtitle: 0,
-  ddesc: 0,
-  ddatestart: '01.11.2019',
-  ddateend: '30.11.2019',
-  dtype: 'sumlessproc',
-  dnv: [0, 200000, 500000],
-  dnvex: [25, 27, 30],
-  diart: 0,
-  diartex: 0,
-  dartprice: 0,
-  dartexprice: 0,
-  dcondition: {razdel: 'lodki'},
-  dconditionex: 0
-}];
-
 'use strict';
-
-setPaddingToBody();
 
 //=====================================================================================================
 // Первоначальные данные для работы:
@@ -88,7 +9,7 @@ setPaddingToBody();
 var website =  document.body.dataset.website,
     pageId = document.body.id,
     headerCart = document.getElementById('header-cart'),
-    upBtn = document.getElementById('btn-go-top');
+    upBtn = document.getElementById('up-btn');
 
 // Динамически изменяемые переменные:
 
@@ -123,6 +44,8 @@ var isFound,
 //=====================================================================================================
 // Полифиллы:
 //=====================================================================================================
+
+// Полифилл на "closest":
 
 (function() {
   // проверяем поддержку
@@ -424,4 +347,12 @@ function removeInfo(key, data) {
   }
   pageInfo[key] = data;
   saveInLocal(website, pageInfo);
+}
+
+//=====================================================================================================
+// Отображение/скрытие уведомлений:
+//=====================================================================================================
+
+function showMessages() {
+  
 }
