@@ -341,15 +341,18 @@
               </div>
             </div>
             <div id="img-loader"></div>
-            <div id="img-error" class="row">
-              <div>Изображение не может быть загружено.<br>Повторите попытку позже.</div>
-            </div>
           </div>
         </div>
       </div>
     </div>
 
     <div id="page-loader"></div>
+    <div id="error-container" class="row" onclick="closeError()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path>
+      </svg>
+      <div id="error"></div>
+    </div>
     <div id="up-btn" onclick="goToTop()"></div>
 
     <div class="footer">
@@ -375,10 +378,11 @@
     </div>
 
     <script src="http://api.topsports.ru/spad/q2.php"></script>
-    <script src="../../js/carousel.js"></script>
+    <script src="../../js/discounts.js"></script>
     <script src="../../js/common.js"></script>
     <script src="../../js/filters_ekipirovka.js"></script>
     <script src="../../js/content.js"></script>
+    <script src="../../js/carousel.js"></script>
     <script src="../../js/jquery-1.9.1.min.js"></script>
     <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     <script src="../../js/create_map.js"></script>

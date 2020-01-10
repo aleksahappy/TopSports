@@ -683,9 +683,6 @@
 
 #cart-empty {
   display: none;
-}
-
-#cart-empty {
   width: 500px;
   max-width: 90vw;
   margin: 0 auto;
@@ -708,6 +705,41 @@
 }
 
 #catalog-link {
+  display: inline-block;
+  padding: 0.625em 1.25em;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: rgb(255,255,255);
+  background-color: rgb(241,90,41);
+  border-radius: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.load-cart {
+  width: 100%;
+}
+
+#load-text {
+  display: block;
+  width: 100%;
+  height: 10em;
+  margin: 2em 0;
+  padding: 0.5em;
+  font-size: 1em;
+  color: #ccc;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  resize: none;
+}
+
+#load-text::-webkit-input-placeholder { color: rgb(185,183,190); }
+#load-text::-ms-input-placeholder { color: rgb(185,183,190); }
+#load-text::-ms-input-placeholder { color: rgb(185,183,190); }
+#load-text::placeholder { color: rgb(185,183,190); }
+
+.load-btn {
   display: inline-block;
   padding: 0.625em 1.25em;
   font-size: 1.1em;

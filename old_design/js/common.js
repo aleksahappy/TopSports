@@ -11,6 +11,8 @@ var url = 'http://80.234.34.212:2000/-aleksa-/TopSports/test/',
     pageId = document.body.id,
     headerCart = document.getElementById('header-cart'),
     pageLoader = document.getElementById('page-loader'),
+    errorContainer = document.getElementById('error-container'),
+    error = document.getElementById('error'),
     upBtn = document.getElementById('up-btn');
 
 // Динамически изменяемые переменные:
@@ -115,10 +117,6 @@ function sendRequest(url, data, type = 'application/json; charset=utf-8') {
   });
 }
 
-//=====================================================================================================
-// Получение данных с сервера:
-//=====================================================================================================
-
 // Получение данных корзины:
 
 function getCartInfo() {
@@ -202,6 +200,45 @@ function setPaddingToBody() {
   document.body.style.paddingBottom = `${footerHeight + 20}px`;
 }
 
+// Удаление значения из инпута при его фокусе:
+
+function onFocusInput(input) {
+  if (input.value != '') {
+    input.value = '';
+  }
+}
+
+// Возвращение значения в инпут при потере им фокуса:
+
+function onBlurInput(input) {
+  input.value = input.dataset.value;
+}
+
+// Запрет на ввод в инпут любого значения кроме цифр:
+
+function checkValue(event) {
+  if (event.ctrlKey || event.altKey || event.metaKey) return;
+  var chr = getChar(event);
+  if (chr == null) return;
+  if (chr < '0' || chr > '9') {
+    return false;
+  }
+}
+
+// Кросс-браузерная функция для получения символа из события keypress:
+
+function getChar(event) {
+  if (event.which == null) { // IE
+    if (event.keyCode < 32) return null; // спец. символ
+    return String.fromCharCode(event.keyCode)
+  }
+  if (event.which != 0 && event.charCode != 0) { // все кроме IE
+    if (event.which < 32) return null; // спец. символ
+    return String.fromCharCode(event.which); // остальные
+  }
+  return null; // спец. символ
+}
+
 // Отображение/скрытие кнопки возвращения наверх страницы:
 
 if (upBtn) {
@@ -231,6 +268,23 @@ function goToTop() {
     window.scrollTo(0, 5000);
     goToTop();
   }
+}
+
+// Показ сообщения об ошибке:
+
+function showError(text) {
+  getDocumentScroll();
+  document.body.classList.add('no-scroll');
+  error.textContent = text;
+  errorContainer.display = 'flex';
+}
+
+// Скрытие сообщения об ошибке:
+
+function closeError() {
+  errorContainer.style.display = 'none';
+  document.body.classList.remove('no-scroll');
+  setDocumentScroll();
 }
 
 // Получение текущей прокрутки документа:

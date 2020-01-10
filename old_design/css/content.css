@@ -15,10 +15,10 @@
 }
 
 .main-header {
-  display: none;
   align-items: flex-start;
   flex-wrap: wrap;
   padding: 2em 0 1em;
+  visibility: hidden;
 }
 
 [data-view="product"] .main-header {
@@ -1177,7 +1177,7 @@ body#r_ek .big-card .card-price-row .card-notice {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(43,46,56,0.9);
+  background-color: rgba(43,46,56,0.9);
   z-index: 30;
 }
 
@@ -1446,26 +1446,4 @@ body#r_ek .big-card .card-price-row .card-notice {
   background-position: center;
   background-size: 80px;
   visibility: hidden;
-}
-
-#img-error {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  justify-content: center;
-  align-items: center;
-  visibility: hidden;
-}
-
-#img-error > div{
-  width: 400px;
-  max-width: 90vw;
-  padding: 40px;
-  font-size: 16px;
-  line-height: 1.4;
-  color: rgb(68,68,68);
-  background: rgb(255,255,255);
-  border-radius: 4px;
 }

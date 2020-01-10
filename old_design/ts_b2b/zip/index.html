@@ -112,7 +112,7 @@
                 <form action="#" id="oem-search" oninput="showOemList()" onsubmit="findOem(event)">
                   <div class="search-btn" onclick="findOem(event)"></div>
                   <div class="clear-search-btn" onclick="startClearOemSearch(event)"></div>
-                  <input id="oem-search-input" type="text" autocomplete="off" placeholder="Поиск по OEM" data-oem="" onfocus="onFocusOemInput(this)" onblur="onBlurOemInput(this)">
+                  <input id="oem-search-input" type="text" autocomplete="off" data-value="" placeholder="Поиск по OEM" onfocus="onFocusOemInput(this)" onblur="onBlurOemInput(this)">
                   <div id="oem-dropdown">
                     <div id="oem-not-found">Совпадений не найдено</div>
                     <div id="oem-list">
@@ -273,7 +273,7 @@
                       </div>
                       <div class="bonus row">
                         <div class="bonus-text">+ Подарок</div>
-                        <img class="bonus-img" src="http://b2b.topsports.ru/d/img/no_img_min.jpg">
+                        <img class="bonus-img" src="../../img/content/no_img.jpg">
                         <div class="bonus-qty"><span class="red">0</span>&nbsp;шт.</div>
                       </div>
                     </div>
@@ -284,7 +284,7 @@
                           <div class="name row #isClick#" onclick="changeCart(event, #id#, this.textContent)">#size#</div>
                           <div class="qty-box row">
                             <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event, #id#, this.textContent)">-</div>
-                            <input class="choiced-qty" type="text" value="0" data-id="#id#" data-free-qty="#free_qty#" autocomplete="off" onchange="changeCart(event, #id#)" onblur="changeCart(event, #id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                            <input class="choiced-qty" type="text" value="0" data-value="0" data-id="#id#" data-free-qty="#free_qty#" autocomplete="off" onchange="changeCart(event, #id#)" onblur="changeCart(event, #id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
                             <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event, #id#, this.textContent)">+</div>
                           </div>
                         </div>
@@ -376,7 +376,7 @@
                         <div class="name row #isClick#" onclick="changeCart(event, #id#, this.textContent)">#size#</div>
                         <div class="qty-box row">
                           <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event, #id#, this.textContent)">-</div>
-                          <input class="choiced-qty" type="text" value="0" data-id="#id#" data-free-qty="#free_qty#" autocomplete="off" onchange="changeCart(event, #id#)" onblur="changeCart(event, #id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                          <input class="choiced-qty" type="text" value="0" data-value="0" data-id="#id#" data-free-qty="#free_qty#" autocomplete="off" onchange="changeCart(event, #id#)" onblur="changeCart(event, #id#)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
                           <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event, #id#, this.textContent)">+</div>
                         </div>
                       </div>
@@ -393,7 +393,7 @@
                     </div>
                     <div class="bonus row">
                       <div class="bonus-text">+ Подарок</div>
-                      <img class="bonus-img" src="http://b2b.topsports.ru/d/img/no_img_min.jpg">
+                      <img class="bonus-img" src="../../img/content/no_img.jpg">
                       <div class="bonus-qty"><span>0</span>&nbsp;шт.</div>
                     </div>
                   </div>
@@ -457,17 +457,6 @@
                 </div>
                 <div class="close-btn" tooltip="Очистить фильтры"></div>
               </div>
-
-              <!-- <div class="cart-filter row" onclick="filterCart(event)">
-                <div class="title">Фильтровать по:</div>
-                <div class="menu">
-                  <div class="menu-title">Выберите из списка</div>
-                  <div class="menu-select">
-                    <div class="item">#item#</div>
-                  </div>
-                </div>
-                <div class="close-btn" tooltip="Очистить фильтры"></div>
-              </div> -->
 
               <div class="cart-header">
                 <div class="cart-info-container row">
@@ -598,7 +587,7 @@
                         <div class="value qty in-cart">
                           <div class="qty-box row">
                             <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event)">-</div>
-                            <input class="choiced-qty" type="text" value="#qty#" data-id="#id#" data-free-qty="#free_qty#" autocomplete="off" onchange="changeCart(event)" onblur="changeCart(event)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                            <input class="choiced-qty" type="text" value="#qty#" data-value="#qty#" data-id="#id#" data-free-qty="#free_qty#" autocomplete="off" onchange="changeCart(event)" onblur="changeCart(event)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
                             <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event)">+</div>
                           </div>
                           <div class="tooltip" tooltip="В наличии">
@@ -631,6 +620,12 @@
     </div>
 
     <div id="page-loader"></div>
+    <div id="error-container" class="row" onclick="closeError()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path>
+      </svg>
+      <div id="error"></div>
+    </div>
     <div id="up-btn" onclick="goToTop()"></div>
 
     <div class="footer">

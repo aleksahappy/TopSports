@@ -39,7 +39,8 @@ var dataFilters = [{
   title: 'Спецпредложение',
   isOpen: 'true',
   key: 'specialOffer',
-  items: specialOffer
+  items: createFilterData(discounts)
+  // items: specialOffer
 }, {
   title: 'Категория',
   isOpen: 'true',

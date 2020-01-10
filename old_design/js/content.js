@@ -25,8 +25,7 @@ var pageSearch = document.getElementById('page-search'),
     fullCardContainer = document.getElementById('full-card-container'),
     fullImgContainer = document.getElementById('full-img-container'),
     fullImg = document.getElementById('full-img'),
-    imgLoader = document.getElementById('img-loader'),
-    imgError = document.getElementById('img-error');
+    imgLoader = document.getElementById('img-loader');
 
 if (pageSearch) {
   var pageSearchInput = document.getElementById('page-search-input'),
@@ -124,21 +123,11 @@ if (cart) {
         );
       },
       error => {
+        gallery.style.display = 'none';
         galleryNotice.style.display = 'flex';
-        // items = [{"sizes":"0","object_id":"3524","objectX_id":"1644","title":"Переключатель батарей Skipper","catid":"77","subcatid":"77","cat":"Электрика","subcat":"Переключатели батарей","subsubcat_title":"Аксессуары","price":"816","is_new":"0","promo_title":"","price_user":"1&nbsp;600","price_preorder":"0","free_qty":"88","articul":"SK-233","brand":"Skipper","options":{"11":"Переключатели батарей","16":"12,24","25":"150A","24":"500A","74":"4"},"manuf":"","images":"7570;8778","desc":"","lodkimotor":"1","acc":"1","ptype":"1","adult":"1","child":"0","price_preorder1":"0","price1":"816","price_user1":"1600","Электрика":"1"}];
-        // convertItems();
-        // getCartInfo()
-        // .then(
-        //   result => {
-        //     showPage();
-        //   },
-        //   error => {
-        //     showPage();
-        //   }
-        // );
+        pageLoader.style.display = 'none';
       }
     )
-
   } else {
     getCartInfo()
     .then(
@@ -603,7 +592,7 @@ function createMainNav() {
       list += newItem;
   }
   mainNav.innerHTML = mainNavTemplate.replace(navItemTemplate, list);
-  mainHeader.style.display = 'flex';
+  mainHeader.style.visibility = 'visible';
 }
 
 // Создание контента страницы товара:
@@ -619,9 +608,6 @@ function renderProductPage() {
   .then(
     result => {
       card.style.opacity = '1';
-    },
-    error => {
-
     }
   )
 }
@@ -1423,7 +1409,7 @@ function findOem() {
   if (oemToFind == '') {
     return;
   }
-  oemSearchInput.dataset.oem = oemSearchInput.value;
+  oemSearchInput.dataset.value = oemSearchInput.value;
   selectCardsOemSearch(oemToFind);
   showCards();
   isSearch = true;
@@ -1459,16 +1445,14 @@ function clearOemSearch() {
   oemList.style.display = 'none';
   oemNotFound.style.display = 'none';
   clearOemSearchBtn.style.display = 'none';
-  oemSearchInput.dataset.oem = '';
+  oemSearchInput.dataset.value = '';
   oemSearchInput.value = '';
 }
 
 // Удаление значения из поиска OEM при его фокусе и скрытие подсказок:
 
 function onFocusOemInput(input) {
-  if (input.value != '') {
-    input.value = '';
-  }
+  onFocusInput(input);
   closeOemHints();
 }
 
@@ -1482,7 +1466,7 @@ function closeOemHints() {
 
 function onBlurOemInput(input) {
   setTimeout(() => {
-    input.value = input.dataset.oem;
+    onBlurInput(input);
     closeOemHints();
   }, 100);
 }
@@ -1508,19 +1492,19 @@ function loadCards(cards) {
 
   var incr;
   if (window.innerWidth > 2000) {
-    if (view == 'list') {
+    if (view === 'list') {
       incr = 30;
     } else {
       incr = 60;
     }
   } else if (window.innerWidth < 1080) {
-    if (view == 'list') {
+    if (view === 'list') {
       incr = 10;
     } else {
       incr = 20;
     }
   } else {
-    if (view == 'list') {
+    if (view === 'list') {
       incr = 20;
     } else {
       incr = 40;
@@ -1546,28 +1530,31 @@ function loadCards(cards) {
   setGalleryWidth();
   setMinCardWidth();
 
-  if (view == 'list') {
+  if (view === 'list') {
     document.querySelectorAll('.big-card').forEach(card => {
       renderCarousel(card.querySelector('.carousel'));
-      // .then(
-      //   result => {
-      //   },
-      //   error => {
-      //   }
-      // );
       if (cart) {
         checkAction(card);
         checkCart(card);
       }
     });
   }
-  if (view == 'blocks') {
-    if (cart) {
-      document.querySelectorAll('.min-card').forEach(card => {
+  if (view === 'blocks') {
+    document.querySelectorAll('.min-card').forEach(card => {
+      checkImg(card);
+      if (cart) {
         checkAction(card);
-      });
-    }
+      }
+    });
   }
+}
+
+// Проверка загружено ли изображение и вставка заглушки при отсутствии изображения:
+
+function checkImg(element) {
+  element.querySelector('img').addEventListener('error', (event) => {
+    event.currentTarget.src = '../../img/content/no_img.jpg';
+  });
 }
 
 // Создание одной карточки товара :
@@ -1745,7 +1732,7 @@ function createCarousel(template, card) {
 
 // Проверка загруженности всех изображений карусели и отображение карусели:
 
-function renderCarousel(carousel, curImg = 0, isFull) {
+function renderCarousel(carousel, curImg = 0) {
   return new Promise((resolve, reject) => {
     var imgs = carousel.querySelectorAll('img');
 
@@ -1767,7 +1754,8 @@ function renderCarousel(carousel, curImg = 0, isFull) {
 
     function render(carousel) {
       if (carousel.querySelectorAll('img').length === 0) {
-        reject(new Error('изображений нет'));
+        carousel.querySelector('.carousel-gallery').insertAdjacentHTML('beforeend', '<div class="carousel-item"><img src="../../img/content/no_img.jpg"></div>');
+        startCarouselInit(carousel, curImg);
       }
       startCarouselInit(carousel, curImg);
       resolve('карусель готова');
@@ -1949,18 +1937,17 @@ function showFullCard(id) {
     checkCart(curCard);
   }
   var curCarousel = fullCardContainer.querySelector('.carousel');
+  setCardTemplate();
   renderCarousel(curCarousel)
   .then(
     result => {
-      curCarousel.querySelector('.carousel-gallery-wrap').addEventListener('click', (event) => showFullImg(event, id));
-      curCarousel.querySelector('.search-btn').addEventListener('click', (event) => showFullImg(event, id));
+      if (curCarousel.querySelector('img').src.indexOf('/no_img.jpg') === -1) {
+        curCarousel.querySelector('.carousel-gallery-wrap').addEventListener('click', (event) => showFullImg(event, id));
+        curCarousel.querySelector('.search-btn').addEventListener('click', (event) => showFullImg(event, id));
+      }
       document.body.classList.add('no-scroll');
       pageLoader.style.display = 'none';
       curCard.style.opacity = '1';
-      setCardTemplate();
-    },
-    error => {
-
     }
   );
 }
@@ -1987,7 +1974,6 @@ function showFullImg(event, id) {
   }
   fullImgContainer.style.display = 'block';
   imgLoader.style.visibility = 'visible';
-  imgError.style.visibility = 'hidden';
   fullImg.style.opacity = 0;
 
   var list = '',
@@ -2008,15 +1994,11 @@ function showFullImg(event, id) {
   var curCarousel = fullImgContainer.querySelector('.carousel');
   var curImg = event.currentTarget.closest('.carousel').dataset.img;
 
-  renderCarousel(curCarousel, curImg, true)
+  renderCarousel(curCarousel, curImg)
   .then(
     result => {
       fullImg.style.opacity = 1;
       imgLoader.style.visibility = 'hidden';
-    },
-    error => {
-      imgLoader.style.visibility = 'hidden';
-      imgError.style.visibility = 'visible';
     }
   );
   document.body.classList.add('no-scroll');
