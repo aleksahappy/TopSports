@@ -125,17 +125,17 @@ function getCartInfo() {
     .then(
       result => {
         if (JSON.stringify(cart) === result) {
-          console.log(cart);
+          // console.log(cart);
           reject();
         } else {
           cart = JSON.parse(result);
-          console.log(cart);
+          // console.log(cart);
           resolve();
         }
       }
     )
     .catch(error => {
-      console.log(error);
+      // console.log(error);
       reject();
     })
   });
@@ -273,10 +273,13 @@ function goToTop() {
 // Показ сообщения об ошибке:
 
 function showError(text) {
+  if (!text) {
+    return;
+  }
   getDocumentScroll();
   document.body.classList.add('no-scroll');
   error.textContent = text;
-  errorContainer.display = 'flex';
+  errorContainer.style.display = 'flex';
 }
 
 // Скрытие сообщения об ошибке:

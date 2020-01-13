@@ -159,12 +159,14 @@ function convertItems() {
   var manuf;
   items.forEach(item => {
     item.images = item.images.toString().split(';');
+    item.price_cur = item.price_preorder1 == 0 ? item.price : item.price_preorder;
+    item.price_cur1 = item.price_preorder1 == 0 ? item.price1 : item.price_preorder1;
     if (item.manuf) {
       try {
         manuf = JSON.parse(item.manuf);
       } catch(error) {
         item.manuf = 0;
-        console.log(error);
+        // console.log(error);
       }
       item.manuf = manuf;
     }
@@ -184,12 +186,12 @@ function getProductInfo(id) {
     .then(
       result => {
         var product = JSON.parse(result);
-        console.log(product);
+        // console.log(product);
         resolve(product);
       }
     )
     .catch(error => {
-      console.log(error);
+      // console.log(error);
       reject();
     })
   });
@@ -508,7 +510,7 @@ function updateContent() {
   getCartInfo()
   .then(
     result => {
-      console.log('обновляю корзину');
+      // console.log('обновляю корзину');
       changeHeaderCart();
       if (path[path.length - 1] == 'cart') {
         renderCart();
@@ -1767,7 +1769,7 @@ function renderCarousel(carousel, curImg = 0) {
 
 function findDiscount(id) {
   if (!discounts) {
-    return undefined;
+    return 0;
   }
   var discount = discounts.find(item => {
     if (item.diart) {
@@ -1780,7 +1782,7 @@ function findDiscount(id) {
     discount = discounts.find(item => !item.diart && checkCondition(item.dcondition));
   }
   if (!discount) {
-    return undefined;
+    return 0;
   }
   var relevance = true;
   if (discount.ddatestart && discount.ddateend) {
