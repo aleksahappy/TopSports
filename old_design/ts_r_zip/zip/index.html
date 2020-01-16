@@ -488,9 +488,9 @@
                     </div>
                   </div>
                   <div class="cart-make-order row">
-                    <div class="delete-btn" onclick="deleteSelected()">Удалить выбранное</div>
-                    <div class="order-btn" onclick="orderSentServer()">Оформить заказ</div>
-                    <div class="warning">Оформление заказа невозможно:<br>Необходимо выбрать <a href="/clients/">клиента</a>.</div>
+                    <div id="delete-btn" onclick="deleteSelected()">Удалить выбранное</div>
+                    <div id="order-btn" onclick="orderSentServer()">Оформить заказ</div>
+                    <div id="warning-btn"></div>
                   </div>
                 </div>
                 <form id="order-form" class="row" method="post" enctype="multipart/form-data">

@@ -6,353 +6,94 @@
 
 // Константы:
 
-var website =  document.body.dataset.website,
-    pageId = document.body.id,
-    headerCart = document.getElementById('header-cart'),
-    upBtn = document.getElementById('up-btn');
-
-// Динамически изменяемые переменные:
-
-var pageUrl,
-    sectionId,
-    pageInfo,
-    list,
-    subList,
-    template,
-    subTemplate,
-    newItem,
-    newSubItem,
-    curEl,
-    value,
-    subkey,
-    qty,
-    scrolled;
-
-// Переменные для циклов:
-
-var isFound,
-    isExsist,
-    item,
-    key,
-    k,
-    kk,
-    kkk,
-    i,
-    ii,
-    iii;
+var alertsContainer = document.getElementById('alerts-container');
 
 //=====================================================================================================
-// Полифиллы:
+// Работа с окном уведомлений:
 //=====================================================================================================
 
-// Полифилл на "closest":
+// Открытие окна уведомлений:
 
-(function() {
-  // проверяем поддержку
-  if (!Element.prototype.closest) {
-    // реализуем
-    Element.prototype.closest = function(css) {
-      var node = this;
-      while (node) {
-        if (node.matches(css)) return node;
-        else node = node.parentElement;
-      }
-      return null;
-    };
-  }
-})();
-
-//=====================================================================================================
-// Сортировка объекта по алфавиту:
-//=====================================================================================================
-
-var sortedObj;
-
-// Сортировка по ключу:
-
-function sortObjByKey(obj) {
-  sortedObj = {};
-  Object.keys(obj).sort().forEach(key => sortedObj[key] = obj[key]);
-  return sortedObj;
+function showMessages() {
+  openPopUp(alertsContainer, 'flex');
 }
 
-// Сортировка по значению:
+// Закрытие окна уведомлений:
 
-function sortObjByValue(obj) {
-  sortedObj = {};
-  Object.keys(obj).sort((a,b) => {
-    if (obj[a] < obj[b]) {
-      return -1;
+function closeMessages() {
+  closePopUp(alertsContainer);
+}
+
+//=====================================================================================================
+// Работа с таблицами:
+//=====================================================================================================
+
+// Выравнивание столбцов таблицы при загрузке:
+
+document.addEventListener('DOMContentLoaded', () => {
+  var table = document.querySelector('.table-wrap');
+  setTimeout(() => alignTableColumns(table), 10);
+});
+
+function alignTableColumns(table) {
+  var headCells = table.querySelectorAll('.table-head th');
+  headCells.forEach(headCell => {
+    var bodyCell = table.querySelector(`.table-body > tr:first-child > td:nth-child(${headCell.id})`),
+        headCellWidth = headCell.offsetWidth,
+        bodyCellWidth = bodyCell.offsetWidth;
+    if (headCellWidth > bodyCellWidth) {
+      headCell.style.width = headCellWidth + 'px';
+      headCell.style.minWidth = headCellWidth + 'px';
+      headCell.style.maxWidth = headCellWidth + 'px';
+      bodyCell.style.width = headCellWidth + 'px';
+      bodyCell.style.minWidth = headCellWidth + 'px';
+      bodyCell.style.maxWidth = headCellWidth + 'px';
     }
-    if (obj[a] > obj[b]) {
-      return 1;
+    if (headCellWidth < bodyCellWidth) {
+      headCell.style.width = bodyCellWidth + 'px';
+      headCell.style.minWidth = bodyCellWidth + 'px';
+      headCell.style.maxWidth = bodyCellWidth + 'px';
+      bodyCell.style.width = bodyCellWidth + 'px';
+      bodyCell.style.minWidth = bodyCellWidth + 'px';
+      bodyCell.style.maxWidth = bodyCellWidth + 'px';
     }
-    return 0;
-  }).forEach(key => sortedObj[key] = obj[key]);
-  return sortedObj;
-}
-
-//=====================================================================================================
-// Визуальное отображение контента на странице:
-//=====================================================================================================
-
-// Установка отступов документа:
-
-window.addEventListener('resize', setPaddingToBody);
-
-var headerHeight,
-    footerHeight;
-
-function setPaddingToBody() {
-  headerHeight = document.querySelector('.header').clientHeight;
-  footerHeight = document.querySelector('.footer').clientHeight;
-  document.body.style.paddingTop = `${headerHeight}px`;
-  document.body.style.paddingBottom = `${footerHeight + 20}px`;
-}
-
-// Отображение/скрытие кнопки возвращения наверх страницы:
-
-if (upBtn) {
-  window.addEventListener('scroll', toggleBtnGoTop);
-
-  var coords;
-
-  function toggleBtnGoTop() {
-    scrolled = window.pageYOffset;
-    coords = window.innerHeight / 2;
-
-    if (scrolled > coords) {
-      upBtn.classList.add('show');
-    }
-    if (scrolled < coords) {
-      upBtn.classList.remove('show');
-    }
-  }
-
-  // Вернуться наверх страницы:
-
-  if (upBtn) {
-    upBtn.addEventListener('click', goToTop);
-  }
-
-  function goToTop() {
-    scrolled = window.pageYOffset;
-    if (scrolled > 0 && scrolled <= 5000) {
-      window.scrollBy(0, -80);
-      setTimeout(goToTop, 0);
-    } else if (scrolled > 5000) {
-      window.scrollTo(0, 5000);
-    }
-  }
-}
-
-// Получение текущей прокрутки документа:
-
-var scrollTop;
-
-function getDocumentScroll() {
-  scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-}
-
-// Установка прокрутки документа:
-
-function setDocumentScroll(top) {
-  document.documentElement.scrollTop = top;
-  document.body.scrollTop = top;
-}
-
-// Добавление всплывающих подсказок:
-
-var elements;
-
-function addTooltips(key) {
-  elements = document.querySelectorAll(`[data-key=${key}]`);
-  elements.forEach(el => {
-    el.setAttribute('tooltip', el.textContent.trim());
   });
 }
 
-// Функция преобразования цены к формату с пробелами:
+// Изменение ширины столбоцов таблицы пользователем:
 
-function convertPrice(price) {
-  return (price + '').replace(/(\d{1,3})(?=((\d{3})*)$)/g, " $1");
-}
+(function () {
+  var curColumn = null,
+      startOffset;
 
-// Функция преобразования строки с годами к укороченному формату:
+  var resizeBtns = document.querySelectorAll('.resize-btn');
 
-var years,
-    curYear,
-    nextYear,
-    prevYear,
-    resultYears;
+  if (resizeBtns.length > 0) {
+    resizeBtns.forEach(el => {
+      el.addEventListener('mousedown', (event) => {
+        curColumn = event.currentTarget.parentElement;
+        console.log(curColumn);
+        startOffset = curColumn.offsetWidth - event.pageX;
+      });
+    });
 
-function convertYears(stringYears) {
-  years = stringYears.split(',');
-  resultYears = [];
-
-  for (i = 0; i < years.length; i++) {
-    curYear = parseInt(years[i].trim(), 10);
-    nextYear = parseInt(years[i + 1], 10);
-    prevYear = parseInt(years[i - 1], 10);
-
-    if (curYear + 1 != nextYear) {
-      if (i === years.length -  1) {
-        resultYears.push(curYear);
-      } else {
-        resultYears.push(curYear + ', ');
+    document.addEventListener('mousemove', (event) => {
+      if (curColumn) {
+        var newWidth = startOffset + event.pageX + 'px',
+            curTable = curColumn.closest('.table-wrap');
+        curColumn.style.width = newWidth;
+        curColumn.style.minWidth = newWidth;
+        curColumn.style.maxWidth = newWidth;
+        curTable.querySelectorAll(`.table-body td:nth-child(${curColumn.id})`).forEach(el => {
+          el.style.width = newWidth;
+          el.style.minWidth = newWidth;
+          el.style.maxWidth = newWidth;
+        });
       }
-    } else if (curYear - 1 !== prevYear) {
-      resultYears.push(curYear);
-    } else if (curYear + 1 === nextYear && resultYears[resultYears.length - 1] !== ' &ndash; ') {
-      resultYears.push(' &ndash; ');
-    }
+    });
+
+    document.addEventListener('mouseup', () => {
+      curColumn = null;
+    });
   }
-  return resultYears = resultYears.join('');
-}
-
-//=====================================================================================================
-// Сохранение и извлечение данных на компьютере пользователя:
-//=====================================================================================================
-
-// Проверка доступности storage:
-
-var storage,
-    test;
-
-function storageAvailable(type) {
-	try {
-		storage = window[type];
-    test = '__storage_test__';
-		storage.setItem(test, test);
-		storage.removeItem(test);
-		return true;
-	}
-	catch(error) {
-		return false;
-	}
-}
-
-// Сохранение данныx в storage или cookie:
-
-function saveInLocal(key, data) {
-  var stringData = JSON.stringify(data);
-  if (storageAvailable('localStorage')) {
-    localStorage[key] = stringData;
-  }
-  else {
-    if (getCookie(key)) {
-      deleteCookie(key);
-    }
-    setCookie(key, stringData, {expires: getDateExpires(30)});
-  }
-}
-
-// Получение данных из storage или cookie:
-
-function getFromLocal(key) {
-  if (storageAvailable('localStorage')) {
-    if (localStorage[key]) {
-      return JSON.parse(localStorage[key]);
-    } else {
-      return undefined;
-    }
-  }
-  else {
-    if (getCookie(key)) {
-      return JSON.parse(getCookie(key));
-    } else {
-      return undefined;
-    }
-  }
-}
-
-// Сохранение данных в cookie:
-
-function setCookie(key, value, options) {
-  options = options || {};
-  var expires = options.expires;
-
-  if (typeof expires == "number" && expires) {
-    var date = new Date();
-    date.setTime(date.getTime() + expires * 1000);
-    expires = options.expires = date;
-  }
-  if (expires && expires.toUTCString) {
-    options.expires = expires.toUTCString();
-  }
-
-  value = encodeURIComponent(value);
-  var updatedCookie = key + '=' + value;
-
-  for (key in options) {
-    updatedCookie += "; " + key;
-    var propValue = options[key];
-    if (propValue !== true) {
-      updatedCookie += "=" + propValue;
-    }
-  }
-  document.cookie = updatedCookie;
-}
-
-// Функция для установки срока хранения cookie:
-
-function getDateExpires(days) {
-  var date = new Date;
-  date.setDate(date.getDate() + days);
-  return date;
-}
-
-// Получение данных из cookie:
-
-function getCookie(key) {
-  var matches = document.cookie.match(new RegExp(
-    '(?:^|; )' + key.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'
-  ));
-  return matches ? decodeURIComponent(matches[1]) : undefined;
-}
-
-// Удаление данных из cookie:
-
-function deleteCookie(key) {
-  setCookie(key, '', {expires: -1});
-}
-
-// Получение данных о странице по ключу:
-
-function getInfo(key) {
-  pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
-  if (!pageInfo[key]) {
-    pageInfo[key] = {};
-  }
-  return pageInfo[key];
-}
-
-// Сохранение данных о странице по ключу:
-
-function saveInfo(key, data) {
-  pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
-  if (!pageInfo[key]) {
-    pageInfo[key] = {};
-  }
-  pageInfo[key] = data;
-  saveInLocal(website, pageInfo);
-}
-
-// Удаление всех данных о странице по ключу:
-
-function removeInfo(key, data) {
-  pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
-  if (!pageInfo[key]) {
-    pageInfo[key] = {};
-  }
-  pageInfo[key] = data;
-  saveInLocal(website, pageInfo);
-}
-
-//=====================================================================================================
-// Отображение/скрытие уведомлений:
-//=====================================================================================================
-
-function showMessages() {
-  
-}
+})();

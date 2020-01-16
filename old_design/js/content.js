@@ -1925,11 +1925,8 @@ function closeBigCard(event) {
 // Отображение полной карточки товара:
 
 function showFullCard(id) {
-  getDocumentScroll();
-
+  openPopUp(fullCardContainer, 'flex');
   pageLoader.style.display = 'block';
-  fullCardContainer.style.display = 'flex';
-
   cardTemplate = fullCardTemplate;
   fullCardContainer.innerHTML = createCard(items.find(item => item.object_id == id));
 
@@ -1947,7 +1944,6 @@ function showFullCard(id) {
         curCarousel.querySelector('.carousel-gallery-wrap').addEventListener('click', (event) => showFullImg(event, id));
         curCarousel.querySelector('.search-btn').addEventListener('click', (event) => showFullImg(event, id));
       }
-      document.body.classList.add('no-scroll');
       pageLoader.style.display = 'none';
       curCard.style.opacity = '1';
     }
@@ -1958,10 +1954,8 @@ function showFullCard(id) {
 
 function closeFullCard(event) {
   if (!(event.target.closest('.carousel') || event.target.closest('.card-size') || event.target.classList.contains('dealer-button'))) {
-    fullCardContainer.style.display = 'none';
     document.querySelector('.full-card').style.opacity = '0';
-    document.body.classList.remove('no-scroll');
-    setDocumentScroll();
+    closePopUp(fullCardContainer);
   }
 }
 
@@ -2015,8 +2009,8 @@ function closeFullImg(event) {
   fullImgContainer.style.display = 'none';
   if (!fullCardContainer.style.display || fullCardContainer.style.display === 'none') {
     document.body.classList.remove('no-scroll');
+    setDocumentScroll();
   }
-  setDocumentScroll();
 }
 
 //=====================================================================================================

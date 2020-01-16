@@ -9,6 +9,7 @@
 
 .info {
   color: #34495E;
+  font-size: 1.15em;
 }
 
 .info > .row {
@@ -30,29 +31,31 @@
 
 .info .head {
   margin-bottom: 1em;
-  font-size: 1.25em;
 }
 
 .info .title {
   padding-bottom: 0.3em;
-  color: #2C3E50;
   white-space: nowrap;
 }
 
 .info .text {
-  color: #888888;
+  color: #666666;
 }
 
 .info .details span {
   padding-left: 0.7em;
 }
 
-.info .details .main {
+.info .details-main {
   margin-right: 5.5em;
 }
 
 .info .comments {
   width: 25em;
+}
+
+.info .comments .text {
+  color: rgba(102, 102, 102, 0.7);
 }
 
 .info .payments {

@@ -89,17 +89,17 @@
             <div class="section-wrap">
               <div class="section">
                 <div class="head row">
-                  <div class="icon"></div>
+                  <div class="profile-icon"></div>
                   <div>
                     <div class="login">TS00000905</div>
                     <div class="username">Виктор Пашковски</div>
                   </div>
                 </div>
                 <div class="menu">
-                  <a href="#">
+                  <!-- <a href="#">
                     <div class="title">Пользователь</div>
                     <div class="username">Виктор Пашковски</div>
-                  </a>
+                  </a> -->
                   <div class="links">
                     <a href="#">Пользователи</a>
                     <a href="#">Контрагенты</a>
@@ -111,7 +111,7 @@
                 </div>
               </div>
             </div>
-            <div class="alerts-btn" onclick="showMessages()">
+            <div class="alerts-icon" onclick="showMessages()">
               <div class="count row">35</div>
             </div>
           </div>
@@ -159,174 +159,106 @@
           </div>
         </div>
         <div class="table-wrap">
-          <table class="table">
+          <table class="table positioned">
             <thead class="table-head">
               <tr>
-                <th class="icon">
+                <th id="1" class="icon">
                   <div class="row">
-                    <svg class="star" width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M8.00002 0.23923L9.50002 5.03923H14.5C14.7 5.03923 14.9 5.23923 14.9 5.43923C14.9 5.53923 14.8 5.63923 14.7 5.73923L10.6 8.73923L12.2 13.5392C12.3 13.7392 12.2 13.9392 12 14.0392C11.9 14.0392 11.7 14.0392 11.6 13.9392L7.50002 10.9392L3.40002 13.9392C3.20002 14.0392 3.00002 14.0392 2.90002 13.8392C2.80002 13.7392 2.80002 13.6392 2.80002 13.5392L4.40002 8.73923L0.300024 5.73923C0.100024 5.63923 0.100024 5.33923 0.200024 5.23923C0.300024 5.13923 0.400024 5.03923 0.500024 5.03923H5.50002L7.10002 0.23923C7.20002 0.0392303 7.40002 -0.0607695 7.60002 0.0392305C7.90002 0.0392305 7.90002 0.13923 8.00002 0.23923Z" fill="white"/>
-                    </svg>
+                    <div class="star"></div>
                   </div>
                 </th>
-                <th class="order-number">
+                <th id="2" class="order-number">
                   <div class="row">
                     <div class="title">№ заказа</div>
-                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#FFFFFF"/>
-                    </svg>
+                    <div class="triangle-white"></div>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
-                <th class="date">
+                <th id="3" class="date">
                   <div class="row">
                     <div class="title">Дата заказа</div>
-                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#FFFFFF"/>
-                    </svg>
+                    <div class="triangle-white"></div>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
-                <th class="partner">
+                <th id="4" class="partner">
                   <div class="row">
                     <div class="title">Контрагент</div>
-                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#FFFFFF"/>
-                    </svg>
+                    <div class="triangle-white"></div>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
-                <th class="client">
+                <th id="5" class="client">
                   <div class="row">
                     <div class="title">Заказчик</div>
-                    <svg class="triangle" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#FFFFFF"/>
-                    </svg>
+                    <div class="triangle-white"></div>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
-                <th class="order-type">
+                <th id="6" class="order-type">
                   <div class="row">
                     <div class="title">Тип заказа</div>
-                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#FFFFFF"/>
-                    </svg>
+                    <div class="triangle-white"></div>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
-                <th class="amount">
+                <th id="7" class="amount">
                   <div class="row">
                     <div class="title">Сумма счета</div>
-                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#FFFFFF"/>
-                    </svg>
+                    <div class="triangle-white"></div>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
-                <th class="status">
+                <th id="8" class="status">
                   <div class="row">
                     <div class="title">Статус заказа</div>
-                    <svg class="triangle" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#FFFFFF"/>
-                    </svg>
+                    <div class="triangle-white"></div>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
-                <th class="statistics">
+                <th id="9" class="statistics">
                   <div class="row">
                     <div class="title">Состояние товаров</div>
-                    <svg class="triangle" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#FFFFFF"/>
-                    </svg>
-                  </div>
-                  <div class="percent twenty"></div>
-                  <div class="percent forty"></div>
-                  <div class="percent sixty"></div>
-                  <div class="percent eighty"></div>
-                  <div class="percent hundred"></div>
-                  <div class="menu">
-                    <div class="row">
-                      <div class="legend expected"></div>
-                      <div>Товар ожидается</div>
-                    </div>
-                    <div class="row">
-                      <div class="legend available"></div>
-                      <div>Товар в наличии</div>
-                    </div>
-                    <div class="row">
-                      <div class="legend ready"></div>
-                      <div>Товар собран</div>
-                    </div>
-                    <div class="row">
-                      <div class="legend shipped"></div>
-                      <div>Товар отгружен</div>
-                    </div>
-                    <div class="row">
-                      <div class="legend shortage"></div>
-                      <div>Недопоставка</div>
+                    <div class="triangle-white"></div>
+                    <div class="percent twenty"></div>
+                    <div class="percent forty"></div>
+                    <div class="percent sixty"></div>
+                    <div class="percent eighty"></div>
+                    <div class="percent hundred"></div>
+                    <div class="menu">
+                      <div class="row">
+                        <div class="legend expected"></div>
+                        <div>Товар ожидается</div>
+                      </div>
+                      <div class="row">
+                        <div class="legend available"></div>
+                        <div>Товар в наличии</div>
+                      </div>
+                      <div class="row">
+                        <div class="legend ready"></div>
+                        <div>Товар собран</div>
+                      </div>
+                      <div class="row">
+                        <div class="legend shipped"></div>
+                        <div>Товар отгружен</div>
+                      </div>
+                      <div class="row">
+                        <div class="legend shortage"></div>
+                        <div>Недопоставка</div>
+                      </div>
                     </div>
                   </div>
+                  <div class="resize-btn"></div>
                 </th>
               </tr>
             </thead>
+          </table>
+          <table class="table">
             <tbody class="table-body">
-              <!-- Шаблон для наполнения таблицы заказов -->
-              <!-- <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star #isDisabled#"></div>
-                  </div>
-                </td>
-                <td class="order-number">
-                  <div class="row">
-                    <div>#order-number#</div>
-                  </div>
-                </td>
-                <td class="date">
-                  <div class="row">
-                    <div>#date#</div>
-                  </div>
-                </td>
-                <td class="partner">
-                  <div class="row">
-                    <div>#partner#</div>
-                  </div>
-                </td>
-                <td class="client">
-                  <div class="row">
-                    <div>#client#</div>
-                  </div>
-                </td>
-                <td class="order-type">
-                  <div class="row">
-                    <div>#order-type#</div>
-                  </div>
-                </td>
-                <td class="amount">
-                  <div class="row">
-                    <div class="number">#amount#</div>
-                    <div class="download"></div>
-                  </div>
-                </td>
-                <td class="status">
-                  <div class="row">
-                    <div>#status#</div>
-                  </div>
-                </td>
-                <td class="statistics">
-                  <div class="row">
-                    <div class="expected" style="width: #percent#%"></div>
-                    <div class="available" style="width: #percent#%"></div>
-                    <div class="ready" style="width: #percent#%"></div>
-                    <div class="shipped" style="width: #percent#%"></div>
-                    <div class="shortage" style="width: #percent#%"></div>
-                  </div>
-                </td>
-              </tr> -->
-              <tr class="table-row">
-                <td class="icon">
-                  <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -378,7 +310,7 @@
               <tr class="table-row disabled">
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -427,10 +359,10 @@
                   </div>
                 </td>
               </tr>
-              <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -482,7 +414,7 @@
               <tr class="table-row disabled">
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -531,10 +463,10 @@
                   </div>
                 </td>
               </tr>
-              <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -583,10 +515,10 @@
                   </div>
                 </td>
               </tr>
-              <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -635,10 +567,10 @@
                   </div>
                 </td>
               </tr>
-              <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -687,10 +619,10 @@
                   </div>
                 </td>
               </tr>
-              <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -739,10 +671,10 @@
                   </div>
                 </td>
               </tr>
-              <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -791,10 +723,10 @@
                   </div>
                 </td>
               </tr>
-              <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -843,10 +775,10 @@
                   </div>
                 </td>
               </tr>
-              <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -898,7 +830,7 @@
               <tr class="table-row disabled">
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -947,10 +879,10 @@
                   </div>
                 </td>
               </tr>
-              <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -999,10 +931,10 @@
                   </div>
                 </td>
               </tr>
-              <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -1051,10 +983,10 @@
                   </div>
                 </td>
               </tr>
-              <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -1103,10 +1035,10 @@
                   </div>
                 </td>
               </tr>
-              <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -1155,10 +1087,10 @@
                   </div>
                 </td>
               </tr>
-              <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -1207,10 +1139,10 @@
                   </div>
                 </td>
               </tr>
-              <tr class="table-row">
+              <tr>
                 <td class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <div class="star-status"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -1260,10 +1192,10 @@
                 </td>
               </tr>
 
-              <tr class="table-row">
+              <tr>
                   <td class="icon">
                     <div class="row">
-                      <div class="star"></div>
+                      <div class="star-status"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1312,10 +1244,10 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="table-row">
+                <tr>
                   <td class="icon">
                     <div class="row">
-                      <div class="star"></div>
+                      <div class="star-status"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1364,10 +1296,10 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="table-row">
+                <tr>
                   <td class="icon">
                     <div class="row">
-                      <div class="star"></div>
+                      <div class="star-status"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1416,10 +1348,10 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="table-row">
+                <tr>
                   <td class="icon">
                     <div class="row">
-                      <div class="star"></div>
+                      <div class="star-status"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1468,10 +1400,10 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="table-row">
+                <tr>
                   <td class="icon">
                     <div class="row">
-                      <div class="star"></div>
+                      <div class="star-status"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1520,10 +1452,10 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="table-row">
+                <tr>
                   <td class="icon">
                     <div class="row">
-                      <div class="star"></div>
+                      <div class="star-status"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1572,10 +1504,10 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="table-row">
+                <tr>
                   <td class="icon">
                     <div class="row">
-                      <div class="star"></div>
+                      <div class="star-status"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1627,7 +1559,7 @@
                 <tr class="table-row disabled">
                   <td class="icon">
                     <div class="row">
-                      <div class="star"></div>
+                      <div class="star-status"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1676,10 +1608,10 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="table-row">
+                <tr>
                   <td class="icon">
                     <div class="row">
-                      <div class="star"></div>
+                      <div class="star-status"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1728,10 +1660,10 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="table-row">
+                <tr>
                   <td class="icon">
                     <div class="row">
-                      <div class="star"></div>
+                      <div class="star-status"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1780,10 +1712,10 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="table-row">
+                <tr>
                   <td class="icon">
                     <div class="row">
-                      <div class="star"></div>
+                      <div class="star-status"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1832,10 +1764,10 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="table-row">
+                <tr>
                   <td class="icon">
                     <div class="row">
-                      <div class="star"></div>
+                      <div class="star-status"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1884,10 +1816,10 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="table-row">
+                <tr>
                   <td class="icon">
                     <div class="row">
-                      <div class="star"></div>
+                      <div class="star-status"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1936,10 +1868,10 @@
                     </div>
                   </td>
                 </tr>
-                <tr class="table-row">
+                <tr>
                   <td class="icon">
                     <div class="row">
-                      <div class="star"></div>
+                      <div class="star-status"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1994,11 +1926,11 @@
       </div>
     </div>
 
-    <div id="alerts-container" class="row">
+    <div id="alerts-container" class="row" onclick="closeMessages()">
       <div class="alerts">
         <div class="alerts-title row">
           <div class="row">
-            <div class="alerts-btn"></div>
+            <div class="alerts-icon"></div>
             <div class="title">Уведомления</div>
           </div>
           <svg class="close-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2007,88 +1939,83 @@
           </svg>
         </div>
         <div id="alerts-body">
-          <!-- Шаблон для наполнения уведомлений -->
-          <!-- <div class="message #status#">
-            <div class="date">#date#</div>
-            <div class="text">#text#</div>
-          </div> -->
-          <div class="message status">
+          <div class="message cart-icon">
             <div class="date">2 часа назад</div>
             <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message action">
+          <div class="message percent-icon">
             <div class="date">25.10.19</div>
             <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
           </div>
-          <div class="message attention">
+          <div class="message attention-icon">
             <div class="date">25.11.19</div>
             <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
           </div>
-          <div class="message status">
+          <div class="message cart-icon">
             <div class="date">2 часа назад</div>
             <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message status">
+          <div class="message cart-icon">
             <div class="date">2 часа назад</div>
             <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message status">
+          <div class="message cart-icon">
             <div class="date">2 часа назад</div>
             <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message action">
+          <div class="message percent-icon">
             <div class="date">25.10.19</div>
             <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
           </div>
-          <div class="message attention">
+          <div class="message attention-icon">
             <div class="date">25.11.19</div>
             <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
           </div>
-          <div class="message status">
+          <div class="message cart-icon">
             <div class="date">2 часа назад</div>
             <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message status">
+          <div class="message cart-icon">
             <div class="date">2 часа назад</div>
             <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message status">
+          <div class="message cart-icon">
             <div class="date">2 часа назад</div>
             <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message action">
+          <div class="message percent-icon">
             <div class="date">25.10.19</div>
             <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
           </div>
-          <div class="message attention">
+          <div class="message attention-icon">
             <div class="date">25.11.19</div>
             <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
           </div>
-          <div class="message status">
+          <div class="message cart-icon">
             <div class="date">2 часа назад</div>
             <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message status">
+          <div class="message cart-icon">
             <div class="date">2 часа назад</div>
             <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message status">
+          <div class="message cart-icon">
             <div class="date">2 часа назад</div>
             <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message action">
+          <div class="message percent-icon">
             <div class="date">25.10.19</div>
             <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
           </div>
-          <div class="message attention">
+          <div class="message attention-icon">
             <div class="date">25.11.19</div>
             <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
           </div>
-          <div class="message status">
+          <div class="message cart-icon">
             <div class="date">2 часа назад</div>
             <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message status">
+          <div class="message cart-icon">
             <div class="date">2 часа назад</div>
             <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
@@ -2096,7 +2023,7 @@
       </div>
     </div>
 
-    <svg id="up-btn" class="show" width="38" height="31" viewBox="0 0 38 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg id="up-btn" class="show" onclick="goToTop()" width="38" height="31" viewBox="0 0 38 31" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="0.5" y="0.5" width="37" height="30" rx="4.5" fill="#454D56" fill-opacity="0.6" stroke="white"/>
       <path d="M18.925 11.225C18.625 10.925 18.225 10.925 17.925 11.225L10.225 18.925C9.925 19.225 9.925 19.625 10.225 19.825C10.525 20.125 10.925 20.125 11.225 19.825L18.525 12.825L25.825 19.825C26.125 20.125 26.525 20.125 26.825 19.825C27.125 19.525 27.125 19.125 26.825 18.925L18.925 11.225Z" fill="white"/>
     </svg>
@@ -2110,6 +2037,7 @@
       </div>
     </div>
 
+    <script src ="../js/common.js"></script>
     <script src ="../js/main.js"></script>
 
   </body>

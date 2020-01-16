@@ -1,0 +1,11 @@
+.table-wrap {
+  max-height: 40vh;
+}
+
+.btn-icons div {
+  position: relative;
+  margin-right: 1em;
+  font-size: 2em;
+  width: 0.96em;
+  height: 0.96em;
+}

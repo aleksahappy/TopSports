@@ -6,7 +6,6 @@
   justify-content: space-between;
   align-items: center;
   margin-right: 3em;
-  font-size: 0.86em;
   color: #888888;
 }
 
@@ -17,36 +16,31 @@
 }
 
 .main-header .legend {
-  width: 0.67em;
-  height: 0.67em;
+  width: 0.71em;
+  height: 0.71em;
   margin-right: 0.57em;
 }
 
-.table .star {
+.table .icon {
+  min-width: 50px;
+  width: 50px;
+  max-width: 50px;
+}
+
+.table .statistics {
+  min-width: 1000px;
+  width: 1000px;
+  max-width: 1000px;
+}
+
+.table .icon > .row {
+  justify-content: center;
+}
+
+.table .star,
+.table .star-status {
   width: 1.25em;
   height: 1.17em;
-  background-size: cover;
-}
-
-.table-row .star {
-  background-image: url(../img/star_gray.svg);
-}
-
-.table-row.disabled .star {
-  background-image: url(../img/star_white_gray.svg);
-}
-
-.table-head {
-  background-color: #53606F;
-}
-
-.partner,
-.client {
-  max-width: 17em;
-}
-
-.table-head .statistics {
-  min-width: 59em;
 }
 
 .table-head .percent {
@@ -123,8 +117,8 @@
 }
 
 .table-head .legend {
-  width: 0.83em;
-  height: 0.83em;
+  width: 0.71em;
+  height: 0.71em;
   margin-right: 1em;
 }
 
@@ -181,6 +175,6 @@
   background-color: #A5AFAF;
 }
 
-.table-body .table-row.disabled .statistics > .row > div {
+.table-body tr.disabled .statistics > .row > div {
   background-color: #DDDDDD;
 }

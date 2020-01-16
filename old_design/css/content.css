@@ -900,6 +900,9 @@ body#r_ek .card-notice {
 ===================================================================================================== */
 
 .min-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 13em;
   margin: 0 -1px -1px 0;
   background-color: rgb(255, 255, 255);

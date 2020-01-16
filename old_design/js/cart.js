@@ -36,6 +36,9 @@ if (cartContent) {
       cartDiscountAmount = cartDiscount.querySelector('.discount-amount'),
       cartDiscountPercent = cartDiscount.querySelector('.discount-percent'),
       cartMakeOrder = cartContent.querySelector('.cart-make-order'),
+      deleteBtn = document.getElementById('delete-btn'),
+      orderBtn = document.getElementById('order-btn'),
+      warningBtn = document.getElementById('warning-btn'),
       orderForm = document.getElementById('order-form'),
       paymentSelect = document.getElementById('payment-select'),
       partnerSelect = document.getElementById('partner-select'),
@@ -73,7 +76,7 @@ if (cartContent) {
 var curProduct,
     curArticul,
     cartTimer = null,
-    cartTimeout = 300;
+    cartTimeout = 1000;
 
 //=====================================================================================================
 // Работа с данными о состоянии корзины:
@@ -108,47 +111,49 @@ function checkCartRelevance() {
 
 // Сохранение данных о состоянии корзины:
 
-function saveCartInfo(id, options, sentServer = true) {
+function saveCartInfo(id, options) {
   id = 'id_' + id;
   if (!cart[cartId]) {
     cart[cartId] = {};
   }
+  if (options.qty == 0 && !cart[cartId][id]) {
+    return;
+  }
+  if (!cart[cartId][id]) {
+    cart[cartId][id] = {};
+  }
+  cart[cartId][id].cartId = cartId;
+  cart[cartId][id].id = id.replace('id_', '');
+  for (key in options) {
+    cart[cartId][id][key] = options[key];
+  }
+  cartChanges[id] = cart[cartId][id];
+  cartSentServer();
+
   if (options.qty == 0) {
     delete cart[cartId][id];
-  } else {
-    if (!cart[cartId][id]) {
-      cart[cartId][id] = {};
-    }
-    for (key in options) {
-      cart[cartId][id][key] = options[key];
-    }
-    cart[cartId][id].id = id.replace('id_', '');
-    cart[cartId][id].cartId = cartId;
-  }
-  if (sentServer) {
-    cartItemSentServer(cart[cartId][id]);
   }
   // console.log(cart);
 }
 
-// Отправка данных о товаре из корзины на сервер:
-
-function cartItemSentServer(product) {
-  var data = JSON.stringify(product);
-  // console.log(data);
-  sendRequest(url + 'cart.txt', data)
-    // .then(response => console.log(response))
-    // .catch(err => console.log(err))
-}
-
-// Отправка данных конкретной корзины на сервер:
+// Отправка корзины на сервер:
 
 function cartSentServer() {
-  var data = JSON.stringify(cart[cartId]);
-  // console.log(data);
-  sendRequest(url + 'cart.txt', data)
-  // .then(response => console.log(response))
-  // .catch(err => console.log(err))
+  clearTimeout(cartTimer);
+  cartTimer = setTimeout(function () {
+    console.log(cartChanges);
+    var data = JSON.stringify(cartChanges);
+    sendRequest(url + 'cart.txt', data)
+      .then(response => {
+        cartChanges = {};
+        // console.log(response);
+      })
+      .catch(err => {
+        // cartChanges = {};
+        // cartSentServer();
+        // console.log(err);
+      })
+  }, cartTimeout);
 }
 
 // Отправка данных о заказе на сервер:
@@ -160,15 +165,19 @@ function orderSentServer() {
     return;
   }
   var cartInfo = cart[cartId],
-      dataForSent = {};
+      data = {};
   idList.forEach(id => {
-    dataForSent['id_' + id] = cartInfo['id_' + id];
+    data['id_' + id] = cartInfo['id_' + id];
   });
-  // console.log(dataForSent);
-  var data = JSON.stringify(dataForSent);
+  console.log(data);
+  var data = JSON.stringify(data);
   sendRequest(url + 'cart.txt', data)
-  // .then(response => console.log(response))
-  // .catch(err => console.log(err))
+  .then(response => {
+    // console.log(response);
+  })
+  .catch(err => {
+    // console.log(err);
+  })
 }
 
 //=====================================================================================================
@@ -320,8 +329,11 @@ function numUpakovka(params) {
 // Расчет скидки "итоговая сумма заказа минус %":
 
 function sumLessProc(sum) {
-  var discount = discounts.find(item => !item.diart && checkCondition(item.dcondition)),
-      current = undefined;
+  var discount = discounts.find(item => !item.diart && checkCondition(item.dcondition));
+  if (!discount) {
+    return undefined;
+  }
+  var current;
   discount.dnv.forEach((item, index) => {
     if (sum >= item) {
       current = index;
@@ -635,17 +647,13 @@ function changeCart(event) {
   if (parseInt(input.dataset.value, 10) === qty) {
     return;
   }
+  findCurData(id);
+  if (!curProduct) {
+    return;
+  }
   input.value = qty;
   input.dataset.value = qty;
-
-  findCurData(id);
-  if (curProduct) {
-    clearTimeout(cartTimer);
-    cartTimer = setTimeout(function () {
-      saveCartInfo(id, {qty: qty, freeQty: freeQty, price: curProduct.price_cur1, retailPrice: curProduct.price_user1, actionId: actionId});
-    }, cartTimeout);
-  }
-
+  saveCartInfo(id, {qty: qty, freeQty: freeQty, price: curProduct.price_cur1, retailPrice: curProduct.price_user1, actionId: actionId});
   changeColors(qtyWrap, qty);
   if (curEl.classList.contains('card')) {
     var clicable = qtyWrap.querySelector('.name.click');
@@ -720,7 +728,7 @@ function changeCardInfo(card) {
 
   if (totals.bonus) {
     findCurData(totals.discount.articul);
-    var imgNumb;
+    var imgNumb = '';
     if (curProduct) {
       imgNumb = curProduct.images[0];
     }
@@ -820,38 +828,47 @@ function changeCartRow(row) {
 
 function changeCartInfo() {
   var idList = getIdList();
-  if (!idList) {
-    return;
-  }
-  var totals = countFromCart(idList);
-
-  cartAmount.textContent = totals.amount;
-  if (totals.amount > 0) {
-    cartOrderPrice.textContent = totals.discountPrice.toLocaleString();
-    cartRetailPrice.textContent = totals.retailPrice.toLocaleString();
-
-    if (totals.orderDiscount) {
-      var  discount = totals.orderDiscount;
-      cartDiscountAmount.textContent = discount.amount.toLocaleString();
-      cartDiscountPercent.textContent = discount.percent;
-      cartDiscount.style.display = 'block';
-    } else {
-      cartDiscount.style.display = 'none';
-    }
+  if (idList) {
+    var totals = countFromCart(idList);
+    cartAmount.textContent = totals.amount;
     cartMakeOrder.style.display = 'flex';
+
+    if (totals.amount > 0) {
+      cartOrderPrice.textContent = totals.discountPrice.toLocaleString();
+      cartRetailPrice.textContent = totals.retailPrice.toLocaleString();
+      if (totals.orderDiscount) {
+        var discount = totals.orderDiscount;
+        cartDiscountAmount.textContent = discount.amount.toLocaleString();
+        cartDiscountPercent.textContent = discount.percent;
+        cartDiscount.style.display = 'block';
+      } else {
+        cartDiscount.style.display = 'none';
+      }
+      warningBtn.innerHTML = 'Оформление заказа невозможно:<br>Необходимо выбрать <a href="/clients/">клиента</a>.'
+    }
+    return;
   } else {
-    cartOrderPrice.textContent = 0;
-    cartRetailPrice.textContent = 0;
-    cartDiscount.style.display = 'none';
-    cartMakeOrder.style.display = 'none';
+    var notAvailable = cartRows.querySelectorAll('.cart-row.checked.not-available');
+    if (notAvailable.length > 0) {
+      warningBtn.innerHTML = 'Оформление заказа невозможно:<br>Выбранного товара нет в наличии.';
+      cartMakeOrder.style.display = 'flex';
+      orderBtn.style.display = 'none';
+      warningBtn.style.display = 'block';
+    } else {
+      cartMakeOrder.style.display = 'none';
+    }
+    cartAmount.textContent = 0;
   }
+  cartOrderPrice.textContent = 0;
+  cartRetailPrice.textContent = 0;
+  cartDiscount.style.display = 'none';
 }
 
 // Получение списка id товаров, выбранных в корзине:
 
 function getIdList() {
   var selectedRows = cartRows.querySelectorAll('.cart-row.checked:not(.bonus):not(.not-available)');
-  if (!selectedRows) {
+  if (selectedRows.length === 0) {
     return undefined;
   }
   return Array.from(selectedRows).map(item => item.dataset.id);
@@ -870,23 +887,28 @@ function loadInCart() {
   var addInCart = [],
       error = '',
       strings, curString, id, qty, freeQty, discount, actionId;
-  strings = loadText.value.split(/\n|\r\n/);
+
+  strings = loadText.value
+    .split(/\n|\r\n/)
+    .map(el => el.split(/\s/))
+    .map(el => el.filter(el => el != ''))
+    .filter(el => el.length > 0);
+
   strings.forEach(el => {
-    curString = el.split(/\s/);
-    curString = curString.filter(el => el != '');
-    console.log(curString);
-    if (curString.length > 2) {
+    if (el.length != 2) {
       error = 'Неверный формат вводимых данных';
-      console.log(curString.length);
       return;
     }
-    findCurArticul(curString[0].trim());
-    // console.log(curString[0].trim());
+    findCurArticul(el[0]);
     if (curProduct) {
       id = curProduct.object_id;
-      qty = parseInt(curString[1].trim(), 10);
-      freeQty = parseInt(curProduct.free_qty, 10);
+      qty = parseInt(el[1], 10);
+      if (isNaN(+qty)) {
+        error = 'Неверно введено количество';
+        return;
+      }
       if (qty > 0) {
+        freeQty = parseInt(curProduct.free_qty, 10);
         qty = freeQty > 0 && qty > freeQty ? freeQty : qty;
         actionId = 0;
         discount = findDiscount(id);
@@ -906,13 +928,12 @@ function loadInCart() {
     return;
   }
   addInCart.forEach(el => {
-    saveCartInfo(el.id, el.options, false);
+    saveCartInfo(el.id, el.options);
   });
-  cartSentServer();
   renderCart();
   changeHeaderCart();
   if (addInCart.length < strings.length) {
-    showError('При загрузке найдены не все артикулы');
+    showError('При загрузке были найдены не все артикулы');
     setTimeout(() => closeError(), 1000);
   }
   loadText.value = '';

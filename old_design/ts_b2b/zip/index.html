@@ -482,9 +482,9 @@
                     </div>
                   </div>
                   <div class="cart-make-order row">
-                    <div class="delete-btn" onclick="deleteSelected()">Удалить выбранное</div>
-                    <div class="order-btn" onclick="">Оформить заказ</div>
-                    <div class="warning">Оформление заказа невозможно:<br>Необходимо выбрать <a href="/clients/">клиента</a>.</div>
+                    <div id="delete-btn" onclick="deleteSelected()">Удалить выбранное</div>
+                    <div id="order-btn" onclick="orderSentServer()">Оформить заказ</div>
+                    <div id="warning-btn"></div>
                   </div>
                 </div>
                 <form id="order-form" class="row" method="post" enctype="multipart/form-data">
@@ -519,7 +519,7 @@
                   </div>
                   <div class="comment">
                     <div class="title">Комментарий к заказу</div>
-                    <textarea id="comment"></textarea>
+                    <textarea id="comment" maxlength="300" oninput="countComment()"></textarea>
                     <div class="counter title">Знаков осталось: <span id="comment-counter">300</span></div>
                   </div>
                   <div id="order-info" class="red">Обратите внимание!<br/>Будет создано несколько заказов: (<span id="order-names"></span>)</div>
@@ -613,6 +613,14 @@
             <div id="cart-empty">
               <div class="title">Ваша корзина пуста</div>
               <a id="catalog-link" data-level="1" onclick="openPage(event)">Перейти в каталог товаров</a>
+              <div class="load-cart">
+                <textarea id="load-text" placeholder="Артикул Количество
+Артикул Количество
+Артикул Количество
+Артикул Количество
+Артикул Количество"></textarea>
+                <div class="load-btn" onclick="loadInCart()">Загрузить список</div>
+              </div>
             </div>
           </div>
         </div>

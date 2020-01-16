@@ -308,7 +308,7 @@
   text-align: center;
 }
 
-.cart-make-order .delete-btn {
+#delete-btn {
   margin-right: 1rem;
   padding: 1em 1.25em;
   font-size: 1.125em;
@@ -319,7 +319,7 @@
   cursor: pointer;
 }
 
-.cart-make-order .order-btn {
+#order-btn {
   display: none;
   margin-right: 1rem;
   padding: 0.4em 1em;
@@ -333,7 +333,7 @@
   cursor: pointer;
 }
 
-.cart-make-order .warning {
+#warning-btn {
   padding: 0.75em 1.25em;
   font-size: 0.875em;
   border: 1px solid transparent;
