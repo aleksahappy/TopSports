@@ -23,19 +23,51 @@
             <a class="logo" href="../"><img src="img/logo.svg" alt="Логотип"/></a>
             <div class="row">
               <div class="section-wrap">
-                <div class="section">
+                <div class="section catalogs activate">
                   <div class="head row">
                     <div class="title">Каталоги</div>
                     <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
                     </svg>
                   </div>
-                  <div class="menu">
-                    <a class="menu-item row" href="#">
-                      <div class="title">Предзаказы</div>
-                      <div class="cart">0</div>
-                    </a>
-                    <a class="menu-item row" href="#">
+                  <div class="menu drop-down">
+                    <div class="menu-item row">
+                      <a class="catalog" href="#">Предзаказы</a>
+                      <a class="cart-info row" href="#">
+                        <div class="cart icon"></div>
+                        <div class="amount">0</div>
+                      </a>
+                    </div>
+                    <div class="menu-item row">
+                      <a class="catalog" href="#">Экипировка</a>
+                      <a class="cart-info row" href="#">
+                        <div class="cart icon"></div>
+                        <div class="amount full">189</div>
+                      </a>
+                    </div>
+                    <div class="menu-item row">
+                      <a class="catalog" href="#">Снегоходы</a>
+                      <a class="cart-info row" href="#">
+                        <div class="cart icon"></div>
+                        <div class="amount full">44</div>
+                      </a>
+                    </div>
+                    <div class="menu-item row">
+                      <a class="catalog" href="#">Лодки и моторы</a>
+                      <a class="cart-info row" href="#">
+                        <div class="cart icon"></div>
+                        <div class="amount full">12</div>
+                      </a>
+                    </div>
+                    <div class="menu-item row">
+                      <a class="catalog" href="#">Мерчандайзинг</a>
+                      <a class="cart-info row" href="#">
+                        <div class="cart icon"></div>
+                        <div class="amount">0</div>
+                      </a>
+                    </div>
+                    <!-- Если в выпадающем меню нужна информация о пользователе -->
+                    <!-- <a class="menu-item row" href="#">
                       <div class="title">Экипировка</div>
                       <div class="cart full">189</div>
                     </a>
@@ -50,36 +82,36 @@
                     <a class="menu-item row" href="#">
                       <div class="title">Мерчандайзинг</div>
                       <div class="cart">0</div>
-                    </a>
+                    </a> -->
                   </div>
                 </div>
               </div>
               <div class="section-wrap">
-                <div class="section">
+                <div class="section activate">
                   <div class="head row">
                     <div class="title">Закупки</div>
                     <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
                     </svg>
                   </div>
-                  <div class="menu">
-                    <a href="#">Заказы</a>
-                    <a href="#">Оплаты</a>
-                    <a href="#">Рекламации</a>
-                    <a href="#">Документы</a>
-                    <a href="#">Сертификаты</a>
+                  <div class="menu drop-down">
+                    <a class="menu-item" href="#">Заказы</a>
+                    <a class="menu-item" href="#">Оплаты</a>
+                    <a class="menu-item" href="#">Рекламации</a>
+                    <a class="menu-item" href="#">Документы</a>
+                    <a class="menu-item" href="#">Сертификаты</a>
                   </div>
                 </div>
               </div>
               <div class="section-wrap">
-                <div class="section">
+                <div class="section activate">
                   <div class="head row">
                     <div class="title">Оплаты</div>
                     <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
                     </svg>
                   </div>
-                  <div class="menu">
+                  <div class="menu drop-down">
                   </div>
                 </div>
               </div>
@@ -87,31 +119,31 @@
           </div>
           <div class="right-side row">
             <div class="section-wrap">
-              <div class="section">
+              <div class="section activate">
                 <div class="head row">
-                  <div class="profile-icon"></div>
+                  <div class="profile icon"></div>
                   <div>
-                    <div class="login">TS00000905</div>
+                    <div class="login title">TS00000905</div>
                     <div class="username">Виктор Пашковски</div>
                   </div>
                 </div>
-                <div class="menu">
+                <div class="menu drop-down">
                   <!-- <a href="#">
                     <div class="title">Пользователь</div>
                     <div class="username">Виктор Пашковски</div>
                   </a> -->
                   <div class="links">
-                    <a href="#">Пользователи</a>
-                    <a href="#">Контрагенты</a>
-                    <a href="#">Адреса доставки</a>
-                    <a href="#">Магазины на карте</a>
-                    <a href="#">Медиабанк</a>
+                    <a class="menu-item" href="#">Пользователи</a>
+                    <a class="menu-item" href="#">Контрагенты</a>
+                    <a class="menu-item" href="#">Адреса доставки</a>
+                    <a class="menu-item" href="#">Магазины на карте</a>
+                    <a class="menu-item" href="#">Медиабанк</a>
                   </div>
-                  <a id="exit" href="#">Выйти</a>
+                  <a id="exit" class="menu-item" href="#">Выйти</a>
                 </div>
               </div>
             </div>
-            <div class="alerts-icon" onclick="showMessages()">
+            <div class="alerts icon" onclick="showMessages()">
               <div class="count row">35</div>
             </div>
           </div>
@@ -129,6 +161,16 @@
             <a href="../">Главная</a>
             <a class="item active">Artboard</a>
           </div>
+          <!-- Шаблон для заголовка страницы -->
+          <div class="main-title row">
+            <div class="title-row row">
+              <div class="title">Artboard</div>
+              <div class="question icon help" tooltip="Подсказки"></div>
+            </div>
+            <div class="left-row row">
+              <div class="settings icon" tooltip="Настройки"></div>
+            </div>
+          </div>
         </div>
 
         <!-- Шаблон стандартной таблицы -->
@@ -139,84 +181,108 @@
                 <th id="1">
                   <div class="row">
                     <div class="title">Столбец №1</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="2">
                   <div class="row">
                     <div class="title">Столбец №2</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="3">
                   <div class="row">
                     <div class="title">Столбец №3</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="4">
                   <div class="row">
                     <div class="title">Столбец №4</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="5">
                   <div class="row">
                     <div class="title">Столбец №5</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="6">
                   <div class="row">
                     <div class="title">Столбец №6</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="7">
                   <div class="row">
                     <div class="title">Столбец №7</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="8">
                   <div class="row">
                     <div class="title">Столбец №8</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="9">
                   <div class="row">
                     <div class="title">Столбец №9</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="10">
                   <div class="row">
                     <div class="title">Столбец №10</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="11">
                   <div class="row">
                     <div class="title">Столбец №11</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="12">
                   <div class="row">
                     <div class="title">Столбец №12</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
@@ -2526,36 +2592,148 @@
         <br>
         <br>
 
-        <!-- Шаблоны иконок (svg вставляются как background,
-          в css обязательно необходимо задать размеры: width и height) -->
-        <div class="btn-icons row">
-          <div class="profile-icon"></div>
+        <!-- Шаблоны иконок -->
 
-          <div class="alerts-icon"></div>
+        <div class="title">Иконки svg</div>
 
-          <div class="question-btn help" tooltip="Подсказки"></div>
+        <br>
 
-          <div class="settings-btn" tooltip="Настройки"></div>
+        <div class="icons row">
 
-          <div class="clear-filter-btn" tooltip="Сбросить фильтры"></div>
+          <!-- Шаблон кнопки "наверх" есть ниже, здесь шаблон для наглядности уже с классом show, который должен присваиваться скриптом -->
+          <svg id="up-btn" class="show" onclick="goToTop()" width="38" height="31" viewBox="0 0 38 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0.5" y="0.5" width="37" height="30" rx="4.5" fill="#454D56" fill-opacity="0.6" stroke="white"/>
+            <path d="M18.925 11.225C18.625 10.925 18.225 10.925 17.925 11.225L10.225 18.925C9.925 19.225 9.925 19.625 10.225 19.825C10.525 20.125 10.925 20.125 11.225 19.825L18.525 12.825L25.825 19.825C26.125 20.125 26.525 20.125 26.825 19.825C27.125 19.525 27.125 19.125 26.825 18.925L18.925 11.225Z" fill="white"/>
+          </svg>
 
-          <div class="clear-filter-btn disabled" tooltip="Сбросить фильтры"></div>
+          <svg class="close-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.42859 1.42847L18.5714 18.5713" stroke="#34495E" stroke-linecap="round"/>
+            <path d="M18.1429 1L1 18.1429" stroke="#34495E" stroke-linecap="round"/>
+          </svg>
 
-          <div class="star-icon"></div>
+          <svg class="search-btn" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.1988 15.1562L12.2431 11.1562C13.2841 9.95615 13.8046 8.55615 13.8046 6.95615C13.8046 3.45615 10.7857 0.556152 7.14231 0.556152C3.4989 0.556152 0.375977 3.45615 0.375977 7.05615C0.375977 10.6562 3.3948 13.5562 7.14231 13.5562C8.49558 13.5562 9.84885 13.1561 10.9939 12.3562L14.9496 16.3561C15.1578 16.5561 15.366 16.6562 15.5742 16.6562C15.7824 16.6562 15.9906 16.5562 16.1988 16.4562C16.5111 16.0562 16.5111 15.4562 16.1988 15.1562ZM7.14231 2.25615C9.84885 2.25615 12.139 4.35615 12.139 7.05615C12.139 9.75615 9.95294 11.8562 7.14231 11.8562C4.33168 11.8562 2.14563 9.75615 2.14563 7.05615C2.14563 4.35615 4.33168 2.25615 7.14231 2.25615Z" fill="#666666"/>
+          </svg>
 
-          <div class="star-status-icon"></div>
-
-          <div class="star-status-icon disabled"></div>
-
-          <div class="download"></div>
-
-          <div class="cart-icon"></div>
-
-          <div class="percent-icon"></div>
-
-          <div class="attention-icon"></div>
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.00002 0.23923L9.50002 5.03923H14.5C14.7 5.03923 14.9 5.23923 14.9 5.43923C14.9 5.53923 14.8 5.63923 14.7 5.73923L10.6 8.73923L12.2 13.5392C12.3 13.7392 12.2 13.9392 12 14.0392C11.9 14.0392 11.7 14.0392 11.6 13.9392L7.50002 10.9392L3.40002 13.9392C3.20002 14.0392 3.00002 14.0392 2.90002 13.8392C2.80002 13.7392 2.80002 13.6392 2.80002 13.5392L4.40002 8.73923L0.300024 5.73923C0.100024 5.63923 0.100024 5.33923 0.200024 5.23923C0.300024 5.13923 0.400024 5.03923 0.500024 5.03923H5.50002L7.10002 0.23923C7.20002 0.0392303 7.40002 -0.0607695 7.60002 0.0392305C7.90002 0.0392305 7.90002 0.13923 8.00002 0.23923Z" fill="white"/>
+          </svg>
 
         </div>
+
+        <br>
+        <br>
+
+        <div class="title">Иконки как background у div</div>
+
+        <br>
+
+        <div class="icons row">
+
+          <div class="profile icon"></div>
+
+          <div class="alerts icon"></div>
+
+          <div class="question icon help" tooltip="Подсказки"></div>
+
+          <div class="settings icon" tooltip="Настройки"></div>
+
+          <div class="clear-filter icon" tooltip="Сбросить фильтры"></div>
+
+          <div class="clear-filter icon disabled" tooltip="Сбросить фильтры"></div>
+
+          <div class="star icon"></div>
+
+          <div class="disabled">
+            <div class="star icon"></div>
+          </div>
+
+          <div class="download icon"></div>
+
+          <div class="cart">
+            <div class="message icon"></div>
+          </div>
+
+          <div class="percent">
+            <div class="message icon"></div>
+          </div>
+
+          <div class="attention">
+            <div class="message icon"></div>
+          </div>
+
+          <div class="toggle icon"></div>
+
+          <div class="disabled">
+            <div class="toggle icon"></div>
+          </div>
+
+          <div class="checked full">
+            <div class="toggle icon"></div>
+          </div>
+
+          <div class="checked limit">
+            <div class="toggle icon"></div>
+          </div>
+
+        </div>
+
+        <br>
+        <br>
+
+        <!-- Шаблоны кнопок -->
+
+        <div class="title">Кнопки</div>
+
+        <br>
+
+        <div class="btns row">
+
+          <div class="basic btn">Очистить корзину</div>
+
+          <div class="basic btn">Добавить в корзину из файла</div>
+
+          <div class="active btn">Оформить заказ</div>
+
+          <div class="unactive btn">Закрыть</div>
+
+        </div>
+
+        <br>
+        <br>
+
+        <!-- Шаблоны выпадающих окон -->
+
+        <div class="title">Всплывающие окна</div>
+
+        <br>
+
+        <div class="activate">
+          <div class="head row">
+            <div class="title">Select</div>
+            <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
+            </svg>
+          </div>
+          <div class="menu drop-down select">
+
+          </div>
+        </div>
+
+        <div class="activate">
+          <div class="title">Checkbox</div>
+          <div class="menu drop-down checkbox">
+
+          </div>
+        </div>
+
+        <div class="activate">
+          <div class="title">Checkbox</div>
+          <div class="menu drop-down checkbox">
+
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -2564,7 +2742,7 @@
       <div class="alerts">
         <div class="alerts-title row">
           <div class="row">
-            <div class="alerts-icon"></div>
+            <div class="alerts icon"></div>
             <div class="title">Уведомления</div>
           </div>
           <svg class="close-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2573,92 +2751,152 @@
           </svg>
         </div>
         <div id="alerts-body">
-          <div class="message cart-icon">
-            <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
           </div>
-          <div class="message percent-icon">
-            <div class="date">25.10.19</div>
-            <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
+          <div class="message percent row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.10.19</div>
+              <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
+            </div>
           </div>
-          <div class="message attention-icon">
-            <div class="date">25.11.19</div>
-            <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
+          <div class="message attention row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.11.19</div>
+              <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
+            </div>
           </div>
-          <div class="message cart-icon">
-            <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
           </div>
-          <div class="message cart-icon">
-            <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
           </div>
-          <div class="message cart-icon">
-            <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
           </div>
-          <div class="message percent-icon">
-            <div class="date">25.10.19</div>
-            <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
+          <div class="message percent row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.10.19</div>
+              <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
+            </div>
           </div>
-          <div class="message attention-icon">
-            <div class="date">25.11.19</div>
-            <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
+          <div class="message attention row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.11.19</div>
+              <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
+            </div>
           </div>
-          <div class="message cart-icon">
-            <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
           </div>
-          <div class="message cart-icon">
-            <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
           </div>
-          <div class="message cart-icon">
-            <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
           </div>
-          <div class="message percent-icon">
-            <div class="date">25.10.19</div>
-            <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
+          <div class="message percent row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.10.19</div>
+              <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
+            </div>
           </div>
-          <div class="message attention-icon">
-            <div class="date">25.11.19</div>
-            <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
+          <div class="message attention row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.11.19</div>
+              <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
+            </div>
           </div>
-          <div class="message cart-icon">
-            <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
           </div>
-          <div class="message cart-icon">
-            <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
           </div>
-          <div class="message cart-icon">
-            <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
           </div>
-          <div class="message percent-icon">
-            <div class="date">25.10.19</div>
-            <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
+          <div class="message percent row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.10.19</div>
+              <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
+            </div>
           </div>
-          <div class="message attention-icon">
-            <div class="date">25.11.19</div>
-            <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
+          <div class="message attention row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.11.19</div>
+              <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
+            </div>
           </div>
-          <div class="message cart-icon">
-            <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
           </div>
-          <div class="message cart-icon">
-            <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Шаблон кнопки "Наверх страницы" -->
-    <svg id="up-btn" class="show" onclick="goToTop()" width="38" height="31" viewBox="0 0 38 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg id="up-btn" onclick="goToTop()" width="38" height="31" viewBox="0 0 38 31" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="0.5" y="0.5" width="37" height="30" rx="4.5" fill="#454D56" fill-opacity="0.6" stroke="white"/>
       <path d="M18.925 11.225C18.625 10.925 18.225 10.925 17.925 11.225L10.225 18.925C9.925 19.225 9.925 19.625 10.225 19.825C10.525 20.125 10.925 20.125 11.225 19.825L18.525 12.825L25.825 19.825C26.125 20.125 26.525 20.125 26.825 19.825C27.125 19.525 27.125 19.125 26.825 18.925L18.925 11.225Z" fill="white"/>
     </svg>

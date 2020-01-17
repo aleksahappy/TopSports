@@ -2,10 +2,24 @@
   max-height: 40vh;
 }
 
-.btn-icons div {
-  position: relative;
+.icons #up-btn {
+  position: static;
+}
+
+.icons #up-btn,
+.icons > svg,
+.icons > div {
   margin-right: 1em;
   font-size: 2em;
-  width: 0.96em;
-  height: 0.96em;
+  width: 1em;
+  height: 1em;
+}
+
+.icons > div > div {
+  width: 1em;
+  height: 1em;
+}
+
+.btns > div {
+  margin-right: 1em;
 }

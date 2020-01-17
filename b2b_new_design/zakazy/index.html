@@ -23,19 +23,50 @@
             <a class="logo" href="../"><img src="../img/logo.svg" alt="Логотип"/></a>
             <div class="row">
               <div class="section-wrap">
-                <div class="section">
+                <div class="section activate">
                   <div class="head row">
                     <div class="title">Каталоги</div>
                     <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
                     </svg>
                   </div>
-                  <div class="menu">
-                    <a class="menu-item row" href="#">
-                      <div class="title">Предзаказы</div>
-                      <div class="cart">0</div>
-                    </a>
-                    <a class="menu-item row" href="#">
+                  <div class="menu drop-down">
+                    <div class="menu-item row" href="#">
+                      <a class="catalog">Предзаказы</a>
+                      <a class="cart-info row">
+                        <div class="cart icon"></div>
+                        <div class="amount">0</div>
+                      </a>
+                    </div>
+                    <div class="menu-item row" href="#">
+                      <a class="catalog">Экипировка</a>
+                      <a class="cart-info row">
+                        <div class="cart icon"></div>
+                        <div class="amount full">189</div>
+                      </a>
+                    </div>
+                    <div class="menu-item row" href="#">
+                      <a class="catalog">Снегоходы</a>
+                      <a class="cart-info row">
+                        <div class="cart icon"></div>
+                        <div class="amount full">44</div>
+                      </a>
+                    </div>
+                    <div class="menu-item row" href="#">
+                      <a class="catalog">Лодки и моторы</a>
+                      <a class="cart-info row">
+                        <div class="cart icon"></div>
+                        <div class="amount full">12</div>
+                      </a>
+                    </div>
+                    <div class="menu-item row" href="#">
+                      <a class="catalog">Мерчандайзинг</a>
+                      <a class="cart-info row">
+                        <div class="cart icon"></div>
+                        <div class="amount">0</div>
+                      </a>
+                    </div>
+                    <!-- <a class="menu-item row" href="#">
                       <div class="title">Экипировка</div>
                       <div class="cart full">189</div>
                     </a>
@@ -50,19 +81,19 @@
                     <a class="menu-item row" href="#">
                       <div class="title">Мерчандайзинг</div>
                       <div class="cart">0</div>
-                    </a>
+                    </a> -->
                   </div>
                 </div>
               </div>
               <div class="section-wrap">
-                <div class="section">
+                <div class="section activate">
                   <div class="head row">
                     <div class="title">Закупки</div>
                     <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
                     </svg>
                   </div>
-                  <div class="menu">
+                  <div class="menu drop-down">
                     <a href="#">Заказы</a>
                     <a href="#">Оплаты</a>
                     <a href="#">Рекламации</a>
@@ -72,14 +103,14 @@
                 </div>
               </div>
               <div class="section-wrap">
-                <div class="section">
+                <div class="section activate">
                   <div class="head row">
                     <div class="title">Оплаты</div>
                     <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
                     </svg>
                   </div>
-                  <div class="menu">
+                  <div class="menu drop-down">
                   </div>
                 </div>
               </div>
@@ -87,15 +118,15 @@
           </div>
           <div class="right-side row">
             <div class="section-wrap">
-              <div class="section">
+              <div class="section activate">
                 <div class="head row">
-                  <div class="profile-icon"></div>
+                  <div class="profile icon"></div>
                   <div>
-                    <div class="login">TS00000905</div>
+                    <div class="login title">TS00000905</div>
                     <div class="username">Виктор Пашковски</div>
                   </div>
                 </div>
-                <div class="menu">
+                <div class="menu drop-down">
                   <!-- <a href="#">
                     <div class="title">Пользователь</div>
                     <div class="username">Виктор Пашковски</div>
@@ -111,7 +142,7 @@
                 </div>
               </div>
             </div>
-            <div class="alerts-icon" onclick="showMessages()">
+            <div class="alerts icon" onclick="showMessages()">
               <div class="count row">35</div>
             </div>
           </div>
@@ -129,32 +160,32 @@
           <div class="main-title row">
             <div class="title-row row">
               <div class="title">Заказы</div>
-              <div class="question-btn"></div>
+              <div class="question icon help" tooltip="Подсказки"></div>
             </div>
             <div class="left-row row">
               <div class="legend-row row">
                 <div class="row">
-                  <div class="legend expected"></div>
+                  <div class="legend icon expected"></div>
                   <div>Товар ожидается</div>
                 </div>
                 <div class="row">
-                  <div class="legend available"></div>
+                  <div class="legend icon available"></div>
                   <div>Товар в наличии</div>
                 </div>
                 <div class="row">
-                  <div class="legend ready"></div>
+                  <div class="legend icon ready"></div>
                   <div>Товар собран</div>
                 </div>
                 <div class="row">
-                  <div class="legend shipped"></div>
+                  <div class="legend icon shipped"></div>
                   <div>Товар отгружен</div>
                 </div>
                 <div class="row">
-                  <div class="legend shortage"></div>
+                  <div class="legend icon shortage"></div>
                   <div>Недопоставка</div>
                 </div>
               </div>
-              <div class="settings-btn"></div>
+              <div class="settings icon" tooltip="Настройки"></div>
             </div>
           </div>
         </div>
@@ -164,86 +195,104 @@
               <tr>
                 <th id="1" class="icon">
                   <div class="row">
-                    <div class="star"></div>
+                    <svg class="star" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8.00002 0.23923L9.50002 5.03923H14.5C14.7 5.03923 14.9 5.23923 14.9 5.43923C14.9 5.53923 14.8 5.63923 14.7 5.73923L10.6 8.73923L12.2 13.5392C12.3 13.7392 12.2 13.9392 12 14.0392C11.9 14.0392 11.7 14.0392 11.6 13.9392L7.50002 10.9392L3.40002 13.9392C3.20002 14.0392 3.00002 14.0392 2.90002 13.8392C2.80002 13.7392 2.80002 13.6392 2.80002 13.5392L4.40002 8.73923L0.300024 5.73923C0.100024 5.63923 0.100024 5.33923 0.200024 5.23923C0.300024 5.13923 0.400024 5.03923 0.500024 5.03923H5.50002L7.10002 0.23923C7.20002 0.0392303 7.40002 -0.0607695 7.60002 0.0392305C7.90002 0.0392305 7.90002 0.13923 8.00002 0.23923Z" fill="white"/>
+                    </svg>
                   </div>
                 </th>
                 <th id="2" class="order-number">
                   <div class="row">
                     <div class="title">№ заказа</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="3" class="date">
                   <div class="row">
                     <div class="title">Дата заказа</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="4" class="partner">
                   <div class="row">
                     <div class="title">Контрагент</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="5" class="client">
                   <div class="row">
                     <div class="title">Заказчик</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="6" class="order-type">
                   <div class="row">
                     <div class="title">Тип заказа</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="7" class="amount">
                   <div class="row">
                     <div class="title">Сумма счета</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="8" class="status">
                   <div class="row">
                     <div class="title">Статус заказа</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                   </div>
                   <div class="resize-btn"></div>
                 </th>
                 <th id="9" class="statistics">
-                  <div class="row">
+                  <div class="row activate">
                     <div class="title">Состояние товаров</div>
-                    <div class="triangle-white"></div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                    </svg>
                     <div class="percent twenty"></div>
                     <div class="percent forty"></div>
                     <div class="percent sixty"></div>
                     <div class="percent eighty"></div>
                     <div class="percent hundred"></div>
-                    <div class="menu">
+                    <div class="menu drop-down">
                       <div class="row">
-                        <div class="legend expected"></div>
+                        <div class="legend icon expected"></div>
                         <div>Товар ожидается</div>
                       </div>
                       <div class="row">
-                        <div class="legend available"></div>
+                        <div class="legend icon available"></div>
                         <div>Товар в наличии</div>
                       </div>
                       <div class="row">
-                        <div class="legend ready"></div>
+                        <div class="legend icon ready"></div>
                         <div>Товар собран</div>
                       </div>
                       <div class="row">
-                        <div class="legend shipped"></div>
+                        <div class="legend icon shipped"></div>
                         <div>Товар отгружен</div>
                       </div>
                       <div class="row">
-                        <div class="legend shortage"></div>
+                        <div class="legend icon shortage"></div>
                         <div>Недопоставка</div>
                       </div>
                     </div>
@@ -256,9 +305,9 @@
           <table class="table">
             <tbody class="table-body">
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -289,7 +338,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -308,9 +357,9 @@
                 </td>
               </tr>
               <tr class="table-row disabled">
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -341,7 +390,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -360,9 +409,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -393,7 +442,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -412,9 +461,9 @@
                 </td>
               </tr>
               <tr class="table-row disabled">
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -445,7 +494,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -464,9 +513,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -497,7 +546,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -516,9 +565,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -549,7 +598,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -568,9 +617,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -601,7 +650,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -620,9 +669,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -653,7 +702,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -672,9 +721,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -705,7 +754,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -724,9 +773,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -757,7 +806,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -776,9 +825,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -809,7 +858,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -828,9 +877,9 @@
                 </td>
               </tr>
               <tr class="table-row disabled">
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -861,7 +910,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -880,9 +929,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -913,7 +962,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -932,9 +981,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -965,7 +1014,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -984,9 +1033,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -1017,7 +1066,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -1036,9 +1085,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -1069,7 +1118,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -1088,9 +1137,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -1121,7 +1170,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -1140,9 +1189,9 @@
                 </td>
               </tr>
               <tr>
-                <td class="icon">
+                <td class="status-icon">
                   <div class="row">
-                    <div class="star-status"></div>
+                    <div class="star icon"></div>
                   </div>
                 </td>
                 <td class="order-number">
@@ -1173,7 +1222,7 @@
                 <td class="amount">
                   <div class="row">
                     <div class="number">13 546 050,00</div>
-                    <div class="download"></div>
+                    <div class="download icon"></div>
                   </div>
                 </td>
                 <td class="status">
@@ -1193,9 +1242,9 @@
               </tr>
 
               <tr>
-                  <td class="icon">
+                  <td class="status-icon">
                     <div class="row">
-                      <div class="star-status"></div>
+                      <div class="star icon"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1226,7 +1275,7 @@
                   <td class="amount">
                     <div class="row">
                       <div class="number">13 546 050,00</div>
-                      <div class="download"></div>
+                      <div class="download icon"></div>
                     </div>
                   </td>
                   <td class="status">
@@ -1245,9 +1294,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="icon">
+                  <td class="status-icon">
                     <div class="row">
-                      <div class="star-status"></div>
+                      <div class="star icon"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1278,7 +1327,7 @@
                   <td class="amount">
                     <div class="row">
                       <div class="number">13 546 050,00</div>
-                      <div class="download"></div>
+                      <div class="download icon"></div>
                     </div>
                   </td>
                   <td class="status">
@@ -1297,9 +1346,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="icon">
+                  <td class="status-icon">
                     <div class="row">
-                      <div class="star-status"></div>
+                      <div class="star icon"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1330,7 +1379,7 @@
                   <td class="amount">
                     <div class="row">
                       <div class="number">13 546 050,00</div>
-                      <div class="download"></div>
+                      <div class="download icon"></div>
                     </div>
                   </td>
                   <td class="status">
@@ -1349,9 +1398,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="icon">
+                  <td class="status-icon">
                     <div class="row">
-                      <div class="star-status"></div>
+                      <div class="star icon"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1382,7 +1431,7 @@
                   <td class="amount">
                     <div class="row">
                       <div class="number">13 546 050,00</div>
-                      <div class="download"></div>
+                      <div class="download icon"></div>
                     </div>
                   </td>
                   <td class="status">
@@ -1401,9 +1450,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="icon">
+                  <td class="status-icon">
                     <div class="row">
-                      <div class="star-status"></div>
+                      <div class="star icon"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1434,7 +1483,7 @@
                   <td class="amount">
                     <div class="row">
                       <div class="number">13 546 050,00</div>
-                      <div class="download"></div>
+                      <div class="download icon"></div>
                     </div>
                   </td>
                   <td class="status">
@@ -1453,9 +1502,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="icon">
+                  <td class="status-icon">
                     <div class="row">
-                      <div class="star-status"></div>
+                      <div class="star icon"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1486,7 +1535,7 @@
                   <td class="amount">
                     <div class="row">
                       <div class="number">13 546 050,00</div>
-                      <div class="download"></div>
+                      <div class="download icon"></div>
                     </div>
                   </td>
                   <td class="status">
@@ -1505,9 +1554,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="icon">
+                  <td class="status-icon">
                     <div class="row">
-                      <div class="star-status"></div>
+                      <div class="star icon"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1538,7 +1587,7 @@
                   <td class="amount">
                     <div class="row">
                       <div class="number">13 546 050,00</div>
-                      <div class="download"></div>
+                      <div class="download icon"></div>
                     </div>
                   </td>
                   <td class="status">
@@ -1557,9 +1606,9 @@
                   </td>
                 </tr>
                 <tr class="table-row disabled">
-                  <td class="icon">
+                  <td class="status-icon">
                     <div class="row">
-                      <div class="star-status"></div>
+                      <div class="star icon"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1590,7 +1639,7 @@
                   <td class="amount">
                     <div class="row">
                       <div class="number">13 546 050,00</div>
-                      <div class="download"></div>
+                      <div class="download icon"></div>
                     </div>
                   </td>
                   <td class="status">
@@ -1609,9 +1658,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="icon">
+                  <td class="status-icon">
                     <div class="row">
-                      <div class="star-status"></div>
+                      <div class="star icon"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1642,7 +1691,7 @@
                   <td class="amount">
                     <div class="row">
                       <div class="number">13 546 050,00</div>
-                      <div class="download"></div>
+                      <div class="download icon"></div>
                     </div>
                   </td>
                   <td class="status">
@@ -1661,9 +1710,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="icon">
+                  <td class="status-icon">
                     <div class="row">
-                      <div class="star-status"></div>
+                      <div class="star icon"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1694,7 +1743,7 @@
                   <td class="amount">
                     <div class="row">
                       <div class="number">13 546 050,00</div>
-                      <div class="download"></div>
+                      <div class="download icon"></div>
                     </div>
                   </td>
                   <td class="status">
@@ -1713,9 +1762,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="icon">
+                  <td class="status-icon">
                     <div class="row">
-                      <div class="star-status"></div>
+                      <div class="star icon"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1746,7 +1795,7 @@
                   <td class="amount">
                     <div class="row">
                       <div class="number">13 546 050,00</div>
-                      <div class="download"></div>
+                      <div class="download icon"></div>
                     </div>
                   </td>
                   <td class="status">
@@ -1765,9 +1814,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="icon">
+                  <td class="status-icon">
                     <div class="row">
-                      <div class="star-status"></div>
+                      <div class="star icon"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1798,7 +1847,7 @@
                   <td class="amount">
                     <div class="row">
                       <div class="number">13 546 050,00</div>
-                      <div class="download"></div>
+                      <div class="download icon"></div>
                     </div>
                   </td>
                   <td class="status">
@@ -1817,9 +1866,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="icon">
+                  <td class="status-icon">
                     <div class="row">
-                      <div class="star-status"></div>
+                      <div class="star icon"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1850,7 +1899,7 @@
                   <td class="amount">
                     <div class="row">
                       <div class="number">13 546 050,00</div>
-                      <div class="download"></div>
+                      <div class="download icon"></div>
                     </div>
                   </td>
                   <td class="status">
@@ -1869,9 +1918,9 @@
                   </td>
                 </tr>
                 <tr>
-                  <td class="icon">
+                  <td class="status-icon">
                     <div class="row">
-                      <div class="star-status"></div>
+                      <div class="star icon"></div>
                     </div>
                   </td>
                   <td class="order-number">
@@ -1902,7 +1951,7 @@
                   <td class="amount">
                     <div class="row">
                       <div class="number">13 546 050,00</div>
-                      <div class="download"></div>
+                      <div class="download icon"></div>
                     </div>
                   </td>
                   <td class="status">
@@ -1930,7 +1979,7 @@
       <div class="alerts">
         <div class="alerts-title row">
           <div class="row">
-            <div class="alerts-icon"></div>
+            <div class="alerts icon"></div>
             <div class="title">Уведомления</div>
           </div>
           <svg class="close-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1939,85 +1988,85 @@
           </svg>
         </div>
         <div id="alerts-body">
-          <div class="message cart-icon">
+          <div class="message cart icon">
             <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message percent-icon">
+          <div class="message percent icon">
             <div class="date">25.10.19</div>
             <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
           </div>
-          <div class="message attention-icon">
+          <div class="message attention icon">
             <div class="date">25.11.19</div>
             <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
           </div>
-          <div class="message cart-icon">
+          <div class="message cart icon">
             <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message cart-icon">
+          <div class="message cart icon">
             <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message cart-icon">
+          <div class="message cart icon">
             <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message percent-icon">
+          <div class="message percent icon">
             <div class="date">25.10.19</div>
             <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
           </div>
-          <div class="message attention-icon">
+          <div class="message attention icon">
             <div class="date">25.11.19</div>
             <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
           </div>
-          <div class="message cart-icon">
+          <div class="message cart icon">
             <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message cart-icon">
+          <div class="message cart icon">
             <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message cart-icon">
+          <div class="message cart icon">
             <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message percent-icon">
+          <div class="message percent icon">
             <div class="date">25.10.19</div>
             <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
           </div>
-          <div class="message attention-icon">
+          <div class="message attention icon">
             <div class="date">25.11.19</div>
             <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
           </div>
-          <div class="message cart-icon">
+          <div class="message cart icon">
             <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message cart-icon">
+          <div class="message cart icon">
             <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message cart-icon">
+          <div class="message cart icon">
             <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message percent-icon">
+          <div class="message percent icon">
             <div class="date">25.10.19</div>
             <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
           </div>
-          <div class="message attention-icon">
+          <div class="message attention icon">
             <div class="date">25.11.19</div>
             <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
           </div>
-          <div class="message cart-icon">
+          <div class="message cart icon">
             <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
-          <div class="message cart-icon">
+          <div class="message cart icon">
             <div class="date">2 часа назад</div>
-            <div class="text">Заказ <a href="#">ТС-123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
           </div>
         </div>
       </div>
