@@ -7,10 +7,9 @@
 // Элементы DOM для работы с ними:
 
 if (headerCart) {
-  var headerPrice = headerCart.querySelector('.price span'),
-      headerAmount = headerCart.querySelector('.amount span'),
-      headerShortAmount = headerCart.querySelector('.short-amount'),
-      headercartId = headerCart.querySelector('.name');
+  var headerPrice = headerCart.querySelector('.amount span'),
+      headerAmount = headerCart.querySelector('.count'),
+      cartName = document.getElementById('cart-name');
 }
 
 var cartContent = document.getElementById('cart');
@@ -356,16 +355,17 @@ function sumLessProc(sum) {
 // Отображение информации о состоянии корзины в шапке сайта:
 
 function changeHeaderCart() {
-  if (headercartId) {
-    headercartId.textContent = '(' + document.querySelector('.topmenu-item.active').textContent + ')';
-  }
   var totals = countFromCart();
-  headerAmount.textContent = totals.amount;
   headerPrice.textContent = totals.discountPrice.toLocaleString();
+  headerAmount.textContent = totals.amount;
+  if (location.search == '?cart') {
+    cartName.textContent = ': ' + document.querySelector('.topmenu-item.active').textContent + ' - ' + totals.amount + ' товаров';
+    cartName.style.display = 'block';
+  }
   if (totals.amount == 0) {
-    headerShortAmount.style.visibility = 'hidden';
+    headerAmount.style.visibility = 'hidden';
   } else {
-    headerShortAmount.style.visibility = 'visible';
+    headerAmount.style.visibility = 'visible';
     if (totals.amount > 99) {
       headerShortAmount.textContent = '99';
     } else {

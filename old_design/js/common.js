@@ -517,3 +517,76 @@ function removeInfo(key, data) {
   pageInfo[key] = data;
   saveInLocal(website, pageInfo);
 }
+
+//=====================================================================================================
+// Работа с выпадающими списками:
+//=====================================================================================================
+
+document.querySelectorAll('.activate.select').forEach(el => new DropDown(el));
+document.querySelectorAll('.activate.checkbox').forEach(el => new DropDown(el));
+document.addEventListener('click', (event) => {
+  if (!event.target.closest('.activate')) {
+    document.querySelectorAll('.activate').forEach(el => el.classList.remove('open'));
+  }
+});
+
+function DropDown(obj) {
+  // Элементы для работы:
+  this.filter = obj;
+  this.head = obj.querySelector('.head');
+  this.title = obj.querySelector('.title');
+  this.items = obj.querySelectorAll('.item');
+  this.closeBtn = obj.querySelector('.close-btn');
+
+  // Константы:
+  this.titleText = this.title.textContent;
+
+  // Установка обработчиков событий:
+  this.setEventListeners = function() {
+    if (this.head) {
+      this.head.addEventListener('click', event => this.toggleFilter(event));
+    }
+    this.items.forEach(el => el.addEventListener('click', event => this.checkItem(event)));
+    // this.closeBtn.addEventListener('click', event => this.clearFilter(event));
+  }
+  this.setEventListeners();
+
+  // Открытие/закрытие выпадающего списка:
+  this.toggleFilter = function() {
+    if (this.filter.classList.contains('open')) {
+      this.filter.classList.remove('open');
+    } else {
+      document.querySelectorAll('.activate').forEach(el => el.classList.remove('open'));
+      this.filter.classList.add('open');
+    }
+  }
+
+  // Выбор значения:
+  this.checkItem = function (event) {
+    var curItem = event.currentTarget;
+    if (this.filter.classList.contains('select')) {
+      curItem.classList.add('checked');
+    }
+    if (this.filter.classList.contains('checkbox')) {
+      curItem.classList.toggle('checked');
+    }
+
+    var checked = this.filter.querySelectorAll('.item.checked');
+    if (checked.length === 0) {
+      this.clearFilter(event);
+    } else {
+      if (this.filter.classList.contains('select')) {
+        this.title.textContent = curItem.textContent;
+      }
+      if (this.filter.classList.contains('checkbox')) {
+        this.title.textContent = 'Выбрано значений: ' + checked.length;
+      }
+    }
+  }
+
+  // Очистка фильтра:
+  this.clearFilter = function () {
+    this.title.textContent = this.titleText;
+    this.filter.querySelectorAll('.item.checked').forEach(el => el.classList.remove('checked'));
+  }
+}

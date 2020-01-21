@@ -32,7 +32,9 @@ function closeMessages() {
 
 document.addEventListener('DOMContentLoaded', () => {
   var table = document.querySelector('.table-wrap');
-  setTimeout(() => alignTableColumns(table), 10);
+  if (table) {
+    setTimeout(() => alignTableColumns(table), 10);
+  }
 });
 
 function alignTableColumns(table) {
@@ -72,7 +74,6 @@ function alignTableColumns(table) {
     resizeBtns.forEach(el => {
       el.addEventListener('mousedown', (event) => {
         curColumn = event.currentTarget.parentElement;
-        console.log(curColumn);
         startOffset = curColumn.offsetWidth - event.pageX;
       });
     });
@@ -97,3 +98,15 @@ function alignTableColumns(table) {
     });
   }
 })();
+
+function openSearch(search) {
+  search.closest('form').classList.add('positioned');
+}
+
+function closeSearch(search) {
+  search.closest('form').classList.remove('positioned');
+}
+
+// function showX(event) {
+//   console.log(event);
+// }

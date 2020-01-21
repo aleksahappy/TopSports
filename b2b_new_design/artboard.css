@@ -1,9 +1,14 @@
+.inform >:first-child {
+  margin-right: 5em;
+}
+
 .table-wrap {
   max-height: 40vh;
 }
 
 .icons #up-btn {
   position: static;
+  display: block;
 }
 
 .icons #up-btn,
@@ -20,6 +25,33 @@
   height: 1em;
 }
 
+.not-found.icon {
+  width: 1.46em;
+  height: 1em;
+}
+
+.check-icons > div {
+  margin-right: 1em;
+  font-size: 1em;
+  width: 1em;
+  height: 1em;
+}
+
+.check-icons > div > div {
+  width: 1em;
+  height: 1em;
+}
+
 .btns > div {
   margin-right: 1em;
+}
+
+.drop-down-wrap {
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 500px;
+}
+
+.drop-down-wrap > div {
+ margin-right: 2em;
 }
