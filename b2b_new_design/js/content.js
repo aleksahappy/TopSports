@@ -8,22 +8,17 @@
 
 var pageSearch = document.getElementById('page-search'),
     zipSelect = document.querySelector('.zip-select'),
-    mainHeader = document.querySelector('.main-header'),
+    mainHeader = document.getElementById('main-header'),
     mainNav = document.getElementById('main-nav'),
-    mainInfo = document.getElementById('main-info'),
-    pageTitle = document.getElementById('page-title'),
-    gallerySort = document.getElementById('gallery-sort'),
     content = document.getElementById('content'),
     filtersContainer = document.getElementById('filters-container'),
     filters = document.getElementById('filters'),
     menuFilters = document.getElementById('menu-filters'),
+    galleryWrap =document.getElementById('gallery-wrap'),
     gallery = document.getElementById('gallery'),
-    manufTitle = document.getElementById('manuf-headers'),
     galleryNotice = document.getElementById('gallery-notice'),
     fullCardContainer = document.getElementById('full-card-container'),
-    fullImgContainer = document.getElementById('full-img-container'),
-    fullImg = document.getElementById('full-img'),
-    imgLoader = document.getElementById('img-loader');
+    fullImgContainer = document.getElementById('full-img-container');
 
 if (pageSearch) {
   var pageSearchInput = document.getElementById('page-search-input'),
@@ -68,15 +63,10 @@ if (menuFilters) {
       filterItemTemplate = menuFilters.querySelector('.filter-item').outerHTML,
       filterSubitemTemplate = menuFilters.querySelector('.filter-item.subitem').outerHTML;
 }
-if (fullImg) {
-  var fullImgTemplate = fullImg.innerHTML,
-      carouselItemTemplate = fullImg.querySelector('.carousel-gallery').innerHTML;
-}
-
-// Получение свойств "#...#" из шаблонов HTML:
-
-function extractProps(template) {
-  return template.match(/#[^#]+#/gi).map(prop => prop = prop.replace(/#/g, ''));
+if (fullImgContainer) {
+  var fullImg = document.getElementById('full-img'),
+      fullImgTemplate = fullImg.innerHTML,
+      fullCarouselTemplate = fullImg.querySelector('.carousel-gallery').innerHTML;
 }
 
 // Динамически изменяемые переменные:
@@ -88,8 +78,7 @@ var items,
     selectedItems = '',
     itemsForSearch,
     zipFilterData = {},
-    pageUrl = pageId,
-    pageFilter = null;
+    pageUrl = pageId;
 
 //=====================================================================================================
 // Первоначальное заполнение контента на странице:
@@ -118,9 +107,9 @@ if (cart) {
         );
       },
       error => {
-        gallery.style.display = 'none';
-        galleryNotice.style.display = 'flex';
-        pageLoader.style.display = 'none';
+        showElement(galleryWrap);
+        showElement(galleryNotice, 'flex');
+        hideElement(loader);
       }
     )
   } else {
@@ -170,37 +159,10 @@ function convertItems() {
 }
 
 //=====================================================================================================
-// Получение данных с сервера:
-//=====================================================================================================
-
-// Получение данных о товаре:
-
-function getProductInfo(id) {
-  return new Promise((resolve, reject) => {
-    sendRequest(`http://80.234.34.212:2000/-aleksa-/TopSports/test/product${id}.txt`)
-    .then(
-      result => {
-        var product = JSON.parse(result);
-        // console.log(product);
-        resolve(product);
-      }
-    )
-    .catch(error => {
-      // console.log(error);
-      reject();
-    })
-  });
-}
-
-//=====================================================================================================
 // Визуальное отображение контента на странице:
 //=====================================================================================================
 
-// Кастомные настройки каруселей:
-
-// var bigCardCarousel = {
-//   durationBtns: 600,
-// };
+// Настройка каруселей:
 
 var fullCardCarousel = {
   isNav: true,
@@ -215,20 +177,21 @@ var fullImgCarousel = {
 // Установка ширины галереи:
 
 function setGalleryWidth() {
-  gallery.style.width = (content.clientWidth - filters.clientWidth - 30) + 'px';
+  galleryWrap.style.width = (content.clientWidth - filters.clientWidth - 10) + 'px';
+  setMinCardWidth();
 }
 
 // Установка ширины малых карточек товаров:
 
 function setMinCardWidth() {
-  if (content.classList.contains('list')) {
+  if (!content.classList.contains('blocks')) {
     return;
   }
-  var standartWidth = (13 * parseInt(getComputedStyle(gallery).fontSize, 10));
-  var countCards = Math.floor(gallery.clientWidth / standartWidth);
-  var restGallery = gallery.clientWidth - countCards * standartWidth;
-  var changeMinCard = restGallery / countCards;
-  var minCardWidth = 0;
+  var standartWidth = (13 * parseInt(getComputedStyle(gallery).fontSize, 10)),
+      countCards = Math.floor(gallery.clientWidth / standartWidth),
+      restGallery = gallery.clientWidth - countCards * standartWidth,
+      changeMinCard = restGallery / countCards,
+      minCardWidth = 0;
   if (changeMinCard <= 110) {
     minCardWidth = standartWidth + changeMinCard;
   } else {
@@ -244,8 +207,7 @@ function setMinCardWidth() {
 
 function setFiltersPosition() {
   if (window.innerWidth > 767) {
-    var filtersPosition = filters.style.position;
-    if (filtersPosition == 'fixed') {
+    if (filters.style.position == 'fixed') {
       if (menuFilters.clientHeight >= gallery.clientHeight) {
         filters.style.position = 'static';
         filters.style.top = '0px';
@@ -265,18 +227,18 @@ function setFiltersPosition() {
 // Установка высоты меню фильтров:
 
 function setFiltersHeight() {
-  var scrolled = window.pageYOffset || document.documentElement.scrollTop;
-  var headerHeight = document.querySelector('.header').clientHeight;
-  var headerMainHeight = Math.max((document.querySelector('.main-header').clientHeight - scrolled), 20);
-  var footerHeight = Math.max((window.innerHeight + scrolled - document.querySelector('.footer').offsetTop) + 20, 0);
-  var filtersHeight = window.innerHeight - headerHeight - headerMainHeight - footerHeight;
+  var scrolled = window.pageYOffset || document.documentElement.scrollTop,
+      headerHeight = document.querySelector('.header').clientHeight,
+      headerMainHeight = Math.max((mainHeader.clientHeight - scrolled), 20),
+      footerHeight = Math.max((window.innerHeight + scrolled - document.querySelector('.footer').offsetTop) + 20, 0),
+      filtersHeight = window.innerHeight - headerHeight - headerMainHeight - footerHeight;
 
   filters.style.top = `${headerHeight + headerMainHeight}px`;
   filters.style.height = `${filtersHeight}px`;
 }
 
 //=====================================================================================================
-// Функции для работы с URL и данными страницы:
+// Динамическая смена URL и данных на странице:
 //=====================================================================================================
 
 var path;
@@ -284,7 +246,7 @@ var path;
 // Рендеринг страницы при загрузке:
 
 function showPage() {
-  pageLoader.style.display = 'none';
+  hideElement(loader);
   setCardTemplate();
   initPage();
 }
@@ -318,11 +280,11 @@ function initPage() {
       if (website == 'ts_com') {
         path.push('o_ek');
       }
-      for (key of catId) {
+      catId.forEach(key => {
         if (items[0].catid == catId[key]) {
           path.push(key);
         }
-      }
+      });
     }
   } else {
     path = location.search.split('?').map(el => {
@@ -333,7 +295,6 @@ function initPage() {
       }
     });
   }
-
   renderContent();
 }
 
@@ -350,8 +311,8 @@ function openPage(event) {
       return;
     }
   } else {
-    var oldPath = path;
-    var newUrl = event.currentTarget.dataset.href.split('?');
+    var oldPath = path,
+        newUrl = event.currentTarget.dataset.href.split('?');
     path = Array.from(document.querySelector('.header-menu').querySelectorAll('.active'))
       .filter(element => element.dataset.level < event.currentTarget.dataset.level)
       .map(element => element.dataset.href);
@@ -379,15 +340,11 @@ function openPage(event) {
 // Изменение контента страницы:
 
 function renderContent() {
-  pageFilter = null;
-  if (path[path.length - 1].indexOf('=') >= 0) {
-    pageFilter = path[path.length - 1];
-    path.pop();
-  }
   changePageTitle();
   toggleMenuItems();
   createDinamicLinks();
   createMainNav();
+
   if (cart) {
     cartId = document.querySelector('.topmenu-item.active').dataset.id;
     checkCartRelevance();
@@ -402,46 +359,38 @@ function renderContent() {
     renderGallery();
   }
   setDocumentScroll(0);
-  setPaddingToBody();
 }
 
 // Скрытие неактуальных частей страницы:
 
-function hideContent(name) {
+function hideContent(block) {
   window.removeEventListener('scroll', scrollGallery);
   window.removeEventListener('resize', scrollGallery);
   window.removeEventListener('resize', setGalleryWidth);
-  window.removeEventListener('resize', setMinCardWidth);
   window.removeEventListener('scroll', setFiltersPosition);
   window.removeEventListener('resize', setFiltersPosition);
 
-  if (name === 'gallery') {
+  if (block === 'gallery') {
     window.addEventListener('scroll', scrollGallery);
     window.addEventListener('resize', scrollGallery);
     window.addEventListener('resize', setGalleryWidth);
-    window.addEventListener('resize', setMinCardWidth);
     window.addEventListener('scroll', setFiltersPosition);
     window.addEventListener('resize', setFiltersPosition);
     if (cart) {
-      pageSearch.style.visibility = 'visible';
-      mainInfo.style.display = '';
-      cartContent.style.display = 'none';
+      hideElement(cartContent);
     }
     if (zipSelect) {
       if (path[path.length - 1] == 'zip') {
-        zipSelect.style.display = 'block';
+        showElement(zipSelect);
       } else {
-        zipSelect.style.display = 'none';
+        hideElement(zipSelect);
       }
     }
   }
 
-  if (name === 'cart') {
-    pageSearch.style.visibility = 'hidden';
-    mainInfo.style.display = 'none';
-    filtersContainer.style.display = 'none';
-    gallery.style.display = 'none';
-    galleryNotice.style.display = 'none';
+  if (block === 'cart') {
+    hideElement(filtersContainer);
+    hideElement(galleryWrap);
   }
 }
 
@@ -484,19 +433,19 @@ function changePageTitle() {
     title += curTitle.dataset.title;
   }
   document.title = 'ТОП СПОРТС - ' + title;
-  pageTitle.textContent = title;
+  document.getElementById('page-title').textContent = title;
 }
 
 // Изменение активных разделов меню:
 
 function toggleMenuItems() {
   document.querySelectorAll('.header-menu .active').forEach(item => item.classList.remove('active'));
-  for (key of path) {
-   var curTitle = document.querySelector(`[data-href="${key}"]`);
+  path.forEach(key => {
+    var curTitle = document.querySelector(`[data-href="${key}"]`);
     if (curTitle) {
       curTitle.classList.add('active');
     }
-  }
+  });
 }
 
 // Добавление ссылок в разделы меню:
@@ -517,11 +466,10 @@ function createMainNav() {
       curTitle,
       newItem;
 
-  path.forEach((item, i) => {
+  path.forEach(item => {
     curTitle = document.querySelector(`[data-href="${item}"]`);
     if (curTitle) {
       newItem = navItemTemplate
-      .replace('#isActive#', view != 'product' && i == path.length - 1 ? 'active' : '')
       .replace('#href#', curTitle.href)
       .replace('#dataHref#', item)
       .replace('#level#', curTitle.dataset.level)
@@ -531,13 +479,12 @@ function createMainNav() {
   });
   if (view === 'product') {
     newItem = navItemTemplate
-      .replace('#isCur#', 'cur-page')
       .replace('#href#', '#')
       .replace('#title#', items[0].title);
       list += newItem;
   }
   mainNav.innerHTML = mainNavTemplate.replace(navItemTemplate, list);
-  mainHeader.style.visibility = 'visible';
+  showElement(mainHeader);
 }
 
 // Создание контента страницы товара:
@@ -560,21 +507,21 @@ function renderProductPage() {
 // Создание контента галереи:
 
 function renderGallery() {
-  var local = location.search;
+  var local = location.search,
+      pageFilter;
   if (location.search && location.search.indexOf('=') >= 0) {
     local = location.search.split('?');
-    local.pop();
+    pageFilter = local.pop();
     local = local.join('?');
   }
   pageUrl = local ? pageId + local : pageId;
-
   hideContent('gallery');
-  for (key of path) {
+
+  path.forEach(key => {
     if (key != pageId) {
       curItems = curItems.filter(item => item[key] == 1);
     }
-  }
-
+  });
   prepareForSearch(curItems);
   clearAllSearch();
 
@@ -582,8 +529,6 @@ function renderGallery() {
     initZipFilter('man');
     initOemSearch();
   }
-
-  selectedItems = '';
   initFilters(dataFilters);
   if (pageFilter) {
     setFilterOnPage(pageFilter);
@@ -591,18 +536,18 @@ function renderGallery() {
   checkFiltersPosition();
   checkFilters();
   setGalleryWidth();
-  setMinCardWidth();
+  showElement(gallery);
 }
 
 // Добавление фильтра при загрузке страницы:
 
-function setFilterOnPage(pageFilter) {
+function setFilterOnPage(filter) {
   var key, value;
   removeAllFiltersInfo();
   menuFilters.querySelectorAll('.filter-item').forEach(el => {
     key = el.dataset.key;
     value = el.dataset.value;
-    var filterData = pageFilter.toLowerCase().split('=');
+    var filterData = filter.toLowerCase().split('=');
     if (key.toLowerCase() === filterData[0] && value.toLowerCase() === filterData[1]) {
       saveFiltersInfo(key, value);
     }
@@ -611,15 +556,15 @@ function setFilterOnPage(pageFilter) {
 
 // Сброс данных поиска :
 
-function clearSearch() {
+function clearSearchResult() {
   selectedItems = '';
   checkFilters();
 }
 
 // Очистка всех видов поиска:
 
-function clearAllSearch(params) {
-  clearSearch();
+function clearAllSearch() {
+  clearSearchResult();
   if (pageSearch) {
     clearPageSearch();
   }
@@ -636,11 +581,11 @@ function clearAllSearch(params) {
 // Отображение фильтров на странице:
 
 function initFilters(dataFilters) {
-  var data = JSON.parse(JSON.stringify(dataFilters));
-  isExsist = false;
+  var data = JSON.parse(JSON.stringify(dataFilters)),
+      isExsist = false;
 
-  for (item of data) {
-    for (k in item.items) {
+  for (let item of data) {
+    for (let k in item.items) {
       isExsist = curItems.find(card => {
         if (card[item.key] == k || card[k] == 1) {
           return true;
@@ -650,7 +595,7 @@ function initFilters(dataFilters) {
         delete item.items[k];
       }
       if (typeof item.items[k] == 'object') {
-        for (kk in item.items[k]) {
+        for (let kk in item.items[k]) {
           isExsist = curItems.find(card => {
             if (card[item.key] == k && card.subcat == item.items[k][kk]) {
               return true;
@@ -663,32 +608,15 @@ function initFilters(dataFilters) {
       }
     }
   }
-
   menuFilters.innerHTML = createFilters(data);
-  filtersContainer.style.display = 'block';
-  // setMaxHeight();
+  showElement(filtersContainer);
   addTooltips('color');
-}
-
-// Установка максимальной высоты фильтров для их анимации:
-
-function setMaxHeight() {
-  var totalHeight;
-  document.querySelectorAll('.filter-items').forEach(el => {
-    totalHeight = 0
-    el.querySelectorAll('.filter-item').forEach(item => {
-      totalHeight += item.clientHeight;
-    });
-    if (totalHeight > 0) {
-      el.style.maxHeight = totalHeight + 'px';
-    }
-  })
 }
 
 // Создание меню фильтров:
 
 function createFilters(data) {
-  var list = data.map(el => {
+  return data.map(el => {
     if (document.body.classList.contains('ekipirovka') && !location.search) {
       if (el.key == 'cat') {
         return;
@@ -701,27 +629,26 @@ function createFilters(data) {
       return createFilter(el);
     }
   }).join('');
-  return list;
 }
 
 // Создание одного фильтра:
 
 function createFilter(data) {
   var curTitle,
-      isHiddenOpenBtn,
+      isHidden,
       newItem = filterTemplate,
       newSubItem,
       list = '',
       subList;
 
-  for (k in data.items) {
+  for (let k in data.items) {
     subList = '';
-    isHiddenOpenBtn = 'hidden';
+    isHidden = 'hidden';
 
     if (typeof data.items[k] === 'object') {
-      for (kk in data.items[k]) {
+      for (let kk in data.items[k]) {
         if (data.items[k][kk] !== '') {
-          isHiddenOpenBtn = '';
+          isHidden = '';
           newSubItem = filterSubitemTemplate
           .replace('#key#', data.key)
           .replace('#subkey#', k)
@@ -753,7 +680,7 @@ function createFilter(data) {
       .replace('#key#', data.key)
       .replace('#value#', k)
       .replace('#title#', curTitle)
-      .replace('#isHiddenOpenBtn#', isHiddenOpenBtn);
+      .replace('#isHidden#', isHidden);
     list += newSubItem;
   }
 
@@ -773,7 +700,7 @@ function createFilter(data) {
 
 function toggleFilter(event) {
   var curFilter;
-  if (event.target.classList.contains('filter-title')) {
+  if (event.target.closest('.filter-title')) {
     curFilter = event.currentTarget;
     if (curFilter.classList.contains('close')) {
       curFilter.classList.remove('close');
@@ -782,7 +709,6 @@ function toggleFilter(event) {
       curFilter.classList.add('close');
       saveFilterPosition(curFilter.id, 'close');
     }
-    // filters.scrollTop = event.currentTarget.offsetTop;
   }
 }
 
@@ -800,11 +726,11 @@ function toggleFilterItem(event) {
 
 function selectFilterValue(event) {
   event.stopPropagation();
-  if (event.target.classList.contains('open-btn') || event.currentTarget.classList.contains('disabled')) {
+  if (event.target.classList.contains('drop-down') || event.currentTarget.classList.contains('disabled')) {
     return;
   }
-
   getDocumentScroll();
+  clearAllSearch();
   var curEl = event.currentTarget,
       key = curEl.dataset.key,
       value = curEl.dataset.value,
@@ -813,10 +739,7 @@ function selectFilterValue(event) {
   if (curEl.classList.contains('checked')) {
     curEl.classList.remove('checked');
     curEl.classList.add('close');
-    var subItems = curEl.querySelectorAll('.filter-item.checked');
-    if (subItems) {
-      subItems.forEach(subItem => subItem.classList.remove('checked'));
-    }
+    curEl.querySelectorAll('.filter-item.checked').forEach(subItem => subItem.classList.remove('checked'));
     removeFiltersInfo(key, value, subkey);
   } else {
     curEl.classList.add('checked');
@@ -834,7 +757,6 @@ function selectFilterValue(event) {
     selectCards(filtersInfo);
   }
   showCards();
-  clearAllSearch();
   toggleToActualFilters(event.currentTarget);
 
   if (window.innerWidth >= 767) {
@@ -910,19 +832,28 @@ function saveFilterPosition(key, value) {
   saveInfo('positions', info);
 }
 
+// Удаление данных из хранилища обо всех состояниях фильтров (открыт/закрыт):
+
+function removeAllFilterPosition() {
+  var info = getInfo('positions');
+  info[pageUrl] = {};
+  saveInfo(`positions`, filtersInfo);
+}
+
 // Отбор карточек фильтром каталога:
 
 function selectCards(filtersInfo) {
   if (!filtersInfo) {
     return;
   }
+  var isFound;
 
   selectedItems = curItems.filter(card => {
-    for (k in filtersInfo) {
+    for (let k in filtersInfo) {
       isFound = false;
-      for (kk in filtersInfo[k]) {
+      for (let kk in filtersInfo[k]) {
         if (filtersInfo[k][kk] && Object.keys(filtersInfo[k][kk]).length != 0) {
-          for (kkk in filtersInfo[k][kk]) {
+          for (let kkk in filtersInfo[k][kk]) {
             if (card.cat == kk && card.subcat == kkk) {
               isFound = true;
             }
@@ -945,14 +876,12 @@ function selectCards(filtersInfo) {
 
 function toggleToActualFilters(filter) {
   var curItemsArray = curItems;
-  isExsist =  false;
-
   if (selectedItems !== '') {
     curItemsArray = selectedItems;
   }
-  var curFilters = menuFilters.querySelectorAll(`.filter-item.item.checked[data-key="${filter.dataset.key}"]`);
-  var checked = menuFilters.querySelectorAll(`.filter-item.item.checked`);
-  var filterItems;
+  var curFilters = menuFilters.querySelectorAll(`.filter-item.item.checked[data-key="${filter.dataset.key}"]`),
+      checked = menuFilters.querySelectorAll(`.filter-item.item.checked`),
+      filterItems;
 
   if (checked.length == 0) {
     menuFilters.querySelectorAll(`.filter-item.item`).forEach(item => {
@@ -967,8 +896,9 @@ function toggleToActualFilters(filter) {
     filterItems = menuFilters.querySelectorAll(`.filter-item.item`);
   }
 
-  var key, value;
-  for (item of filterItems) {
+  var key, value, isExsist, isFound;
+  filterItems.forEach(item => {
+    isExsist = false;
     key = item.dataset.key;
     value = item.dataset.value;
 
@@ -1006,7 +936,7 @@ function toggleToActualFilters(filter) {
         }
       });
     }
-  }
+  });
 }
 
 // Очистка фильтров каталога:
@@ -1017,6 +947,7 @@ function clearFilters() {
   }
   getDocumentScroll();
   removeAllFiltersInfo();
+  removeAllFilterPosition();
 
   menuFilters.querySelectorAll('.filter-item').forEach(el => {
     el.classList.remove('checked', 'disabled');
@@ -1030,7 +961,6 @@ function clearFilters() {
   if (isSearch) {
     return;
   }
-
   selectedItems = '';
   showCards();
   setDocumentScroll();
@@ -1042,7 +972,7 @@ function checkFiltersPosition() {
   var info = getInfo('positions')[pageUrl],
       curEl;
   if (info) {
-    for (key in info) {
+    for (let key in info) {
       curEl = document.getElementById(key);
       if (curEl) {
         if (info[key] == 'close') {
@@ -1070,13 +1000,13 @@ function checkFilters() {
 
 function checkFilterExist(filtersInfo) {
   var curEl;
-  for (k in filtersInfo) {
-    for (kk in filtersInfo[k]) {
+  for (let k in filtersInfo) {
+    for (let kk in filtersInfo[k]) {
       curEl = document.querySelector(`[data-key="${k}"][data-value="${kk}"]`);
       if (!curEl) {
         delete filtersInfo[k][kk];
       }
-      for (kkk in filtersInfo[k][kk]) {
+      for (let kkk in filtersInfo[k][kk]) {
         curEl = document.querySelector(`[data-subkey="${kk}"][data-value="${kkk}"]`);
         if (!curEl) {
           delete filtersInfo[k][kk][kkk];
@@ -1095,22 +1025,22 @@ function checkFilterExist(filtersInfo) {
 // Визуальное отображение сохраненных фильтров:
 
 function selectFilters(filtersInfo) {
-  var filters = {};
-  var filterItem;
-  for (i in filtersInfo) {
-    filters[i] = {};
-    filterItem = document.getElementById(`filter-${i}`);
+  var filters = {},
+      filterItem;
+  for (let k in filtersInfo) {
+    filters[k] = {};
+    filterItem = document.getElementById(`filter-${k}`);
     if (filterItem) {
       filterItem.classList.remove('close');
     }
-    for (ii in filtersInfo[i]) {
-      filters[i][ii] = {};
+    for (let kk in filtersInfo[k]) {
+      filters[k][kk] = {};
       selectCards(filters);
-      changeFilterClass(i, ii);
-      for (iii in filtersInfo[i][ii]) {
-        filters[i][ii][iii] = {};
+      changeFilterClass(k, kk);
+      for (let kkk in filtersInfo[k][kk]) {
+        filters[k][kk][kkk] = {};
         selectCards(filters);
-        changeFilterClass(i, iii, ii);
+        changeFilterClass(k, kkk, kk);
       }
     }
   }
@@ -1164,13 +1094,13 @@ function createZipFilterData(filter) {
 
   curItemsArray.forEach(item => {
     if (item.manuf) {
-      for (k in item.manuf[filter]) {
+      for (let k in item.manuf[filter]) {
         if (filter == 'man' || filter == 'oem') {
           if (zipFilterData[filter].indexOf(k.trim()) === -1) {
             zipFilterData[filter].push(k);
           }
         } else {
-          for (kk in item.manuf[filter][k]) {
+          for (let kk in item.manuf[filter][k]) {
             if (kk == selectMan.value && zipFilterData[filter].indexOf(k.trim()) === -1) {
               zipFilterData[filter].push(k);
             }
@@ -1193,11 +1123,11 @@ function createZipFilters(filter) {
 
 function createZipFilter(template, filter) {
   var list = '', newItem;
-  for (item of zipFilterData[filter]) {
+  zipFilterData[filter].forEach(item => {
     newItem = selectManufItemTemplate
       .replace(/#item#/gi, item)
     list += newItem;
-  }
+  });
   return template.replace(selectManufItemTemplate, list);
 }
 
@@ -1206,11 +1136,11 @@ function createZipFilter(template, filter) {
 function initOemSearch() {
   createZipFilterData('oem');
   var list = '', newItem;
-  for (item of zipFilterData.oem) {
+  zipFilterData.oem.forEach(item => {
     newItem = oemListTemplate
       .replace(/#item#/gi, item)
     list += newItem;
-  }
+  });
   oemList.innerHTML = list;
 }
 
@@ -1225,20 +1155,21 @@ function selectCardsZipFilter(event) {
     clearPageSearch();
     clearOemSearch();
   }
-  var filter = event.currentTarget.dataset.filter;
+  var filter = event.currentTarget.dataset.filter,
+      isFound;
   selectedItems = curItems.filter(item => {
     if (item.manuf) {
       isFound = false;
-      for (k in item.manuf.man) {
+      for (let k in item.manuf.man) {
         if (k == selectMan.value) {
           isFound = true;
         }
       }
       if (filter != 'man' && isFound && zipFilterData.years.length != 0) {
         isFound = false;
-        for (k in item.manuf.years) {
+        for (let k in item.manuf.years) {
           if (k == selectYears.value) {
-            for (kk in item.manuf.years[k]) {
+            for (let kk in item.manuf.years[k]) {
               if (kk == selectMan.value) {
                 isFound = true;
               }
@@ -1248,9 +1179,9 @@ function selectCardsZipFilter(event) {
       }
       if (filter == 'model' && isFound && zipFilterData.model.length != 0) {
         isFound = false;
-        for (k in item.manuf.model) {
+        for (let k in item.manuf.model) {
           if (k == selectModel.value) {
-            for (kk in item.manuf.model[k]) {
+            for (let kk in item.manuf.model[k]) {
               if (kk == selectMan.value) {
                 isFound = true;
               }
@@ -1281,27 +1212,34 @@ function selectCardsZipFilter(event) {
 
 function lockZipFilter(filter) {
   var curSelect = document.getElementById(`select-${filter}`);
-  curSelect.value = 'default';
-  curSelect.setAttribute('disabled', 'disabled');
+  if (curSelect) {
+    curSelect.value = 'default';
+    curSelect.setAttribute('disabled', 'disabled');
+  }
 }
 
 // Разблокировка фильтров запчастей:
 
 function unlockZipFilter(filter) {
   var curSelect = document.getElementById(`select-${filter}`);
-  curSelect.removeAttribute('disabled');
+  if (curSelect) {
+    curSelect.removeAttribute('disabled');
+  }
 }
 
 // Очистка фильтров запчастей:
 
 function startClearZipFilters(btn) {
   if (btn.classList.contains('active')) {
-    clearSearch();
+    clearSearchResult();
     clearZipFilters();
   }
 }
 
 function clearZipFilters() {
+  if (!zipSelect) {
+    return;
+  }
   isSearch = false;
   clearZipFilterBtn.classList.remove('active');
   selectMan.value = 'default';
@@ -1317,18 +1255,18 @@ function showOemList() {
     closeOemHints();
     return;
   }
-  oemDropdown.style.display = 'block';
+  showElement(oemDropdown);
 
   var regExpSearch = RegExp(oemToFind, 'i'),
       allOem = Array.from(document.querySelectorAll('#oem-list .oem'));
 
-  allOem.forEach(el => el.style.display = 'none');
+  allOem.forEach(el => hideElement(el));
   var curOemList = allOem.filter(el => el.dataset.oem.search(regExpSearch) >= 0);
 
   if (curOemList.length > 0) {
-    oemList.style.display = 'block';
-    oemNotFound.style.display = 'none';
-    curOemList.forEach(el => el.style.display = 'block');
+    showElement(oemList);
+    hideElement(oemNotFound);
+    curOemList.forEach(el => showElement(el));
   } else {
     oemList.style.display = 'none';
     oemNotFound.style.display = 'block';
@@ -1358,7 +1296,7 @@ function findOem() {
   selectCardsOemSearch(oemToFind);
   showCards();
   isSearch = true;
-  clearOemSearchBtn.style.display = 'block';
+  showElement(clearOemSearchBtn);
 }
 
 // Отбор карточек по OEM:
@@ -1366,7 +1304,7 @@ function findOem() {
 function selectCardsOemSearch(oem) {
   selectedItems = curItems.filter(item => {
     if (item.manuf) {
-      for (k in item.manuf.oem) {
+      for (let k in item.manuf.oem) {
         if (k == oem) {
           return true;
         }
@@ -1378,7 +1316,7 @@ function selectCardsOemSearch(oem) {
 // Запуск очиски поиска по OEM:
 
 function startClearOemSearch() {
-  clearSearch();
+  clearSearchResult();
   clearOemSearch();
 }
 
@@ -1386,12 +1324,10 @@ function startClearOemSearch() {
 
 function clearOemSearch() {
   isSearch = false;
-  oemDropdown.style.display = 'none';
-  oemList.style.display = 'none';
-  oemNotFound.style.display = 'none';
-  clearOemSearchBtn.style.display = 'none';
-  oemSearchInput.dataset.value = '';
+  closeOemHints();
+  hideElement(clearOemSearchBtn);
   oemSearchInput.value = '';
+  oemSearchInput.dataset.value = '';
 }
 
 // Удаление значения из поиска OEM при его фокусе и скрытие подсказок:
@@ -1404,9 +1340,9 @@ function onFocusOemInput(input) {
 // Скрытие подсказок поиска OEM:
 
 function closeOemHints() {
-  oemDropdown.style.display = 'none';
-  oemList.style.display = 'none';
-  oemNotFound.style.display = 'none';
+  hideElement(oemDropdown);
+  hideElement(oemList);
+  hideElement(oemNotFound);
 }
 
 function onBlurOemInput(input) {
@@ -1417,7 +1353,7 @@ function onBlurOemInput(input) {
 }
 
 //=====================================================================================================
-//  Функции для отображения карточек товаров на странице:
+//  Функции для создания галереи:
 //=====================================================================================================
 
 // Создание карточек товаров из массива:
@@ -1461,7 +1397,7 @@ function loadCards(cards) {
   }
 
   var list = '', card;
-  for (var i = countItems; i < countItemsTo; i++) {
+  for (let i = countItems; i < countItemsTo; i++) {
     card = createCard(itemsToLoad[i]);
     list += card;
   }
@@ -1473,7 +1409,6 @@ function loadCards(cards) {
   }
   setFiltersPosition();
   setGalleryWidth();
-  setMinCardWidth();
 
   if (view === 'list') {
     document.querySelectorAll('.big-card').forEach(card => {
@@ -1486,20 +1421,11 @@ function loadCards(cards) {
   }
   if (view === 'blocks') {
     document.querySelectorAll('.min-card').forEach(card => {
-      checkImg(card);
       if (cart) {
         checkAction(card);
       }
     });
   }
-}
-
-// Проверка загружено ли изображение и вставка заглушки при отсутствии изображения:
-
-function checkImg(element) {
-  element.querySelector('img').addEventListener('error', (event) => {
-    event.currentTarget.src = '../../img/content/no_img.jpg';
-  });
 }
 
 // Создание одной карточки товара :
@@ -1529,33 +1455,33 @@ function createCard(card) {
     newCard = newCard.replace(template, list);
   }
 
-  var props = extractProps(newCard);
-  var propRegExp, propCard;
-  for (key of props) {
+  var props = extractProps(newCard),
+      propRegExp, value;
+  props.forEach(key => {
     propRegExp = new RegExp('#' + key + '#', 'gi');
     if (key == 'images') {
-      propCard = `http://b2b.topsports.ru/c/productpage/${card.images[0]}.jpg`;
+      value = `http://b2b.topsports.ru/c/productpage/${card.images[0]}.jpg`;
     } else if (key == 'isHiddenPrice' && card.price_preorder1 == 0) {
-      propCard = 'displayNone';
+      value = 'displayNone';
     } else if (key == 'isHiddenAction') {
-      propCard = card.actiontitle == undefined ? 'hidden' : '';
+      value = card.actiontitle == undefined ? 'hidden' : '';
     } else if (key == 'isAvailable') {
-      propCard = card.free_qty > 0 ? '' : 'not-available';
+      value = card.free_qty > 0 ? '' : 'not-available';
     } else if (key == "qtyTitle") {
-      propCard = card.free_qty > 0 ? 'В наличии' : 'Ожидается';
+      value = card.free_qty > 0 ? 'В наличии' : 'Ожидается';
     } else if (key == 'notice') {
-      propCard = card.free_qty > 0 ? 'Товар резервируется в момент подтверждения заказа!' : 'Товара нет в наличии!';
+      value = card.free_qty > 0 ? 'Товар резервируется в момент подтверждения заказа!' : 'Товара нет в наличии!';
     } else if (key == 'isHiddenManuf') {
-      propCard = card.manuf && Object.keys(card.manuf.man).length > 1 ? '' : 'displayNone';
+      value = card.manuf && Object.keys(card.manuf.man).length > 1 ? '' : 'displayNone';
     } else if (key == 'isHiddenDesc') {
-      propCard = card.desc == '' ? 'displayNone' : '';
+      value = card.desc == '' ? 'displayNone' : '';
     } else if (card[key] == undefined) {
-      propCard = '';
+      value = '';
     } else {
-      propCard = card[key];
+      value = card[key];
     }
-    newCard = newCard.replace(propRegExp, propCard);
-  }
+    newCard = newCard.replace(propRegExp, value);
+  });
   return newCard;
 }
 
@@ -1565,7 +1491,7 @@ function createOptions(template, card, data) {
   var list = '', newItem;
   if (card.options && card.options != 0) {
     var option;
-    for (key in card.options) {
+    for (let key in card.options) {
       option = card.options[key];
       if (key == 32) {
         option = convertYears(card.options[key]);
@@ -1594,22 +1520,22 @@ function createManufTable(template, data) {
       subList,
       newItem,
       subTemplate = cardTemplate.querySelector('.manuf-row').innerHTML,
-      titles = Array.from(manufTitle.querySelectorAll('div')).map(element => element.dataset.title),
+      titles = Array.from(document.getElementById('manuf-headers').querySelectorAll('div')).map(element => element.dataset.title),
       newCell,
       cell;
 
-  for (item in data.man) {
+  for (let item in data.man) {
     newItem = template;
     subList = '';
 
-    for (k of titles) {
+    for (let k of titles) {
       newCell = subTemplate;
       cell = [];
-      for (kk in data[k]) {
+      for (let kk in data[k]) {
         if (kk == item) {
           cell.push(kk);
         } else {
-          for (kkk in data[k][kk]) {
+          for (let kkk in data[k][kk]) {
             if (kkk == item) {
               cell.push(kk);
             }
@@ -1642,7 +1568,7 @@ function createManufTable(template, data) {
 function createSizes(template, card) {
   var list = '', newItem;
   if (card.sizes && card.sizes != 0) {
-    for (key in card.sizes) {
+    for (let key in card.sizes) {
       createSize(card.sizes[key]);
     }
   } else {
@@ -1664,12 +1590,16 @@ function createSizes(template, card) {
 
 // Создание карусели:
 
-function createCarousel(template, card) {
+function createCarousel(template, card, isFull = false) {
   var list = '', newItem;
-  for (i = 0; i < card.images.length; i++) {
-    var newItem = template
-      .replace('#image#', `http://b2b.topsports.ru/c/productpage/${card.images[i]}.jpg`)
-      .replace('#full-image#', `http://b2b.topsports.ru/c/source/${card.images[i]}.jpg`);
+  for (let i = 0; i < card.images.length; i++) {
+    var newItem = template;
+    if (isFull && window.innerWidth > 400) {
+      newItem = newItem.replace('#image#', `http://b2b.topsports.ru/c/source/${card.images[i]}.jpg`);
+    } else {
+      newItem = newItem.replace('#image#', `http://b2b.topsports.ru/c/productpage/${card.images[i]}.jpg`);
+    }
+    newItem = newItem.replace('#full-image#', `http://b2b.topsports.ru/c/source/${card.images[i]}.jpg`);
     list += newItem;
   }
   return list;
@@ -1699,7 +1629,7 @@ function renderCarousel(carousel, curImg = 0) {
 
     function render(carousel) {
       if (carousel.querySelectorAll('img').length === 0) {
-        carousel.querySelector('.carousel-gallery').insertAdjacentHTML('beforeend', '<div class="carousel-item"><img src="../../img/content/no_img.jpg"></div>');
+        carousel.querySelector('.carousel-gallery').insertAdjacentHTML('beforeend', '<div class="carousel-item"><img src="../img/no_img.jpg"></div>');
         startCarouselInit(carousel, curImg);
       }
       startCarouselInit(carousel, curImg);
@@ -1716,7 +1646,7 @@ function findDiscount(id) {
   }
   var discount = discounts.find(item => {
     if (item.diart) {
-      for (key of item.diart) {
+      for (let key of item.diart) {
         return key == id ? true : false;
       }
     }
@@ -1780,30 +1710,21 @@ function checkAction(card) {
 
 function showCards() {
   if (selectedItems === '') {
-    gallery.style.display = 'flex';
-    galleryNotice.style.display = 'none';
+    showElement(gallery, 'flex');
+    hideElement(galleryNotice);
     loadCards(curItems);
-    // if (curItemsSorted) {
-    //   loadCards(curItemsSorted);
-    // } else {
-    //   loadCards(curItems);
-    // }
   } else {
     if (selectedItems.length == 0) {
-      galleryNotice.style.display = 'flex';
-      gallery.style.display = 'none';
+      showElement(galleryNotice, 'flex');
+      hideElement(gallery);
       setFiltersPosition();
     } else {
-      gallery.style.display = 'flex';
-      galleryNotice.style.display = 'none';
+      showElement(gallery, 'flex');
+      hideElement(galleryNotice);
       loadCards(selectedItems);
-      // if (selectedItemsSorted) {
-      //   loadCards(selectedItemsSorted);
-      // } else {
-      //   loadCards(selectedItems);
-      // }
     }
   }
+  showElement(galleryWrap);
 }
 
 // Добавление новых карточек при скролле страницы:
@@ -1841,45 +1762,16 @@ function setCardTemplate() {
   }
 }
 
-// Раскрытие в полный размер большой карточки:
-
-function openBigCard(event) {
-  var curCard = event.currentTarget.closest('.big-card');
-  curCard.classList.toggle('open');
-  if (curCard.classList.contains('open')) {
-    event.currentTarget.setAttribute('tooltip', 'Свернуть');
-  } else {
-    event.currentTarget.setAttribute('tooltip', 'Раскрыть');
-  }
-  setFiltersPosition();
-}
-
-function closeBigCard(event) {
-  var curCard = event.currentTarget.closest('.big-card');
-  if (window.innerWidth < 767) {
-    if (!(event.target.classList.contains('toggle-btn') || event.target.closest('.carousel') || event.target.closest('.card-size') || event.target.classList.contains('dealer-button'))) {
-      curCard.classList.remove('open');
-      curCard.querySelector('.toggle-btn').setAttribute('tooltip', 'Раскрыть');
-      setFiltersPosition();
-    }
-  }
-}
-
 // Отображение полной карточки товара:
 
 function showFullCard(id) {
   openPopUp(fullCardContainer, 'flex');
-  pageLoader.style.display = 'block';
+  showElement(loader);
   cardTemplate = fullCardTemplate;
   fullCardContainer.innerHTML = createCard(items.find(item => item.object_id == id));
 
-  var curCard = document.querySelector('.full-card');
-  if (cart) {
-    checkAction(curCard);
-    checkCart(curCard);
-  }
-  var curCarousel = fullCardContainer.querySelector('.carousel');
-  setCardTemplate();
+  var curCard = document.querySelector('.full-card'),
+      curCarousel = fullCardContainer.querySelector('.carousel');
   renderCarousel(curCarousel)
   .then(
     result => {
@@ -1887,19 +1779,26 @@ function showFullCard(id) {
         curCarousel.querySelector('.carousel-gallery-wrap').addEventListener('click', (event) => showFullImg(event, id));
         curCarousel.querySelector('.search-btn').addEventListener('click', (event) => showFullImg(event, id));
       }
-      pageLoader.style.display = 'none';
+      hideElement(loader);
       curCard.style.opacity = '1';
     }
   );
+
+  if (cart) {
+    checkAction(curCard);
+    checkCart(curCard);
+  }
+  setCardTemplate();
 }
 
 // Скрытие полной карточки товара:
 
 function closeFullCard(event) {
-  if (!(event.target.closest('.carousel') || event.target.closest('.card-size') || event.target.classList.contains('dealer-button'))) {
-    document.querySelector('.full-card').style.opacity = '0';
-    closePopUp(fullCardContainer);
+  if (event.target.closest('.full-card')) {
+    return;
   }
+  document.querySelector('.full-card').style.opacity = '0';
+  closePopUp(fullCardContainer);
 }
 
 // Отображение картинки полного размера на экране:
@@ -1911,33 +1810,23 @@ function showFullImg(event, id) {
   if (fullCardContainer && (!fullCardContainer.style.display || fullCardContainer.style.display === 'none')) {
     getDocumentScroll();
   }
-  fullImgContainer.style.display = 'block';
-  imgLoader.style.visibility = 'visible';
+  hideElement(fullImgContainer);
+  showElement(loader);
   fullImg.style.opacity = 0;
 
-  var list = '',
-      newItem,
-      imgs = curItems.find(item => item.object_id == id).images;
+  var card = curItems.find(item => item.object_id == id),
+      list = createCarousel(fullCarouselTemplate, card, true);
+  fullImg.innerHTML = fullImgTemplate.replace(fullCarouselTemplate, list);
 
-  for (i = 0; i < imgs.length; i++) {
-    newItem = carouselItemTemplate.replace('#imgNumb#', i);
-    if (window.innerWidth > 400) {
-      newItem = newItem.replace('#image#', `http://b2b.topsports.ru/c/source/${imgs[i]}.jpg`);
-    } else {
-      newItem = newItem.replace('#image#', `http://b2b.topsports.ru/c/productpage/${imgs[i]}.jpg`);
-    }
-    list += newItem;
-  }
-  fullImg.innerHTML = fullImgTemplate.replace(carouselItemTemplate, list);
-
-  var curCarousel = fullImgContainer.querySelector('.carousel');
-  var curImg = event.currentTarget.closest('.carousel').dataset.img;
+  var curCarousel = fullImgContainer.querySelector('.carousel'),
+      curImg = event.currentTarget.closest('.carousel').dataset.img;
 
   renderCarousel(curCarousel, curImg)
   .then(
     result => {
       fullImg.style.opacity = 1;
-      imgLoader.style.visibility = 'hidden';
+      hideElement(loader);
+      showElement(fullImgContainer);
     }
   );
   document.body.classList.add('no-scroll');
@@ -1949,7 +1838,7 @@ function closeFullImg(event) {
   if (event.target.classList.contains('btn')) {
     return;
   }
-  fullImgContainer.style.display = 'none';
+  hideElement(fullImgContainer);
   if (!fullCardContainer.style.display || fullCardContainer.style.display === 'none') {
     document.body.classList.remove('no-scroll');
     setDocumentScroll();
@@ -1962,32 +1851,37 @@ function closeFullImg(event) {
 
 // Сортировка карточек товаров на странице:
 
+var gallerySort = document.getElementById('gallery-sort');
+if (gallerySort) {
+  gallerySort.addEventListener('onchange', sortItems);
+}
+
 function sortItems() {
-  var selectedOption = gallerySort.value;
-  curItems.sort(dynamicSort(selectedOption));
+  var prop = this.dataset.value;
+  curItems.sort(dynamicSort(prop));
   if (selectedItems !== '') {
-    selectedItems.sort(dynamicSort(selectedOption));
+    selectedItems.sort(dynamicSort(prop));
   }
   showCards();
 }
 
 // Сортировка массива объектов по указанному значению:
 
-function dynamicSort(property) {
-  var sortOrder = 1;
-  var result;
-  if (property[0] === "-") {
+function dynamicSort(prop) {
+  var sortOrder = 1,
+      result;
+  if (prop[0] === "-") {
       sortOrder = -1;
-      property = property.substr(1);
+      prop = prop.substr(1);
   }
-  if (property == 'price1') {
+  if (prop == 'price1') {
     return function (a, b) {
-      result = a[property] - b[property];
+      result = a[prop] - b[prop];
       return result * sortOrder;
     }
   } else {
     return function (a, b) {
-      result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+      result = (a[prop] < b[prop]) ? -1 : (a[prop] > b[prop]) ? 1 : 0;
       return result * sortOrder;
     }
   }
@@ -2015,7 +1909,7 @@ function convertToString(obj) {
 
   function crossObj(obj) {
     var prop;
-    for (k in obj) {
+    for (let k in obj) {
       prop = obj[k];
       if (typeof prop === 'string') {
         objProps += prop + ',';
@@ -2045,7 +1939,7 @@ function findOnPage(event) {
     .forEach(el => selectedItems.push(curItems.find(item => item.object_id == el.object_id)));
   showCards();
   isSearch = true;
-  clearPageSearchBtn.style.display = 'block';
+  showElement(clearPageSearchBtn);
   searchCount.textContent = selectedItems.length;
   pageSearchInfo.style.visibility = 'visible';
 }
@@ -2053,14 +1947,17 @@ function findOnPage(event) {
 // Очистка поиска по странице:
 
 function startClearPageSearch() {
-  clearSearch();
+  clearSearchResult();
   clearPageSearch();
 }
 
-function clearPageSearch(params) {
+function clearPageSearch() {
+  if (!pageSearch) {
+    return;
+  }
   isSearch = false;
   pageSearch.classList.remove('open');
-  clearPageSearchBtn.style.display = 'none';
+  hideElement(clearPageSearchBtn);
   pageSearchInfo.style.visibility = 'hidden';
   pageSearchInput.value = '';
 }

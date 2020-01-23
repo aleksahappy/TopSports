@@ -130,7 +130,7 @@
               </div>
             </div>
             <div class="alerts icon" onclick="showMessages()">
-              <div class="count row">35</div>
+              <div class="count row">12</div>
             </div>
           </div>
         </div>
@@ -150,10 +150,10 @@
             <a class="submenu-item" href="../ekipirovka/?merchandising" data-href="merchandising" data-level="2" data-title="Мерчандайзинг" onclick="openPage(event)">Мерчандайзинг</a>
           </div>
           <div class="info row">
-            <form action="#" id="page-search" class="search row" onsubmit="findOnPage(event)">
+            <form action="#" id="page-search" class="search row" onsubmit="findOnPage(event)" onfocusin="onFocusSearch(this)" onfocusout="onBlurSearch(this)">
               <div class="row">
                 <div class="search icon" onclick="findOnPage(event)"></div>
-                <input id="page-search-input" type="text" autocomplete="off" placeholder="Поиск..." onfocus="openSearch(this)" onblur="closeSearch(this)">
+                <input id="page-search-input" type="text" autocomplete="off" placeholder="Поиск...">
               </div>
               <div class="close icon" onclick="startClearPageSearch()"></div>
             </form>
@@ -170,17 +170,85 @@
 
     <div class="main">
       <div class="container">
-        <div class="main-header">
-          <div class="row">
+        <div id="main-header">
+          <div class="main-info row">
             <div id="main-nav">
               <a href="../">Главная</a>
-              <a class="item #isActive#" href="#href#" data-href="#dataHref#" data-level="#level#" onclick="openPage(event)">#title#</a>
+              <a class="item" href="#href#" data-href="#dataHref#" data-level="#level#" onclick="openPage(event)">#title#</a>
             </div>
-            <div id="main-info" class="row">
+            <div id="" class="row">
               <div id="search-info" class="row"> Результаты поиска (
                 <span id="search-count">0</span>)
-                <div class="close icon" onclick="clearSearch()"></div>
+                <div class="close icon" onclick="startClearPageSearch()"></div>
               </div>
+            </div>
+          </div>
+          <div class="main-title row">
+            <div class="title-row row">
+              <div id="page-title" class="title"></div>
+              <div id="cart-name" class="title"></div>
+            </div>
+          </div>
+        </div>
+        <div id="content" class="row">
+          <div id="filters-container">
+            <div id="filters">
+              <div class="default-btn basic btn" onclick="clearFilters()">Сбросить фильтры</div>
+              <div id="menu-filters">
+                <div id=filter-#key# class="filter #isOpen#" onclick="toggleFilter(event)">
+                  <div class="filter-title row">
+                    <div class="title">#title#</div>
+                    <div class="open icon"></div>
+                  </div>
+                  <div class="filter-items">
+                    <div class="filter-item item" data-type="item" data-key="#key#" data-value="#value#" onclick="selectFilterValue(event)">
+                      <div class="filter-title-container row">
+                        <div class="filter-item-title row">
+                          <div class="checkbox dark icon"></div>
+                          <div class="item-title">#title#</div>
+                        </div>
+                        <div class="drop-down icon #isHidden#" onclick="toggleFilterItem(event)"></div>
+                      </div>
+                      <div class="filter-subitems">
+                        <div class="filter-item subitem" data-type="subitem" data-key="#key#" data-value="#value#" onclick="selectFilterValue(event)">
+                          <div class="filter-item-title row">
+                            <div class="checkbox dark icon"></div>
+                            <div class="item-title">#title#</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="gallery-wrap">
+            <div class="gallery-head row">
+              <div class="filters-info"></div>
+              <div class="sortbox row">
+                <div class="view row">
+                  <div class="title">Вид каталога:</div>
+                  <div class="view-list icon active" tooltip="Cписок" onclick="toggleView(event, 'list')"></div>
+                  <div class="view-blocks icon" tooltip="Плитка" onclick="toggleView(event, 'blocks')"></div>
+                </div>
+                <div id="gallery-sort" class="activate select">
+                  <div class="head row">
+                    <div class="title">Сортировать по</div>
+                    <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
+                    </svg>
+                  </div>
+                  <div class="drop-down">
+                    <div class="item" data-value="title">По наименованию</div>
+                    <div class="item" data-value="price1">Цена по возрастанию</div>
+                    <div class="item" data-value="-price1">Цена по убыванию</div>
+                    <div class="item" data-value="-is_new">Новые поступления</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="gallery" class="row">
               <div class="sortbox row">
                 <div class="view row">
                   <div class="title">Вид каталога:</div>
@@ -201,163 +269,122 @@
                     <div class="item">Новые поступления</div>
                   </div>
                 </div>
-                <!-- <select id="gallery-sort" onchange="sortItems()">
-                  <option selected disabled>Сортировать по</option>
-                  <option value="title">По наименованию</option>
-                  <option value="price1">Цена по возрастанию</option>
-                  <option value="-price1">Цена по убыванию</option>
-                  <option value="-is_new">Новые поступления</option>
-                </select> -->
               </div>
-            </div>
-          </div>
-          <div class="main-title row">
-            <div class="title-row row">
-              <div id="page-title" class="title"></div>
-              <div id="cart-name" class="title"></div>
-            </div>
-          </div>
-        </div>
-        <div id="content" class="row">
-          <div id="filters-container">
-            <div id="filters">
-              <div class="default-btn" onclick="clearFilters()">Очистить фильтры</div>
-              <div id="menu-filters">
-                <div id=filter-#key# class="filter #isOpen#" onclick="toggleFilter(event)">
-                  <div class="filter-title">#title#</div>
-                  <div class="filter-items">
-                    <div class="filter-item item" data-type="item" data-key="#key#" data-value="#value#" onclick="selectFilterValue(event)">
-                      <div class="filter-title-container row">
-                        <div class="filter-item-title">#title#</div>
-                        <div class="open-btn #isHiddenOpenBtn#" onclick="toggleFilterItem(event)"></div>
-                        <div class="close-btn"></div>
+              <div id="min-card-#object_id#" data-id="#object_id#" class="min-card card" onclick="showFullCard(#object_id#)">
+                <div class="card-img-wrap">
+                  <img class="card-img" src="#images#" onerror="replaceImg(this)">
+                </div>
+                <div class="card-info">
+                  <div class="card-action #isHiddenAction#">
+                    <div class="action-title" style="background-color: #actioncolor#">#actiontitle#</div>
+                  </div>
+                  <div class="card-title">#title#</div>
+                  <div class="card-price-container row">
+                    <div class="card-price row">
+                      <div class="old-price ptype#ptype#">#price#.-</div>
+                      <div class="new-price #isHiddenPrice#">#price_preorder#.-</div>
+                    </div>
+                    <div class="tooltip" tooltip="#qtyTitle#">
+                      <div class="available-qty #isAvailable#"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="big-card-#object_id#" data-id="#object_id#" data-action-id="0" class="big-card card manage">
+                <div class="card-container">
+                  <div class="big-card-head row">
+                    <div class="card-head">
+                      <div class="card-title">#title#</div>
+                      <div class="card-articul">Код продукта: #articul#</div>
+                    </div>
+                    <div class="card-info-title row">
+                      <div class="card-action #isHiddenAction#">
+                        <div class="action-title" style="background-color: #actioncolor#">#actiontitle#</div>
+                        <div class="action-date">до: <span class=""></span></div>
                       </div>
-                      <div class="filter-subitems">
-                        <div class="filter-item subitem" data-type="subitem" data-key="#key#" data-value="#value#" onclick="selectFilterValue(event)">
-                          <div class="filter-item-title">#title#</div>
+                      <div class="card-price opt row">
+                        <div class="card-price-title">Оптовая цена:</div>
+                        <div class="card-price-wrap row">
+                          <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
+                          <div class="new-price #isHiddenPrice#">#price_preorder#&#8288;.-</div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="gallery" class="row">
-            <div id="min-card-#object_id#" data-id="#object_id#" class="min-card card" onclick="showFullCard(#object_id#)">
-              <div class="card-img-wrap">
-                <img class="card-img" src="#images#">
-              </div>
-              <div class="card-info">
-                <div class="card-action #isHiddenAction#">
-                  <div class="action-title" style="background-color: #actioncolor#">#actiontitle#</div>
-                </div>
-                <div class="card-title">#title#</div>
-                <div class="card-price-container row">
-                  <div class="card-price row">
-                    <div class="old-price ptype#ptype#">#price#.-</div>
-                    <div class="new-price red #isHiddenPrice#">#price_preorder#.-</div>
-                  </div>
-                  <div class="tooltip" tooltip="#qtyTitle#">
-                    <div class="available-qty #isAvailable#"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div id="big-card-#object_id#" data-id="#object_id#" data-action-id="0" class="big-card card manage" onclick="closeBigCard(event)">
-              <div class="card-container">
-                <div class="big-card-head row">
-                  <div class="card-head">
-                    <div class="card-title">#title#</div>
-                    <div class="card-articul grey">Код продукта: #articul#</div>
-                  </div>
-                  <div class="card-info-title row">
-                    <div class="card-action #isHiddenAction#">
-                      <div class="action-title" style="background-color: #actioncolor#">#actiontitle#</div>
-                      <div class="action-date">до: <span class="red"></span></div>
-                    </div>
-                    <div class="card-price opt row">
-                      <div class="card-price-title grey">Оптовая цена:</div>
-                      <div class="card-price-wrap row">
-                        <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
-                        <div class="new-price red #isHiddenPrice#">#price_preorder#&#8288;.-</div>
+                  <div class="big-card-body row">
+                    <div class="card-container-left row">
+                      <div class="carousel" data-type="bigCard" data-img="0">
+                        <div class="left-btn btn"></div>
+                        <div class="right-btn btn"></div>
+                        <div class="carousel-gallery-wrap">
+                          <div class="carousel-gallery">
+                            <div class="carousel-item" onclick="showFullImg(event, #object_id#)">
+                              <img src="#image#">
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="big-card-body row">
-                  <div class="card-container-left row">
-                    <div class="carousel" data-type="bigCard" data-img="0">
-                      <div class="left-btn btn"></div>
-                      <div class="right-btn btn"></div>
-                      <div class="carousel-gallery-wrap">
-                        <div class="carousel-gallery">
-                          <div class="carousel-item" data-numb="#imgNumb#" onclick="showFullImg(event, #object_id#)">
-                            <img src="#image#">
+                      <div class="card-options-container">
+                        <div class="card-price retail row ">
+                          <div class="card-price-title">РРЦ:</div>
+                          <div class="price-user">#price_user#.-</div>
+                        </div>
+                        <div class="card-options">
+                          <div class="card-option row">
+                            <div class="option-title">#optitle#</div>
+                            <div class="option-info">#option#</div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="card-options-container">
-                      <div class="card-price retail row ">
-                        <div class="card-price-title grey">РРЦ:</div>
-                        <div class="price-user">#price_user#.-</div>
-                      </div>
-                      <div class="card-options">
-                        <div class="card-option row">
-                          <div class="option-title grey">#optitle#</div>
-                          <div class="option-info">#option#</div>
+                    <div class="card-container-right">
+                      <div class="select-info">
+                        <div class="row">
+                          <div>Выбрано товаров:&nbsp;</div>
+                          <div><span class="select-count">0</span> шт. на сумму <span class="select-price">0</span><span class="">.–</span></div>
+                        </div>
+                        <div class="bonus row">
+                          <div class="bonus-text">+ Подарок</div>
+                          <img class="bonus-img" src="../img/no_img.jpg">
+                          <div class="bonus-qty"><span class="">0</span>&nbsp;шт.</div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div class="card-container-right">
-                    <div class="select-info">
-                      <div class="row">
-                        <div>Выбрано товаров:&nbsp;</div>
-                        <div><span class="select-count red">0</span> шт. на сумму <span class="select-price red">0</span><span class="red">.–</span></div>
-                      </div>
-                      <div class="bonus row">
-                        <div class="bonus-text">+ Подарок</div>
-                        <img class="bonus-img" src="../img/no_img.jpg">
-                        <div class="bonus-qty"><span class="red">0</span>&nbsp;шт.</div>
-                      </div>
-                    </div>
-                    <div class="card-sizes row">
-                      <div class="card-size">
-                        <div class="articul grey">Артикул: #articul#</div>
-                        <div class="qty row">
-                          <div class="name row #isClick#" onclick="changeCart(event)">#size#</div>
-                          <div class="qty-box row">
-                            <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event)">-</div>
-                            <input class="choiced-qty" type="text" value="0" data-value="0" data-id="#id#" data-free-qty="#free_qty#" autocomplete="off" onchange="changeCart(event)" onblur="changeCart(event)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
-                            <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event)">+</div>
+                      <div class="card-sizes row">
+                        <div class="card-size">
+                          <div class="articul">Артикул: #articul#</div>
+                          <div class="qty row">
+                            <div class="name row #isClick#" onclick="changeCart(event)">#size#</div>
+                            <div class="qty-box row">
+                              <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event)">-</div>
+                              <input class="choiced-qty" type="text" value="0" data-value="0" data-id="#id#" data-free-qty="#free_qty#" autocomplete="off" onchange="changeCart(event)" onblur="changeCart(event)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                              <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event)">+</div>
+                            </div>
+                          </div>
+                          <div class="tooltip" tooltip="#qtyTitle#">
+                            <div class="available-qty #isAvailable#"><span>#free_qty#</span>&nbsp;шт.</div>
                           </div>
                         </div>
-                        <div class="tooltip" tooltip="#qtyTitle#">
-                          <div class="available-qty #isAvailable#"><span>#free_qty#</span>&nbsp;шт.</div>
-                        </div>
                       </div>
+                      <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
+                      <div class="card-notice">#notice#</div>
                     </div>
-                    <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
-                    <div class="card-notice red">#notice#</div>
                   </div>
                 </div>
+                <div class="action-desc">
+                  <div class="card-subtitle">Условие акции:</div>
+                  <div class="card-text"></div>
+                </div>
+                <div class="card-desc hidden-xxs #isHiddenDesc#">
+                  <div class="card-subtitle">Описание товара:</div>
+                  <div class="card-text">#desc#</div>
+                </div>
+                <div class="card-fade"></div>
+                <div class="toggle-btn" tooltip="Раскрыть" onclick="openBigCard(event)"></div>
               </div>
-              <div class="action-desc">
-                <div class="card-subtitle">Условие акции:</div>
-                <div class="card-text"></div>
-              </div>
-              <div class="card-desc hidden-xxs #isHiddenDesc#">
-                <div class="card-subtitle">Описание товара:</div>
-                <div class="card-text">#desc#</div>
-              </div>
-              <div class="card-fade"></div>
-              <div class="toggle-btn" tooltip="Раскрыть" onclick="openBigCard(event)"></div>
             </div>
-          </div>
-          <div id="gallery-notice" class="gallery red">
-            <div>По выбранным фильтрам товаров не найдено</div>
+            <div id="gallery-notice" class="gallery">
+              <div>По выбранным фильтрам товаров не найдено</div>
+            </div>
           </div>
           <div id="full-card-container" onclick="closeFullCard(event)">
             <div id="full-card-#object_id#" data-id="#object_id#" data-action-id="0" class="full-card card manage">
@@ -369,7 +396,7 @@
                     <div class="left-btn btn"></div>
                     <div class="right-btn btn"></div>
                     <div class="carousel-gallery">
-                      <div class="carousel-item row" data-numb="#imgNumb#">
+                      <div class="carousel-item row">
                         <img src="#image#" data-src="#full-image#">
                       </div>
                     </div>
@@ -378,33 +405,33 @@
                 <div class="card-info">
                   <div class="card-head">
                     <div class="card-title">#title#</div>
-                    <div class="card-articul grey">Код продукта: #articul#</div>
+                    <div class="card-articul">Код продукта: #articul#</div>
                     <div class="card-action #isHiddenAction#">
                       <div class="action-title" style="background-color: #actioncolor#">#actiontitle#</div>
-                      <div class="action-date">до: <span class="red"></span></div>
+                      <div class="action-date">до: <span class=""></span></div>
                     </div>
                     <div class="card-price opt row">
                       <div class="card-price-title">Оптовая цена:</div>
                       <div class="card-price-wrap row">
                         <div class="old-price ptype#ptype#">#price#&#8288;.-</div>
-                        <div class="new-price red #isHiddenPrice#">#price_preorder#&#8288;.-</div>
+                        <div class="new-price #isHiddenPrice#">#price_preorder#&#8288;.-</div>
                       </div>
                     </div>
                     <div class="card-price retail row">
-                      <div class="card-price-title grey">Розничная цена:</div>
+                      <div class="card-price-title">Розничная цена:</div>
                       <div class="price-user">#price_user#.-</div>
                     </div>
                     <div class="card-price-info">Данные о ценах и наличии товаров могут отличаться от опубликованных на сайте. Подтверждение цены происходит в момент оформления заказа.</div>
                   </div>
                   <div class="card-options">
                     <div class="card-option row">
-                      <div class="option-title grey">#optitle#</div>
+                      <div class="option-title">#optitle#</div>
                       <div class="option-info">#option#</div>
                     </div>
                   </div>
                   <div class="card-sizes row">
                     <div class="card-size">
-                      <div class="articul grey">Артикул: #articul#</div>
+                      <div class="articul">Артикул: #articul#</div>
                       <div class="qty row">
                         <div class="name row #isClick#" onclick="changeCart(event)">#size#</div>
                         <div class="qty-box row">
@@ -418,7 +445,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="card-notice red">#notice#</div>
+                  <div class="card-notice">#notice#</div>
                   <div class="select-info">
                     <div class="row">
                       <div>Товаров выбрано:&nbsp;</div>
@@ -459,7 +486,6 @@
                 </div>
               </div>
             </div>
-            <div id="img-loader"></div>
           </div>
           <div id="cart">
             <div id="cart-full">
@@ -555,7 +581,7 @@
                     <textarea id="comment" maxlength="300" oninput="countComment()"></textarea>
                     <div class="counter title">Знаков осталось: <span id="comment-counter">300</span></div>
                   </div>
-                  <div id="order-info" class="red">Обратите внимание!<br/>Будет создано несколько заказов: (<span id="order-names"></span>)</div>
+                  <div id="order-info" class="">Обратите внимание!<br/>Будет создано несколько заказов: (<span id="order-names"></span>)</div>
                   <div class="order-btn" onclick="">Заказать</div>
                 </form>
                 <div class="copy-container">
@@ -601,7 +627,7 @@
                     <div class="name">
                       <a class="row" href="../zip/product.html?#id#" target="_blank">
                         <div class="img-wrap row">
-                          <img src="#image#">
+                          <img src="#image#" onerror="replaceImg(this)">
                         </div>
                         <div>#title# #options#</div>
                       </a>
@@ -627,7 +653,7 @@
                             <div class="available-qty"><span>#free_qty#</span>&nbsp;шт.</div>
                           </div>
                         </div>
-                        <div class="value message red">Продано</div>
+                        <div class="value message">Продано</div>
                         <div class="value bonus"><span>#bonus#</span>&nbsp;шт.</div>
                       </div>
                       <div class="prop price">
@@ -661,7 +687,7 @@
     </div>
 
     <div id="alerts-container" class="row" onclick="closeMessages()">
-      <div class="alerts">
+      <div class="alerts pop-up">
         <div class="alerts-title row">
           <div class="row">
             <div class="alerts icon"></div>
@@ -680,7 +706,7 @@
               <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
             </div>
           </div>
-          <div class="message percent row">
+          <div class="message action row">
             <div class="message icon"></div>
             <div>
               <div class="date">25.10.19</div>
@@ -715,7 +741,7 @@
               <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
             </div>
           </div>
-          <div class="message percent row">
+          <div class="message action row">
             <div class="message icon"></div>
             <div>
               <div class="date">25.10.19</div>
@@ -750,7 +776,7 @@
               <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
             </div>
           </div>
-          <div class="message percent row">
+          <div class="message action row">
             <div class="message icon"></div>
             <div>
               <div class="date">25.10.19</div>
@@ -785,7 +811,7 @@
               <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
             </div>
           </div>
-          <div class="message percent row">
+          <div class="message action row">
             <div class="message icon"></div>
             <div>
               <div class="date">25.10.19</div>
@@ -817,11 +843,15 @@
       </div>
     </div>
 
-    <div id="page-loader"></div>
+    <div id="loader">
+      <div class="loader icon"></div>
+      <div class="message">Пожалуйста подождите, <br> идет обработка</div>
+    </div>
 
     <div id="error-container" class="row" onclick="closeError()">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path>
+      <svg class="close-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1.42859 1.42847L18.5714 18.5713" stroke="#34495E" stroke-linecap="round"/>
+        <path d="M18.1429 1L1 18.1429" stroke="#34495E" stroke-linecap="round"/>
       </svg>
       <div id="error"></div>
     </div>
@@ -842,7 +872,6 @@
 
     <script src="http://api.topsports.ru/spad/q2.php"></script>
     <script src="../js/discounts.js"></script>
-    <script src="../js/common.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/filters_ekipirovka.js"></script>
     <script src="../js/cart.js"></script>

@@ -1,5 +1,5 @@
 /* =====================================================================================================
-Сброс стилей браузера по умолчанию:
+Сброс стилей браузера:
 ===================================================================================================== */
 
 *, *::before, *::after {
@@ -99,11 +99,15 @@ body.lock {
 .row {
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .col {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .title {
@@ -118,15 +122,18 @@ body.lock {
   color: rgba(102, 102, 102, 0.7);
 }
 
-.done {
+.text.done,
+.done .text {
   color: #228007;
 }
 
-.fail {
+.text.fail,
+.fail .text {
   color: #CE0014;
 }
 
-.wait {
+.text.work,
+.work .text {
   color: #D97E00;
 }
 
@@ -226,14 +233,15 @@ body.lock {
 
 [tooltip]::before,
 [tooltip]::after {
-  display: none;
+  /* display: none; */
   position: absolute;
-  font-size: 12px;
-  letter-spacing: 0.5px;
-  line-height: 1;
+  font-size: 11px;
+  line-height: 14px;
+  /* letter-spacing: 0.5px; */
   user-select: none;
   pointer-events: none;
   text-transform: none;
+  white-space: pre;
   opacity: 0;
 }
 
@@ -250,15 +258,14 @@ body.lock {
   padding: 0.5em 0.7em;
   color: #34495E;
   background-color: #D4D7DB;
-  border-radius: 4px;
+  border-radius: 3px;
   text-align: center;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   z-index: 1000;
 }
 
-.help[tooltip]::after {
+[tooltip][help]::after {
   background-color: #FFE896;
 }
 
@@ -283,8 +290,8 @@ body.lock {
   transform: translate(-50%, -0.1em);
 }
 
-.help[tooltip]:not([flow])::before,
-.help[tooltip][flow^="up"]::before {
+[tooltip][help]:not([flow])::before,
+[tooltip][help][flow^="up"]::before {
   border-top-color: #FFE896;
 }
 
@@ -305,7 +312,7 @@ body.lock {
   transform: translate(-50%, 0.1em);
 }
 
-.help[tooltip][flow^="down"]::before {
+[tooltip][help][flow^="down"]::before {
   border-bottom-color: #FFE896;
 }
 
@@ -325,7 +332,7 @@ body.lock {
   transform: translate(-0.1em, -50%);
 }
 
-.help[tooltip][flow^="left"]::before {
+[tooltip][help][flow^="left"]::before {
   border-left-color: #FFE896;
 }
 
@@ -345,7 +352,7 @@ body.lock {
   transform: translate(0.1em, -50%);
 }
 
-.help[tooltip][flow^="right"]::before {
+[tooltip][help][flow^="right"]::before {
   border-right-color: #FFE896;
 }
 
@@ -394,6 +401,7 @@ body.lock {
 .btn {
   min-width: 190px;
   padding: 0.714em 1.5em;
+  font-weight: 600;
   border-radius: 3px;
   text-align: center;
   cursor: pointer;
@@ -405,7 +413,7 @@ body.lock {
 }
 
 .basic.btn:hover {
-
+  background-color: #BCCADD;
 }
 
 .active.btn {
@@ -450,6 +458,18 @@ body.lock {
   background-image: url(../img/search.svg);
 }
 
+.open.icon {
+  background-image: url(../img/open_minus.svg);
+}
+
+.close .open.icon {
+  background-image: url(../img/open_plus.svg);
+}
+
+.drop-down.icon {
+  background-image: url(../img/drop-down.svg);
+}
+
 .cart.icon {
   background-image: url(../img/cart_grey.svg);
 }
@@ -467,11 +487,11 @@ body.lock {
 }
 
 .view-list.icon.active {
-  background-image: url(../img/view_list.svg);
+  background-image: url(../img/view_list_active.svg);
 }
 
 .view-blocks.icon.active {
-  background-image: url(../img/view_blocks.svg);
+  background-image: url(../img/view_blocks_active.svg);
 }
 
 .profile.icon {
@@ -503,12 +523,24 @@ body.lock {
 }
 
 .star.icon {
+  background-image: url(../img/star_white_gray.svg);
+}
+
+.active .star.icon {
   background-image: url(../img/star_gray.svg);
   background-size: cover;
 }
 
-.disabled .star.icon {
-  background-image: url(../img/star_white_gray.svg);
+.done .status.icon {
+  background-image: url(../img/status_done.svg);
+}
+
+.fail .status.icon {
+  background-image: url(../img/status_fail.svg);
+}
+
+.work .status.icon {
+  background-image: url(../img/status_work.svg);
 }
 
 .checkbox.icon {
@@ -517,6 +549,10 @@ body.lock {
 
 .checked .checkbox.icon {
   background-image: url(../img/checkbox_checked.svg);
+}
+
+.checked .checkbox.dark.icon {
+  background-image: url(../img/checkbox_dark_checked.svg);
 }
 
 .legend.icon.expected {
@@ -563,7 +599,7 @@ body.lock {
   background-image: url(../img/alert_cart.svg);
 }
 
-.percent .message.icon {
+.action .message.icon {
   background-image: url(../img/alert_percent.svg);
 }
 
@@ -589,6 +625,10 @@ body.lock {
 
 .not-found.icon {
   background-image: url(../img/404.svg);
+}
+
+.loader.icon {
+  background-image: url(../img/loader.gif);
 }
 
 /* Выпадающее меню: */
@@ -635,7 +675,7 @@ body.lock {
   height: 0.357em;
 }
 
-.drop-down {
+.activate .drop-down {
   position: absolute;
   top: 100%;
   width: 100%;
@@ -648,14 +688,14 @@ body.lock {
   border-radius: 0 0 3px 3px;
   -webkit-transition: max-height 0.3s linear;
   -moz-transition: max-height 0.3s linear;
+  -o-transition: max-height 0.3s linear;
   transition: max-height 0.3s linear;
   overflow: hidden;
   opacity: 0;
   z-index: 10;
 }
 
-.drop-down .item {
-  justify-content: flex-start;
+.activate .drop-down .item {
   align-items: center;
   padding: 0.7em 1.5rem;
   cursor: pointer;
@@ -689,7 +729,6 @@ form.search {
 }
 
 form.search > .row {
-  justify-content: flex-start;
   align-items: center;
   width: 100%;
 }
@@ -755,8 +794,12 @@ form.search .close-btn {
 
 /* Прелоадер страницы: */
 
-#page-loader {
+#loader {
   display: none;
+  /* display: flex; */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   right: 0;
@@ -764,11 +807,16 @@ form.search .close-btn {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(../img/page_loader.gif);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 80px;
-  z-index: 40;
+  z-index: 300;
+}
+
+#loader .loader.icon {
+  width: 6em;
+  height: 6em;
+}
+
+#loader .message {
+  text-align: center;
 }
 
 /* Сообщение об ошибке на странице: */
@@ -785,32 +833,31 @@ form.search .close-btn {
   width: 100%;
   height: 100%;
   background: rgba(43,46,56,0.8);
-  z-index: 40;
+  z-index: 300;
 }
 
-#error-container svg {
+#error-container .close-btn {
   position: absolute;
   top: 0;
   right: 0;
   width: 3em;
+  height: 3em;
   margin: 1em;
   z-index: 1;
 }
 
 #error-container svg path {
-  fill: rgb(255, 255, 255);
+  stroke: rgb(255, 255, 255);
 }
 
 #error-container svg:hover path {
-  fill: rgb(241,90,41);
+  /* fill: rgb(241,90,41); */
 }
 
 #error {
   width: 400px;
   max-width: 90vw;
   padding: 2em;
-  font-size: 1em;
-  color: rgb(68,68,68);
   background-color: rgb(255,255,255);
   border-radius: 4px;
   text-align: center;
@@ -922,7 +969,6 @@ form.search .close-btn {
 .header-top .item.cart-info {
   display: flex;
   justify-content: flex-start;
-  padding: 0 1.5rem;
   border: 1px solid transparent;
   border-left: 1px solid #E4E3E7;
 }
@@ -1059,6 +1105,9 @@ form.search .close-btn {
 
 .header-menu .submenu-item {
   margin-right: 0.1rem;
+  -webkit-transition: 200ms;
+  -moz-transition: 200ms;
+  -o-transition: 200ms;
   transition: 200ms;
 }
 
@@ -1080,12 +1129,16 @@ form.search .close-btn {
 .header-menu form.search {
   position: absolute;
   left: 0;
+  width: auto;
   margin-right: 2em;
-  z-index: 1;
+  -webkit-transition: 200ms;
+  -moz-transition: 200ms;
+  -o-transition: 200ms;
   transition: 200ms;
+  z-index: 1;
 }
 
-.header-menu form.search.positioned {
+.header-menu form.search.onfocus {
   right: 1em;
 }
 
@@ -1131,14 +1184,13 @@ form.search .close-btn {
 Стили хедера в основном контенте:
 ===================================================================================================== */
 
-.main-header {
+#main-header {
   padding: 1em 0;
 }
 
 #main-nav  {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
   margin: 0 0 0.5em 0;
   font-size: 1.15em;
 }
@@ -1173,7 +1225,6 @@ form.search .close-btn {
 }
 
 .main-title .title-row {
-  justify-content: flex-start;
   align-items: center;
   font-size: 1.715em;
 }
@@ -1218,7 +1269,6 @@ form.search .close-btn {
 
 .information .item {
   justify-content: space-between;
-  align-items: flex-start;
 }
 
 .information .title {
@@ -1247,7 +1297,7 @@ form.search .close-btn {
   z-index: 200;
 }
 
-#alerts-container > .alerts {
+#alerts-container .alerts.pop-up {
   position: relative;
   top: 10%;
   width: 70%;
@@ -1307,7 +1357,6 @@ form.search .close-btn {
 }
 
 #alerts-body > .message {
-  justify-content: flex-start;
   align-items: center;
   padding: 0.5em 0;
   border-bottom: 1px solid #DBDBDB;
@@ -1378,7 +1427,6 @@ form.search .close-btn {
 
 .table th > .row,
 .table td > .row {
-  justify-content: flex-start;
   align-items: center;
 }
 
@@ -1465,7 +1513,6 @@ form.search .close-btn {
 }
 
 .table-head .drop-down .item {
-  justify-content: flex-start;
   color: #666666;
 }
 

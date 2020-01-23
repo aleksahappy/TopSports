@@ -1,26 +1,40 @@
-.inform >:first-child {
+.artboard-title {
+  font-size: 22px;
+  color: blue;
+  margin-bottom: 1em;
+}
+
+.arboard-block {
+  margin-bottom: 2em;
+}
+
+.inform-temp >:first-child {
   margin-right: 5em;
+}
+
+.text-temp > span {
+  margin-right: 1em;
 }
 
 .table-wrap {
   max-height: 40vh;
 }
 
-.icons #up-btn {
+.icons-temp #up-btn {
   position: static;
   display: block;
 }
 
-.icons #up-btn,
-.icons > svg,
-.icons > div {
+.icons-temp #up-btn,
+.icons-temp > svg,
+.icons-temp > div {
   margin-right: 1em;
   font-size: 2em;
   width: 1em;
   height: 1em;
 }
 
-.icons > div > div {
+.icons-temp > div > div {
   width: 1em;
   height: 1em;
 }
@@ -30,28 +44,32 @@
   height: 1em;
 }
 
-.check-icons > div {
+.check-temp > div {
   margin-right: 1em;
   font-size: 1em;
   width: 1em;
   height: 1em;
 }
 
-.check-icons > div > div {
+.check-temp > div > div {
   width: 1em;
   height: 1em;
 }
 
-.btns > div {
+.btns-temp > div {
   margin-right: 1em;
 }
 
-.drop-down-wrap {
+.search-temp {
+  width: 230px;
+}
+
+.drop-down-temp {
   align-items: flex-start;
   justify-content: flex-start;
   height: 500px;
 }
 
-.drop-down-wrap > div {
+.drop-down-temp > div {
  margin-right: 2em;
 }

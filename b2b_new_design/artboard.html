@@ -140,96 +140,110 @@
     <!-- Шаблон основного содержимого страницы -->
     <div class="main">
       <div class="container">
+
         <!-- Шаблон хедера для основного содержимого страницы -->
-        <div class="main-header">
+        <div id="main-header">
+
           <!-- Шаблон для хлебных крошек -->
           <div id="main-nav">
             <a href="../">Главная</a>
             <a class="item active">Artboard</a>
           </div>
+
           <!-- Шаблон для заголовка страницы -->
           <div class="main-title row">
             <div class="title-row row">
               <div id="page-title" class="title">Artboard</div>
               <div id="cart-name" class="title"></div>
-              <div class="question icon help" tooltip="Подсказки"></div>
+              <div class="question icon" tooltip="Подсказки" help></div>
             </div>
             <div class="left-row row">
               <div class="settings icon" tooltip="Настройки"></div>
             </div>
           </div>
+
         </div>
+      </div>
+    </div>
 
-        <!-- Шаблон блока с информацией -->
+    <div class="container">
 
-        <div class="title">Шаблоны блоков с информацией</div>
+      <!-- Шаблоны блоков с информацией -->
 
-        <br>
+      <div class="artboard-title">Шаблоны блоков с информацией</div>
+      <div class="arboard-block inform-temp row">
 
-        <div class="inform row">
-
-          <!-- Блок без выравнивания инфорации по краям -->
-          <div class="information">
-            <div class="head">Детали заказа</div>
-            <div class="row">
-              <div>
-                <div class="title">Способ оплаты: <span class="text">Безналичный расчет</span></div>
-                <div class="title">Контрагент: <span class="text"><a href="#">ИП Трохименко</a></span></div>
-                <div class="title">Тип заказа: <span class="text"><a href="#">Предзаказ-19 Spy Optic</a></span></div>
-                <div class="title">Менеджер заказа: <span class="text">Ольга Петрова</span></div>
-                <div class="title">Заказчик: <span class="text">Геннадий Трохименко</span></div>
-                <div class="title">Тип доставки: <span class="text">Транспортная компания</span></div>
-                <div class="title">Оплата доставки: <span class="text">Получатель</span></div>
-                <div class="title">Отгрузочные документы: <span class="text">Вкладывать</span></div>
-              </div>
-              <div class="comment">
-                <div class="title">Комментарий:</div>
-                <div class="text light">На всех коробках прошу написать маркером или наклеить лист бумаги с кодом TS-0027&#34; Получателем указать ИП Петренко Сергей Анатольевич, телефон 8-499-653-91-08 Плательщик пересылки ООО «Ритм -8»</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Блок с выравниванием инфорации по краям -->
-          <div class="information">
-            <div class="head title">Оплаты</div>
+        <!-- Блок без выравнивания инфорации по краям -->
+        <div class="information">
+          <div class="head">Детали заказа</div>
+          <div class="row">
             <div>
-              <div class="item row">
-                <div class="title">Оплатить сейчас:</div>
-                <div class="text">1 060 000,00 ₽</div>
-              </div>
-              <div class="item row">
-                <div class="title">Сумма заказа:</div>
-                <div class="text">9 000 000,00 ₽</div>
-              </div>
-              <div class="item row">
-                <div class="title">Оплачено:</div>
-                <div class="text">1 800 000,00 ₽</div>
-              </div>
-              <div class="item row">
-                <div class="title">Осталось оплатить:</div>
-                <div class="text">7 200 000,00 ₽</div>
-              </div>
-              <div class="item row">
-                <div class="title">Дебиторская задолженность:</div>
-                <div class="text">100 000,00 ₽</div>
-              </div>
-              <div class="item row">
-                <div class="title">Кредиторская задолженность:</div>
-                <div class="text">240 000,00 ₽</div>
-              </div>
+              <div class="title">Способ оплаты: <span class="text">Безналичный расчет</span></div>
+              <div class="title">Контрагент: <span class="text"><a href="#">ИП Трохименко</a></span></div>
+              <div class="title">Тип заказа: <span class="text"><a href="#">Предзаказ-19 Spy Optic</a></span></div>
+              <div class="title">Менеджер заказа: <span class="text">Ольга Петрова</span></div>
+              <div class="title">Заказчик: <span class="text">Геннадий Трохименко</span></div>
+              <div class="title">Тип доставки: <span class="text">Транспортная компания</span></div>
+              <div class="title">Оплата доставки: <span class="text">Получатель</span></div>
+              <div class="title">Отгрузочные документы: <span class="text">Вкладывать</span></div>
+            </div>
+            <div class="comment">
+              <div class="title">Комментарий:</div>
+              <div class="text light">На всех коробках прошу написать маркером или наклеить лист бумаги с кодом TS-0027&#34; Получателем указать ИП Петренко Сергей Анатольевич, телефон 8-499-653-91-08 Плательщик пересылки ООО «Ритм -8»</div>
             </div>
           </div>
-
         </div>
 
-        <br>
-        <br>
+        <!-- Блок с выравниванием инфорации по краям -->
+        <div class="information">
+          <div class="head title">Оплаты</div>
+          <div>
+            <div class="item row">
+              <div class="title">Оплатить сейчас:</div>
+              <div class="text">1 060 000,00 ₽</div>
+            </div>
+            <div class="item row">
+              <div class="title">Сумма заказа:</div>
+              <div class="text">9 000 000,00 ₽</div>
+            </div>
+            <div class="item row">
+              <div class="title">Оплачено:</div>
+              <div class="text">1 800 000,00 ₽</div>
+            </div>
+            <div class="item row">
+              <div class="title">Осталось оплатить:</div>
+              <div class="text">7 200 000,00 ₽</div>
+            </div>
+            <div class="item row">
+              <div class="title">Дебиторская задолженность:</div>
+              <div class="text">100 000,00 ₽</div>
+            </div>
+            <div class="item row">
+              <div class="title">Кредиторская задолженность:</div>
+              <div class="text">240 000,00 ₽</div>
+            </div>
+          </div>
+        </div>
 
-        <!-- Шаблон стандартной таблицы -->
+      </div>
 
-        <div class="title">Шаблон стандартной таблицы</div>
+      <!-- Шаблоны текста -->
 
-        <br>
+      <div class="artboard-title">Шаблоны текста</div>
+      <div class="arboard-block text-temp">
+
+        <span class="text">Основной текст</span>
+        <span class="text light">Светлый текст</span>
+        <span class="text done">Добавлено</span>
+        <span class="text fail" tooltip="Магазин не прошел модерацию, &#10; свяжитесь с менеджером" help>Ошибка</span>
+        <span class="text work">Обработка</span>
+
+      </div>
+
+      <!-- Шаблон стандартной таблицы -->
+
+      <div class="artboard-title">Шаблон стандартной таблицы</div>
+      <div class="arboard-block table-temp">
 
         <div class="table-wrap">
           <table class="table positioned">
@@ -2646,185 +2660,193 @@
           </table>
         </div>
 
-        <br>
-        <br>
+      </div>
 
-        <!-- Шаблоны иконок -->
+      <!-- Шаблоны иконок -->
 
-        <div class="title">Иконки svg</div>
+      <!-- Шаблоны иконок svg -->
 
-        <br>
+      <div class="artboard-title">Иконки svg</div>
+      <div class="arboard-block icons-temp row">
 
-        <div class="icons row">
+        <!-- Шаблон кнопки "наверх" есть ниже, здесь шаблон для наглядности уже с классом show, который должен присваиваться скриптом -->
+        <svg id="up-btn" class="show" onclick="goToTop()" width="38" height="31" viewBox="0 0 38 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0.5" y="0.5" width="37" height="30" rx="4.5" fill="#454D56" fill-opacity="0.6" stroke="white"/>
+          <path d="M18.925 11.225C18.625 10.925 18.225 10.925 17.925 11.225L10.225 18.925C9.925 19.225 9.925 19.625 10.225 19.825C10.525 20.125 10.925 20.125 11.225 19.825L18.525 12.825L25.825 19.825C26.125 20.125 26.525 20.125 26.825 19.825C27.125 19.525 27.125 19.125 26.825 18.925L18.925 11.225Z" fill="white"/>
+        </svg>
 
-          <!-- Шаблон кнопки "наверх" есть ниже, здесь шаблон для наглядности уже с классом show, который должен присваиваться скриптом -->
-          <svg id="up-btn" class="show" onclick="goToTop()" width="38" height="31" viewBox="0 0 38 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0.5" y="0.5" width="37" height="30" rx="4.5" fill="#454D56" fill-opacity="0.6" stroke="white"/>
-            <path d="M18.925 11.225C18.625 10.925 18.225 10.925 17.925 11.225L10.225 18.925C9.925 19.225 9.925 19.625 10.225 19.825C10.525 20.125 10.925 20.125 11.225 19.825L18.525 12.825L25.825 19.825C26.125 20.125 26.525 20.125 26.825 19.825C27.125 19.525 27.125 19.125 26.825 18.925L18.925 11.225Z" fill="white"/>
-          </svg>
+        <svg class="close-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.42859 1.42847L18.5714 18.5713" stroke="#34495E" stroke-linecap="round"/>
+          <path d="M18.1429 1L1 18.1429" stroke="#34495E" stroke-linecap="round"/>
+        </svg>
 
-          <svg class="close-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1.42859 1.42847L18.5714 18.5713" stroke="#34495E" stroke-linecap="round"/>
-            <path d="M18.1429 1L1 18.1429" stroke="#34495E" stroke-linecap="round"/>
-          </svg>
+        <svg class="search-btn" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16.1988 15.1562L12.2431 11.1562C13.2841 9.95615 13.8046 8.55615 13.8046 6.95615C13.8046 3.45615 10.7857 0.556152 7.14231 0.556152C3.4989 0.556152 0.375977 3.45615 0.375977 7.05615C0.375977 10.6562 3.3948 13.5562 7.14231 13.5562C8.49558 13.5562 9.84885 13.1561 10.9939 12.3562L14.9496 16.3561C15.1578 16.5561 15.366 16.6562 15.5742 16.6562C15.7824 16.6562 15.9906 16.5562 16.1988 16.4562C16.5111 16.0562 16.5111 15.4562 16.1988 15.1562ZM7.14231 2.25615C9.84885 2.25615 12.139 4.35615 12.139 7.05615C12.139 9.75615 9.95294 11.8562 7.14231 11.8562C4.33168 11.8562 2.14563 9.75615 2.14563 7.05615C2.14563 4.35615 4.33168 2.25615 7.14231 2.25615Z" fill="#666666"/>
+        </svg>
 
-          <svg class="search-btn" width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16.1988 15.1562L12.2431 11.1562C13.2841 9.95615 13.8046 8.55615 13.8046 6.95615C13.8046 3.45615 10.7857 0.556152 7.14231 0.556152C3.4989 0.556152 0.375977 3.45615 0.375977 7.05615C0.375977 10.6562 3.3948 13.5562 7.14231 13.5562C8.49558 13.5562 9.84885 13.1561 10.9939 12.3562L14.9496 16.3561C15.1578 16.5561 15.366 16.6562 15.5742 16.6562C15.7824 16.6562 15.9906 16.5562 16.1988 16.4562C16.5111 16.0562 16.5111 15.4562 16.1988 15.1562ZM7.14231 2.25615C9.84885 2.25615 12.139 4.35615 12.139 7.05615C12.139 9.75615 9.95294 11.8562 7.14231 11.8562C4.33168 11.8562 2.14563 9.75615 2.14563 7.05615C2.14563 4.35615 4.33168 2.25615 7.14231 2.25615Z" fill="#666666"/>
-          </svg>
+        <svg class="star-icon" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.00002 0.23923L9.50002 5.03923H14.5C14.7 5.03923 14.9 5.23923 14.9 5.43923C14.9 5.53923 14.8 5.63923 14.7 5.73923L10.6 8.73923L12.2 13.5392C12.3 13.7392 12.2 13.9392 12 14.0392C11.9 14.0392 11.7 14.0392 11.6 13.9392L7.50002 10.9392L3.40002 13.9392C3.20002 14.0392 3.00002 14.0392 2.90002 13.8392C2.80002 13.7392 2.80002 13.6392 2.80002 13.5392L4.40002 8.73923L0.300024 5.73923C0.100024 5.63923 0.100024 5.33923 0.200024 5.23923C0.300024 5.13923 0.400024 5.03923 0.500024 5.03923H5.50002L7.10002 0.23923C7.20002 0.0392303 7.40002 -0.0607695 7.60002 0.0392305C7.90002 0.0392305 7.90002 0.13923 8.00002 0.23923Z" fill="white"/>
+        </svg>
 
-          <svg class="star-icon" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8.00002 0.23923L9.50002 5.03923H14.5C14.7 5.03923 14.9 5.23923 14.9 5.43923C14.9 5.53923 14.8 5.63923 14.7 5.73923L10.6 8.73923L12.2 13.5392C12.3 13.7392 12.2 13.9392 12 14.0392C11.9 14.0392 11.7 14.0392 11.6 13.9392L7.50002 10.9392L3.40002 13.9392C3.20002 14.0392 3.00002 14.0392 2.90002 13.8392C2.80002 13.7392 2.80002 13.6392 2.80002 13.5392L4.40002 8.73923L0.300024 5.73923C0.100024 5.63923 0.100024 5.33923 0.200024 5.23923C0.300024 5.13923 0.400024 5.03923 0.500024 5.03923H5.50002L7.10002 0.23923C7.20002 0.0392303 7.40002 -0.0607695 7.60002 0.0392305C7.90002 0.0392305 7.90002 0.13923 8.00002 0.23923Z" fill="white"/>
-          </svg>
+      </div>
 
+      <!-- Шаблоны иконок как background у div -->
+
+      <div class="artboard-title">Иконки как background у div</div>
+      <div class="arboard-block icons-temp row">
+
+        <div class="close icon"></div>
+
+        <div class="search icon"></div>
+
+        <div class="close">
+          <div class="open icon"></div>
         </div>
 
-        <br>
-        <br>
+        <div class="open icon"></div>
 
-        <div class="title">Иконки как background у div</div>
+        <div class="profile icon"></div>
 
-        <br>
+        <div class="alerts icon"></div>
 
-        <div class="icons row">
+        <div class="cart icon"></div>
 
-          <div class="close icon"></div>
+        <div class="cart icon white"></div>
 
-          <div class="search icon"></div>
+        <div class="question icon" tooltip="Подсказки" help></div>
 
-          <div class="profile icon"></div>
+        <div class="settings icon" tooltip="Настройки"></div>
 
-          <div class="alerts icon"></div>
+        <div class="clear-filter icon" tooltip="Сбросить фильтры"></div>
 
-          <div class="cart icon"></div>
+        <div class="clear-filter icon disabled" tooltip="Сбросить фильтры"></div>
 
-          <div class="cart icon white"></div>
+        <div class="star icon"></div>
 
-          <div class="view-list icon" tooltip="Cписок"></div>
-
-          <div class="view-blocks icon" tooltip="Плитка"></div>
-
-          <div class="question icon help" tooltip="Подсказки"></div>
-
-          <div class="settings icon" tooltip="Настройки"></div>
-
-          <div class="clear-filter icon" tooltip="Сбросить фильтры"></div>
-
-          <div class="clear-filter icon disabled" tooltip="Сбросить фильтры"></div>
-
+        <div class="active">
           <div class="star icon"></div>
+        </div>
 
-          <div class="disabled">
-            <div class="star icon"></div>
-          </div>
+        <div class="view-list icon" tooltip="Cписок"></div>
 
-          <div class="download icon"></div>
+        <div class="view-blocks icon" tooltip="Плитка"></div>
 
-          <div class="cart">
-            <div class="message icon"></div>
-          </div>
+        <div class="view-list icon active" tooltip="Cписок"></div>
 
-          <div class="percent">
-            <div class="message icon"></div>
-          </div>
+        <div class="view-blocks icon active" tooltip="Плитка"></div>
 
-          <div class="attention">
-            <div class="message icon"></div>
-          </div>
+        <div class="download icon"></div>
 
+        <div class="cart">
+          <div class="message icon"></div>
+        </div>
+
+        <div class="action">
+          <div class="message icon"></div>
+        </div>
+
+        <div class="attention">
+          <div class="message icon"></div>
+        </div>
+
+        <div class="toggle icon"></div>
+
+        <div class="disabled">
           <div class="toggle icon"></div>
-
-          <div class="disabled">
-            <div class="toggle icon"></div>
-          </div>
-
-          <div class="checked full">
-            <div class="toggle icon"></div>
-          </div>
-
-          <div class="checked limit">
-            <div class="toggle icon"></div>
-          </div>
-
-          <div class="not-found icon"></div>
-
         </div>
 
-        <br>
-        <br>
+        <div class="checked full">
+          <div class="toggle icon"></div>
+        </div>
 
-        <div class="title">Чекбоксы как background у div</div>
+        <div class="checked limit">
+          <div class="toggle icon"></div>
+        </div>
 
-        <br>
+        <div class="done">
+          <div class="status icon"></div>
+        </div>
 
-        <div class="check-icons row">
+        <div class="fail">
+          <div class="status icon"></div>
+        </div>
 
+        <div class="work">
+          <div class="status icon"></div>
+        </div>
+
+        <div class="not-found icon"></div>
+
+        <div class="loader icon"></div>
+
+      </div>
+
+      <!-- Шаблоны чекбоксов как background у div -->
+
+      <div class="artboard-title">Чекбоксы как background у div</div>
+      <div class="arboard-block check-temp row">
+
+        <div class="checkbox icon"></div>
+
+        <div class="checked">
           <div class="checkbox icon"></div>
+        </div>
 
-          <div class="checked">
-            <div class="checkbox icon"></div>
-          </div>
+        <div class="checked">
+          <div class="checkbox dark icon"></div>
+        </div>
 
+        <div class="legend icon expected"></div>
+
+        <div class="legend icon available"></div>
+
+        <div class="legend icon ready"></div>
+
+        <div class="legend icon shipped"></div>
+
+        <div class="legend icon shortage"></div>
+
+        <div class="checked">
           <div class="legend icon expected"></div>
+        </div>
 
+        <div class="checked">
           <div class="legend icon available"></div>
+        </div>
 
+        <div class="checked">
           <div class="legend icon ready"></div>
+        </div>
 
+        <div class="checked">
           <div class="legend icon shipped"></div>
+        </div>
 
+        <div class="checked">
           <div class="legend icon shortage"></div>
-
-          <div class="checked">
-            <div class="legend icon expected"></div>
-          </div>
-
-          <div class="checked">
-            <div class="legend icon available"></div>
-          </div>
-
-          <div class="checked">
-            <div class="legend icon ready"></div>
-          </div>
-
-          <div class="checked">
-            <div class="legend icon shipped"></div>
-          </div>
-
-          <div class="checked">
-            <div class="legend icon shortage"></div>
-          </div>
-
         </div>
 
-        <br>
-        <br>
+      </div>
 
-        <!-- Шаблоны кнопок -->
+      <!-- Шаблоны кнопок -->
 
-        <div class="title">Кнопки</div>
+      <div class="artboard-title">Кнопки</div>
+      <div class="arboard-block btns-temp row">
 
-        <br>
+        <div class="basic btn">Очистить корзину</div>
 
-        <div class="btns row">
+        <div class="basic btn">Добавить в корзину из файла</div>
 
-          <div class="basic btn">Очистить корзину</div>
+        <div class="active btn">Оформить заказ</div>
 
-          <div class="basic btn">Добавить в корзину из файла</div>
+        <div class="unactive btn">Закрыть</div>
 
-          <div class="active btn">Оформить заказ</div>
+      </div>
 
-          <div class="unactive btn">Закрыть</div>
+      <!-- Шаблон поля поиска -->
 
-        </div>
-
-        <br>
-        <br>
-
-        <!-- Шаблон поля поиска -->
-
-        <div class="title">Поле поиска</div>
-
-        <br>
+      <div class="artboard-title">Поле поиска</div>
+      <div class="arboard-block search-temp">
 
         <form action="#" class='search row'>
           <div class="row">
@@ -2834,71 +2856,70 @@
           <div class="close icon"></div>
         </form>
 
-        <br>
-        <br>
-
-        <!-- Шаблоны выпадающих окон -->
-
-        <div class="title">Выпадающие окна</div>
-
-        <br>
-
-        <div class="drop-down-wrap row">
-
-          <div class="activate select">
-            <div class="head row">
-              <div class="title">Select</div>
-              <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
-              </svg>
-            </div>
-            <div class="drop-down">
-              <div class="item">Значение 1</div>
-              <div class="item">Значение 2</div>
-              <div class="item">Значение 3</div>
-              <div class="item">Значение 4</div>
-              <div class="item">Значение 5</div>
-            </div>
-          </div>
-
-          <div class="activate checkbox">
-            <div class="head row">
-              <div class="title">Checkbox</div>
-              <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
-              </svg>
-            </div>
-            <div class="drop-down">
-              <div class="item row">
-                <div class="checkbox icon"></div>
-                <div>Значение 1</div>
-              </div>
-              <div class="item row">
-                <div class="checkbox icon"></div>
-                <div>Значение 2</div>
-              </div>
-              <div class="item row">
-                <div class="checkbox icon"></div>
-                <div>Значение 3</div>
-              </div>
-              <div class="item row">
-                <div class="checkbox icon"></div>
-                <div>Значение 4</div>
-              </div>
-              <div class="item row">
-                <div class="checkbox icon"></div>
-                <div>Значение 5</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
       </div>
+
+      <!-- Шаблоны выпадающих окон -->
+
+      <div class="artboard-title">Выпадающие окна</div>
+      <div class="arboard-block drop-down-temp row">
+
+        <!-- Шаблон селекта -->
+        <div class="activate select">
+          <div class="head row">
+            <div class="title">Select</div>
+            <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
+            </svg>
+          </div>
+          <div class="drop-down">
+            <div class="item" data-value="1">Значение 1</div>
+            <div class="item" data-value="2">Значение 2</div>
+            <div class="item" data-value="3">Значение 3</div>
+            <div class="item" data-value="4">Значение 4</div>
+            <div class="item" data-value="5">Значение 5</div>
+          </div>
+        </div>
+
+        <!-- Шаблон чекбокса -->
+        <div class="activate checkbox">
+          <div class="head row">
+            <div class="title">Checkbox</div>
+            <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
+            </svg>
+          </div>
+          <div class="drop-down">
+            <div class="item row" data-value="1">
+              <div class="checkbox icon"></div>
+              <div>Значение 1</div>
+            </div>
+            <div class="item row" data-value="2">
+              <div class="checkbox icon"></div>
+              <div>Значение 2</div>
+            </div>
+            <div class="item row" data-value="3">
+              <div class="checkbox icon"></div>
+              <div>Значение 3</div>
+            </div>
+            <div class="item row" data-value="4">
+              <div class="checkbox icon"></div>
+              <div>Значение 4</div>
+            </div>
+            <div class="item row" data-value="5">
+              <div class="checkbox icon"></div>
+              <div>Значение 5</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
+
 
     <!-- Шаблон окна уведомлений -->
     <div id="alerts-container" class="row" onclick="closeMessages()">
-      <div class="alerts">
+      <div class="alerts pop-up">
         <div class="alerts-title row">
           <div class="row">
             <div class="alerts icon"></div>
@@ -2917,7 +2938,7 @@
               <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
             </div>
           </div>
-          <div class="message percent row">
+          <div class="message action row">
             <div class="message icon"></div>
             <div>
               <div class="date">25.10.19</div>
@@ -2952,7 +2973,7 @@
               <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
             </div>
           </div>
-          <div class="message percent row">
+          <div class="message action row">
             <div class="message icon"></div>
             <div>
               <div class="date">25.10.19</div>
@@ -2987,7 +3008,7 @@
               <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
             </div>
           </div>
-          <div class="message percent row">
+          <div class="message action row">
             <div class="message icon"></div>
             <div>
               <div class="date">25.10.19</div>
@@ -3022,7 +3043,7 @@
               <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
             </div>
           </div>
-          <div class="message percent row">
+          <div class="message action row">
             <div class="message icon"></div>
             <div>
               <div class="date">25.10.19</div>
@@ -3055,14 +3076,18 @@
     </div>
 
     <!-- Шаблон прелоадера -->
-    <div id="page-loader"></div>
+    <div id="loader">
+      <div class="loader icon"></div>
+      <div class="message">Пожалуйста подождите, <br> идет обработка</div>
+    </div>
 
     <!-- Шаблон сообщения об ошибке -->
     <div id="error-container" class="row" onclick="closeError()">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path d="M12 10.6L6.6 5.2 5.2 6.6l5.4 5.4-5.4 5.4 1.4 1.4 5.4-5.4 5.4 5.4 1.4-1.4-5.4-5.4 5.4-5.4-1.4-1.4-5.4 5.4z"></path>
+      <svg class="close-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1.42859 1.42847L18.5714 18.5713" stroke="#34495E" stroke-linecap="round"/>
+        <path d="M18.1429 1L1 18.1429" stroke="#34495E" stroke-linecap="round"/>
       </svg>
-      <div id="error"></div>
+      <div id="error">Сообщение об ошибке</div>
     </div>
 
     <!-- Шаблон кнопки "Наверх страницы" -->
@@ -3081,7 +3106,6 @@
       </div>
     </div>
 
-    <script src ="js/common.js"></script>
     <script src ="js/main.js"></script>
 
   </body>

@@ -84,7 +84,6 @@ var curProduct,
 // Проверка актуальности данных в корзине:
 
 function checkCartRelevance() {
-  // console.log('checkCartRelevance');
   var id, freeQty, price, retailPrice, actionId, discount, curActionId,
       cartInfo = cart[cartId];
 
@@ -496,9 +495,6 @@ function createCartList() {
     cartFull.style.display = 'none';
   } else {
     cartRows.innerHTML = cartList;
-    document.querySelectorAll('.cart-row').forEach(row => {
-      checkImg(row);
-    });
     cartTable.innerHTML = cartTableList;
   }
   return cartList;
@@ -733,7 +729,6 @@ function changeCardInfo(card) {
       imgNumb = curProduct.images[0];
     }
     bonusRow.querySelector('.bonus-img').src = `http://b2b.topsports.ru/c/productpage/${imgNumb}.jpg`;
-    checkImg(bonusRow);
     bonusRow.style.display = 'flex';
   } else {
     bonusRow.style.display = 'none';
