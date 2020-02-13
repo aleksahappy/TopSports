@@ -1911,6 +1911,8 @@ function openBigCard(event) {
   setFiltersPosition();
 }
 
+// Сворачивание большой карточки:
+
 function closeBigCard(event) {
   var curCard = event.currentTarget.closest('.big-card');
   if (window.innerWidth < 767) {

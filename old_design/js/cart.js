@@ -623,7 +623,6 @@ function checkCart(card) {
     }
     qty = qty > freeQty ? freeQty : qty;
     input.value = qty;
-    input.dataset.value = qty;
     changeColors(qtyWrap, qty);
     changeNameBtn(clicable, qty);
     changeCardInfo(card);
@@ -644,7 +643,7 @@ function changeCart(event) {
       actionId = curEl.dataset.actionId;
 
   qty = changeValue(sign, qty, freeQty);
-  if (parseInt(input.dataset.value, 10) === qty) {
+  if (parseInt(input.value, 10) === qty) {
     return;
   }
   findCurData(id);
@@ -652,7 +651,6 @@ function changeCart(event) {
     return;
   }
   input.value = qty;
-  input.dataset.value = qty;
   saveCartInfo(id, {qty: qty, freeQty: freeQty, price: curProduct.price_cur1, retailPrice: curProduct.price_user1, actionId: actionId});
   changeColors(qtyWrap, qty);
   if (curEl.classList.contains('card')) {

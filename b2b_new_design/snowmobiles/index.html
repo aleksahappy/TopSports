@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../img/top_sports_logo_black_short_transparency.png">
+    <title>ТОП СПОРТС - Снегоходы</title>
+    <meta name="keywords" content="ТОП СПОРТС">
+    <meta name="desc" content="ТОП СПОРТС">
+    <link rel="stylesheet" type="text/css" href="../css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" type="text/css" href="../css/catalog.css">
+    <link rel="stylesheet" type="text/css" href="../css/cart.css">
+  </head>
+
+  <body id="_snow" data-website="ts_b2b" data-cart="snow">
+
+    <div class="header">
+      <div class="header-top">
+        <div class="container row">
+          <div class="left-side row">
+            <a class="logo" href="../desktop"><img src="../img/logo.svg" alt="Логотип"/></a>
+            <div class="row">
+              <div class="activate">
+                <div class="head row">
+                  <a class="title" href="../desktop">Рабочий стол</a>
+                </div>
+              </div>
+              <div class="activate hover">
+                <div class="head row">
+                  <div class="title">Каталоги</div>
+                  <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
+                  </svg>
+                </div>
+                <div class="drop-down">
+                  <div class="row">
+                    <a class="item catalog" href="../preorder">Предзаказы</a>
+                    <a id="cart-preorder" class="item cart-info row" href="../preorder/?cart">
+                      <div class="cart icon"></div>
+                      <div class="qty-short">0</div>
+                    </a>
+                  </div>
+                  <div class="row">
+                    <a class="item catalog" href="../equipment/">Экипировка</a>
+                    <a id="cart-equip" class="item cart-info row" href="../equipment/?cart" data-href="cart" data-level="2" data-title="Корзина" onclick="openPage(event)">
+                      <div class="cart icon"></div>
+                      <div class="qty-short">0</div>
+                    </a>
+                  </div>
+                  <div class="row">
+                    <a class="item catalog" href="../snowmobiles/" data-href="_snow" data-level="1" data-title="Снегоходы" onclick="openPage(event)">Снегоходы</a>
+                    <a id="cart-snow" class="item cart-info row" href="../snowmobiles/?cart">
+                      <div class="cart icon"></div>
+                      <div class="qty-short">0</div>
+                    </a>
+                  </div>
+                  <div class="row">
+                    <a class="item catalog" href="../boats/">Лодки и моторы</a>
+                    <a id="cart-boats" class="item cart-info row" href="../boats/?cart">
+                      <div class="cart icon"></div>
+                      <div class="qty-short">0</div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="activate hover select">
+                <div class="head row">
+                  <div class="title">Закупки</div>
+                  <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
+                  </svg>
+                </div>
+                <div class="drop-down">
+                  <a class="item" href="../orders/">Заказы</a>
+                  <a class="item" href="../reclamations/">Рекламации</a>
+                  <a class="item" href="../documents/">Документы</a>
+                  <a class="item" href="../certificates/">Сертификаты</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="right-side row">
+            <div class="activate hover select">
+              <div class="head row">
+                <div class="profile icon"></div>
+                <div class="login">
+                  <div class="title">TS00000905</div>
+                  <div class="username">Виктор Пашковски</div>
+                </div>
+              </div>
+              <div class="drop-down">
+                <div class="links">
+                  <a class="item" href="../users">Пользователи</a>
+                  <a class="item" href="../contractors">Контрагенты</a>
+                  <a class="item" href="#">Адреса доставки</a>
+                  <a class="item" href="../shops">Магазины</a>
+                  <a class="item" href="../monitoring">Мониторинг</a>
+                  <a class="item" href="../mediabank">Медиабанк</a>
+                </div>
+                <a id="exit" class="item" class="menu-item" href="#">Выйти</a>
+              </div>
+            </div>
+            <div class="alerts icon" onclick="openPopUp('alerts-container')">
+              <div class="qty in-circle row">12</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="header-menu">
+        <div class="container row">
+          <div class="catalog row">
+            <a class="topmenu-item active" href="../snowmobiles/" data-href="_snow" data-level="1" data-title="Снегоходы" onclick="openPage(event)">Снегоходы</a>
+            <a class="submenu-item" href="../snowmobiles/?zip" data-href="zip" data-level="2" data-title="Запчасти" onclick="openPage(event)">Запчасти</a>
+            <a class="submenu-item" href="../snowmobiles/?acc" data-href="acc" data-level="2" data-title="Аксессуары" onclick="openPage(event)">Аксессуары</a>
+          </div>
+          <div class="info row">
+            <div class="search icon white search-manage" onclick="openPageSearch()"></div>
+            <form id="page-search" class="search row" action="#" onsubmit="findOnPage(event)">
+              <div class="row">
+                <input class="search icon" type="submit" value=""></input>
+                <input id="page-search-input" type="text" autocomplete="off" placeholder="Поиск...">
+              </div>
+              <div class="close icon" onclick="startClearPageSearch()"></div>
+            </form>
+            <a id="header-cart" class="row" href="../equipment/?cart" data-href="cart" data-level="2" data-title="Корзина" onclick="openPage(event)">
+              <div class="amount"><span>0</span>&nbsp;руб.</div>
+              <div class="cart icon white">
+                <div class="qty in-circle row">0</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div id="zip-select">
+        <div class="container row">
+          <div class="zip-filters row">
+            <div id="select-man" data-filter="man" class="activate select">
+              <div class="head row">
+                <div class="title">Производитель:</div>
+                <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
+                </svg>
+              </div>
+              <div class="drop-down">
+                <div class="item" data-value="#item#">#item#</div>
+              </div>
+            </div>
+            <div id="select-years" data-filter="years" class="activate select">
+              <div class="head row">
+                <div class="title">Год:</div>
+                <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
+                </svg>
+              </div>
+              <div class="drop-down">
+                <div class="item" data-value="#item#">#item#</div>
+              </div>
+            </div>
+            <div id="select-model" data-filter="model" class="activate select">
+              <div class="head row">
+                <div class="title">Модель:</div>
+                <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
+                </svg>
+              </div>
+              <div class="drop-down">
+                <div class="item" data-value="#item#">#item#</div>
+              </div>
+            </div>
+            <div class="close icon white" tooltip="Сброс фильтра" onclick="startClearZipFilters(this)"></div>
+          </div>
+          <form action="#" id="oem-search" class="search row" oninput="showOemList()" onsubmit="findOem(event)">
+            <div class="row">
+              <div class="search icon" onclick="findOem(event)"></div>
+              <input id="oem-search-input" type="text" autocomplete="off" data-value="" placeholder="Поиск по OEM" onfocus="onFocusOemInput(this)" onblur="onBlurOemInput(this)">
+            </div>
+            <div class="close icon" onclick="startClearOemSearch(event)"></div>
+            <div id="oem-dropdown">
+              <div id="oem-not-found">Совпадений не найдено</div>
+              <div id="oem-list">
+                <div class="oem" data-oem="#item#" onclick="selectOem(event)">#item#</div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="header-content">
+        <div class="container row">
+          <div class="clear-filter btn basic" onclick="clearFilters()">Сбросить фильтры</div>
+          <div class="gallery-head row">
+            <div id="search-info">
+              <div class="result row">
+                <div>Результаты поиска (<span id="search-text"></span> - <span id="search-count">0</span>)</div>
+                <div class="close icon" onclick="startClearPageSearch()"></div>
+              </div>
+            </div>
+            <div id="filters-info">
+              <div class="result row" data-key="#key#" data-value="#value#" onclick="selectFilterValue(event)">
+                <div class="title">#title#</div>
+                <div class="close icon"></div>
+              </div>
+            </div>
+            <div class="sortbox row">
+              <div class="view row">
+                <div class="title">Вид каталога:</div>
+                <div class="view-list icon active" tooltip="Cписок" onclick="toggleView(event, 'list')"></div>
+                <div class="view-blocks icon" tooltip="Плитка" onclick="toggleView(event, 'blocks')"></div>
+              </div>
+              <div id="gallery-sort" class="activate select">
+                <div class="head row">
+                  <div class="title">Сортировать по</div>
+                  <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
+                  </svg>
+                </div>
+                <div class="drop-down">
+                  <div class="item" data-value="title">По наименованию</div>
+                  <div class="item" data-value="price1">Цена по возрастанию</div>
+                  <div class="item" data-value="-price1">Цена по убыванию</div>
+                  <div class="item" data-value="-is_new">Новые поступления</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main zip">
+      <div class="container">
+        <div id="main-header">
+          <div id="main-nav">
+            <a href="../desktop">Главная</a>
+            <a class="item" href="#href#" data-href="#dataHref#" data-level="#level#" onclick="openPage(event)">#title#</a>
+          </div>
+          <div class="main-title row">
+            <div class="title-row row">
+              <div id="page-title" class="title"></div>
+              <div id="cart-name" class="title"></div>
+            </div>
+          </div>
+        </div>
+        <div id="content" class="row">
+          <div id="filters-container">
+            <div id="filters">
+              <div id="menu-filters">
+                <div id=filter-#key# class="filter #isOpen#" onclick="toggleFilter(event)">
+                  <div class="filter-title row">
+                    <div class="title">#title#</div>
+                    <div class="open icon"></div>
+                  </div>
+                  <div class="filter-items">
+                    <div class="filter-item item close" data-key="#key#" data-value="#value#" onclick="selectFilterValue(event)">
+                      <div class="filter-title-container row">
+                        <div class="filter-item-title row">
+                          <div class="checkbox dark icon"></div>
+                          <div class="item-title">#title#</div>
+                        </div>
+                        <div class="drop-down icon #isHidden#" onclick="toggleFilterItem(event)"></div>
+                      </div>
+                      <div class="filter-subitems">
+                        <div class="filter-item subitem" data-key="#key#" data-subkey="#subkey#" data-value="#value#" onclick="selectFilterValue(event)">
+                          <div class="filter-title-container row">
+                            <div class="filter-item-title row">
+                              <div class="checkbox dark icon"></div>
+                              <div class="item-title">#title#</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="gallery" class="row">
+            <div id="min-card-#object_id#" data-id="#object_id#" class="min-card card" onclick="showFullCard(#object_id#)">
+              <div class="card-img-wrap">
+                <img class="card-img" src="#image#" onerror="replaceImg(this)">
+              </div>
+              <div class="card-title">
+                <div class="title">#title#</div>
+              </div>
+              <div class="card-price">
+                <div>
+                  <div class="cur-price row #isBorder#">
+                    <div class="title">Оптовая цена: </div>
+                    <div class="text orange">#price_cur#</div>
+                  </div>
+                  <div class="old-price row">
+                    <div class="card-action #isAction#">
+                      <div class="action-title" style="background-color: #actioncolor#">#actiontitle#</div>
+                    </div>
+                    <div class="text light #isOldPrice#">#price#</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-info row">
+                <div class="tooltips row">
+                  <div class="free-qty #isFree# row" tooltip="В наличии">
+                    <span class="free-qty icon"></span>
+                  </div>
+                  <div class="arrive-qty #isArrive# row" tooltip="Ожидается">
+                    <span class="arrive-qty icon"></span>
+                  </div>
+                  <div class="warehouse-qty #isWarehouse# row" tooltip="Склад">
+                    <span class="warehouse-qty icon"></span>
+                  </div>
+                </div>
+                <div class="cart icon in-circle">
+                  <div class="qty in-circle row">0</div>
+                </div>
+              </div>
+            </div>
+            <div id="big-card-#object_id#" class="big-card card manage row" data-id="#object_id#" data-action-id="0" onclick="closeBigCard(event)">
+              <div class="container-left row">
+                <div class="carousel" data-type="bigCard">
+                  <div class="left-btn"></div>
+                  <div class="right-btn"></div>
+                  <div class="carousel-gallery-wrap">
+                    <div class="carousel-gallery">
+                      <div class="carousel-item" onclick="showFullImg(event, #object_id#)">
+                        <img src="#image#">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-content">
+                  <div class="card-head row">
+                    <div class="card-title">
+                      <div class="title">#title#</div>
+                    </div>
+                  </div>
+                  <div class="card-body row">
+                    <div class="card-price">
+                      <div>
+                        <div class="cur-price row #isBorder#">
+                          <div class="title">Оптовая цена: </div>
+                          <div class="text orange">#price_cur#</div>
+                        </div>
+                        <div class="old-price row">
+                          <div class="card-action #isAction#">
+                            <div class="action-title" style="background-color: #actioncolor#">Акция</div>
+                          </div>
+                          <div class="text light #isOldPrice#">#price#</div>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="user-price row">
+                          <div class="title">Розничная цена: </div>
+                          <div class="text">#price_user#</div>
+                        </div>
+                        <div class="markup row">
+                          <div class="title">Торговая наценка: </div>
+                          <div class="text">#markup#%</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-select">
+                      <div class="card-sizes row">
+                        <div class="card-size">
+                          <div class="articul text light">#articul#</div>
+                          <div class="qty row">
+                            <div class="name row text light">#size#</div>
+                            <div class="qty-box row">
+                              <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event)">-</div>
+                              <input class="choiced-qty text light" type="text" value="0" data-id="#object_id#" data-qty="#total_qty#" autocomplete="off" onchange="changeCart(event)" onblur="changeCart(event)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                              <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event)">+</div>
+                            </div>
+                            <div class="tooltips col">
+                              <div class="free-qty #isFree# row" tooltip="В наличии">
+                                <span class="free-qty icon"></span>
+                                <span class="text green">#free_qty#&nbsp;шт.</span>
+                              </div>
+                              <div class="arrive-qty #isArrive# row" tooltip="Ожидается">
+                                <span class="arrive-qty icon"></span>
+                                <span class="text ligth">#arrive_qty#&nbsp;шт.&nbsp;#arrive_date#</span>
+                              </div>
+                              <div class="warehouse-qty #isWarehouse# row" tooltip="Склад">
+                                <span class="warehouse-qty icon"></span>
+                                <span class="text">#warehouse_qty#&nbsp;шт.</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="select-info row">
+                        <div class="select-qty">
+                          Выбрано товаров:&nbsp;<span class="text orange">0</span> шт.
+                        </div>
+                        <div class="select-amount">
+                          Итого:&nbsp;<span class="text orange">0</span> руб.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container-right col">
+                <div class="card-options">
+                  <div class="card-option row">
+                    <div class="option-title title">#optitle#</div>
+                    <div class="option-info">#option#</div>
+                  </div>
+                </div>
+                <div class="card-manuf #isManuf#">
+                  <div class="manuf-table">
+                    <div id="manuf-headers" class="title row">
+                      <div class="man" data-title="man">Производитель</div>
+                      <div class="oem" data-title="oem">ОЕМ</div>
+                      <div class="model" data-title="model">Модель</div>
+                      <div class="years" data-title="years">Год модели</div>
+                    </div>
+                    <div class="manuf-row row">
+                      <div class="#cat#">#info#</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-fade"></div>
+              <a class="details" onclick="showFullCard(#object_id#)">Подробнее</a>
+            </div>
+          </div>
+          <div id="gallery-notice" class="text orange">
+            <div>По выбранным фильтрам товаров не найдено</div>
+          </div>
+        </div>
+        <div id="full-card-container" class="pop-up-container" onclick="closePopUp(event)">
+          <div id="full-card-#object_id#" data-id="#object_id#" data-action-id="0" class="full-card card manage pop-up">
+            <div class="card-head row">
+              <div class="card-title">
+                <div class="title">#title#</div>
+                <div class="text light">#articul#</div>
+              </div>
+              <svg class="close-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1.42859 1.42847L18.5714 18.5713" stroke="rgb(52,73,94)" stroke-linecap="round"/>
+                <path d="M18.1429 1L1 18.1429" stroke="rgb(52,73,94)" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="card-body row">
+              <div class="carousel" data-type="fullCard">
+                <div class="maximize icon"></div>
+                <div class="carousel-gallery-wrap">
+                  <div class="left-btn control"></div>
+                  <div class="right-btn control"></div>
+                  <div class="carousel-gallery">
+                    <div class="carousel-item row">
+                      <img src="#image#" data-src="#full-image#">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="card-choice">
+                  <div class="card-price">
+                    <div>
+                      <div class="cur-price row #isBorder#">
+                        <div class="title">Оптовая цена: </div>
+                        <div class="text orange">#price_cur#</div>
+                      </div>
+                      <div class="old-price row">
+                        <div class="card-action #isAction#">
+                          <div class="action-title" style="background-color: #actioncolor#">Акция</div>
+                        </div>
+                        <div class="text light #isOldPrice#">#price#</div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="user-price row">
+                        <div class="title">Розничная цена: </div>
+                        <div class="text">#price_user#</div>
+                      </div>
+                      <div class="markup row">
+                        <div class="title">Торговая наценка: </div>
+                        <div class="text">#markup#%</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="select-info row">
+                    <div class="select-qty">
+                      Выбрано товаров:&nbsp;<span class="text orange">0</span> шт.
+                    </div>
+                    <div class="select-amount">
+                      Итого:&nbsp;<span class="text orange">0</span> руб.
+                    </div>
+                  </div>
+                  <div class="card-sizes row">
+                    <div class="card-size">
+                      <div class="articul text light">#articul#</div>
+                      <div class="qty row">
+                        <div class="name row text light">#size#</div>
+                        <div class="qty-box row">
+                          <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event)">-</div>
+                          <input class="choiced-qty text light" type="text" value="0" data-id="#object_id#" data-qty="#total_qty#" autocomplete="off" onchange="changeCart(event)" onblur="changeCart(event)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                          <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event)">+</div>
+                        </div>
+                      </div>
+                      <div class="tooltips row">
+                        <div class="free-qty #isFree# row" tooltip="В наличии">
+                          <span class="free-qty icon"></span>
+                          <span class="text green">#free_qty#&nbsp;шт.</span>
+                        </div>
+                        <div class="arrive-qty #isArrive# row" tooltip="Ожидается">
+                          <span class="arrive-qty icon"></span>
+                          <span class="text ligth">#arrive_qty#&nbsp;шт.&nbsp;#arrive_date#</span>
+                        </div>
+                        <div class="warehouse-qty #isWarehouse# row" tooltip="Склад">
+                          <span class="warehouse-qty icon"></span>
+                          <span class="text">#warehouse_qty#&nbsp;шт.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-opt">
+                  <div class="card-options">
+                    <div class="card-option row">
+                      <div class="option-title title">#optitle#</div>
+                      <div class="option-info">#option#</div>
+                    </div>
+                  </div>
+                  <div class="card-manuf #isManuf#">
+                    <div class="manuf-table">
+                      <div id="manuf-headers" class="title row">
+                        <div class="man" data-title="man">Производитель</div>
+                        <div class="oem" data-title="oem">ОЕМ</div>
+                        <div class="model" data-title="model">Модель</div>
+                        <div class="years" data-title="years">Год модели</div>
+                      </div>
+                      <div class="manuf-row row">
+                        <div class="#cat#">#info#</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-info">
+              <div class="card-desc #isDesc#">
+                <div class="subtitle">Описание товара</div>
+                <div class="text">#desc#</div>
+              </div>
+              <div class="action-desc">
+                <div class="subtitle">Условия акции</div>
+                <div class="text"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="full-img-container" class="pop-up-container" onclick="closeFullImg(event)">
+          <svg class="close-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.42859 1.42847L18.5714 18.5713" stroke="#34495E" stroke-linecap="round"/>
+            <path d="M18.1429 1L1 18.1429" stroke="#34495E" stroke-linecap="round"/>
+          </svg>
+          <div id="full-img" class="row">
+            <div class="carousel" data-type="fullImg">
+              <div class="left-btn control"></div>
+              <div class="right-btn control"></div>
+              <div class="carousel-gallery-wrap">
+                <div class="carousel-gallery">
+                  <div class="carousel-item">
+                    <img src="#image#">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="cart">
+          <div id="cart-empty">
+            <div class="title">Ваша корзина пуста</div>
+            <a id="catalog-link" class="active btn" href="../snowmobiles/" data-href="_snow" data-level="1" onclick="openPage(event)">Перейти в каталог товаров</a>
+            <div class="load-cart">
+              <textarea id="load-text" class="text" placeholder="Артикул Количество
+Артикул Количество
+Артикул Количество
+Артикул Количество
+Артикул Количество"></textarea>
+              <div class="load active btn" onclick="loadInCart()">Загрузить список</div>
+            </div>
+          </div>
+          <div id="cart-full">
+            <div class="cart-header">
+              <div class="cart-info-container row">
+                <div id="cart-info" class="row">
+                  <div>
+                    <div class="title">Количество</div>
+                    <div class="text"><span class="qty">0</span></div>
+                  </div>
+                  <div>
+                    <div class="title">Сумма РРЦ</div>
+                    <div class="text"><span class="amount-retail">0</span>&nbsp;руб.</div>
+                  </div>
+                  <div>
+                    <div class="title">Сумма заказа</div>
+                    <div class="text"><span class="amount-opt">0</span>&nbsp;руб.</div>
+                  </div>
+                  <div class="cart-discount">
+                    <div class="title">Ориентировочная скидка</div>
+                    <div class="discount row">
+                      <div class="text amount"><span class="discount-amount">0</span>&nbsp;руб.</div>
+                      <div class="text percent orange"><span class="discount-percent">0</span><span>%</span></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cart-make-order row">
+                  <div id="delete-btn" class="basic btn" onclick="deleteSelected()">Удалить выбранное</div>
+                  <div id="order-btn" class="active btn" onclick="openOrderForm()">Оформить заказ</div>
+                  <div id="warning-btn"></div>
+                </div>
+              </div>
+              <form id="order-form" class="row" method="post" enctype="multipart/form-data">
+                <div class="payment">
+                  <div class="title">Способ оплаты</div>
+                  <select id="payment-select" class="select" required>
+                    <option value="" default selected hidden disabled>Выберите тип оплаты</option>
+                    <option value="1">Безналичный расчет</option>
+                    <option value="2">Наличный расчет</option>
+                    <option value="4">Депозит</option>
+                    <option value="3">Прочее</option>
+                  </select>
+                </div>
+                <div class="partner">
+                  <div class="title">Название контрагента</div>
+                  <select id="partner-select" class="select" required>
+                    <option value="" default selected hidden disabled>Выберите контрагента</option>
+                    <option value="#value#">#partner#</option>
+                  </select>
+                </div>
+                <div class="documents">
+                  <div class="title">Отгрузочные документы</div>
+                  <select id="documents-select" class="select" required>
+                    <option value="" default selected hidden disabled>Выберите</option>
+                    <option value="0">Не вкладывать</option>
+                    <option value="1">Вкладывать</option>
+                  </select>
+                </div>
+                <div class="delivery">
+                  <div class="title">Тип доставки</div>
+                  <select id="delivery-select" class="select" required onchange="toggleOrderAddress(this)">
+                    <option value="" default selected hidden disabled="">Выберите тип доставки</option>
+                    <option value="1">Самовывоз</option>
+                    <option value="2">Курьер</option>
+                    <option value="3">Транспортная компания</option>
+                  </select>
+                </div>
+                <div class="address">
+                  <div class="title">Адрес доставки</div>
+                  <select id="address-select" class="select" required>
+                    <option value="" default selected hidden disabled>Выберите адрес доставки</option>
+                    <option value="#value#">#address#</option>
+                  </select>
+                </div>
+                <div class="comment">
+                  <div class="title">Комментарий к заказу</div>
+                  <textarea id="order-comment" maxlength="300" oninput="countSigns(this)"></textarea>
+                  <div class="counter text light">Знаков осталось: <span id="textarea-counter">300</span></div>
+                </div>
+                <div id="order-info" class="text red">Обратите внимание!<br/>Будет создано несколько заказов: (<span id="order-names"></span>)</div>
+                <div class="basic btn" onclick="closeOrderForm()">Отменить</div>
+                <div class="order active btn" onclick="orderSentServer()">Заказать</div>
+              </form>
+              <div class="cart-list">
+                <div class="table-head row">
+                  <div id="check-all" class="check" onclick="toggleAllCart(event)">
+                    <div class="checkbox white icon"></div>
+                  </div>
+                  <div class="name">
+                    <div>Наименование</div>
+                    <div class="copy-container col">
+                      <div class="copy basic btn" onclick="copyCart()">Копировать корзину</div>
+                      <table id="cart-table">
+                        <tbody>
+                          <tr data-id="#id#">
+                            <td>#title#</td>
+                            <td>#articul#</td>
+                            <td class="qty">#qty#</td>
+                            <td class="total">0</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <textarea id="cart-copy"></textarea>
+                    </div>
+                  </div>
+                  <div class="list-wrap row">
+                    <div class="prop articul hidden-xs">Артикул</div>
+
+                    <div class="prop action hidden-xs activate checkbox">
+                      <div class="head row">
+                        <div class="title">Тип заказа</div>
+                        <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M4 5L8 0H0L4 5Z" fill="white"/>
+                        </svg>
+                      </div>
+                      <div class="drop-down">
+                        <div class="item row" data-value="#actionId#">
+                          <div class="checkbox icon"></div>
+                          <div>#actionTitle#</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="prop amount hidden-xs">Кол-во штук</div>
+                    <div class="prop price hidden-xs">Цена</div>
+                    <div class="prop total hidden-xs">Итого</div>
+                    <div class="title">Раздел</div>
+                    <div class="value">Значение</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cart-list">
+              <div id="cart-rows" class="table-body">
+                <div class="cart-row row manage checked #status#" data-id="#id#" data-action-id="0">
+                  <div class="check" onclick="toggleInCart(event)">
+                    <div class="checkbox icon"></div>
+                  </div>
+                  <div class="name">
+                    <a class="row" onclick="showFullCard(#object_id#)">
+                      <div class="img-wrap row">
+                        <img src="#image#" onerror="replaceImg(this)">
+                      </div>
+                      <div>#title# #options#</div>
+                    </a>
+                  </div>
+                  <div class="list-wrap row">
+                    <div class="prop articul">
+                      <div class="title">Артикул</div>
+                      <div class="value">#articul#</div>
+                    </div>
+                    <div class="prop action">
+                      <div class="title">Акция</div>
+                      <div class="value">&mdash;</div>
+                    </div>
+                    <div class="prop amount">
+                      <div class="title">Кол-во штук</div>
+                      <div class="value qty in-cart">
+                        <div>
+                          <div class="qty-box row">
+                            <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event)">-</div>
+                            <input class="choiced-qty text light" type="text" value="#qty#" data-id="#id#" data-qty="#total_qty#" autocomplete="off" onchange="changeCart(event)" onblur="changeCart(event)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                            <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event)">+</div>
+                          </div>
+                          <div class="tooltips row">
+                            <div class="free-qty #isFree# row" tooltip="В наличии">
+                              <span class="free-qty icon"></span>
+                              <span class="text green">#free_qty#&nbsp;шт.</span>
+                            </div>
+                            <div class="arrive-qty #isArrive# row" tooltip="Ожидается">
+                              <span class="arrive-qty icon"></span>
+                              <span class="text ligth">#arrive_qty#&nbsp;шт.&nbsp;#arrive_date#</span>
+                            </div>
+                            <div class="warehouse-qty #isWarehouse# row" tooltip="Склад">
+                              <span class="warehouse-qty icon"></span>
+                              <span class="text">#warehouse_qty#&nbsp;шт.</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="value message text red">Продано</div>
+                      <div class="value bonus"><span>#bonus#</span>&nbsp;шт.</div>
+                    </div>
+                    <div class="prop price">
+                      <div class="title">Цена</div>
+                      <div class="value">#price_cur#</div>
+                    </div>
+                    <div class="prop total">
+                      <div class="title">Итого</div>
+                      <div class="value">0</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="alerts-container" class="pop-up-container" onclick="closePopUp(event)">
+      <div class="alerts pop-up">
+        <div class="alerts-title row">
+          <div class="row">
+            <div class="alerts icon"></div>
+            <div class="title">Уведомления</div>
+          </div>
+          <svg class="close-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.42859 1.42847L18.5714 18.5713" stroke="#34495E" stroke-linecap="round"/>
+            <path d="M18.1429 1L1 18.1429" stroke="#34495E" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div id="alerts-body">
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
+          </div>
+          <div class="message action row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.10.19</div>
+              <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
+            </div>
+          </div>
+          <div class="message attention row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.11.19</div>
+              <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
+            </div>
+          </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
+          </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
+          </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
+          </div>
+          <div class="message action row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.10.19</div>
+              <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
+            </div>
+          </div>
+          <div class="message attention row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.11.19</div>
+              <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
+            </div>
+          </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
+          </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
+          </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
+          </div>
+          <div class="message action row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.10.19</div>
+              <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
+            </div>
+          </div>
+          <div class="message attention row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.11.19</div>
+              <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
+            </div>
+          </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
+          </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
+          </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
+          </div>
+          <div class="message action row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.10.19</div>
+              <div class="text">Акция <a href="#">Снежный бум!</a> Купи снегоходные лопаты Powertools со скидкой 55%. Только до 11</div>
+            </div>
+          </div>
+          <div class="message attention row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">25.11.19</div>
+              <div class="text">Зарегистрируйтесь для участия в Дилерской конференции 2020! Перейдите к регистрации <a href="#">по ссылке.</a></div>
+            </div>
+          </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
+          </div>
+          <div class="message cart row">
+            <div class="message icon"></div>
+            <div>
+              <div class="date">2 часа назад</div>
+              <div class="text">Заказ <a href="#">ТС 123</a> от 24.09.2019 принят. Вы можете скачать счет на оплату. Если оплата не поступит в течение 5 рабочих дней, заказ будет расформирован. </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="loader">
+      <div class="loader icon"></div>
+      <div class="text"></div>
+    </div>
+
+    <div id="message-container" class="pop-up-container">
+      <svg class="close-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1.42859 1.42847L18.5714 18.5713" stroke="#FFFFFF" stroke-linecap="round"/>
+        <path d="M18.1429 1L1 18.1429" stroke="#FFFFFF" stroke-linecap="round"/>
+      </svg>
+      <div class="text"></div>
+    </div>
+
+    <svg id="up-btn" onclick="goToTop()" width="38" height="31" viewBox="0 0 38 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0.5" y="0.5" width="37" height="30" rx="4.5" fill="#454D56" fill-opacity="0.6" stroke="white"/>
+      <path d="M18.925 11.225C18.625 10.925 18.225 10.925 17.925 11.225L10.225 18.925C9.925 19.225 9.925 19.625 10.225 19.825C10.525 20.125 10.925 20.125 11.225 19.825L18.525 12.825L25.825 19.825C26.125 20.125 26.525 20.125 26.825 19.825C27.125 19.525 27.125 19.125 26.825 18.925L18.925 11.225Z" fill="white"/>
+    </svg>
+
+    <div class="footer">
+      <div class="container">
+        <div class="wrap">
+          <div>Отдел продаж: +7 (846) 300-44-99</div>
+          <div>Рабочие дни: ПН - ПТ с 8:00 до 17:00 (МСК)</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="http://api.topsports.ru/spad/qzip.php"></script>
+    <!-- <script src ="../../stand/qzip.php"></script> -->
+    <!-- <script src="../js/qzip.js"></script> -->
+    <script src="../js/discounts.js"></script>
+    <script src="../js/filters_zip.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/catalog.js"></script>
+    <script src="../js/carousel.js"></script>
+
+  </body>
+</html>

@@ -87,7 +87,7 @@ var dataFilters = [{
   title: 'Категория',
   isOpen: 'true',
   key: 'cat',
-  items: cats
+  items: catsubs
   // items: sortObjByKey(cats)
 }, {
   title: 'Бренд',
@@ -115,10 +115,11 @@ var dataFilters = [{
   title: 'Цвет',
   key: 'color',
   items: colors
-}, {
-  title: 'Емкость',
-  key: 'Емкость',
-  items: sortObjByNumericKey(createFilterData(items, '1262'))
 }];
+// }, {
+//   title: 'Емкость',
+//   key: 'Емкость',
+//   items: sortObjByKey(createFilterData(items, '1262'), 'number from string')
+// }];
 
 

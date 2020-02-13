@@ -1,0 +1,176 @@
+/* =====================================================================================================
+Стили страницы "Один заказ":
+===================================================================================================== */
+
+.tabs .tab {
+  justify-content: center;
+  align-items: center;
+  width: 12.5em;
+  height: 3.6em;
+  margin-right: 0.7em;
+  border-radius: 5px 5px 0 0;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.tabs .tab .icon {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 0.5em;
+}
+
+.tab.expected .icon {
+  background-image: url(../img/chronometer.svg);
+}
+
+.tab.available .icon {
+  background-image: url(../img/box.svg);
+}
+
+.tab.ready .icon {
+  background-image: url(../img/delivery_trolley.svg);
+}
+
+.tab.shipped .icon {
+  background-image: url(../img/delivery_truck.svg);
+}
+
+.tab.non-delivery .icon {
+  background-image: url(../img/stop.svg);
+}
+
+.tab.reclamation .icon {
+  background-image: url(../img/security.svg);
+}
+
+.table-head {
+  background-color: #FFFFFF;
+}
+
+.tabs .tab.total,
+#total .titles {
+  background-color: #53606F;
+}
+
+#total .results {
+  background-color: #778A95;
+}
+
+.tabs .tab.expected,
+#expected .titles  {
+  background-color: #2A659D;
+}
+
+#expected .results {
+  background-color: rgba(42, 101, 157, 0.8);
+}
+
+.tabs .tab.available,
+#available .titles  {
+  background-color: #DFA12A;
+}
+
+#available .results {
+  background-color: rgba(223, 161, 42, 0.8);
+}
+
+.tabs .tab.ready,
+#ready .titles  {
+  background-color: #6C4D77;
+}
+
+#ready .results {
+  background-color: rgba(108, 77, 119, 0.8);
+}
+
+.tabs .tab.shipped,
+#shipped .titles  {
+  background-color: #009F84;
+}
+
+#shipped .results {
+  background-color: rgba(0, 159, 132, 0.8);
+}
+
+.tabs .tab.non-delivery,
+#non-delivery .titles  {
+  background-color: #778A95;
+}
+
+#non-delivery .results {
+  background-color: rgba(119, 138, 149, 0.8);
+}
+
+.tabs .tab.reclamation,
+#reclamation .titles  {
+  background-color: #A89271;
+}
+
+#reclamation .results {
+  background-color: rgba(168, 146, 113, 0.8);
+}
+
+.tabs .tab.disabled {
+  color: #818A94;
+  background-color: #D4D7DB;
+}
+
+.table-body .articul {
+  min-width: 8em;
+}
+
+.table-body .name {
+  min-width: 10em;
+}
+
+.table-body .price-retail {
+  min-width: 8em;
+}
+
+.table-body .discount {
+  min-width: 7em;
+}
+
+.table-body .price-opt {
+  min-width: 11em;
+}
+
+.table-body .qty {
+  min-width: 9em;
+}
+
+.table-body .price-opt-total {
+  min-width: 14em;
+}
+
+.table-body .price-retail-total {
+  min-width: 14em;
+}
+
+.table-body .date {
+  min-width: 13em;
+}
+
+.table-body .left-pay {
+  min-width: 13em;
+}
+
+.table-body .paid {
+  min-width: 10em;
+}
+
+.table-body .number {
+  min-width: 10em;
+}
+
+.table-body .initiator {
+  min-width: 14em;
+}
+
+.table-body .compensation {
+  min-width: 14em;
+}
+
+.table-body .status {
+  min-width: 7em;
+}

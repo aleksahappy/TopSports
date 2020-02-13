@@ -1,3 +1,7 @@
+.activate {
+  min-width: 200px;
+}
+
 .artboard-title {
   font-size: 22px;
   color: blue;
@@ -5,6 +9,7 @@
 }
 
 .arboard-block {
+  flex-wrap: wrap;
   margin-bottom: 2em;
 }
 

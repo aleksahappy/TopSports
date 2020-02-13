@@ -944,6 +944,7 @@ body#r_ek .card-notice {
 .min-card .card-title {
   height: 4.5em;
   margin-bottom: 0.5em;
+  overflow: hidden;
 }
 
 .min-card .card-price-container {

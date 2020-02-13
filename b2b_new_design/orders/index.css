@@ -2,45 +2,29 @@
 Стили страницы "Заказы":
 ===================================================================================================== */
 
-.main-header .legend-row {
+#main-header .legend-row {
   justify-content: space-between;
   align-items: center;
   margin-right: 3em;
   color: #888888;
 }
 
-.main-header .legend-row > .row {
+#main-header .legend-row > .row {
   justify-content: flex-start;
   align-items: center;
   margin-right: 3em;
 }
 
-.main-header .legend {
+#main-header .legend {
   width: 0.71em;
   height: 0.71em;
   margin-right: 0.57em;
   cursor: default;
 }
 
-.table .status-icon {
-  min-width: 50px;
-  width: 50px;
-  max-width: 50px;
-}
-
-.table .statistics {
-  min-width: 1000px;
-  width: 1000px;
-  max-width: 1000px;
-}
-
-.table .status-icon > .row {
-  justify-content: center;
-}
-
-.table .star {
-  width: 1.25em;
-  height: 1.17em;
+.table .download.icon {
+  margin-right: 0;
+  margin-left: 0.714em;
 }
 
 .table-head .percent {
@@ -112,38 +96,27 @@
   background-color: #E4E4E4;
 }
 
-.table-head .menu > .row {
-  cursor: pointer;
-}
-
 .table-head .legend {
   width: 0.71em;
   height: 0.71em;
   margin-right: 1em;
 }
 
-.table-body {
-  background-color:rgba(255, 255, 255, 0.7);
+.table-body td:nth-child(2) {
+  min-width: 8em;
 }
 
-.table-body .amount > .row {
+.table-body td:nth-child(3) {
+  min-width: 10em;
+}
+
+.table-body td:nth-child(7) > .row {
   align-items: baseline;
 }
 
-.table-body .number {
-  margin-right: 1em;
-}
-
-.table-body .download {
-  width: 1em;
-  height: 1em;
-}
-
-.table-body .status {
-  border-right: 1px solid #DCDCDC;
-}
-
 .table-body .statistics {
+  min-width: 70em;
+  border-left: 1px solid #DCDCDC;
   border-bottom: none;
 }
 
@@ -171,7 +144,7 @@
   background-color: #4DBCA9;
 }
 
-.table-body .shortage {
+.table-body .non-delivery {
   background-color: #A5AFAF;
 }
 

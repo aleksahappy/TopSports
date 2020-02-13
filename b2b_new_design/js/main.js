@@ -6,23 +6,101 @@
 
 // Константы:
 
-var url = 'http://80.234.34.212:2000/-aleksa-/TopSports/test/',
-    website = document.body.dataset.website,
+var website = document.body.dataset.website,
     pageId = document.body.id,
-    headerCart = document.getElementById('header-cart'),
-    loader = document.getElementById('loader'),
-    errorContainer = document.getElementById('error-container'),
-    alertsContainer = document.getElementById('alerts-container'),
-    upBtn = document.getElementById('up-btn');
+    isCart = document.body.dataset.cart,
+    urlRequest = 'http://80.234.34.212:2000/-aleksa-/TopSports/test/',
+    loader = new Loader(document.getElementById('loader')),
+    message = new Message(document.getElementById('message-container'));
 
-// Динамически изменяемые переменные:
+// Динамические переменные:
 
-if (headerCart) {
-  var cartId,
+var isSearch;
+
+if (isCart) {
+  var cartId = document.body.dataset.cart,
       cart = {},
+      cartTotals = {},
       cartChanges = {},
-      isSearch;
+      cartContent = document.getElementById('cart');
 }
+
+//=====================================================================================================
+// При запуске страницы:
+//=====================================================================================================
+
+loader.show();
+checkAuth();
+setPaddingToBody();
+if (isCart) {
+  window.addEventListener('focus', updateCartTotals);
+  updateCartTotals();
+}
+
+//=====================================================================================================
+// Авторизация на сайте при загрузке страницы:
+//=====================================================================================================
+
+// saveCookie('user_info', {
+//   "user_info": {
+//     "login":"TS00000905",
+//     "code_1c":"1e659301-d2c4-11e8-8110-002590467a5e",
+//     "name":"Павел",
+//     "lastname":"Бочаров",
+//     "parentname":""
+//   },
+//   "ok": 1
+// });
+// deleteCookie('user_info');
+
+// Проверка авторизован ли пользователь:
+
+function checkAuth() {
+  var info = readCookie('user_info');
+  if (!info) {
+    if (pageId !== '_auth') {
+      document.location.href = "../";
+    } else {
+      loader.hide();
+    }
+  } else {
+    if (pageId === '_auth') {
+      document.location.href = "desktop";
+    }
+  }
+}
+
+// Вход через форму авторизации:
+
+function logIn(event) {
+  event.preventDefault();
+  loader.show();
+
+  var formData = new FormData(event.currentTarget),
+      data = {};
+
+  formData.forEach(function(value, key){
+    data[key] = value;
+  });
+  data = JSON.stringify(data);
+
+  sendRequest(urlRequest + 'login', data)
+  .then(result => {
+    var data = JSON.parse(result);
+    if (data.ok == 1) {
+      saveCookie('user_info', data.user_info);
+      document.location.href = "desktop";
+    } else {
+      loader.hide();
+      message.show('Неверно введен логин или пароль');
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    loader.hide();
+    message.show('Ошибка сети');
+  })
+};
 
 //=====================================================================================================
 // Полифиллы:
@@ -45,6 +123,177 @@ if (headerCart) {
     };
   }
 })();
+
+//=====================================================================================================
+// Запросы на сервер:
+//=====================================================================================================
+
+// Отправка запросов на сервер:
+
+// type : 'multipart/form-data', 'application/json; charset=utf-8'
+function sendRequest(url, data, type = 'application/json; charset=utf-8') {
+  return new Promise((resolve, reject) => {
+    var request = new XMLHttpRequest();
+    request.addEventListener('error', () => reject('Ошибка сети'));
+    request.addEventListener('load', () => {
+      if (request.status !== 200) {
+        var error = new Error(this.statusText);
+        error.code = this.status;
+        reject(error);
+      }
+      resolve(request.responseText);
+    });
+    if (data) {
+      request.open('POST', url);
+      request.setRequestHeader('Content-type', type);
+      request.send(data);
+    } else {
+      request.open('GET', url);
+      request.send();
+    }
+  });
+}
+
+//=====================================================================================================
+// Работа с данными корзины:
+//=====================================================================================================
+
+// Получение данных корзины с сервера:
+
+// function getCart(totals = false) {
+//   var url;
+//   if (totals) {
+//     url = urlRequest + 'cart';
+//   } else {
+//     url = urlRequest + 'cartTotals';
+//   }
+//   return new Promise((resolve, reject) => {
+//     sendRequest(url)
+//     .then(
+//       result => {
+//         if (totals && JSON.stringify(cartTotals) === result) {
+//           reject('Корзина не изменилась');
+//         } else if (JSON.stringify(cart[cartId]) === result) {
+//           reject('Корзина не изменилась');
+//         } else {
+//           console.log('Корзина обновилась');
+//           if (totals) {
+//             cartTotals = JSON.parse(result);
+//           } else {
+//             cart[cartId] = JSON.parse(result);
+//           }
+//           resolve();
+//         }
+//       }
+//     )
+//     .catch(error => {
+//       reject(error);
+//     })
+//   });
+// }
+
+// Получение данных корзины из cookie:
+
+function getCart(totals = false) {
+  var key;
+  if (totals) {
+    key = `cartTotals`;
+  } else {
+    key = `cart_${cartId}`;
+  }
+  return new Promise((resolve, reject) => {
+    var result = getCookie(key);
+    if (totals && (!result || JSON.stringify(cartTotals) === result)) {
+      reject('Корзина не изменилась');
+    } else if (!result || JSON.stringify(cart[cartId]) === result) {
+      reject('Корзина не изменилась');
+    } else {
+      if (totals) {
+        console.log('Итоги обновились');
+        cartTotals = JSON.parse(result);
+      } else {
+        console.log('Корзина обновилась');
+        cart[cartId] = JSON.parse(result);
+      }
+      resolve();
+    }
+  });
+}
+
+// Отображение информации о корзине в шапке сайта:
+
+function changeCartInHeader() {
+  if (isCart) {
+    var headerCart = document.getElementById('header-cart');
+    if (headerCart) {
+      var amount = headerCart.querySelector('.amount span'),
+          qty = headerCart.querySelector('.qty');
+
+      if (cartTotals[cartId]) {
+        amount.textContent = cartTotals[cartId].amount.toLocaleString();
+        if (cartTotals[cartId].qty > 0) {
+          if (cartTotals[cartId].qty > 99) {
+            qty.textContent = '99';
+          } else {
+            qty.textContent = cartTotals[cartId].qty;
+          }
+          showElement(qty);
+        } else {
+          hideElement(qty);
+        }
+      } else {
+        amount.textContent = 0;
+        qty.textContent = 0;
+        hideElement(qty);
+      }
+    }
+    for (let key in cartTotals) {
+      changeCatalogCart(key, cartTotals[key]);
+    }
+  }
+}
+
+// Вывод информации обо всех имеющихся корзинах в шапке сайта:
+
+function changeCatalogCart(cartName, totals) {
+  var curCart = document.getElementById(`cart-${cartName}`);
+  if (curCart) {
+    var qty = curCart.querySelector('.qty'),
+        qtyShort = curCart.querySelector('.qty-short'),
+        amount = curCart.querySelector('.amount');
+    if (qty) {
+      qty.textContent = totals.qty;
+    }
+    if (qtyShort) {
+      if (totals.qty > 0) {
+        qtyShort.classList.add('full');
+        if (totals.qty > 99) {
+          qtyShort.textContent = '99+';
+        } else {
+          qtyShort.textContent = totals.qty;
+        }
+      } else {
+        qtyShort.classList.remove('full');
+        qtyShort.textContent = 0;
+      }
+    }
+    if (amount) {
+      amount.textContent = totals.amount;
+    }
+  }
+}
+
+// Обновление итогов корзины при возвращении на страницу:
+
+function updateCartTotals() {
+  getCart('totals')
+  .then(result => {
+    changeCartInHeader();
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
 
 //=====================================================================================================
 // Создание данных для фильтров каталога:
@@ -74,124 +323,150 @@ function createFilterData(curArray, optNumb) {
 }
 
 //=====================================================================================================
-// Запросы на сервер:
+// Сортировка массива:
 //=====================================================================================================
 
-// Отправка запросов на сервер:
+// Сортировка массива объектов по указанному значению:
 
-// type : 'multipart/form-data', 'application/json; charset=utf-8'
-function sendRequest(url, data, type = 'application/json; charset=utf-8') {
-  return new Promise((resolve, reject) => {
-    var request = new XMLHttpRequest();
-    request.addEventListener('error', () => reject(new Error("Network Error")));
-    request.addEventListener('load', () => {
-      if (request.status !== 200) {
-        var error = new Error(this.statusText);
-        error.code = this.status;
-        reject(error);
-      }
-      resolve(request.responseText);
-    });
-    if (data) {
-      request.open('POST', url);
-      request.setRequestHeader('Content-type', type);
-    } else {
-      request.open('GET', url);
+function dynamicSort(prop) {
+  var sortOrder = 1,
+      result;
+  if (prop[0] === "-") {
+      sortOrder = -1;
+      prop = prop.substr(1);
+  }
+  if (prop == 'price1') {
+    return function (a, b) {
+      result = a[prop] - b[prop];
+      return result * sortOrder;
     }
-    request.send();
-  });
-}
-
-// Получение данных корзины:
-
-function getCartInfo() {
-  return new Promise((resolve, reject) => {
-    sendRequest(url + 'cart.txt')
-    .then(
-      result => {
-        if (JSON.stringify(cart) === result) {
-          // console.log(cart);
-          reject();
-        } else {
-          cart = JSON.parse(result);
-          // console.log(cart);
-          resolve();
-        }
-      }
-    )
-    .catch(error => {
-      // console.log(error);
-      reject();
-    })
-  });
-}
-
-// Получение данных о конкретном товаре:
-
-function getProductInfo(id) {
-  return new Promise((resolve, reject) => {
-    sendRequest(`http://80.234.34.212:2000/-aleksa-/TopSports/test/product${id}.txt`)
-    .then(
-      result => {
-        var product = JSON.parse(result);
-        // console.log(product);
-        resolve(product);
-      }
-    )
-    .catch(error => {
-      // console.log(error);
-      reject();
-    })
-  });
+  } else {
+    return function (a, b) {
+      result = (a[prop] < b[prop]) ? -1 : (a[prop] > b[prop]) ? 1 : 0;
+      return result * sortOrder;
+    }
+  }
 }
 
 //=====================================================================================================
-// Сортировка объектов по алфавиту:
+// Сортировка объекта:
 //=====================================================================================================
 
 // Сортировка по ключу:
 
-function sortObjByKey(obj) {
-  var sortedObj = {};
-  Object.keys(obj).sort().forEach(key => sortedObj[key] = obj[key]);
-  return sortedObj;
-}
-
-// Сортировка только по численной части ключа:
-
-function sortObjByNumericKey(obj) {
-  var sortedObj = {};
-  Object.keys(obj).sort((a,b) => {
-    if (parseInt(a, 10) < parseInt(b, 10)) {
-      return -1;
-    }
-    if (parseInt(a, 10) > parseInt(b, 10)) {
-      return 1;
-    }
-    return 0;
-  }).forEach(key => sortedObj[key] = obj[key]);
+function sortObjByKey(obj, type = 'string') {
+  var arrayObj = Object.keys(obj),
+      sortedObj = {};
+  switch (type) {
+    case 'string':
+      arrayObj = arrayObj.sort();
+    case 'number':
+      arrayObj = arrayObj.sort((a,b) =>  a - b);
+      break;
+    case 'number from string':
+      arrayObj = arrayObj.sort((a,b) => parseInt(a, 10) - parseInt(b, 10));
+      break;
+  }
+  arrayObj.forEach(key => sortedObj[key] = obj[key]);
   return sortedObj;
 }
 
 // Сортировка по значению:
 
-function sortObjByValue(obj) {
-  var sortedObj = {};
-  Object.keys(obj).sort((a,b) => {
-    if (obj[a] < obj[b]) {
-      return -1;
-    }
-    if (obj[a] > obj[b]) {
-      return 1;
-    }
-    return 0;
-  }).forEach(key => sortedObj[key] = obj[key]);
+function sortObjByValue(obj, type = 'string') {
+  var arrayObj = Object.keys(obj),
+      sortedObj = {};
+  switch (type) {
+    case 'string':
+      arrayObj = arrayObj.sort((a,b) => {
+        if (obj[a] < obj[b]) {
+          return -1;
+        }
+        if (obj[a] > obj[b]) {
+          return 1;
+        }
+        return 0;
+      });
+    case 'number':
+      arrayObj = arrayObj.sort((a,b) => obj[a] - obj[b]);
+      break;
+    case 'number from string':
+      arrayObj = arrayObj.sort((a,b) => parseInt(obj[a], 10) - parseInt(obj[b], 10));
+      break;
+  }
+  arrayObj.forEach(key => sortedObj[key] = obj[key]);
   return sortedObj;
 }
 
 //=====================================================================================================
 // Сохранение и извлечение данных на компьютере пользователя:
 //=====================================================================================================
+
+// Получение данных о странице по ключу:
+
+function getInfo(key, type = 'localStorage') {
+  var info = getFromLocal(key, type);
+  return info[key];
+}
+
+// Сохранение данных о странице по ключу:
+
+function saveInfo(key, data, type = 'localStorage') {
+  var info = getFromLocal(key, type);
+  info[key] = data;
+  saveInLocal(info, type);
+}
+
+// Удаление всех данных о странице по ключу:
+
+function removeInfo(key, type = 'localStorage') {
+  var info = getFromLocal(key, type);
+  info[key] = {};
+  saveInLocal(info, type);
+}
+
+// Сохранение данныx в storage или cookie:
+
+function saveInLocal(data, type) {
+  var stringData = JSON.stringify(data);
+  if (storageAvailable(type)) {
+    window[type][website] = stringData;
+  }
+  else {
+    if (getCookie(website)) {
+      deleteCookie(website);
+    }
+    setCookie(website, stringData);
+  }
+}
+
+// Получение данных из storage или cookie:
+
+function getFromLocal(key, type) {
+  var info = {};
+  if (storageAvailable(type)) {
+    if (window[type][website]) {
+      try {
+        info = JSON.parse(window[type][website]);
+      } catch(error) {
+        console.log(error);
+      }
+    }
+  }
+  else {
+    if (getCookie(website)) {
+      try {
+        info = JSON.parse(getCookie(website));
+      } catch(error) {
+        console.log(error);
+      }
+    }
+  }
+  if (!info[key]) {
+    info[key] = {};
+  }
+  return info;
+}
 
 // Проверка доступности storage:
 
@@ -209,44 +484,38 @@ function storageAvailable(type) {
 	}
 }
 
-// Сохранение данныx в storage или cookie:
-
-function saveInLocal(key, data) {
-  var stringData = JSON.stringify(data);
-  if (storageAvailable('localStorage')) {
-    localStorage[key] = stringData;
-  }
-  else {
-    if (getCookie(key)) {
-      deleteCookie(key);
-    }
-    setCookie(key, stringData, {expires: getDateExpires(30)});
-  }
-}
-
-// Получение данных из storage или cookie:
-
-function getFromLocal(key) {
-  if (storageAvailable('localStorage')) {
-    if (localStorage[key]) {
-      return JSON.parse(localStorage[key]);
-    } else {
-      return undefined;
-    }
-  }
-  else {
-    if (getCookie(key)) {
-      return JSON.parse(getCookie(key));
-    } else {
-      return undefined;
-    }
-  }
-}
-
 // Сохранение данных в cookie:
 
-function setCookie(key, value, options) {
-  options = options || {};
+function saveCookie(key, data) {
+  var stringData = JSON.stringify(data);
+  if (getCookie(key)) {
+    deleteCookie(key);
+  }
+  setCookie(key, stringData);
+}
+
+// Получение данных из cookie:
+
+function readCookie(key) {
+  var info;
+  if (getCookie(key)) {
+    try {
+      info = JSON.parse(getCookie(key));
+    } catch(error) {
+      console.log(error);
+    }
+  }
+  return info;
+}
+
+// Запись cookie:
+
+function setCookie(key, value, options = {}) {
+  options = {
+    path: '/',
+    expires: getDateExpires(30),
+    ...options
+  };
   var expires = options.expires;
 
   if (typeof expires == "number" && expires) {
@@ -279,7 +548,7 @@ function getDateExpires(days) {
   return date;
 }
 
-// Получение данных из cookie:
+// Чтение cookie:
 
 function getCookie(key) {
   var matches = document.cookie.match(new RegExp(
@@ -288,47 +557,26 @@ function getCookie(key) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-// Удаление данных из cookie:
+// Удаление cookie:
 
 function deleteCookie(key) {
   setCookie(key, '', {expires: -1});
 }
 
-// Получение данных о странице по ключу:
-
-function getInfo(key) {
-  var pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
-  if (!pageInfo[key]) {
-    pageInfo[key] = {};
-  }
-  return pageInfo[key];
-}
-
-// Сохранение данных о странице по ключу:
-
-function saveInfo(key, data) {
-  var pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
-  if (!pageInfo[key]) {
-    pageInfo[key] = {};
-  }
-  pageInfo[key] = data;
-  saveInLocal(website, pageInfo);
-}
-
-// Удаление всех данных о странице по ключу:
-
-function removeInfo(key, data) {
-  var pageInfo = getFromLocal(website) ? getFromLocal(website) : {};
-  if (!pageInfo[key]) {
-    pageInfo[key] = {};
-  }
-  pageInfo[key] = data;
-  saveInLocal(website, pageInfo);
-}
-
 //=====================================================================================================
 // Визуальное отображение контента на странице:
 //=====================================================================================================
+
+// Установка отступов документа:
+
+window.addEventListener('resize', setPaddingToBody);
+
+function setPaddingToBody() {
+  var headerHeight = document.querySelector('.header').clientHeight;
+  var footerHeight = document.querySelector('.footer').clientHeight;
+  document.body.style.paddingTop = `${headerHeight}px`;
+  document.body.style.paddingBottom = `${footerHeight + 20}px`;
+}
 
 // Вставка заглушки при ошибке загрузки изображения:
 
@@ -339,13 +587,17 @@ function replaceImg(img) {
 // Показ элемента:
 
 function showElement(el, style = 'block') {
-  el.style.display = style;
+  if (el) {
+    el.style.display = style;
+  }
 }
 
 // Скрытие элемента:
 
 function hideElement(el) {
-  el.style.display = 'none';
+  if (el) {
+    el.style.display = 'none';
+  }
 }
 
 // Получение текущей прокрутки документа:
@@ -365,34 +617,47 @@ function setDocumentScroll(top = scrollTop) {
 
 // Открытие всплывающего окна:
 
-function openPopUp(el, style = 'block') {
-  getDocumentScroll();
-  document.body.classList.add('no-scroll');
-  showElement(el, style);
+function openPopUp(el, style = 'flex') {
+  if (typeof el != 'object') {
+    el = document.getElementById(el);
+  }
+  if (el) {
+    getDocumentScroll();
+    document.body.classList.add('no-scroll');
+    showElement(el, style);
+  }
 }
 
 // Закрытие всплывающего окна:
 
-function closePopUp(el, style = 'none') {
-  hideElement(el, style);
-  document.body.classList.remove('no-scroll');
-  setDocumentScroll();
-}
-
-// Показ сообщения об ошибке:
-
-function showError(text) {
-  if (!text) {
-    return;
+function closePopUp(event, el) {
+  if (event) {
+    if (!event.target.closest('.close-btn') && event.target.closest('.pop-up')) {
+      return;
+    }
+    el = event.currentTarget;
+  } else {
+    if (typeof el != 'object') {
+      el = document.getElementById(el);
+    }
   }
-  document.getElementById('error').textContent = text;
-  openPopUp(errorContainer, 'flex');
+  if (el) {
+    hideElement(el);
+    document.body.classList.remove('no-scroll');
+    setDocumentScroll();
+  }
 }
 
-// Скрытие сообщения об ошибке:
+// Переключине чекбокса:
 
-function closeError() {
-  closePopUp(errorContainer);
+function toggleCheckbox(el) {
+  el.classList.toggle('checked');
+}
+
+// Отображение количества знаков, оставшихся в поле комментариев:
+
+function countSigns(textarea) {
+  document.getElementById('textarea-counter').textContent = 300 - textarea.value.length;
 }
 
 // Удаление значения из инпута при его фокусе:
@@ -424,6 +689,39 @@ function checkValue(event) {
   }
 }
 
+// Добавление всплывающих подсказок:
+
+function addTooltips(key) {
+  var elements = document.querySelectorAll(`[data-key=${key}]`);
+  if (elements) {
+    elements.forEach(el => {
+      el.setAttribute('tooltip', el.textContent.trim());
+    });
+  }
+}
+
+// Закрытие окон при клике вне их самих:
+
+document.addEventListener('click', (event) => {
+  var target = event.target;
+  if (!target.closest('.activate.open')) {
+    var dropDownOpen = document.querySelector('.activate.open');
+    if (dropDownOpen) {
+      dropDownOpen.classList.remove('open');
+    }
+  }
+  if (!target.classList.contains('search-manage') && !target.closest('.search.open')) {
+    var searchOpen = document.querySelector('.search.open');
+    if (searchOpen) {
+      searchOpen.classList.remove('open');
+    }
+  }
+});
+
+//=====================================================================================================
+// Вспомогательные функции:
+//=====================================================================================================
+
 // Кросс-браузерная функция для получения символа из события keypress:
 
 function getChar(event) {
@@ -442,15 +740,13 @@ function getChar(event) {
   return null; // спец. символ
 }
 
-// Добавление всплывающих подсказок:
+// Проверка пустой ли объект:
 
-function addTooltips(key) {
-  var elements = document.querySelectorAll(`[data-key=${key}]`);
-  if (elements) {
-    elements.forEach(el => {
-      el.setAttribute('tooltip', el.textContent.trim());
-    });
+function isEmptyObj(obj) {
+  if (Object.keys(obj).length > 0) {
+    return false;
   }
+  return true;
 }
 
 // Функция преобразования цены к формату с пробелами:
@@ -506,14 +802,63 @@ function checkDate(start, end) {
 }
 
 //=====================================================================================================
+// Работа прелоадера:
+//=====================================================================================================
+
+function Loader(obj) {
+  this.loader = obj;
+  this.text = obj.querySelector('.text');
+
+  this.show = function(text) {
+    if (!text) {
+      text = '';
+    }
+    this.text.textContent = text;
+    showElement(this.loader, 'flex');
+  }
+
+  this.hide = function() {
+    hideElement(this.loader);
+  }
+}
+
+//=====================================================================================================
+// Работа окна с сообщениями:
+//=====================================================================================================
+
+function Message(obj) {
+  this.message = obj;
+  this.text = obj.querySelector('.text');
+
+  this.message.addEventListener('click', () => this.hide());
+
+  this.show = function(text) {
+    if (!text) {
+      return;
+    }
+    this.text.textContent = text;
+    openPopUp(this.message);
+    setTimeout(() => {
+      closePopUp(null, this.message);
+    }, 2000);
+  }
+
+  this.hide = function() {
+    closePopUp(null, this.message);
+  }
+}
+
+//=====================================================================================================
 // Работа кнопки "Наверх страницы":
 //=====================================================================================================
 
-// Отображение/скрытие кнопки "Наверх страницы":
+var upBtn = document.getElementById('up-btn');
 
 if (upBtn) {
   window.addEventListener('scroll', toggleBtnGoTop);
 }
+
+// Отображение/скрытие кнопки "Наверх страницы":
 
 function toggleBtnGoTop() {
   var scrolled = window.pageYOffset,
@@ -544,21 +889,12 @@ function goToTop() {
 // Работа выпадающих списков:
 //=====================================================================================================
 
-document.querySelectorAll('.activate.select').forEach(el => new DropDown(el));
-document.querySelectorAll('.activate.checkbox').forEach(el => new DropDown(el));
-document.addEventListener('click', (event) => {
-  if (!event.target.closest('.activate')) {
-    document.querySelectorAll('.activate.open').forEach(el => el.classList.remove('open'));
-  }
-});
-
 function DropDown(obj) {
   // Элементы для работы:
   this.filter = obj;
   this.head = obj.querySelector('.head');
   this.title = obj.querySelector('.title');
-  this.items = obj.querySelectorAll('.item');
-  this.closeBtn = obj.querySelector('.close-btn');
+  this.clearBtn = obj.querySelector('.clear-btn');
 
   // Константы:
   this.titleText = this.title.textContent;
@@ -566,15 +902,20 @@ function DropDown(obj) {
   // Установка обработчиков событий:
   this.setEventListeners = function() {
     if (this.head) {
-      this.head.addEventListener('click', event => this.toggleFilter(event));
+      this.head.addEventListener('click', () => this.toggle());
     }
-    this.items.forEach(el => el.addEventListener('click', event => this.checkItem(event)));
-    // this.closeBtn.addEventListener('click', event => this.clearFilter(event));
+    this.filter.addEventListener('click', (event) => this.selectValue(event));
+    if (this.clearFilterBtn) {
+      this.clearFilterBtn.addEventListener('click', event => this.clear(event));
+    }
   }
   this.setEventListeners();
 
   // Открытие/закрытие выпадающего списка:
-  this.toggleFilter = function() {
+  this.toggle = function() {
+    if (this.filter.hasAttribute('disabled')) {
+      return;
+    }
     if (this.filter.classList.contains('open')) {
       this.filter.classList.remove('open');
     } else {
@@ -584,145 +925,291 @@ function DropDown(obj) {
   }
 
   // Выбор значения:
-  this.checkItem = function (event) {
-    var curItem = event.currentTarget;
-    if (this.filter.classList.contains('select')) {
-      curItem.classList.add('checked');
+  this.selectValue = function (event) {
+    if (!event.target.closest('.item')) {
+      return;
     }
-    if (this.filter.classList.contains('checkbox')) {
-      curItem.classList.toggle('checked');
+    var curItem = event.target.closest('.item');
+
+    if (this.filter.classList.contains('select')) {
+      this.title.textContent = curItem.textContent;
+      this.filter.value = curItem.dataset.value;
+      this.filter.classList.remove('open');
     }
 
-    var checked = this.filter.querySelectorAll('.item.checked');
-    if (checked.length === 0) {
-      this.clearFilter(event);
-    } else {
-      if (this.filter.classList.contains('select')) {
-        this.title.textContent = curItem.textContent;
-        this.filter.dataset.value = curItem.dataset.value;
-        this.filter.classList.remove('open');
-      }
-      if (this.filter.classList.contains('checkbox')) {
-        this.title.textContent = 'Выбрано значений: ' + checked.length;
+    if (this.filter.classList.contains('checkbox')) {
+      curItem.classList.toggle('checked');
+      var checked = this.filter.querySelectorAll('.item.checked');
+      if (checked.length === 0) {
+        this.clearFilter(event);
+      } else {
+        this.title.textContent = 'Выбрано: ' + checked.length;
         var value = [];
         checked.forEach(el => value.push(el.dataset.value));
-        this.filter.dataset.value = value;
+        this.filter.value = value;
       }
     }
-    var event = new Event("onchange");
+    var event = new Event('change');
     this.filter.dispatchEvent(event);
   }
 
+  // Установка определенного значения фильтра:
+  this.setValue = function (value) {
+    if (!this.filter.classList.contains('select')) {
+      return;
+    }
+    obj.querySelectorAll('.item').forEach(el => {
+      if ((el.dataset.value).toLowerCase() == value.toLowerCase()) {
+        this.title.textContent = el.textContent;
+        this.filter.value = el.dataset.value;
+        this.filter.classList.remove('open');
+        var event = new Event('change');
+        this.filter.dispatchEvent(event);
+      }
+    });
+  }
+
   // Очистка фильтра:
-  this.clearFilter = function () {
+  this.clear = function () {
     this.title.textContent = this.titleText;
     this.filter.querySelectorAll('.item.checked').forEach(el => el.classList.remove('checked'));
   }
 }
 
 //=====================================================================================================
-// Работа с окном уведомлений:
-//=====================================================================================================
-
-// Открытие окна уведомлений:
-
-function showMessages() {
-  openPopUp(alertsContainer, 'flex');
-}
-
-// Закрытие окна уведомлений:
-
-function closeMessages(event) {
-  if (event.target.closest('.alerts.pop-up')) {
-    return;
-  }
-  closePopUp(alertsContainer);
-}
-
-//=====================================================================================================
 // Работа с таблицами:
 //=====================================================================================================
 
-// Выравнивание столбцов таблицы при загрузке:
+// showTable();
 
-document.addEventListener('DOMContentLoaded', () => {
-  var table = document.querySelector('.table-wrap');
-  if (table) {
-    setTimeout(() => alignTableColumns(table), 10);
-  }
-});
+// Открытие таблицы:
 
-function alignTableColumns(table) {
-  var headCells = table.querySelectorAll('.table-head th');
-  headCells.forEach(headCell => {
-    var bodyCell = table.querySelector(`.table-body > tr:first-child > td:nth-child(${headCell.id})`),
-        headCellWidth = headCell.offsetWidth,
-        bodyCellWidth = bodyCell.offsetWidth;
-    if (headCellWidth > bodyCellWidth) {
-      headCell.style.width = headCellWidth + 'px';
-      headCell.style.minWidth = headCellWidth + 'px';
-      headCell.style.maxWidth = headCellWidth + 'px';
-      bodyCell.style.width = headCellWidth + 'px';
-      bodyCell.style.minWidth = headCellWidth + 'px';
-      bodyCell.style.maxWidth = headCellWidth + 'px';
-    }
-    if (headCellWidth < bodyCellWidth) {
-      headCell.style.width = bodyCellWidth + 'px';
-      headCell.style.minWidth = bodyCellWidth + 'px';
-      headCell.style.maxWidth = bodyCellWidth + 'px';
-      bodyCell.style.width = bodyCellWidth + 'px';
-      bodyCell.style.minWidth = bodyCellWidth + 'px';
-      bodyCell.style.maxWidth = bodyCellWidth + 'px';
-    }
+function showTable(id) {
+  document.querySelectorAll('.table-wrap').forEach(el => {
+    hideElement(el);
+    el.style.visibility = 'hidden';
   });
+  var table = id ? document.getElementById(id) : document.querySelector('.table-wrap'),
+      data = window[`data${id}`];
+  if (table && data) {
+    table = new Table(table, data);
+    table.init();
+  }
 }
 
-// Изменение ширины столбоцов таблицы пользователем:
+// Объект таблицы:
 
-(function () {
-  var curColumn = null,
-      startOffset;
+function Table(obj, data) {
+  // Элементы для работы:
+  this.table = obj;
+  this.head = obj.querySelector('.table-head');
+  this.results = this.head.querySelector('.results');
+  this.body = obj.querySelector('.table-body');
+  this.resizeBtns = this.head.querySelectorAll('.resize-btn');
+  this.dropDown = obj.querySelectorAll('.activate');
+  this.sort = obj.querySelectorAll('.sort');
+  this.search = obj.querySelectorAll('.search');
 
-  var resizeBtns = document.querySelectorAll('.resize-btn');
+  // Константы:
+  this.rowTemplate = this.body.innerHTML;
+  this.data = data;
 
-  if (resizeBtns.length > 0) {
-    resizeBtns.forEach(el => {
-      el.addEventListener('mousedown', (event) => {
-        curColumn = event.currentTarget.parentElement;
-        startOffset = curColumn.offsetWidth - event.pageX;
-      });
+  // Динамические переменные:
+  this.countItems = 0;
+  this.countItemsTo = 0;
+  this.itemsToLoad = this.data;
+  this.incr = 60;
+  this.curColumn = null;
+  this.startOffset = 0;
+
+  // Установка обработчиков событий:
+  this.setEventListeners = function() {
+    this.table.addEventListener('scroll', () => this.scrollTable());
+
+    if (this.resizeBtns.length > 0) {
+      this.resizeBtns.forEach(el => el.addEventListener('mousedown', (event) => this.startResize(event)));
+      this.table.addEventListener('mouseleave', () => this.stopResize());
+      document.addEventListener('mousemove', (event) => this.resize(event));
+      document.addEventListener('mouseup', () => this.stopResize());
+    }
+
+    this.dropDown.forEach(el => {
+      new DropDown(el, data);
+      el.addEventListener('change', (event) => this.filterData(event, el.dataset.key));
     });
 
-    document.addEventListener('mousemove', (event) => {
-      if (curColumn) {
-        var newWidth = startOffset + event.pageX + 'px',
-            curTable = curColumn.closest('.table-wrap');
-        curColumn.style.width = newWidth;
-        curColumn.style.minWidth = newWidth;
-        curColumn.style.maxWidth = newWidth;
-        curTable.querySelectorAll(`.table-body td:nth-child(${curColumn.id})`).forEach(el => {
-          el.style.width = newWidth;
-          el.style.minWidth = newWidth;
-          el.style.maxWidth = newWidth;
-        });
-      }
+    this.sort.forEach(el => {
+      new DropDown(el);
+      el.addEventListener('click', (event) => this.sortData(event, el.dataset.key, el.dataset.type));
     });
-
-    document.addEventListener('mouseup', () => {
-      curColumn = null;
+    this.search.forEach(el => {
+      new DropDown(el);
+      el.addEventListener('submit', (event) => this.searchData(event, el.dataset.key));
+      el.querySelector('.search.icon').addEventListener((event) => this.searchData(event, el.dataset.key));
+      el.querySelector('.close.icon').addEventListener((event) => this.clearSearch(event, el.dataset.key));
     });
   }
-})();
+  this.setEventListeners();
 
-function onFocusSearch(form) {
-  form.classList.add('onfocus');
-}
+  // Инициализация таблицы:
 
-function onBlurSearch(form) {
-  event.preventDefault();
-  setTimeout(() => {
-    form.classList.remove('onfocus');
-  }, 100);
+  this.init = function() {
+    loader.show();
+    showElement(this.table);
+    this.loadData(this.data);
+    this.table.style.visibility = 'visible';
+    loader.hide();
+  }
+
+  // Загрузка данных в таблицу:
+
+  this.loadData = function(data) {
+    if (data) {
+      this.countItems = 0;
+      this.itemsToLoad = data;
+    } else {
+      this.countItems = this.countItemsTo;
+    }
+    if (this.countItemsTo == this.itemsToLoad.length) {
+      return;
+    }
+    this.countItemsTo = this.countItems + this.incr;
+    if (this.countItemsTo > this.itemsToLoad.length) {
+      this.countItemsTo = this.itemsToLoad.length;
+    }
+    var list = '', newEl;
+    for (let i = this.countItems; i < this.countItemsTo; i++) {
+      newEl = this.rowTemplate;
+      newEl = createElByTemplate(newEl, this.itemsToLoad[i]);
+      list += newEl;
+    }
+    if (this.countItems === 0) {
+      this.body.innerHTML = list;
+      this.alignColumns();
+      this.fillResults();
+    } else {
+      this.body.insertAdjacentHTML('beforeend', list);
+      for (let i = 0; i <= this.countItemsTo - this.countItems; i++) {
+        this.body.removeChild(this.body.children[i]);
+      }
+    }
+  }
+
+  // Подгрузка таблицы при скролле:
+
+  // var tempScrollTop, currentScrollTop = 0;
+  this.scrollTable = function() {
+    // currentScrollTop = this.table.scrollTop;
+
+    // if (tempScrollTop < currentScrollTop) {
+    //   //scrolling down
+    // } else if (tempScrollTop > currentScrollTop) {
+    //   //scrolling up
+    // }
+    // tempScrollTop = currentScrollTop;
+    if (this.table.scrollTop + this.table.clientHeight >= this.table.scrollHeight) {
+      // console.log(this.table.scrollTop);
+      // console.log(this.table.clientHeight);
+      // console.log(this.table.scrollHeight);
+      this.loadData();
+    }
+    // if (this.table.scrollTop * 2 + this.table.clientHeight < this.table.scrollHeight) {
+    //   this.loadPrev();
+    // }
+  }
+
+  // Заполнение итогов таблицы:
+
+  this.fillResults = function() {
+    if (!this.results) {
+      return;
+    }
+    this.results.querySelectorAll('.result').forEach(result => {
+      var total = 0;
+      this.itemsToLoad.forEach(el => {
+        total += el[result.dataset.key];
+      });
+      el.textContent = total.toLocaleString();
+    });
+  }
+
+  // Выравнивание столбцов таблицы при загрузке:
+  this.alignColumns = function() {
+    var headCells = this.head.querySelectorAll('tr:first-child > th');
+    headCells.forEach(headCell => {
+      var bodyCell = this.body.querySelector(`tr:first-child > td:nth-child(${headCell.id})`),
+          bodyCellWidth = bodyCell.offsetWidth,
+          newWidth = bodyCellWidth;
+        headCell.style.width = newWidth + 'px';
+        headCell.style.minWidth = newWidth + 'px';
+        headCell.style.maxWidth = newWidth + 'px';
+        bodyCell.style.width = newWidth + 'px';
+        bodyCell.style.minWidth = newWidth + 'px';
+        bodyCell.style.maxWidth = newWidth + 'px';
+    });
+  }
+
+  // Фильтрация таблицы:
+  this.filterData = function(event, key) {
+    var data = this.data.filter(el => el[key] === event.currentTarget.value);
+    this.loadData(data);
+  }
+
+  // Сортировка таблицы:
+  this.sortData = function(event, key, type) {
+    var sortBtn = event.currentTarget;
+    this.head.querySelector('.sort.cheched').classList.remove('checked');
+    if (sortBtn.classList.contains('checked')) {
+      this.loadData(this.itemsToLoad);
+    } else {
+      sortBtn.classList.add('checked');
+      var copyItems = JSON.parse(JSON.stringify(this.itemsToLoad));
+      copy.sort(dynamicSort(key, type));
+      this.loadData(copyItems);
+    }
+  }
+
+  // Поиск по столбцу таблицы:
+  this.searchData = function(event, key) {
+
+  }
+
+  // Сброс поиска:
+  this.clearSearch = function(event) {
+
+  }
+
+  // Запуск перетаскивания столбца:
+  this.startResize = function(event) {
+    this.curColumn = event.currentTarget.parentElement;
+    this.startOffset = this.curColumn.offsetWidth - event.pageX;
+  }
+
+  // Перетаскивание столбца:
+  this.resize = function(event) {
+    if (this.curColumn) {
+      var newWidth = this.startOffset + event.pageX;
+          newWidth = newWidth > 3 ? newWidth + 'px' : '3px';
+      this.curColumn.style.width = newWidth;
+      this.curColumn.style.minWidth = newWidth;
+      this.curColumn.style.maxWidth = newWidth;
+      this.head.querySelectorAll(`th:nth-child(${this.curColumn.id})`).forEach(el => {
+        el.style.width = newWidth;
+        el.style.minWidth = newWidth;
+        el.style.maxWidth = newWidth;
+      });
+      this.body.querySelectorAll(`td:nth-child(${this.curColumn.id})`).forEach(el => {
+        el.style.width = newWidth;
+        el.style.minWidth = newWidth;
+        el.style.maxWidth = newWidth;
+      });
+    }
+  }
+
+  // Остановка перетаскивания столбца:
+  this.stopResize = function() {
+    this.curColumn = null;
+  }
 }
 
 //=====================================================================================================
@@ -735,25 +1222,39 @@ function extractProps(template) {
   return template.match(/#[^#]+#/gi).map(prop => prop = prop.replace(/#/g, ''));
 }
 
-// Заполнение блока информацией по шаблону:
+// Заполнение блока по шаблону:
 
-function createByTemplate(data, block, template) {
-  var props = extractProps(template),
-      list = '',
-      newEl = template,
-      value,
-      propRegExp;
-  data.forEach(el => {
-    props.forEach(key => {
-      propRegExp = new RegExp('#' + key + '#', 'gi');
-      if (el[key] == undefined) {
-        value = '';
-      } else {
-        value = el[key];
-      }
-      newEl = newEl.replace(propRegExp, value);
-    });
+function fillByTemplate(template, data, target) {
+  var list = createListByTemplate(template, data);
+  target.innerHTML = list;
+}
+
+// Создание списка элементов на основе шаблона:
+
+function createListByTemplate(template, data) {
+  var list = '', newEl;
+  data.forEach(dataItem => {
+    newEl = template;
+    newEl = createElByTemplate(newEl, dataItem);
     list += newEl;
   });
-  block.insertAdjacentHTML('beforeend', list);
+  return list;
+}
+
+// Создание одного элемента на основе шаблона:
+
+function createElByTemplate(newEl, data) {
+  var props = extractProps(newEl),
+      propRegExp,
+      value;
+  props.forEach(key => {
+    propRegExp = new RegExp('#' + key + '#', 'gi');
+    if (data[key]) {
+      value = data[key];
+    } else {
+      value = '';
+    }
+    newEl = newEl.replace(propRegExp, value);
+  });
+  return newEl;
 }
