@@ -1,0 +1,61 @@
+/* .container {
+  max-width: 1340px !important;
+  margin: 0 auto;
+} */
+
+@media only screen and  (min-width: 1824px) {
+  body {
+    font-size: 1.6rem;
+  }
+  .container {
+    max-width: 1724px;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (max-width: 1439px) {
+  .container {
+    margin: 0 4rem;
+  }
+}
+
+@media only screen and (max-width: 1080px) {
+  body {
+    font-size: 1.6rem;
+  }
+  .container {
+    margin: 0 3rem;
+  }
+  .visible-xs {
+    display: block;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  body.no-scroll {
+    width: 100%;
+    position: fixed;
+  }
+  .container {
+    margin: 0 2rem;
+  }
+  .hidden-xs {
+		display: none;
+  }
+  .dealer-button {
+    font-size: 1.5em;
+  }
+  [tooltip]:hover::before,
+  [tooltip]:hover::after {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .container {
+    margin: 0 1.5rem;
+  }
+  .hidden-xxs {
+		display: none;
+  }
+}

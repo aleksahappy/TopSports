@@ -1,0 +1,75 @@
+.shops-wrap{
+    display: flex;
+    width: 100%;
+}
+.shops{
+    display: flex;
+    flex-direction: column;
+    width: 20.36vw;
+    height: 41.7187vw;
+    padding: 20px 30px 20px 38px;
+    background: #ffffff;
+}
+
+#map{
+    width: 100%;
+    height: auto;
+}
+.addShop{
+    width: 10vw;
+}
+.shop{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5vw;
+}
+.shop > * {
+    margin-bottom: 5px;
+}
+.shop div:first-child{
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+}
+.indicate{
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+}
+.indicate div:first-child{
+    border-radius: 50%;
+    width: 5px;
+    height: 5px;
+}
+.indicate div:last-child{
+    font-size: 0.8em;
+    margin-top: -2px;
+}
+.toggle{
+    width: 1.5em;
+    height: 1.5em;
+}
+.TS{
+    font-size: 1.1em;
+}
+.added{
+    fill: #3F9726;
+    background: #3F9726;
+}
+.added-color{
+    color: #3F9726;
+}
+.denied{
+    fill: #D70C17;
+    background: #D70C17;
+}
+.denied-color{
+    color: #D70C17;
+}
+.processing{
+    fill: #F69C00;
+    background: #F69C00;
+}
+.processing-color{
+    color: #F69C00;
+}

@@ -1,0 +1,51 @@
+/* tranfer to media_main.css */
+@media (max-width: 1493px) {
+    #alerts-body .message .icon {
+        margin-right: 0.7vw;
+    }
+}
+@media (max-width: 1376px) {
+    .activate{
+        min-width: 1vw;
+    }
+}
+@media(max-width: 1269px) {
+    #menu{
+        display: none;
+    }
+    .sandwich{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 34px;
+        height: 21px;
+        cursor: pointer;
+    }
+    .sandwich span{
+        width: 100%;
+        height: 3px;
+        background: #454D56;
+    }
+    .header-top .container {
+        height: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .header-top .logo {
+        height: 32px;
+        margin-right: 0;
+        margin-left: 13vw;
+    }
+}
+@media (max-width: 700px) {
+    .header-top .logo{
+        margin-right: 3vw;
+    }
+    .header-top .logo img {
+        max-height: 32px;
+        max-width: 100%;
+        min-width: 110px;
+    }
+}
+
+/* local media queries */

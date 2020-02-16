@@ -1,0 +1,303 @@
+/* =====================================================================================================
+ Стили для шапки и её содержимого:
+===================================================================================================== */
+
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
+  z-index: 10;
+}
+
+.header-main {
+  background-color: rgb(255,255,255);
+}
+
+.header-main .container {
+  align-items: center;
+}
+
+.logo-wrap {
+  margin-right: 1em;
+  padding: 1rem 0;
+}
+
+.logo {
+  height: 44px;
+}
+
+.logo img {
+  max-height: 44px;
+  max-width: 100%;
+}
+
+.header-contacts {
+  justify-content: flex-end;
+}
+
+.header-contacts a {
+  margin-left: 3em;
+  color: rgb(241,89,42);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.header-contacts :first-child {
+  margin-left: 0;
+}
+
+.header-contacts span {
+  padding-left: 0.5em;
+}
+
+a.header-phone, a.header-cabinet {
+  color: rgb(32,103,176);
+}
+
+.header-phone, .header-cabinet {
+  position: relative;
+  padding-left: 1.5em;
+}
+
+.header-phone::before, .header-cabinet::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  width: 1em;
+  height: 1em;
+  background-repeat: no-repeat;
+  background-size: 1em;
+}
+
+.header-phone::before {
+  background-image: url(../img/header_footer/ico_skype_bw.png);
+}
+
+.header-cabinet::before {
+  background-image: url(../img/header_footer/ico_profile_bw.png);
+}
+
+.header-menu a {
+  margin-right: -0.25rem;
+  cursor: pointer;
+}
+
+.header-menu a:hover,
+.header-menu a.active {
+  color: rgb(255,255,255);
+}
+
+.main-menu {
+  color: rgb(255,255,255);
+  background-color: rgb(31,34,41);
+}
+
+.main-menu .burger-btn,
+.main-menu .search-icon {
+  margin-left: 1em;
+}
+
+.main-menu > .row {
+  align-items: center;
+}
+
+.topmenu {
+  align-items: center;
+}
+
+.topmenu-item {
+  padding: 1rem 2rem;
+  font-family: 'TradeGothicProCyr';
+  font-size: 1.8em;
+  line-height: 0.8;
+  text-transform: uppercase;
+  -webkit-transition: 200ms;
+  -moz-transition: 200ms;
+  transition: 200ms;
+}
+
+.topmenu-item.active,
+.topmenu-item:hover {
+  background-color: rgb(241,89,42);
+}
+
+.search {
+  position: relative;
+  padding: 0.35em 0;
+  width: 50%;
+  max-width: 700px;
+}
+
+.search.open {
+  display: block;
+}
+
+.search .clear-search-btn {
+  display: none;
+  top: 1px;
+  right: 2.5rem;
+  background-size: 1em;
+}
+
+#search {
+  width: 100%;
+  height: 2.8rem;
+  padding: 0 4em 0 0.7em;
+  font-size: 1em;
+  line-height: 1.2;
+  border-radius: 2px;
+  background-color: rgb(255,255,255);
+}
+
+.submenu {
+  background-color: rgb(243,243,246);
+}
+
+.submenu.open {
+  display: block;
+}
+
+.submenu-items {
+  overflow: hidden;
+}
+
+.submenu-item {
+  padding: 1rem 2rem;
+  font-size: 1.15em;
+  -webkit-transition: 200ms;
+  -moz-transition: 200ms;
+  transition: 200ms;
+}
+
+.submenu-item.active,
+.submenu-item:hover {
+  background-color: rgb(172,177,186);
+}
+
+.subsubmenu {
+  background-color: rgb(238,238,238);
+}
+
+/* =====================================================================================================
+ Стили для футера и его содержимого:
+===================================================================================================== */
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  font-size: 1.4rem;
+  color: rgb(255, 255, 255);
+  background-color: rgb(31,34,41);
+  z-index: 5;
+}
+
+.footer-links, .footer-contacts, .copyright {
+  padding: 0.7em 0;
+}
+
+.footer-links {
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 0;
+}
+
+.footer-links a {
+  margin-right: 3em;
+  padding: 0.7em 0;
+  text-decoration: underline;
+  text-align: center;
+}
+
+.footer-links a:last-child {
+  margin-right: 0;
+}
+
+.footer-links a:hover {
+  -webkit-transition: 300ms;
+  -moz-transition: 300ms;
+  transition: 300ms;
+  color: rgb(241,89,42);
+}
+
+.youtube::before {
+  content: url(../img/header_footer/ico_youtube.png);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.youtube:hover {
+  -webkit-transition: 300ms;
+  -moz-transition: 300ms;
+  transition: 300ms;
+  transform: scale(1.1);
+}
+
+.footer-contacts {
+  font-weight: 300;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-contacts > div {
+  margin-right: 2em;
+  padding: 0.35em 0;
+  text-align: center;
+}
+
+.footer-contacts:last-child {
+  margin-right: 0;
+}
+
+.decor {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.copyright {
+  font-size: 0.85em;
+  text-align: center;
+  border-top: 1px solid rgb(139,140,140);
+}
+
+/* =====================================================================================================
+ Для предзаказа:
+===================================================================================================== */
+
+body.pred .main-menu {
+  display: none;
+}
+
+body.pred .submenu > .row {
+  flex-wrap: wrap;
+}
+
+body.pred .submenu-items.open {
+  display: block;
+}
+
+body.pred .search {
+  max-width: 500px;
+}
+
+body.pred .main-menu-btns {
+  background-color: rgb(243,243,246);
+  justify-content: flex-end;
+  padding: 0.5rem 0;
+}
+
+body.pred .main-menu-btns > .row{
+  justify-content: flex-end;
+}
+
+body.pred .burger-btn,
+body.pred .search-icon {
+  margin-left: 1em;
+}
+

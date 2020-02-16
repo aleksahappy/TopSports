@@ -1,0 +1,101 @@
+.wrapper{
+    padding: 31px 21px 40px 21px;
+    margin: 0 auto;
+    width: 472px;
+    background: #ffffff;
+    font-family: 'Open Sans';
+}
+h3{
+    color: #34495E;
+}
+.wrapper .head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.close .icon{
+    width: 1.1em;
+    height: 1.1em;
+}
+
+form{
+    width: 100%;
+    margin-top: 40px;
+}
+.check-wrap:last-child {
+    margin-bottom: 0;
+}
+.check-wrap section {
+    display: flex;
+}
+.col1{
+    margin-right: 80px;
+}
+.form-title{
+    position: relative;
+    margin-top: 5px;
+    font-family: 'Open Sans';
+    font-size: 0.875em;
+    letter-spacing: 0.2px;
+    color: #8D8E99;
+}
+.check{
+    display: flex;
+    align-items: center;
+}
+.name{
+    margin-left: 5px;
+}
+.check div:nth-child(2){
+    font-family: 'Open Sans';
+    font-size: 0.9em;
+    color: #666666;
+}
+.form-title,
+.check{
+    margin-bottom: 10px;
+}
+.form form input{
+    margin-bottom: 9px;
+    width: 100%;
+    border-radius: 4px;
+    padding: 1.2812vw 0.7812vw 0.4vw 0.7812vw;
+    box-sizing: border-box;
+    outline: none;
+    border: 1px solid rgba(52, 73, 94, 0.4);
+    font-family: 'Open Sans';
+    font-size: 0.975em;
+    color: #34495E;
+}
+.form form input:focus{
+    padding: 1.2812vw 0.7812vw 0.4vw 0.7812vw;
+    border: 1px solid #000000;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.0877491);
+}
+.form form input:focus ~ label{
+    top: 0.25625vw;
+    left: 0.8291vw;
+    color: #F05A28;
+    font-size: 0.675em;
+}
+form div{
+    position: relative;
+}
+.btn-wrap{
+    display: flex;
+    justify-content: center;
+    margin-top: 36px;
+}
+form div label{
+    position: absolute;
+    top: 0.1812vw;
+    left: 0.52vw;
+    pointer-events: none;
+    font-family: 'Open Sans';
+    font-size: 0.875em;
+    color: #8D8E99;
+    transition: .5s;
+}
+button{
+   border: 0;
+}

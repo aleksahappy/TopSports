@@ -1,0 +1,32 @@
+/* 404 css */
+.center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+.center > *  {
+    margin-bottom: 3vw;
+}
+
+.f0f{
+    width: 13.85vw;
+    height: 9.42vw;
+    min-width: 266px;
+    min-height: 181px;
+    background: url('../img/404.svg') no-repeat center center;
+    background-size: contain;
+}
+.center div:first-child{
+    font-size: 1.6em;
+    text-transform: uppercase;
+    color: #34495E;
+}
+.center a{
+    font-size: 1.2em;
+    font-family: 'Open Sans';
+    text-decoration: underline;
+    color: #34548A;
+}

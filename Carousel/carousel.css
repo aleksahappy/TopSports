@@ -1,0 +1,153 @@
+/* Общие стили: */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 10px;
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+body {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.5;
+  color: rgb(0,0,0);
+  background-color: rgb(247,249,249);
+}
+
+/* Стили для теста: */
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  border: 1px solid black;
+}
+
+.text {
+  width: 20%;
+}
+
+/* Стили для карусели */
+
+.carousel {
+  visibility: hidden; /* обязательный стиль */
+  position: relative; /* обязательный стиль */
+  width: 50%; /* можно установить в % для адаптивности или в px */
+  cursor: pointer;
+}
+
+.left-btn {
+  left: 0;
+  background: url(slider/slider_nav_left_grey.png) no-repeat center;
+}
+
+.right-btn {
+  right: 0;
+  background: url(slider/slider_nav_righ_grey.png) no-repeat center;
+}
+
+.left-btn, .right-btn {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 3em;
+  z-index: 1;
+  cursor: pointer;
+  transition: opacity 0.3s linear;
+}
+
+.carousel-gallery-wrap {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0.5em;
+  overflow: hidden; /* обязательный стиль */
+}
+
+.carousel-gallery { /* все стили обязательные кроме padding */
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.carousel-gallery .carousel-item { /* все стили обязательные */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 100%; /* можно установить в % для адаптивности или в px */
+}
+
+.carousel-nav { /* навигация не является обязательной */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.carousel-nav .carousel-item {
+  width: 25%;
+  padding-right: 0.5em;
+  padding-bottom: 0.5em;
+  opacity: 0.6;
+}
+
+.carousel-nav .carousel-item:nth-child(4n) {
+  padding-right: 0;
+}
+
+.carousel-nav .carousel-item.active {
+  opacity: 1;
+}
+
+.carousel-item {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-item img { /* все стили обязательные */
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.loupe { /* если включаем лупу, то все стили обязательные */
+  position: absolute;
+  overflow: hidden;
+  background-color: rgba(85,85,85, 0.25);
+  cursor: zoom-in;
+}
+
+.big-img { /* если включаем лупу, то все стили обязательные */
+  position: absolute;
+}
+
+
+#two {
+  /* width: 400px; */
+  margin: 0 auto;
+}

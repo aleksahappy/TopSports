@@ -1,0 +1,132 @@
+@media only screen and  (min-width: 1824px) {
+  .search {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 1439px) {
+  .header-contacts a {
+    margin-left: 2em;
+  }
+}
+
+@media only screen and (max-width: 1080px) {
+  .header {
+    font-size: 1.2rem;
+  }
+  .logo-wrap {
+    width: 22%;
+  }
+  .header-contacts a {
+    margin-left: 1em;
+  }
+  #search {
+    font-size: 1.6rem;
+  }
+  .burger-btn.visible-xs,
+  .search-icon.visible-xs {
+    display: block;
+  }
+  .search {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.35em 2rem;
+    background-color: rgb(31,34,41);
+    box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
+  }
+  .search .search-btn {
+    right: 2rem;
+  }
+  .search .clear-search-btn {
+    right: 4.5rem;
+  }
+  .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    box-shadow: 0 2px 2px 0 rgba(100, 100, 100, 0.5);
+  }
+  .ekipirovka .submenu-item {
+    padding: 1rem 1.9rem;
+  }
+  .footer  {
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .logo-wrap {
+    width: auto;
+  }
+  .header-cabinet {
+    padding-left: 3em;
+  }
+  .header-cabinet::before {
+    top: -0.3em;
+    width: 2em;
+    height: 2em;
+    background-size: 2em;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .header-cabinet {
+    width: 30px;
+    height: 44px;
+    overflow: hidden;
+  }
+  .header-cabinet::before {
+    top: 0.2em;
+    width: 3em;
+    height: 3em;
+    background-size: 3em;
+  }
+  .search {
+    padding: 0.35em 1.5rem;
+  }
+  .search .search-btn,
+  .search .clear-search-btn {
+    right: 1.5rem;
+  }
+  .search .search-btn {
+    right: 1.5rem;
+  }
+  .search .clear-search-btn {
+    right: 4rem;
+  }
+  .submenu-items.ekipirovka {
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 14em;
+  }
+  .ekipirovka .submenu-item {
+    width: 10em;
+    padding: 1rem 1rem;
+  }
+  .footer-links a {
+    margin-right: 2em;
+  }
+}
+
+/* =====================================================================================================
+ Для предзаказа:
+===================================================================================================== */
+
+@media only screen and (max-width: 1080px) {
+  .submenu-items {
+    display: none;
+  }
+  .search {
+    background-color: rgb(243,243,246);
+  }
+  body.pred .search {
+    max-width: 100%;
+  }
+}

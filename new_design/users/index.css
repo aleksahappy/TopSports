@@ -1,0 +1,32 @@
+.table-head th:last-child .resize-btn{
+    height: 0;
+}
+.users .row:first-child{
+    display: flex;
+    justify-content: center;
+}
+.users .icon{
+    width: 2em;
+    height: 2em;
+}
+.phone{
+    width: 26px;
+    height: 36px;
+    background: url('../img/smartphone_1.svg') no-repeat center center;
+    background-size: contain;
+    margin-right: 5px;
+}
+.seen{
+    margin-left: 20px;
+    width: 30px;
+    height: 21px;
+    background: url('../img/eyeActive.svg') no-repeat center center;
+    background-size: contain; 
+}
+.unseen{
+    margin-left: 20px;
+    width: 30px;
+    height: 21px;
+    background: url('../img/eyeNonActive.svg') no-repeat center center;
+    background-size: contain; 
+}

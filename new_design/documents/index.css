@@ -1,0 +1,17 @@
+.table-head th:last-child .resize-btn{
+    height: 0;
+}
+
+.table-head .resize-btn::after{
+    width: 0px !important;
+}
+tbody .order-number .row div{
+    padding-left: 10px;
+}
+.help-fz{
+    align-items: center;
+    font-size: 1.715em;
+}
+.download{
+    margin-right: 10px;
+}
