@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../css/cart.css">
   </head>
 
-  <body id="_snow" data-website="ts_b2b" data-cart="snow">
+  <body id="_snow" data-website="ts_b2b" data-cart="true" data-cart-id="snow">
 
     <div class="header">
       <div class="header-top">
@@ -278,9 +278,9 @@
             </div>
           </div>
           <div id="gallery" class="row">
-            <div id="min-card-#object_id#" data-id="#object_id#" class="min-card card" onclick="showFullCard(#object_id#)">
+            <div id="min-card-#object_id#" class="min-card card" data-id="#object_id#" data-action-id="#action_id#" onclick="showFullCard(#object_id#)">
               <div class="card-img-wrap">
-                <img class="card-img" src="#image#" onerror="replaceImg(this)">
+                <img class="card-img" src="#image#">
               </div>
               <div class="card-title">
                 <div class="title">#title#</div>
@@ -316,7 +316,7 @@
                 </div>
               </div>
             </div>
-            <div id="big-card-#object_id#" class="big-card card manage row" data-id="#object_id#" data-action-id="0" onclick="closeBigCard(event)">
+            <div id="big-card-#object_id#" class="big-card card manage row" data-id="#object_id#" data-action-id="#action_id#" onclick="closeBigCard(event)">
               <div class="container-left row">
                 <div class="carousel" data-type="bigCard">
                   <div class="left-btn"></div>
@@ -368,7 +368,7 @@
                             <div class="name row text light">#size#</div>
                             <div class="qty-box row">
                               <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event)">-</div>
-                              <input class="choiced-qty text light" type="text" value="0" data-id="#object_id#" data-qty="#total_qty#" autocomplete="off" onchange="changeCart(event)" onblur="changeCart(event)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                              <input class="choiced-qty text light" type="text" value="0" data-id="#object_id#" autocomplete="off" onchange="changeCart(event)" onblur="changeCart(event)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
                               <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event)">+</div>
                             </div>
                             <div class="tooltips col">
@@ -430,7 +430,7 @@
           </div>
         </div>
         <div id="full-card-container" class="pop-up-container" onclick="closePopUp(event)">
-          <div id="full-card-#object_id#" data-id="#object_id#" data-action-id="0" class="full-card card manage pop-up">
+          <div id="full-card-#object_id#" class="full-card card manage pop-up" data-id="#object_id#" data-action-id="#action_id#">
             <div class="card-head row">
               <div class="card-title">
                 <div class="title">#title#</div>
@@ -495,7 +495,7 @@
                         <div class="name row text light">#size#</div>
                         <div class="qty-box row">
                           <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event)">-</div>
-                          <input class="choiced-qty text light" type="text" value="0" data-id="#object_id#" data-qty="#total_qty#" autocomplete="off" onchange="changeCart(event)" onblur="changeCart(event)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                          <input class="choiced-qty text light" type="text" value="0" data-id="#object_id#" autocomplete="off" onchange="changeCart(event)" onblur="changeCart(event)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
                           <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event)">+</div>
                         </div>
                       </div>
@@ -573,7 +573,7 @@
         <div id="cart">
           <div id="cart-empty">
             <div class="title">Ваша корзина пуста</div>
-            <a id="catalog-link" class="active btn" href="../snowmobiles/" data-href="_snow" data-level="1" onclick="openPage(event)">Перейти в каталог товаров</a>
+            <a id="catalog-link" class="active btn" href="../equipment/" data-href="_equip" data-level="1" onclick="openPage(event)">Перейти в каталог товаров</a>
             <div class="load-cart">
               <textarea id="load-text" class="text" placeholder="Артикул Количество
 Артикул Количество
@@ -613,10 +613,10 @@
                   <div id="warning-btn"></div>
                 </div>
               </div>
-              <form id="order-form" class="row" method="post" enctype="multipart/form-data">
-                <div class="payment">
+              <form id="order-form" class="row" method="post" enctype="multipart/form-data" onsubmit="orderSentServer(event)">
+                <div class="input-wrap">
                   <div class="title">Способ оплаты</div>
-                  <select id="payment-select" class="select" required>
+                  <select name="payment_type" required>
                     <option value="" default selected hidden disabled>Выберите тип оплаты</option>
                     <option value="1">Безналичный расчет</option>
                     <option value="2">Наличный расчет</option>
@@ -624,45 +624,45 @@
                     <option value="3">Прочее</option>
                   </select>
                 </div>
-                <div class="partner">
+                <div class="input-wrap">
                   <div class="title">Название контрагента</div>
-                  <select id="partner-select" class="select" required>
+                  <select name="contr_id" required>
                     <option value="" default selected hidden disabled>Выберите контрагента</option>
                     <option value="#value#">#partner#</option>
                   </select>
                 </div>
-                <div class="documents">
+                <div class="input-wrap">
                   <div class="title">Отгрузочные документы</div>
-                  <select id="documents-select" class="select" required>
+                  <select name="shipping_docs" required>
                     <option value="" default selected hidden disabled>Выберите</option>
                     <option value="0">Не вкладывать</option>
                     <option value="1">Вкладывать</option>
                   </select>
                 </div>
-                <div class="delivery">
+                <div class="input-wrap">
                   <div class="title">Тип доставки</div>
-                  <select id="delivery-select" class="select" required onchange="toggleOrderAddress(this)">
+                  <select name="delivery_type" required onchange="toggleOrderAddress(this)">
                     <option value="" default selected hidden disabled="">Выберите тип доставки</option>
                     <option value="1">Самовывоз</option>
                     <option value="2">Курьер</option>
                     <option value="3">Транспортная компания</option>
                   </select>
                 </div>
-                <div class="address">
+                <div class="input-wrap address">
                   <div class="title">Адрес доставки</div>
-                  <select id="address-select" class="select" required>
+                  <select name="shop_address">
                     <option value="" default selected hidden disabled>Выберите адрес доставки</option>
                     <option value="#value#">#address#</option>
                   </select>
                 </div>
                 <div class="comment">
                   <div class="title">Комментарий к заказу</div>
-                  <textarea id="order-comment" maxlength="300" oninput="countSigns(this)"></textarea>
+                  <textarea id="order-comment" name="comment" maxlength="300" oninput="countSigns(this)"></textarea>
                   <div class="counter text light">Знаков осталось: <span id="textarea-counter">300</span></div>
                 </div>
                 <div id="order-info" class="text red">Обратите внимание!<br/>Будет создано несколько заказов: (<span id="order-names"></span>)</div>
                 <div class="basic btn" onclick="closeOrderForm()">Отменить</div>
-                <div class="order active btn" onclick="orderSentServer()">Заказать</div>
+                <input class="order active btn" type="submit" value="Заказать"></input>
               </form>
               <div class="cart-list">
                 <div class="table-head row">
@@ -715,14 +715,14 @@
             </div>
             <div class="cart-list">
               <div id="cart-rows" class="table-body">
-                <div class="cart-row row manage checked #status#" data-id="#id#" data-action-id="0">
+                <div class="cart-row row manage checked #status#" data-id="#id#" data-action-id="#action_id#">
                   <div class="check" onclick="toggleInCart(event)">
                     <div class="checkbox icon"></div>
                   </div>
                   <div class="name">
                     <a class="row" onclick="showFullCard(#object_id#)">
                       <div class="img-wrap row">
-                        <img src="#image#" onerror="replaceImg(this)">
+                        <img src="#image#">
                       </div>
                       <div>#title# #options#</div>
                     </a>
@@ -742,7 +742,7 @@
                         <div>
                           <div class="qty-box row">
                             <div class="btn-minus" tooltip="Удалить" onclick="changeCart(event)">-</div>
-                            <input class="choiced-qty text light" type="text" value="#qty#" data-id="#id#" data-qty="#total_qty#" autocomplete="off" onchange="changeCart(event)" onblur="changeCart(event)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
+                            <input class="choiced-qty text light" type="text" value="#qty#" data-id="#id#" autocomplete="off" onchange="changeCart(event)" onblur="changeCart(event)" onfocus="onFocusInput(this)" onkeypress="return checkValue(event)">
                             <div class="btn-plus" tooltip="Добавить" onclick="changeCart(event)">+</div>
                           </div>
                           <div class="tooltips row">

@@ -149,7 +149,7 @@
   font-size: 0.857em;
 }
 
-#order-form .select {
+#order-form select {
   position: relative;
   min-width: 270px;
   margin-bottom: 1em;
@@ -164,7 +164,7 @@
   appearance: none;
 }
 
-#order-form .select:hover {
+#order-form select:hover {
   border-color: #34495E;
 }
 

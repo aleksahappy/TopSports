@@ -14,14 +14,19 @@
     <link rel="stylesheet" type="text/css" href="media_index.css">
   </head>
 
-  <body>
+  <body data-website="ts_b2b" data-cart="true">
 
     <div class="header">
       <div class="header-top">
         <div class="container row">
           <div class="left-side row">
-            <a class="logo" href="../"><img src="../img/logo.svg" alt="Логотип"/></a>
+            <a class="logo" href="../desktop"><img src="../img/logo.svg" alt="Логотип"/></a>
             <div class="row">
+              <div class="activate">
+                <div class="head row">
+                  <a class="title" href="../desktop">Рабочий стол</a>
+                </div>
+              </div>
               <div class="activate hover">
                 <div class="head row">
                   <div class="title">Каталоги</div>
@@ -29,38 +34,38 @@
                     <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
                   </svg>
                 </div>
-                <div class="drop-down catalogs">
+                <div class="drop-down">
                   <div class="row">
-                    <a class="item catalog" href="#">Предзаказы</a>
-                    <a class="item cart-info row" href="#">
+                    <a class="item catalog" href="../preorder">Предзаказы</a>
+                    <a id="cart-preorder" class="item cart-info row" href="../preorder/?cart">
                       <div class="cart icon"></div>
-                      <div>0</div>
+                      <div class="qty-short">0</div>
                     </a>
                   </div>
                   <div class="row">
-                    <a class="item catalog" href="#">Экипировка</a>
-                    <a class="item cart-info row" href="#">
+                    <a class="item catalog" href="../equipment/" data-href="_equip" data-level="1" data-title="Экипировка" onclick="openPage(event)">Экипировка</a>
+                    <a id="cart-equip" class="item cart-info row" href="../equipment/?cart" data-href="cart" data-level="2" data-title="Корзина" onclick="openPage(event)">
                       <div class="cart icon"></div>
-                      <div class="amount full">189</div>
+                      <div class="qty-short">0</div>
                     </a>
                   </div>
                   <div class="row">
-                    <a class="item catalog" href="#">Снегоходы</a>
-                    <a class="item cart-info row" href="#">
+                    <a class="item catalog" href="../snowmobiles/">Снегоходы</a>
+                    <a id="cart-snow" class="item cart-info row" href="../snowmobiles/?cart">
                       <div class="cart icon"></div>
-                      <div class="amount full">44</div>
+                      <div class="qty-short">0</div>
                     </a>
                   </div>
                   <div class="row">
-                    <a class="item catalog" href="#">Лодки и моторы</a>
-                    <a class="item cart-info row" href="#">
+                    <a class="item catalog" href="../boats/">Лодки и моторы</a>
+                    <a id="cart-boats" class="item cart-info row" href="../boats/?cart">
                       <div class="cart icon"></div>
-                      <div class="amount full">12</div>
+                      <div class="qty-short">0</div>
                     </a>
                   </div>
                 </div>
               </div>
-              <div class="activate hover">
+              <div class="activate hover select">
                 <div class="head row">
                   <div class="title">Закупки</div>
                   <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -68,47 +73,38 @@
                   </svg>
                 </div>
                 <div class="drop-down">
-                  <a class="item" href="#">Заказы</a>
-                  <a class="item" href="#">Оплаты</a>
-                  <a class="item" href="#">Рекламации</a>
-                  <a class="item" href="#">Документы</a>
-                  <a class="item" href="#">Сертификаты</a>
+                  <a class="item" href="../orders/">Заказы</a>
+                  <a class="item" href="../reclamations/">Рекламации</a>
+                  <a class="item" href="../documents/">Документы</a>
+                  <a class="item" href="../certificates/">Сертификаты</a>
                 </div>
               </div>
-              <div class="activate hover">
-                <div class="head row">
-                  <div class="title">Оплаты</div>
-                  <svg class="triangle" width="8" height="5" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 5L-2.99379e-07 -2.9635e-07L8 2.08053e-07L4 5Z" fill="#34495E"/>
-                  </svg>
-                </div>
-                <div class="drop-down">
-                </div>
-              </div>
+
             </div>
           </div>
           <div class="right-side row">
-            <div class="activate hover">
+            <div class="activate hover select">
               <div class="head row">
                 <div class="profile icon"></div>
                 <div class="login">
                   <div class="title">TS00000905</div>
-                  <div class="username text light">Виктор Пашковски</div>
+                  <div class="username">Виктор Пашковски</div>
                 </div>
               </div>
               <div class="drop-down">
                 <div class="links">
-                  <a class="item" href="#">Пользователи</a>
-                  <a class="item" href="#">Контрагенты</a>
+                  <a class="item" href="../users">Пользователи</a>
+                  <a class="item" href="../contractors">Контрагенты</a>
                   <a class="item" href="#">Адреса доставки</a>
-                  <a class="item" href="#">Магазины на карте</a>
-                  <a class="item" href="#">Медиабанк</a>
+                  <a class="item" href="../shops">Магазины</a>
+                  <a class="item" href="../monitoring">Мониторинг</a>
+                  <a class="item" href="../mediabank">Медиабанк</a>
                 </div>
                 <a id="exit" class="item" class="menu-item" href="#">Выйти</a>
               </div>
             </div>
-            <div class="alerts icon" onclick="showMessages()">
-              <div class="count row">35</div>
+            <div class="alerts icon" onclick="openPopUp('alerts-container')">
+              <div class="qty in-circle row">12</div>
             </div>
           </div>
         </div>
@@ -1942,7 +1938,7 @@
       </div>
     </div>
 
-    <div id="alerts-container" class="row" onclick="closeMessages(event)">
+    <div id="alerts-container" class="pop-up-container" onclick="closePopUp(event)">
       <div class="alerts pop-up">
         <div class="alerts-title row">
           <div class="row">
@@ -2101,15 +2097,15 @@
 
     <div id="loader">
       <div class="loader icon"></div>
-      <div class="message"></div>
+      <div class="text"></div>
     </div>
 
-    <div id="error-container" class="row" onclick="closeError()">
+    <div id="message-container" class="pop-up-container">
       <svg class="close-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M1.42859 1.42847L18.5714 18.5713" stroke="#34495E" stroke-linecap="round"/>
-        <path d="M18.1429 1L1 18.1429" stroke="#34495E" stroke-linecap="round"/>
+        <path d="M1.42859 1.42847L18.5714 18.5713" stroke="#FFFFFF" stroke-linecap="round"/>
+        <path d="M18.1429 1L1 18.1429" stroke="#FFFFFF" stroke-linecap="round"/>
       </svg>
-      <div id="error">Сообщение об ошибке</div>
+      <div class="text"></div>
     </div>
 
     <svg id="up-btn" onclick="goToTop()" width="38" height="31" viewBox="0 0 38 31" fill="none" xmlns="http://www.w3.org/2000/svg">

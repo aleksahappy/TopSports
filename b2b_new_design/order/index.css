@@ -43,6 +43,18 @@
   background-image: url(../img/security.svg);
 }
 
+/* ==== убрать в общий файл */
+
+.table-wrap {
+  visibility: hidden;
+}
+
+.table-wrap.active {
+  visibility: visible;
+}
+
+/* ================ */
+
 .table-head {
   background-color: #FFFFFF;
 }

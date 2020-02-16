@@ -630,7 +630,7 @@ body {
 
 .action-title {
   display: inline;
-  padding: 0.05em 0.75em;
+  padding: 1px 7px;
   font-size: 0.785em;
   font-weight: 600;
   line-height: 1;
@@ -894,7 +894,6 @@ body {
   padding: 1em;
   background-color: rgb(255, 255, 255);
   border: 0.5px solid rgba(52, 73, 94, 0.3);
-  overflow: hidden;
 }
 
 .big-card:first-child {
@@ -1212,12 +1211,12 @@ body {
 .full-card .card-desc,
 .full-card .action-desc {
   padding-top: 1.25em;
-  padding-bottom: 2.5em;
   font-size: 0.857em;
 }
 
 .full-card .action-desc {
   display: none;
+  padding-bottom: 2.5em;
 }
 
 .full-card .subtitle {

@@ -292,7 +292,7 @@ body.no-scroll {
 [tooltip]::after {
   content: attr(tooltip);
   min-width: 3em;
-  max-width: 21em;
+  max-height: 10em;
   padding: 0.5em 0.7em;
   color: #34495E;
   background-color: #D4D7DB;
@@ -301,6 +301,10 @@ body.no-scroll {
   overflow: hidden;
   text-overflow: ellipsis;
   z-index: 1000;
+}
+
+[tooltip][align^="left"]::after {
+  text-align: left;
 }
 
 [tooltip][help]::after {
@@ -893,9 +897,14 @@ form.search .close.icon {
 /* Окно для заполнения формы */
 
 .registr-container {
-  width: 100%;
+  position: fixed;
+  display: flex;
   justify-content: center;
   align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .registr {
@@ -1351,7 +1360,6 @@ form.registr-form input:focus ~ .hint {
 ===================================================================================================== */
 
 #main-header {
-  display: none;
   padding: 1em 0;
 }
 
@@ -1393,28 +1401,23 @@ form.registr-form input:focus ~ .hint {
 
 .main-title .title-row {
   align-items: center;
+}
+
+.main-title .title {
   font-size: 1.715em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 #cart-name {
   display: none;
 }
 
-.main-title .title {
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.main-title .question {
-  width: 0.96em;
-  height: 0.96em;
-  margin-left: 0.5em;
-}
-
+.main-title .question,
 .main-title .settings {
-  font-size: 1.72em;
-  width: 0.96em;
-  height: 0.96em;
+  width: 1.715em;
+  height: 1.715em;
+  margin-left: 1em;
 }
 
 /* =====================================================================================================
@@ -1461,7 +1464,7 @@ form.registr-form input:focus ~ .hint {
 #alerts-container .alerts.pop-up {
   position: relative;
   width: 70%;
-  height: 50%;
+  height: 60%;
   background-color: #FFFFFF;
   margin-right: 1rem;
   overflow: hidden;

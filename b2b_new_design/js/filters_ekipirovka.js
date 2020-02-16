@@ -12,11 +12,6 @@ var catId = {
   'sumruk': 52
 };
 
-var specialOffer = {
-  'is_new': 'Новинка',
-  'sale': 'Распродажа'
-};
-
 var use = {
   'moto': 'Мотоцикл',
   'quadro': 'Квадроцикл',
@@ -80,9 +75,8 @@ var colors = {
 var dataFilters = [{
   title: 'Спецпредложение',
   isOpen: 'true',
-  key: 'specialOffer',
-  items: createFilterData(discounts)
-  // items: specialOffer
+  key: 'action_id',
+  items: createFilterData(window['actions'] ? actions : null)
 }, {
   title: 'Категория',
   isOpen: 'true',

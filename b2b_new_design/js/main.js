@@ -9,16 +9,17 @@
 var website = document.body.dataset.website,
     pageId = document.body.id,
     isCart = document.body.dataset.cart,
-    urlRequest = 'http://80.234.34.212:2000/-aleksa-/TopSports/test/',
+    urlRequest = 'http://api.topsports.ru',
     loader = new Loader(document.getElementById('loader')),
     message = new Message(document.getElementById('message-container'));
 
 // Динамические переменные:
 
-var isSearch;
+var userInfo,
+    isSearch;
 
 if (isCart) {
-  var cartId = document.body.dataset.cart,
+  var cartId = document.body.dataset.cartId,
       cart = {},
       cartTotals = {},
       cartChanges = {},
@@ -29,45 +30,47 @@ if (isCart) {
 // При запуске страницы:
 //=====================================================================================================
 
-loader.show();
-checkAuth();
-setPaddingToBody();
-if (isCart) {
-  window.addEventListener('focus', updateCartTotals);
-  updateCartTotals();
+// checkAuth();
+startPage();
+
+// Общие действия на всех страницах при загрузке:
+
+function startPage() {
+  setPaddingToBody();
+  if (isCart) {
+    window.addEventListener('focus', updateCartTotals);
+    updateCartTotals();
+  }
 }
 
 //=====================================================================================================
 // Авторизация на сайте при загрузке страницы:
 //=====================================================================================================
 
-// saveCookie('user_info', {
-//   "user_info": {
-//     "login":"TS00000905",
-//     "code_1c":"1e659301-d2c4-11e8-8110-002590467a5e",
-//     "name":"Павел",
-//     "lastname":"Бочаров",
-//     "parentname":""
-//   },
-//   "ok": 1
-// });
-// deleteCookie('user_info');
-
 // Проверка авторизован ли пользователь:
 
 function checkAuth() {
-  var info = readCookie('user_info');
-  if (!info) {
-    if (pageId !== '_auth') {
-      document.location.href = "../";
+  loader.show();
+  sendRequest(urlRequest + 'loginGET')
+  .then(result => {
+    var data = JSON.parse(result);
+    if (data.ok) {
+      if (pageId === 'auth') {
+        document.location.href = 'desktop';
+      } else {
+        userInfo = data.user_info;
+      }
     } else {
-      loader.hide();
+      if (pageId !== 'auth') {
+        document.location.href = '../';
+      }
     }
-  } else {
-    if (pageId === '_auth') {
-      document.location.href = "desktop";
+  })
+  .catch(err => {
+    if (pageId !== 'auth') {
+      document.location.href = '../';
     }
-  }
+  });
 }
 
 // Вход через форму авторизации:
@@ -78,18 +81,16 @@ function logIn(event) {
 
   var formData = new FormData(event.currentTarget),
       data = {};
-
   formData.forEach(function(value, key){
     data[key] = value;
   });
   data = JSON.stringify(data);
 
-  sendRequest(urlRequest + 'login', data)
+  sendRequest(urlRequest + 'loginPOST', data)
   .then(result => {
     var data = JSON.parse(result);
     if (data.ok == 1) {
-      saveCookie('user_info', data.user_info);
-      document.location.href = "desktop";
+      document.location.href = 'desktop';
     } else {
       loader.hide();
       message.show('Неверно введен логин или пароль');
@@ -148,6 +149,7 @@ function sendRequest(url, data, type = 'application/json; charset=utf-8') {
       request.setRequestHeader('Content-type', type);
       request.send(data);
     } else {
+      console.log('get');
       request.open('GET', url);
       request.send();
     }
@@ -204,8 +206,10 @@ function getCart(totals = false) {
   return new Promise((resolve, reject) => {
     var result = getCookie(key);
     if (totals && (!result || JSON.stringify(cartTotals) === result)) {
-      reject('Корзина не изменилась');
+      console.log('Итоги не изменились');
+      reject('Итоги не изменились');
     } else if (!result || JSON.stringify(cart[cartId]) === result) {
+      console.log('Корзина не изменилась');
       reject('Корзина не изменилась');
     } else {
       if (totals) {
@@ -289,21 +293,30 @@ function updateCartTotals() {
   getCart('totals')
   .then(result => {
     changeCartInHeader();
-  })
-  .catch(err => {
-    console.log(err);
-  })
+  }, reject => {
+    console.log(reject)
+  });
 }
 
 //=====================================================================================================
 // Создание данных для фильтров каталога:
 //=====================================================================================================
 
-// Создание фильтра каталога из данных options или discounts:
+// Создание фильтра каталога из данных options или actions:
 
 function createFilterData(curArray, optNumb) {
+  if (!curArray) {
+    return;
+  }
   var filter = {},
       name;
+  if (curArray === actions) {
+    filter.is_new = 'Новинка';
+    for (let action in actions) {
+      filter[action] = actions[action].title;
+    }
+    return filter;
+  }
   curArray.forEach(item => {
     if (item.options && item.options != 0) {
       name = item.options[optNumb];
@@ -315,10 +328,6 @@ function createFilterData(curArray, optNumb) {
       filter[name] = 1;
     }
   });
-  if (curArray === discounts) {
-    filter.is_new = 'Новинка';
-    filter.sale = 'Распродажа';
-  }
   return filter;
 }
 
@@ -980,18 +989,20 @@ function DropDown(obj) {
 // Работа с таблицами:
 //=====================================================================================================
 
-// showTable();
+showTable();
 
 // Открытие таблицы:
 
 function showTable(id) {
-  document.querySelectorAll('.table-wrap').forEach(el => {
-    hideElement(el);
-    el.style.visibility = 'hidden';
-  });
-  var table = id ? document.getElementById(id) : document.querySelector('.table-wrap'),
+  var table = id ? document.getElementById(id) : document.querySelector('.table-wrap.active'),
       data = window[`data${id}`];
-  if (table && data) {
+  // if (table && data) {
+  if (table) {
+    var activeTable = document.querySelector('.table-wrap.active');
+    if (activeTable) {
+      hideElement(activeTable);
+      activeTable.classList.remove('active');
+    }
     table = new Table(table, data);
     table.init();
   }
@@ -1056,8 +1067,8 @@ function Table(obj, data) {
   this.init = function() {
     loader.show();
     showElement(this.table);
-    this.loadData(this.data);
-    this.table.style.visibility = 'visible';
+    // this.loadData(this.data);
+    this.table.classList.add('active');
     loader.hide();
   }
 
@@ -1249,10 +1260,14 @@ function createElByTemplate(newEl, data) {
       value;
   props.forEach(key => {
     propRegExp = new RegExp('#' + key + '#', 'gi');
-    if (data[key]) {
-      value = data[key];
+    if (typeof data === 'object') {
+      if (data[key]) {
+        value = data[key];
+      } else {
+        value = '';
+      }
     } else {
-      value = '';
+      value = data;
     }
     newEl = newEl.replace(propRegExp, value);
   });

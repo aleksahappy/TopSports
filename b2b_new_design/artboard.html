@@ -13,18 +13,19 @@
     <link rel="stylesheet" type="text/css" href="artboard.css">
   </head>
 
-  <body>
+  <!-- Шаблон атрибутов в body -->
+  <body data-website="ts_b2b" data-cart="true">
 
     <!-- Шаблон хедера -->
     <div class="header">
       <div class="header-top">
         <div class="container row">
           <div class="left-side row">
-            <a class="logo" href="desktop/"><img src="img/logo.svg" alt="Логотип"/></a>
+            <a class="logo" href="../desktop"><img src="../img/logo.svg" alt="Логотип"/></a>
             <div class="row">
               <div class="activate">
                 <div class="head row">
-                  <a class="title" href="desktop/">Рабочий стол</a>
+                  <a class="title" href="../desktop">Рабочий стол</a>
                 </div>
               </div>
               <div class="activate hover">
@@ -36,29 +37,29 @@
                 </div>
                 <div class="drop-down">
                   <div class="row">
-                    <a class="item catalog" href="preorders/">Предзаказы</a>
-                    <a id="cart-preorders" class="item cart-info row" href="/preorder/?cart">
+                    <a class="item catalog" href="../preorder">Предзаказы</a>
+                    <a id="cart-preorder" class="item cart-info row" href="../preorder/?cart">
                       <div class="cart icon"></div>
                       <div class="qty-short">0</div>
                     </a>
                   </div>
                   <div class="row">
-                    <a class="item catalog" href="equipment/">Экипировка</a>
-                    <a id="cart-equip" class="item cart-info row" href="equipment/?cart" data-href="cart" data-level="2" data-title="Корзина" onclick="openPage(event)">
+                    <a class="item catalog" href="../equipment/" data-href="_equip" data-level="1" data-title="Экипировка" onclick="openPage(event)">Экипировка</a>
+                    <a id="cart-equip" class="item cart-info row" href="../equipment/?cart" data-href="cart" data-level="2" data-title="Корзина" onclick="openPage(event)">
                       <div class="cart icon"></div>
                       <div class="qty-short">0</div>
                     </a>
                   </div>
                   <div class="row">
-                    <a class="item catalog" href="snowmobiles/">Снегоходы</a>
-                    <a id="cart-snow" class="item cart-info row" href="snowmobiles/?cart">
+                    <a class="item catalog" href="../snowmobiles/">Снегоходы</a>
+                    <a id="cart-snow" class="item cart-info row" href="../snowmobiles/?cart">
                       <div class="cart icon"></div>
                       <div class="qty-short">0</div>
                     </a>
                   </div>
                   <div class="row">
-                    <a class="item catalog" href="boats/">Лодки и моторы</a>
-                    <a id="cart-boats" class="item cart-info row" href="boats/?cart">
+                    <a class="item catalog" href="../boats/">Лодки и моторы</a>
+                    <a id="cart-boats" class="item cart-info row" href="../boats/?cart">
                       <div class="cart icon"></div>
                       <div class="qty-short">0</div>
                     </a>
@@ -73,10 +74,10 @@
                   </svg>
                 </div>
                 <div class="drop-down">
-                  <a class="item" href="orders/">Заказы</a>
-                  <a class="item" href="reclamations/">Рекламации</a>
-                  <a class="item" href="documents/">Документы</a>
-                  <a class="item" href="certificates/">Сертификаты</a>
+                  <a class="item" href="../orders/">Заказы</a>
+                  <a class="item" href="../reclamations/">Рекламации</a>
+                  <a class="item" href="../documents/">Документы</a>
+                  <a class="item" href="../certificates/">Сертификаты</a>
                 </div>
               </div>
 
@@ -93,12 +94,12 @@
               </div>
               <div class="drop-down">
                 <div class="links">
-                  <a class="item" href="users/">Пользователи</a>
-                  <a class="item" href="contractors/">Контрагенты</a>
+                  <a class="item" href="../users">Пользователи</a>
+                  <a class="item" href="../contractors">Контрагенты</a>
                   <a class="item" href="#">Адреса доставки</a>
-                  <a class="item" href="shops/">Магазины</a>
-                  <a class="item" href="monitoring/">Мониторинг</a>
-                  <a class="item" href="mediabank/">Медиабанк</a>
+                  <a class="item" href="../shops">Магазины</a>
+                  <a class="item" href="../monitoring">Мониторинг</a>
+                  <a class="item" href="../mediabank">Медиабанк</a>
                 </div>
                 <a id="exit" class="item" class="menu-item" href="#">Выйти</a>
               </div>
@@ -208,10 +209,10 @@
         <span class="text">Основной текст</span>
         <span class="text light">Светлый текст</span>
         <span class="done">
-          <span class="text" tooltip="Магазин не прошел модерацию, &#10; свяжитесь с менеджером" help>Ошибка</span>
+          <span class="text">Добавлено</span>
         </span>
         <span class="fail">
-          <span class="text">Добавлено</span>
+          <span class="text" tooltip="Магазин не прошел модерацию, &#10; свяжитесь с менеджером" help>Ошибка</span>
         </span>
         <span class="work">
           <span class="text">Обработка</span>
@@ -2915,7 +2916,7 @@
 
 
     <!-- Шаблон окна уведомлений -->
-    <div id="alerts-container" class="row" onclick="closePopUp(event)">
+    <div id="alerts-container" class="pop-up-container" onclick="closePopUp(event)">
       <div class="alerts pop-up">
         <div class="alerts-title row">
           <div class="row">
@@ -3079,7 +3080,7 @@
     </div>
 
     <!-- Шаблон сообщения об ошибке -->
-    <div id="message-container" class="row">
+    <div id="message-container" class="pop-up-container">
       <svg class="close-btn" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M1.42859 1.42847L18.5714 18.5713" stroke="#FFFFFF" stroke-linecap="round"/>
         <path d="M18.1429 1L1 18.1429" stroke="#FFFFFF" stroke-linecap="round"/>
