@@ -13,11 +13,18 @@ var productCarousel = {
   isNav: true,
   navType: 'dot',
   isLoupe: true,
-  // isLoupeOutside: true,
+  isLoupeOutside: true,
   isCenter: true,
   isAvtoScroll: true,
   isStopAvtoScroll: true
 }
+
+// Пример запуска инициализации:
+// (можно запустить инициализацию всех каруселей страницы одновременно как в примере ниже,
+// а можно запускать их отдельно, передавая один елемент)
+
+var curCarousels = document.querySelectorAll('.carousel');
+startCarouselInit(curCarousels);
 
 //=====================================================================================================
 // Запуск инициализации карусели(ей):
@@ -31,13 +38,6 @@ function startCarouselInit(obj, start) {
   }
 }
 
-// Пример запуска инициализации:
-// (можно запустить инициализацию всех каруселей страницы одновременно как в примере ниже,
-// а можно запускать их отдельно, передавая один елемент)
-
-var curCarousels = document.querySelectorAll('.carousel');
-startCarouselInit(curCarousels);
-
 //=====================================================================================================
 // Конструктор карусели с настройками по умолчанию:
 //=====================================================================================================
@@ -48,7 +48,7 @@ function Carousel(obj, start) {
 
   this.settings = {
     isNav: false,            // Наличие навигации (точек или картинок под каруселью)
-    navType: 'img',         // Тип навигации ('img' или 'dot')
+    navType: 'img',          // Тип навигации ('img' или 'dot')
     isInfinitie: true,       // Бесконечное зацикливание карусели
     isAnimate: true,         // Анимация смены слайдов (анимировать смену слайдов или нет)
     toggleAmount: 1,         // Количество перелистываемых слайдов за раз
@@ -73,21 +73,20 @@ function Carousel(obj, start) {
   this.carouselType = obj.dataset.type;
   this.galleryWrap = obj.querySelector('.carousel-gallery-wrap');
   this.gallery = obj.querySelector('.carousel-gallery');
-  this.itemsGallery = this.gallery.querySelectorAll('.carousel-item');
-  this.imgCount = this.itemsGallery.length;
+  this.imgCount = this.gallery.querySelectorAll('.carousel-item').length;
   this.nav = obj.querySelector('.carousel-nav');
   this.leftBtn = obj.querySelector('.left-btn');
   this.rightBtn = obj.querySelector('.right-btn');
 
   // КОНСТАНТЫ:
 
-  this.visibleImg = Math.round(this.gallery.clientWidth / this.itemsGallery[0].clientWidth);
+  this.visibleImg = Math.round(this.gallery.clientWidth / this.gallery.querySelector('.carousel-item').clientWidth);
   this.offset = 0;
 
   // ПЕРЕМЕННЫЕ:
 
   this.curImg = 0;
-  this.itemWidth = parseFloat(window.getComputedStyle(this.itemsGallery[0]).width);
+  this.itemWidth = parseFloat(window.getComputedStyle(this.gallery.querySelector('.carousel-item')).width);
   this.galleryMargin = 0;
   this.direction;
   this.touchPrev = true;
@@ -117,8 +116,8 @@ function Carousel(obj, start) {
     this.leftBtn.addEventListener('click', event => this.startMoveImg('prev', event));
     this.rightBtn.addEventListener('click', event => this.startMoveImg('next', event));
 
-    this.galleryWrap.addEventListener('touchstart', event => this.touchStart(event));
-    this.galleryWrap.addEventListener('touchend', event => this.touchEnd(event));
+    this.carousel.addEventListener('touchstart', event => this.touchStart(event));
+    this.carousel.addEventListener('touchend', event => this.touchEnd(event));
 
     if (this.settings.isNav) {
       if (this.settings.isHoverToggle) {
@@ -129,26 +128,27 @@ function Carousel(obj, start) {
     }
 
     if (this.settings.isAvtoScroll && this.settings.isStopAvtoScroll) {
-      this.galleryWrap.addEventListener('mouseenter', () => this.stopAvtoScroll());
-      this.galleryWrap.addEventListener('mouseleave', () => this.setAvtoScroll());
+      this.carousel.addEventListener('mouseenter', () => this.stopAvtoScroll());
+      this.carousel.addEventListener('mouseleave', () => this.setAvtoScroll());
     };
 
     if (this.settings.isLoupe) {
-      this.itemsGallery.forEach(item => item.addEventListener('mouseenter', event => this.initLoupe(event)));
-      this.itemsGallery.forEach(item => item.addEventListener('mousemove', event => this.moveLoupe(event)));
-      // this.itemsGallery.forEach(item => item.addEventListener('mouseleave', event => this.closeLoupe(event)));
+      this.gallery.querySelectorAll('.carousel-item').forEach(item => {
+        item.addEventListener('mouseenter', this.initLoupe);
+        item.addEventListener('mousemove', this.moveLoupe);
+      });
     }
   };
 
   // Создание навигации миниатюрами:
 
   this.createNav = function() {
-    if (this.nav) {
-      this.carousel.removeChild(this.nav);
+    if (!this.settings.isNav) {
+      return;
     }
     this.nav = document.createElement('div');
     this.nav.classList.add('carousel-nav');
-    this.itemsGallery.forEach((el, index) => {
+    this.gallery.querySelectorAll('.carousel-item').forEach((el, index) => {
       if (this.settings.navType === 'dot') {
         this.newEl = document.createElement('div');
         this.newEl.dataset.numb = index;
@@ -185,6 +185,9 @@ function Carousel(obj, start) {
   // Переключение активности кнопок карусели:
 
   this.toggleDisplayBtns = function() {
+    if (this.settings.isInfinitie) {
+      return;
+    }
     if (this.curImg == 0) {
       this.leftBtn.style.visibility = 'hidden';
       this.touchPrev = false;
@@ -204,27 +207,33 @@ function Carousel(obj, start) {
   // Запуск автоматической прокрутки:
 
   this.setAvtoScroll = function() {
-    this.scrollTimeout = setTimeout(() => this.startMoveImg(this.settings.avtoDirection), this.settings.interval);
+    if (this.settings.isInfinitie && this.settings.isAvtoScroll) {
+      this.scrollTimeout = setTimeout(() => this.startMoveImg(this.settings.avtoDirection), this.settings.interval);
+    }
   };
 
   // Остановка автоматической прокрутки:
 
   this.stopAvtoScroll = function() {
-    clearTimeout(this.scrollTimeout);
+    if (this.settings.isStopAvtoScroll) {
+      clearTimeout(this.scrollTimeout);
+    }
   };
 
   // Установка активной картинки по центру:
 
   this.setImgToCenter = function() {
-    if (this.imgCount > 1) {
-      this.numb = Math.floor(this.visibleImg / 2);
-      this.direction = 'prev';
-      this.copyImgs();
-      this.removeImgs();
-      this.offset = this.numb;
-      if (this.visibleImg % 2 === 0) {
-        this.galleryMargin = - ((this.itemWidth / 2) / (parseFloat(window.getComputedStyle(this.gallery).width)) * 100);
-        this.gallery.style.marginLeft = this.galleryMargin + '%';
+    if (this.settings.isInfinitie && this.settings.isCenter) {
+      if (this.imgCount > 1) {
+        this.numb = Math.floor(this.visibleImg / 2);
+        this.direction = 'prev';
+        this.copyImgs();
+        this.removeImgs();
+        this.offset = this.numb;
+        if (this.visibleImg % 2 === 0) {
+          this.galleryMargin = - ((this.itemWidth / 2) / (parseFloat(window.getComputedStyle(this.gallery).width)) * 100);
+          this.gallery.style.marginLeft = this.galleryMargin + '%';
+        }
       }
     }
   }
@@ -255,9 +264,7 @@ function Carousel(obj, start) {
     if (this.isMoveSlide) {
       return;
     }
-    if (this.settings.isAvtoScroll) {
-      this.stopAvtoScroll();
-    }
+    this.stopAvtoScroll();
 
     this.curImg = parseInt(this.carousel.dataset.img, 10);
     this.itemWidth = parseFloat(window.getComputedStyle(this.gallery.querySelector('.carousel-item')).width);
@@ -313,15 +320,9 @@ function Carousel(obj, start) {
     this.curImg = this.targetImg;
     this.carousel.dataset.img = this.curImg;
 
-    if (this.settings.isNav) {
-      this.toggleNav();
-    }
-    if (!this.settings.isInfinitie) {
-      this.toggleDisplayBtns();
-    }
-    if (this.settings.isInfinitie && this.settings.isAvtoScroll) {
-      this.setAvtoScroll();
-    }
+    this.toggleNav();
+    this.toggleDisplayBtns();
+    this.setAvtoScroll();
   };
 
   // Переключение изображений бесконечной карусели:
@@ -398,7 +399,7 @@ function Carousel(obj, start) {
           this.imgIndex = this.imgIndex + 1 > this.imgCount - 1 ? 0 : this.imgIndex + 1;
         }
       }
-      this.oldEl = this.itemsGallery[this.imgIndex];
+      this.oldEl = this.gallery.querySelectorAll('.carousel-item')[this.imgIndex];
       this.newEl = this.oldEl.cloneNode(true);
       if (this.direction == 'prev') {
         this.gallery.insertBefore(this.newEl, this.gallery.firstElementChild);
@@ -407,9 +408,8 @@ function Carousel(obj, start) {
         this.gallery.appendChild(this.newEl);
       }
       if (this.settings.isLoupe) {
-        this.newEl.addEventListener('mouseenter', event => this.initLoupe(event));
-        this.newEl.addEventListener('mousemove', event => this.moveLoupe(event));
-        // this.newEl.addEventListener('mouseleave', event => this.closeLoupe(event));
+        this.newEl.addEventListener('mouseenter', this.initLoupe);
+        this.newEl.addEventListener('mousemove', this.moveLoupe);
       }
     }
   };
@@ -425,6 +425,8 @@ function Carousel(obj, start) {
       if (this.direction == 'next') {
         this.oldEl = this.gallery.firstElementChild;
       }
+      this.oldEl.removeEventListener('mouseenter', this.initLoupe);
+      this.oldEl.removeEventListener('mousemove', this.moveLoupe);
       this.gallery.removeChild(this.oldEl);
     };
   };
@@ -432,6 +434,9 @@ function Carousel(obj, start) {
   // Подсветка активной миниатюры / индикатора:
 
   this.toggleNav = function() {
+    if (!this.settings.isNav) {
+      return;
+    }
     this.itemsNav.forEach(item => item.classList.remove('active'));
     this.imgIndex = this.curImg;
     if (this.settings.isCenter) {
@@ -454,22 +459,22 @@ function Carousel(obj, start) {
   // Создание лупы:
 
   this.createLoupe = function() {
-    if (this.settings.isLoupeOutside && document.body.querySelector('.loupe')) {
-      document.body.removeChild(document.body.querySelector('.loupe'));
+    if (!this.settings.isLoupe) {
+      return;
     }
     this.loupe = document.createElement('div');
     this.loupe.classList.add('loupe');
     this.bigImg = document.createElement('img');
     this.bigImg.classList.add('big-img');
     this.loupe.appendChild(this.bigImg);
-    this.loupe.addEventListener('mousemove', event => this.moveLoupe(event));
+    this.loupe.addEventListener('mousemove', this.moveLoupe);
     this.loupe.addEventListener('mouseleave',  () => this.closeLoupe());
     this.loupe.style.display = 'none';
     this.loupe.style.opacity = '0';
     if (this.settings.isLoupeOutside) {
       this.loupe.style.zIndex = '1000';
       this.loupe.style.borderRadius = '50%';
-      document.body.appendChild(this.loupe);
+      this.carousel.appendChild(this.loupe);
     } else {
       this.galleryWrap.appendChild(this.loupe);
     }
@@ -477,10 +482,11 @@ function Carousel(obj, start) {
 
   // Инициализация изображения для лупы:
 
-  this.initLoupe = function(event) {
+  this.initLoupe = (event) => {
     if ('ontouchstart' in window) {
       return;
     }
+    this.stopAvtoScroll();
     if (this.img != event.currentTarget.querySelector('img')) {
 			this.loupe.style.opacity = '0';
 			this.img = event.currentTarget.querySelector('img');
@@ -509,8 +515,7 @@ function Carousel(obj, start) {
 
   // Работа лупы:
 
-  this.moveLoupe = function(event) {
-    var this$ = this;
+  this.moveLoupe = (event) => {
     if ('ontouchstart' in window) {
       return;
     }
@@ -533,11 +538,12 @@ function Carousel(obj, start) {
     if (this.bigImg.clientHeight < 0) {
       this.loupe.style.opacity = '0';
     } else {
-      setTimeout(() => this$.loupe.style.opacity = '1', 500);
+      var loupe = this.loupe;
+      setTimeout(() => loupe.style.opacity = '1', 500);
     }
 
     if (this.settings.isLoupeOutside) {
-      this.loupe.style.left = event.clientX  - this.halfImgWidth + 'px';
+      this.loupe.style.left = event.clientX - this.halfImgWidth + 'px';
       this.loupe.style.top = event.clientY - this.halfImgHeight + 'px';
       this.bigImg.style.left = -(this.offsetX * this.bigImg.clientWidth - this.halfImgWidth) + 'px';
       this.bigImg.style.top = -(this.offsetY * this.bigImg.clientHeight - this.halfImgHeight) + 'px';
@@ -553,6 +559,7 @@ function Carousel(obj, start) {
 
   this.closeLoupe = function() {
     this.loupe.style.display = 'none';
+    this.setAvtoScroll();
   };
 
   // Инициализация карусели:
@@ -563,7 +570,7 @@ function Carousel(obj, start) {
     }
     this.carousel.dataset.img = 0;
     for (this.i = 0; this.i < this.imgCount; this.i++) {
-      this.itemsGallery[this.i].dataset.numb = this.i;
+      this.gallery.querySelectorAll('.carousel-item')[this.i].dataset.numb = this.i;
     }
     if (this.carouselType) {
       var newSettings = window[this.carouselType + 'Carousel'];
@@ -578,26 +585,15 @@ function Carousel(obj, start) {
     if (this.imgCount < 2) {
       this.settings.isNav = false;
     }
-    if (this.settings.isInfinitie && this.settings.isCenter) {
-      this.setImgToCenter();
-    }
-    if (this.settings.isNav) {
-      this.createNav();
-    }
-    if (this.settings.isLoupe) {
-      this.createLoupe();
-    }
+    this.setImgToCenter();
+    this.createNav();
+    this.createLoupe();
     if (start > 0 && start < this.imgCount) {
       this.startMoveImg(start);
     } else {
-      if (this.settings.isNav) {
-        this.toggleNav();
-      }
-      if (this.settings.isInfinitie && this.settings.isAvtoScroll) {
-        this.setAvtoScroll();
-      }
+      this.toggleNav();
+      this.setAvtoScroll();
     }
-
     this.setEventListeners();
     this.carousel.style.visibility = 'visible';
   };

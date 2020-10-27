@@ -158,7 +158,10 @@ body {
 }
 
 .loupe { /* если включаем лупу, то все стили обязательные */
+  /* если лупа внутри блока position: absolute */
   position: absolute;
+  /* если лупа как отдельный блок, то position: fixed */
+  position: fixed;
   overflow: hidden;
   background-color: rgba(85,85,85, 0.25);
   cursor: zoom-in;
